@@ -138,7 +138,7 @@ cmp.setup {
 
     { name = 'path' },
 
-    { name = 'neorg' },
+--    { name = 'neorg' },
 
   {name='nerdfont'},
 

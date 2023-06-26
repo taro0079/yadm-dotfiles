@@ -19,39 +19,24 @@ local opts = { noremap = true, silent = true }
 local on_attach = function(client, bufnr)
 
 
-
   vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev<CR>', opts)
-
   vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-
   vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
 
 
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-
   vim.keymap.set({ 'n' }, 'gi', '<Cmd>Telescope lsp_implementations<CR>')
-
   vim.keymap.set({ 'n' }, '<space>D', '<Cmd>Telescope lsp_type_definitions<CR>')
-
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
-
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl',
-
     '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
@@ -68,7 +53,7 @@ local on_attach = function(client, bufnr)
 
     opts)
 
-  require 'illuminate'.on_attach(client)
+--   require 'illuminate'.on_attach(client)
 
 end
 
@@ -82,6 +67,7 @@ mason_lspconfig.setup_handlers({ function(server_name)
 
   nvim_lsp[server_name].setup {
 
+--	  cmd = {server_name, "arguments", ">","/home/taro_morita/loglsp.txt"},
     on_attach = on_attach,
 
     capabilities = capabilities,
@@ -90,7 +76,8 @@ mason_lspconfig.setup_handlers({ function(server_name)
 
       debounce_text_changes = 150,
 
-    }
+    },
+    log_level = vim.lsp.protocol.MessageType.Log
 
   }
 
