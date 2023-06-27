@@ -76,6 +76,12 @@ require("lazy").setup({
 			require("plugins.gitsign")
 		end,
 	},
+  {
+    "nvim-telescope/telescope.nvim",
+    -- lazy=true,
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = true,
+  },
 
 
 
