@@ -1,6 +1,6 @@
 local cmp = require 'cmp'
 local lspkind = require 'lspkind'
-local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+-- local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 
 local cmp_kinds = {
   Text = '  ',
@@ -33,11 +33,11 @@ local cmp_kinds = {
 
 cmp.setup {
   completion = { completeopt = 'menu,menuone,noselect' },
-  snippet = {
-    expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-    end,
-  },
+  -- snippet = {
+  --   expand = function(args)
+  --     vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+  --   end,
+  -- },
 
   formatting = {
     format = function(_, vim_item)
@@ -51,27 +51,27 @@ cmp.setup {
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
-    ["<Tab>"] = cmp.mapping(
-      function(fallback)
-        cmp_ultisnips_mappings.jump_forwards(fallback)
-      end,
-      { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
-    ),
-    ["<S-Tab>"] = cmp.mapping(
-      function(fallback)
-        cmp_ultisnips_mappings.jump_backwards(fallback)
-      end,
-      { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
-    ),
+    -- ["<Tab>"] = cmp.mapping(
+    -- function(fallback)
+    --   cmp_ultisnips_mappings.jump_forwards(fallback)
+    -- end,
+    --   { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
+    -- ),
+    -- ["<S-Tab>"] = cmp.mapping(
+    -- function(fallback)
+    --   cmp_ultisnips_mappings.jump_backwards(fallback)
+    -- end,
+    -- { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
+    -- ),
   }),
   sources = {
     -- { name = 'buffer' },
     { name = 'nvim_lsp' },
     { name = 'path' },
     { name = 'neorg' },
-  {name='nerdfont'},
+    { name = 'nerdfont' },
     -- { name = 'spell' },
-    { name = 'ultisnips' },
+    -- { name = 'ultisnips' },
     { name = 'emoji' },
     -- { name = 'calc' },
     { name = 'copilot' },

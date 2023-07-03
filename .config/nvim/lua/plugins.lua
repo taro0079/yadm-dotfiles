@@ -96,7 +96,7 @@ require("lazy").setup({
     end
   },
   {
-    'TimUntersberger/neogit',
+    'NeogitOrg/neogit',
     config = function()
       require('plugins.neogit')
     end
@@ -223,10 +223,10 @@ require("lazy").setup({
       require 'plugins.cmp'
     end,
   },
-  {
-    'quangnguyen30192/cmp-nvim-ultisnips',
-    config = true
-  },
+  -- {
+  --   'quangnguyen30192/cmp-nvim-ultisnips',
+  --   config = true
+  -- },
   -- {
   --   "utilyre/barbecue.nvim",
   --   dependencies = {
@@ -380,7 +380,7 @@ require("lazy").setup({
   },
 
   -- snippets
-  { "SirVer/ultisnips",         event = "InsertEnter" },
+  -- { "SirVer/ultisnips",         event = "InsertEnter" },
   { "honza/vim-snippets",       event = "InsertEnter" },
   -- { "previm/previm",            event = "BufEnter" }, -- markdown のプレビュープラグイン
 
