@@ -425,5 +425,9 @@ require("lazy").setup({
     config = function()
       vim.cmd([[let g:previm_open_cmd = 'open -a "Firefox"']])
     end
+  },
+  {
+    'tpope/vim-fugitive',
+    event = "InsertEnter",
   }
 })
