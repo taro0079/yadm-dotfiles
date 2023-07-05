@@ -1,0 +1,67 @@
+Please report this error to author.
+`:help eskk` to see author's e-mail address.
+
+土  9/11 17:52:37 2021
+
+--- char ---
+char: ''(0)
+mode(): i
+--- char ---
+
+--- exception ---
+exception type: Vim internal error
+v:exception: Can't read '/Users/moritatarou/.skk-jisyo'!
+v:throwpoint: function eskk#filter[75]..<SNR>86_asym_filter[56]..<SNR>86_do_henkan[17]..<SNR>86_do_henkan_other[56]..<SNR>104_Dictionary_refer[13]..<SNR>104_PhysicalDict_update_lines[9]..<SNR>104_PhysicalDict_update_lines_main, line 2
+
+   function <SNR>104_PhysicalDict_update_lines_main() abort dict
+1      unlockvar 1 self._content_lines
+2      let self._content_lines  = readfile(self.path)
+3      lockvar 1 self._content_lines
+4      call self.parse_lines()
+5   
+6      let self._ftime_at_set = getftime(self.path)
+   endfunction
+--- exception ---
+
+--- preedit ---
+(no preedit)
+--- preedit ---
+
+--- Vim's :version ---
+NVIM v0.6.0-dev+244-g0dcfd0e8d
+Build type: Release
+LuaJIT 2.1.0-beta3
+Compiled by moritatarou@moritatarous-MacBook-Air.local
+
+Features: +acl +iconv +tui
+See ":help feature-compile"
+
+      システム vimrc: "$VIM/sysinit.vim"
+       省略時の $VIM: "/opt/homebrew/Cellar/neovim/HEAD-0dcfd0e/share/nvim"
+
+Run :checkhealth for more info
+--- Vim's :version ---
+
+
+--- Operating System ---
+"uname -a" = Darwin moritatarous-MacBook-Air.local 20.6.0 Darwin Kernel Version 20.6.0: Wed Jun 23 00:26:27 PDT 2021; root:xnu-7195.141.2~5/RELEASE_ARM64_T8101 arm64
+--- Operating System ---
+
+--- feature-list ---
+gui_running = 0
+unix = 1
+mac = 1
+macunix = 1
+win16 = 0
+win32 = 0
+win64 = 0
+win32unix = 0
+win95 = 0
+amiga = 0
+beos = 0
+dos16 = 0
+dos32 = 0
+os2 = 1
+qnx = 0
+vms = 0
+--- feature-list ---

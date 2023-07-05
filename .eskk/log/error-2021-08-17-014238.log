@@ -1,0 +1,68 @@
+Please report this error to author.
+`:help eskk` to see author's e-mail address.
+
+Tue Aug 17 01:42:38 2021
+
+--- char ---
+char: ''(0)
+mode(): i
+--- char ---
+
+--- exception ---
+exception type: Vim internal error
+v:exception: Can't read '/home/taro/.skk-jisyo'!
+v:throwpoint: function eskk#filter[75]..<SNR>71_asym_filter[56]..<SNR>71_do_henkan[17]..<SNR>71_do_henkan_other[56]..<SNR>89_Dictionary_refer[13]..<SNR>89_PhysicalDict_update_lines[9]..<SNR>89_PhysicalDict_update_lines_main, line 2
+
+   function <SNR>89_PhysicalDict_update_lines_main() abort dict
+1      unlockvar 1 self._content_lines
+2      let self._content_lines  = readfile(self.path)
+3      lockvar 1 self._content_lines
+4      call self.parse_lines()
+5   
+6      let self._ftime_at_set = getftime(self.path)
+   endfunction
+--- exception ---
+
+--- preedit ---
+(no preedit)
+--- preedit ---
+
+--- Vim's :version ---
+NVIM v0.6.0-dev
+Build type: RelWithDebInfo
+LuaJIT 2.1.0-beta3
+Compilation: /usr/bin/cc -g -O2 -fdebug-prefix-map=/build/neovim-9s5SOq/neovim-0.6.0~ubuntu1+git202108161152-5a111c1b0-adeb5640f=. -fstack-protector-strong -Wformat -Werror=format-security -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 -DNVIM_TS_HAS_SET_MATCH_LIMIT -O2 -g -Og -g -Wall -Wextra -pedantic -Wno-unused-parameter -Wstrict-prototypes -std=gnu99 -Wshadow -Wconversion -Wmissing-prototypes -Wimplicit-fallthrough -Wvla -fstack-protector-strong -fno-common -fdiagnostics-color=auto -DINCLUDE_GENERATED_DECLARATIONS -D_GNU_SOURCE -DNVIM_MSGPACK_HAS_FLOAT32 -DNVIM_UNIBI_HAS_VAR_FROM -DMIN_LOG_LEVEL=3 -I/build/neovim-9s5SOq/neovim-0.6.0~ubuntu1+git202108161152-5a111c1b0-adeb5640f/build/config -I/build/neovim-9s5SOq/neovim-0.6.0~ubuntu1+git202108161152-5a111c1b0-adeb5640f/src -I/build/neovim-9s5SOq/neovim-0.6.0~ubuntu1+git202108161152-5a111c1b0-adeb5640f/.deps/usr/include -I/usr/include -I/build/neovim-9s5SOq/neovim-0.6.0~ubuntu1+git202108161152-5a111c1b0-adeb5640f/build/src/nvim/auto -I/build/neovim-9s5SOq/neovim-0.6.0~ubuntu1+git202108161152-5a111c1b0-adeb5640f/build/include
+Compiled by buildd@lgw01-amd64-048
+
+Features: +acl +iconv +tui
+See ":help feature-compile"
+
+   system vimrc file: "$VIM/sysinit.vim"
+  fall-back for $VIM: "/usr/share/nvim"
+
+Run :checkhealth for more info
+--- Vim's :version ---
+
+
+--- Operating System ---
+"uname -a" = Linux LAPTOP-P21IT9SR 5.10.43.3-microsoft-standard-WSL2 #1 SMP Wed Jun 16 23:47:55 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+--- Operating System ---
+
+--- feature-list ---
+gui_running = 0
+unix = 1
+mac = 0
+macunix = 0
+win16 = 0
+win32 = 0
+win64 = 0
+win32unix = 0
+win95 = 0
+amiga = 0
+beos = 0
+dos16 = 0
+dos32 = 0
+os2 = 0
+qnx = 0
+vms = 0
+--- feature-list ---
