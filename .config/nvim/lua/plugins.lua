@@ -429,5 +429,10 @@ require("lazy").setup({
   {
     'tpope/vim-fugitive',
     event = "InsertEnter",
+  },
+  {
+    'chrisbra/csv.vim',
+    ft = { 'csv' },
   }
+
 })
