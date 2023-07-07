@@ -24,4 +24,3 @@ vim.o.mouse = ""
 vim.o.title = true
 vim.o.autoindent = true
 vim.wo.wrap = true
-
