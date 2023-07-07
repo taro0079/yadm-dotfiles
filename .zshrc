@@ -1,0 +1,1 @@
+/Users/taro_morita/Dotfiles/.zshrc
