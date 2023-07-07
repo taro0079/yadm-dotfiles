@@ -433,6 +433,10 @@ require("lazy").setup({
   {
     'chrisbra/csv.vim',
     ft = { 'csv' },
+  },
+  -- bookmarks
+  {
+    'tomasky/bookmarks.nvim'
   }
 
 })
