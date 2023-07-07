@@ -436,7 +436,11 @@ require("lazy").setup({
   },
   -- bookmarks
   {
-    'tomasky/bookmarks.nvim'
+    'tomasky/bookmarks.nvim',
+    event = "VimEnter",
+    config = function ()
+      require("plugins.bookmarks")
+    end
   }
 
 })
