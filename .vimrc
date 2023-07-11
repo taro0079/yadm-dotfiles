@@ -1,0 +1,321 @@
+" basic settings ---------------------------- {{{1
+let mapleader = ','
+set title
+" set cmdheight=1
+" set laststatus=2
+set tags=tags;
+" set clipboard&
+set clipboard=unnamed,unnamedplus
+set clipboard=unnamed,unnamedplus
+set showcmd
+set ruler
+set undofile
+set cursorline
+set relativenumber
+set linebreak
+set display+=lastline 
+set number
+set showmatch
+set incsearch
+set nocompatible
+set signcolumn=yes
+set smartcase
+set hlsearch
+set incsearch
+set nobackup
+set nowb
+set noswapfile
+set noundofile
+set wildmenu
+set showtabline=2
+
+
+" ctagの設定  -------------------------------- {{{1
+" rubyファイルを保存する度にctagsを実行する
+" autocmd BufWritePost *.rb silent! !ctags -R &
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" 矢印キーの無効化   ------------------------- {{{1
+"""""""""""""""""""""""""""""""""""""""""""""
+map <up> <nop>
+map <down> <nop>
+map <right> <nop>
+map <left> <nop>
+
+" eeasymotion settings ----------------------{{{1
+map f <Plug>(easymotion-fl)
+map t <Plug>(easymotion-tl)
+map F <Plug>(easymotion-Fl)
+map T <Plug>(easymotion-Tl)
+
+" fern のマッピング ------------------------ {{{1
+nnoremap <C-n> :Fern . -reveal=% -drawer -toggle -width=40<CR>
+let g:fern#renderer = "nerdfont"
+
+" => Text, tab --------------------------- {{{1
+set expandtab
+set smarttab
+set shiftwidth=2
+set tabstop=2
+set relativenumber
+set number
+
+set ai "Auto Indent"
+set si "Smart Indent"
+set wrap "Wrap lines"
+" => Plugins ---------------------------------- {{{1
+call plug#begin()
+" Plug 'machakann/vim-sandwich'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'nordtheme/vim'
+Plug 'taro0079/path_to_clipboard'
+" Plug 'axvr/photon.vim'
+Plug 'github/copilot.vim'
+Plug 'morhetz/gruvbox'
+" Plug 'tpope/vim-rails'
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'Yggdroot/indentLine'
+" Plug 'tpope/vim-rbenv'
+" Plug 'tpope/vim-bundler'
+" Plug 'vim-utils/vim-ruby-fold'
+Plug 'kenn7/vim-arsync'
+Plug 'prabirshrestha/async.vim'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'rust-lang/rust.vim'
+" Plug 'pantharshit00/vim-prisma'
+Plug 'thinca/vim-qfhl'
+Plug 'junegunn/vim-easy-align'
+Plug 'EinfachToll/DidYouMean'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-endwise'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'soramugi/auto-ctags.vim'
+Plug 'sheerun/vim-polyglot'
+" Plug 'dense-analysis/ale'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+" Plug 'majutsushi/tagbar'
+Plug 'justinmk/vim-sneak'
+Plug 'liuchengxu/vista.vim'
+Plug 'vim-skk/eskk.vim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+" Plug 'fatih/vim-go'
+Plug 'easymotion/vim-easymotion'
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production'  }
+Plug 'kana/vim-textobj-user'
+Plug 'osyo-manga/vim-textobj-blockwise'
+Plug 'tomasr/molokai'
+" fern
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'mileszs/ack.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/glyph-palette.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'lambdalisue/suda.vim'
+Plug 'tc50cal/vim-terminal'
+Plug 'bronson/vim-trailing-whitespace'
+
+call plug#end()
+
+set imdisable
+
+" If you want :UltiSnipsEdit to split your window.
+" ulti setting -------------------------------{{{1
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-h>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+" ale setting -------------------------------{{{1
+let g:ale_javascript_prettier_use_local_config = 0
+let g:ale_linters = {
+      \  'ruby':             ['rubocop'],
+      \   'javascript':      ['prettier'],
+      \   'typescript':      ['prettier'],
+      \   'typescriptreact': ['prettier'],
+      \   'css':             ['prettier'],
+      \  }
+let g:ale_linters_explicit          = 1
+let g:airline#extensions#ale#enable = 1
+
+" let g:airline#extensions#tabline#enabled = 1
+
+"airlineのシンボルの設定
+" if !exists('g:airline_symbols')
+  " let g:airline_symbols ={}
+" endif
+" let g:airline_symbols.branch = ''
+let g:ale_fixers = {
+      \   'ruby':            ['rubocop'],
+      \   'javascript':      ['prettier'],
+      \   'typescript':      ['prettier'],
+      \   'typescriptreact': ['prettier'],
+      \   'css':             ['prettier'],
+\}
+let g:ale_fix_on_save = 1
+" let g:ale_javascript_prettier_use_local_config = 0
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma none'
+
+nmap <F8> :TagbarToggle<CR>
+
+let g:rustfmt_autosave = 1
+
+" Color -----------------------------------{{{1
+if $COLORTERM == 'gnome-terminal'
+  set t_Co=256
+endif
+
+syntax on
+
+" autocmd SourcePost * highlight Normal     ctermbg=NONE guibg=NONE
+"       \ |    highlight LineNr     ctermbg=NONE guibg=NONE
+"       \ |    highlight SignColumn ctermbg=NONE guibg=NONE
+" let g:gruvbox_transparent_bg = 1
+" " $TERMがxterm以外のときは以下を設定する必要がある。
+set termguicolors
+set background=dark
+colorscheme nord
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+" let g:molokai_original = 1
+" let g:vim_monokai_tasty_italic=1
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum" " 文字色
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum" " 背景色
+let &t_SI = "\e[5 q"
+let &t_EI = "\e[1 q"
+" set background=dark
+" let g:embark_terminal_italics = 1
+
+" Airline setting -----------------------------{{{1
+" let g:airline#extensions#ale#enabled = 1
+let g:airline_theme = 'molokai'
+
+" ESKK setting ------------------------------- {{{1
+let g:eskk#directory        = "~/.config/eskk"
+let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
+let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
+
+" cursor settings for wsl ---------------------------------{{{1
+if has('vim_starting')
+    " 挿入モード時に非点滅の縦棒タイプのカーソル
+    let &t_SI .= "\e[6 q"
+    " ノーマルモード時に非点滅のブロックタイプのカーソル
+    let &t_EI .= "\e[2 q"
+    " 置換モード時に非点滅の下線タイプのカーソル
+    let &t_SR .= "\e[4 q"
+endif
+
+" EasyAlign setting --------------------------------- {{{1
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" fold settings ---------------------- {{{1
+set foldmethod=manual
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
+" open-browser settings ---------------- {{{1
+nmap <Leader>b <Plug>(openbrowser-smart-search)
+vmap <Leader>b <Plug>(openbrowser-smart-search)
+
+
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" airline settings --------------------{{{1
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = ''
+" suda setting --------------{{{1
+let g:suda_smart_edit = 1
+
+nmap <C-p> :GFiles<CR>
+nmap <leader>ff :Files<CR>
+nmap <leader>fq :RG<CR>
+if executable('rg')
+  function! FZGrep(query, fullscreen)
+    " --hidden 隠しファイルも隠しディレクトリも含める
+    " --follow シンボリックリンクも含める
+    " --glob   対象ファイルのファイルパターンを指定
+    let command_fmt = 'rg --column --line-number --no-heading --hidden --follow --glob "!.git/*" --color=always --smart-case -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+  endfunction
+
+  command! -nargs=* -bang RG call FZGrep(<q-args>, <bang>0)
+endif
+" Github Copilot setting
+" imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+" let g:copilot_no_tab_map = v:true
+
+
+" vim-bookmark setting
+nmap <Leader><Leader> <Plug>BookmarkToggle
+nmap <Leader>i <Plug>BookmarkAnnotate
+nmap <Leader>a <Plug>BookmarkShowAll
+nmap <Leader>j <Plug>BookmarkNext
+nmap <Leader>k <Plug>BookmarkPrev
+nmap <Leader>c <Plug>BookmarkClear
+nmap <Leader>x <Plug>BookmarkClearAll
+nmap <Leader>kk <Plug>BookmarkMoveUp
+nmap <Leader>jj <Plug>BookmarkMoveDown
+nmap <Leader>g <Plug>BookmarkMoveToLine
+
+" lsp settings
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_highlights_enabled = 1
+let g:lsp_diagnostics_virtual_text_align = 'after'
+hi DiagnosticError guifg=Red
+hi DiagnosticWarn  guifg=DarkOrange
+hi DiagnosticInfo  guifg=Blue
+hi DiagnosticHint  guifg=Green
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+endfunction
+
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+
+
