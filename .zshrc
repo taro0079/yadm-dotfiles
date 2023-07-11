@@ -19,10 +19,6 @@ bindkey -v
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-
-
-
-
 # GOPATH setting
 export GOPATH=~/go  # GOPATHにすると決めた場所
 export PATH=$GOPATH/bin:$PATH
