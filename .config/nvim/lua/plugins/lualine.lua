@@ -12,7 +12,8 @@ lualine.setup {
         'mode',
         icons_enabled = true,
         separator = { left = '' },
-        right_padding = 2
+        right_padding = 2,
+        path = 1
 
       },
 

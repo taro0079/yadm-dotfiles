@@ -90,10 +90,10 @@ Plug 'ojroques/vim-oscyank'
 
 call plug#end()
 
+  nmap <buffer> gd <plug>(lsp-definition)
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
-  nmap <buffer> gd <plug>(lsp-definition)
   nmap <buffer> gs <plug>(lsp-document-symbol-search)
   nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
   nmap <buffer> gr <plug>(lsp-references)
@@ -105,25 +105,25 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> K <plug>(lsp-hover)
 endfunction
 
-" vim-bookmark setting
-nmap <Leader><Leader> <Plug>BookmarkToggle
-nmap <Leader>i <Plug>BookmarkAnnotate
-nmap <Leader>a <Plug>BookmarkShowAll
-nmap <Leader>j <Plug>BookmarkNext
-nmap <Leader>k <Plug>BookmarkPrev
-nmap <Leader>c <Plug>BookmarkClear
-nmap <Leader>x <Plug>BookmarkClearAll
-nmap <Leader>kk <Plug>BookmarkMoveUp
-nmap <Leader>jj <Plug>BookmarkMoveDown
-nmap <Leader>g <Plug>BookmarkMoveToLine
+" " vim-bookmark setting
+" nmap <Leader><Leader> <Plug>BookmarkToggle
+" nmap <Leader>i <Plug>BookmarkAnnotate
+" nmap <Leader>a <Plug>BookmarkShowAll
+" nmap <Leader>j <Plug>BookmarkNext
+" nmap <Leader>k <Plug>BookmarkPrev
+" nmap <Leader>c <Plug>BookmarkClear
+" nmap <Leader>x <Plug>BookmarkClearAll
+" nmap <Leader>kk <Plug>BookmarkMoveUp
+" nmap <Leader>jj <Plug>BookmarkMoveDown
+" nmap <Leader>g <Plug>BookmarkMoveToLine
 
-" FZF settings
-nmap <C-p> :GFiles<CR>
-nmap <leader>ff :Files<CR>
-nmap <leader>fq :RG<CR>
+" " FZF settings
+" nmap <C-p> :GFiles<CR>
+" nmap <leader>ff :Files<CR>
+" nmap <leader>fq :RG<CR>
 
-" eeasymotion settings ----------------------{{{1
-map f <Plug>(easymotion-fl)
-map t <Plug>(easymotion-tl)
-map F <Plug>(easymotion-Fl)
-map T <Plug>(easymotion-Tl)
+" " eeasymotion settings ----------------------{{{1
+" map f <Plug>(easymotion-fl)
+" map t <Plug>(easymotion-tl)
+" map F <Plug>(easymotion-Fl)
+" map T <Plug>(easymotion-Tl)
