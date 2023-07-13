@@ -2,10 +2,9 @@
 let mapleader = ','
 set title
 " set cmdheight=1
-" set laststatus=2
+set laststatus=3
 set tags=tags;
 " set clipboard&
-set clipboard=unnamed,unnamedplus
 set clipboard=unnamed,unnamedplus
 set showcmd
 set ruler
@@ -13,7 +12,7 @@ set undofile
 set cursorline
 set relativenumber
 set linebreak
-set display+=lastline 
+set display+=lastline
 set number
 set showmatch
 set incsearch
@@ -72,18 +71,7 @@ Plug 'taro0079/path_to_clipboard'
 " Plug 'axvr/photon.vim'
 Plug 'github/copilot.vim'
 Plug 'morhetz/gruvbox'
-" Plug 'tpope/vim-rails'
-" Plug 'vim-ruby/vim-ruby'
-" Plug 'Yggdroot/indentLine'
-" Plug 'tpope/vim-rbenv'
-" Plug 'tpope/vim-bundler'
-" Plug 'vim-utils/vim-ruby-fold'
-Plug 'kenn7/vim-arsync'
 Plug 'prabirshrestha/async.vim'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'rust-lang/rust.vim'
-" Plug 'pantharshit00/vim-prisma'
 Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
 Plug 'EinfachToll/DidYouMean'
@@ -131,10 +119,16 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/suda.vim'
 Plug 'tc50cal/vim-terminal'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'ojroques/vim-oscyank'
 
 call plug#end()
 
 set imdisable
+
+" OSCの設定
+nmap <leader>c <Plug>OSCYankOperator
+nmap <leader>cc <leader>c_
+vmap <leader>c <Plug>OSCYankVisual
 
 " If you want :UltiSnipsEdit to split your window.
 " ulti setting -------------------------------{{{1
@@ -184,11 +178,6 @@ endif
 
 syntax on
 
-" autocmd SourcePost * highlight Normal     ctermbg=NONE guibg=NONE
-"       \ |    highlight LineNr     ctermbg=NONE guibg=NONE
-"       \ |    highlight SignColumn ctermbg=NONE guibg=NONE
-" let g:gruvbox_transparent_bg = 1
-" " $TERMがxterm以外のときは以下を設定する必要がある。
 set termguicolors
 set background=dark
 colorscheme nord
