@@ -10,7 +10,8 @@ require 'nvim-treesitter.configs'.setup {
   auto_install = true,
   ignore_install = {},
   indent = {
-    enable = true
+    enable = true,
+    disable = {"php", "phpdoc"}
   },
   yati = { enable = true },
   highlight = {
