@@ -33,6 +33,7 @@ set si "Smart Indent"
 set wrap "Wrap lines"
 set hidden
 
+" Plugins ---------------------------- {{{1
 call plug#begin()
 " Plug 'machakann/vim-sandwich'
 Plug 'MattesGroeger/vim-bookmarks'
@@ -89,21 +90,6 @@ Plug 'ojroques/vim-oscyank'
 
 call plug#end()
 
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> gs <plug>(lsp-document-symbol-search)
-  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-  nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gi <plug>(lsp-implementation)
-  nmap <buffer> gt <plug>(lsp-type-definition)
-  nmap <buffer> <leader>rn <plug>(lsp-rename)
-  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-  nmap <buffer> K <plug>(lsp-hover)
-endfunction
-
 " vim-bookmark setting --- {{{1
 nmap <Leader><Leader> <Plug>BookmarkToggle
 nmap <Leader>i <Plug>BookmarkAnnotate
@@ -136,7 +122,7 @@ augroup filetype_vim
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-" lsp settings
+" lsp settings --- {{{1
 let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_float_cursor = 1
@@ -151,6 +137,7 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" vim lsp settings --- {{{1
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
@@ -168,6 +155,7 @@ endfunction
 
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+" vim color scheme settings --- {{{1
 set termguicolors
 colorscheme nord
 
