@@ -40,6 +40,7 @@ Plug 'nordtheme/vim'
 Plug 'taro0079/path_to_clipboard'
 Plug 'github/copilot.vim'
 Plug 'morhetz/gruvbox'
+Plug 'ojroques/vim-oscyank'
 Plug 'prabirshrestha/async.vim'
 Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
@@ -174,3 +175,7 @@ colorscheme nord
 let g:eskk#directory        = "~/.config/eskk"
 let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
+" OSC52 setting --- {{{1
+nmap <leader>c <Plug>OSCYankOperator
+nmap <leader>cc <leader>c_
+vmap <leader>c <Plug>OSCYankVisual
