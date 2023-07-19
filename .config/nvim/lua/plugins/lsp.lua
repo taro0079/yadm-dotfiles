@@ -58,18 +58,18 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 vim.diagnostic.config({
   virtual_text = false,
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-  float = {
-    focusable = true,
-    style = "minimal",
-    border = "rounded",
-    source = "if_many",
-    header = "",
-    prefix = ""
-  }
+  -- signs = true,
+  -- underline = true,
+  -- update_in_insert = false,
+  -- severity_sort = true,
+  -- float = {
+  --   focusable = true,
+  --   style = "minimal",
+  --   border = "rounded",
+  --   source = "if_many",
+  --   header = "",
+  --   prefix = ""
+  -- }
 })
 
 
