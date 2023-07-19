@@ -373,10 +373,11 @@ require("lazy").setup({
 
   {
     "j-hui/fidget.nvim",
-    config = function()
-      require("fidget").setup({})
-    end,
-    tag = 'legacy'
+    tag = "legacy",
+    event = "LspAttach",
+    opts = {
+      -- options
+    },
   },
 
   -- snippets
@@ -428,7 +429,7 @@ require("lazy").setup({
   },
   {
     'tpope/vim-fugitive',
-    event = "InsertEnter",
+    -- event = "InsertEnter",
   },
   {
     'chrisbra/csv.vim',
@@ -438,9 +439,13 @@ require("lazy").setup({
   {
     'tomasky/bookmarks.nvim',
     event = "VimEnter",
-    config = function ()
+    config = function()
       require("plugins.bookmarks")
     end
-  }
+  },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = true
+  },
 
 })
