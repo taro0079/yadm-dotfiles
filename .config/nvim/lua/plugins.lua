@@ -447,5 +447,28 @@ require("lazy").setup({
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     config = true
   },
-
+  {
+    'oberblastmeister/neuron.nvim',
+    config = function()
+      require 'neuron'.setup {
+        virtual_titles = true,
+        mappings = true,
+        run = nil,           -- function to run when in neuron dir
+        neuron_dir = "~/neuron", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
+        leader = "gz",       -- the leader key to for all mappings, remember with 'go zettel'
+      }
+    end
+  },
+    {
+        'mfussenegger/nvim-dap'
+    },
+    {
+        'rcarriga/nvim-dap-ui'
+    },
+    {
+        'theHamsta/nvim-dap-virtual-text'
+    },
+    {
+        'nvim-telescope/telescope-dap.nvim'
+    }
 })
