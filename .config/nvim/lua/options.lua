@@ -6,14 +6,15 @@ vim.wo.relativenumber = true
 vim.o.smarttab = true
 vim.o.cursorline = true
 vim.o.pumblend = 20
+vim.o.winblend = 20
 if vim.fn.has("wsl") == 0 then
   vim.o.clipboard = "unnamed,unnamedplus"
 end
 vim.o.completeopt = "menuone,noinsert,noselect"
 vim.o.expandtab = true
-vim.o.tabstop = 2
+vim.o.tabstop = 4
 vim.o.smartindent = true
-vim.o.shiftwidth = 2
+vim.o.shiftwidth = 4
 vim.o.signcolumn = "yes" -- これを設定しないとvgitでガタつく
 vim.updatetime = 100
 vim.o.incsearch = false
@@ -24,3 +25,4 @@ vim.o.mouse = ""
 vim.o.title = true
 vim.o.autoindent = true
 vim.wo.wrap = true
+vim.o.hidden = true
