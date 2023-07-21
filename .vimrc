@@ -38,6 +38,7 @@ call plug#begin()
 " Plug 'machakann/vim-sandwich'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'nordtheme/vim'
+Plug 'joshdick/onedark.vim'
 Plug 'taro0079/path_to_clipboard'
 Plug 'github/copilot.vim'
 Plug 'morhetz/gruvbox'
@@ -156,8 +157,9 @@ endfunction
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
+syntax on
 set termguicolors
-colorscheme nord
+colorscheme onedark
 
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
