@@ -458,6 +458,17 @@ require("lazy").setup({
         leader = "gz",       -- the leader key to for all mappings, remember with 'go zettel'
       }
     end
-  }
-
+  },
+    {
+        'mfussenegger/nvim-dap'
+    },
+    {
+        'rcarriga/nvim-dap-ui'
+    },
+    {
+        'theHamsta/nvim-dap-virtual-text'
+    },
+    {
+        'nvim-telescope/telescope-dap.nvim'
+    }
 })
