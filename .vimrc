@@ -37,7 +37,7 @@ set hidden
 call plug#begin()
 " Plug 'machakann/vim-sandwich'
 Plug 'MattesGroeger/vim-bookmarks'
-Plug 'nordtheme/vim'
+" Plug 'nordtheme/vim'
 Plug 'tomasr/molokai'
 Plug 'joshdick/onedark.vim'
 Plug 'taro0079/path_to_clipboard'
@@ -50,6 +50,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'EinfachToll/DidYouMean'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-repeat'
+Plug 'dracula/vim'
 Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
@@ -62,6 +63,7 @@ Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 Plug 'mattn/emmet-vim'
 " Plug 'majutsushi/tagbar'
+Plug 'patstockwell/vim-monokai-tasty'
 Plug 'justinmk/vim-sneak'
 Plug 'liuchengxu/vista.vim'
 Plug 'vim-skk/eskk.vim'
@@ -159,9 +161,9 @@ set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
 syntax on
-let g:molokai_original = 1
 set termguicolors
-colorscheme molokai
+let g:vim_monokai_tasty_italic = 1
+colorscheme vim-monokai-tasty
 
 
 " ESKK setting ------------------------------- {{{1
@@ -179,6 +181,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" toggle term setting === {{{1
 let g:terminal_bufnr = -1
 
 function! ToggleTerminal()
@@ -207,5 +210,8 @@ nnoremap <silent> <C-t> :call ToggleTerminal()<CR>
 tnoremap <silent> <C-t> <C-\><C-n>:call ToggleTerminal()<CR>
 
 
+" vimrc setting --- {{{1
 nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
-execute "autocmd BufEnter " . g:terminal_bufnr . " startinsert"
+nnoremap <silent> <leader>v :e ~/.vimrc<CR>
+
+
