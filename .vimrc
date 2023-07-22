@@ -38,6 +38,7 @@ call plug#begin()
 " Plug 'machakann/vim-sandwich'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'nordtheme/vim'
+Plug 'tomasr/molokai'
 Plug 'joshdick/onedark.vim'
 Plug 'taro0079/path_to_clipboard'
 Plug 'github/copilot.vim'
@@ -158,8 +159,10 @@ set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
 syntax on
+let g:molokai_original = 1
 set termguicolors
-colorscheme onedark
+colorscheme molokai
+
 
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
@@ -175,3 +178,34 @@ vmap <leader>c <Plug>OSCYankVisual
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+let g:terminal_bufnr = -1
+
+function! ToggleTerminal()
+  if &buftype == 'terminal'
+    " If the current buffer is a terminal, go back to the previous buffer
+    execute "buffer #"
+    execute "close"
+  else
+    " If the current buffer is not a terminal, try to find the terminal buffer
+    if bufexists(g:terminal_bufnr)
+      " If the terminal buffer exists, switch to it
+      execute 'split'
+      execute "buffer " . g:terminal_bufnr
+      execute "normal i"
+
+    else
+      " If no terminal buffer exists, create a new one and save its buffer number
+      terminal
+      let g:terminal_bufnr = bufnr('%')
+    endif
+
+  endif
+endfunction
+
+nnoremap <silent> <C-t> :call ToggleTerminal()<CR>
+tnoremap <silent> <C-t> <C-\><C-n>:call ToggleTerminal()<CR>
+
+
+nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
+execute "autocmd BufEnter " . g:terminal_bufnr . " startinsert"
