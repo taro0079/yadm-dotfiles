@@ -9,7 +9,6 @@ set clipboard=unnamed,unnamedplus
 set showcmd
 set ruler
 set undofile
-set cursorline
 set relativenumber
 set linebreak
 set display+=lastline
@@ -32,6 +31,7 @@ set ai "Auto Indent"
 set si "Smart Indent"
 set wrap "Wrap lines"
 set hidden
+set cursorline
 
 " Plugins ---------------------------- {{{1
 call plug#begin()
@@ -39,7 +39,9 @@ call plug#begin()
 Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'nordtheme/vim'
 Plug 'tomasr/molokai'
+Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
+Plug 'mattn/vim-lsp-icons'
 Plug 'taro0079/path_to_clipboard'
 Plug 'github/copilot.vim'
 Plug 'morhetz/gruvbox'
@@ -162,8 +164,9 @@ set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
 syntax on
 set termguicolors
-let g:vim_monokai_tasty_italic = 1
-colorscheme vim-monokai-tasty
+" let g:vim_monokai_tasty_italic = 1
+" let g:vim_monokai_tasty_highlight_active_window = 1
+colorscheme base16-gruvbox-dark-hard
 
 
 " ESKK setting ------------------------------- {{{1
