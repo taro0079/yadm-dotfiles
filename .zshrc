@@ -24,7 +24,7 @@ export GOPATH=~/go  # GOPATHにすると決めた場所
 export PATH=$GOPATH/bin:$PATH
 
 # 補完の有効化
-autoload -U compinit 
+autoload -U compinit
 compinit
 export PATH="$HOME/.rbenv/bin:$PATH"
 # mac
@@ -156,3 +156,7 @@ alias gpull='git pull origin'
 alias gcb='git checkout -b'
 alias gaa='git add .'
 alias ga='git add'
+
+if [[ "$OSTYPE" == "darwin" ]]; then
+  alias ctags="brew --prefix /usr/bin/ctags"
+fi

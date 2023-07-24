@@ -9,7 +9,6 @@ set clipboard=unnamed,unnamedplus
 set showcmd
 set ruler
 set undofile
-set cursorline
 set relativenumber
 set linebreak
 set display+=lastline
@@ -32,12 +31,17 @@ set ai "Auto Indent"
 set si "Smart Indent"
 set wrap "Wrap lines"
 set hidden
+set cursorline
 
 " Plugins ---------------------------- {{{1
 call plug#begin()
 " Plug 'machakann/vim-sandwich'
 Plug 'MattesGroeger/vim-bookmarks'
-Plug 'nordtheme/vim'
+" Plug 'nordtheme/vim'
+Plug 'tomasr/molokai'
+Plug 'chriskempson/base16-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'mattn/vim-lsp-icons'
 Plug 'taro0079/path_to_clipboard'
 Plug 'github/copilot.vim'
 Plug 'morhetz/gruvbox'
@@ -48,6 +52,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'EinfachToll/DidYouMean'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-repeat'
+Plug 'dracula/vim'
 Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
@@ -60,6 +65,7 @@ Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 Plug 'mattn/emmet-vim'
 " Plug 'majutsushi/tagbar'
+Plug 'patstockwell/vim-monokai-tasty'
 Plug 'justinmk/vim-sneak'
 Plug 'liuchengxu/vista.vim'
 Plug 'vim-skk/eskk.vim'
@@ -156,8 +162,12 @@ endfunction
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
+syntax on
 set termguicolors
-colorscheme nord
+" let g:vim_monokai_tasty_italic = 1
+" let g:vim_monokai_tasty_highlight_active_window = 1
+colorscheme base16-gruvbox-dark-hard
+
 
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
@@ -173,3 +183,38 @@ vmap <leader>c <Plug>OSCYankVisual
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" toggle term setting === {{{1
+let g:terminal_bufnr = -1
+
+function! ToggleTerminal()
+  if &buftype == 'terminal'
+    " If the current buffer is a terminal, go back to the previous buffer
+    execute "buffer #"
+    execute "close"
+  else
+    " If the current buffer is not a terminal, try to find the terminal buffer
+    if bufexists(g:terminal_bufnr)
+      " If the terminal buffer exists, switch to it
+      execute 'split'
+      execute "buffer " . g:terminal_bufnr
+      execute "normal i"
+
+    else
+      " If no terminal buffer exists, create a new one and save its buffer number
+      terminal
+      let g:terminal_bufnr = bufnr('%')
+    endif
+
+  endif
+endfunction
+
+nnoremap <silent> <C-t> :call ToggleTerminal()<CR>
+tnoremap <silent> <C-t> <C-\><C-n>:call ToggleTerminal()<CR>
+
+
+" vimrc setting --- {{{1
+nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
+nnoremap <silent> <leader>v :e ~/.vimrc<CR>
+
+
