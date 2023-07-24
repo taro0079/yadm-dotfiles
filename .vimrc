@@ -42,6 +42,7 @@ Plug 'tomasr/molokai'
 Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'mattn/vim-lsp-icons'
+Plug 'danilo-augusto/vim-afterglow'
 Plug 'taro0079/path_to_clipboard'
 Plug 'github/copilot.vim'
 Plug 'morhetz/gruvbox'
@@ -160,13 +161,13 @@ function! s:on_lsp_buffer_enabled() abort
 endfunction
 
 set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+" set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
 syntax on
 set termguicolors
 " let g:vim_monokai_tasty_italic = 1
 " let g:vim_monokai_tasty_highlight_active_window = 1
-colorscheme base16-gruvbox-dark-hard
+colorscheme afterglow
 
 
 " ESKK setting ------------------------------- {{{1
