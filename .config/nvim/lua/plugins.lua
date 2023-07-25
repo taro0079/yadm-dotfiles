@@ -222,6 +222,7 @@ require("lazy").setup({
         },
         config = function()
             require 'plugins.cmp'
+            require 'plugins.luasnip'
         end,
     },
     -- {
