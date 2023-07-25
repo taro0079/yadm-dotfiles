@@ -454,6 +454,10 @@ require("lazy").setup({
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         config = true
     },
+    { 'mfussenegger/nvim-dap',            config = function() require('plugins.dap') end },
+    { 'nvim-telescope/telescope-dap.nvim' },
+    { 'mfussenegger/nvim-dap-python' },
+    -- { "jay-babu/mason-nvim-dap.nvim"},
     -- {
     --   'oberblastmeister/neuron.nvim',
     --   config = function()
