@@ -456,8 +456,9 @@ require("lazy").setup({
     },
     { 'mfussenegger/nvim-dap',            config = function() require('plugins.dap') end },
     { 'nvim-telescope/telescope-dap.nvim' },
-    { 'mfussenegger/nvim-dap-python' },
-    -- { "jay-babu/mason-nvim-dap.nvim"},
+    -- { 'mfussenegger/nvim-dap-python' },
+    { "jay-babu/mason-nvim-dap.nvim",     config = function() require('plugins.mason-nvim-dap') end },
+    { 'rcarriga/nvim-dap-ui',             config = function() require('plugins.nvim-dap-ui') end },
     -- {
     --   'oberblastmeister/neuron.nvim',
     --   config = function()
