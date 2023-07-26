@@ -2,9 +2,9 @@ local api = vim.api
 -- Telescope -- {{ 1
 api.nvim_set_keymap('n', '<C-p>', "<cmd>lua require('telescope.builtin').git_files()<cr>",
     { noremap = true, silent = true })
-api.nvim_set_keymap('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files({hidden=true})<cr>",
+api.nvim_set_keymap('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files({hidden=true, no_ignore=true})<cr>",
     { noremap = true, silent = true })
-api.nvim_set_keymap('n', '<leader>fq', "<cmd>lua require('telescope.builtin').live_grep()<cr>",
+api.nvim_set_keymap('n', '<leader>fq', "<cmd>lua require('telescope.builtin').live_grep({hidden=true, no_ignore=true})<cr>",
     { noremap = true, silent = true })
 api.nvim_set_keymap('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>", {
     noremap = true,
@@ -26,7 +26,7 @@ api.nvim_set_keymap('n', "<leader>gs", "<cmd>lua require('telescope.builtin').gi
     { noremap = true, silent = true })
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ps', function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+	builtin.grep_string({ search = vim.fn.input("Grep > "), no_ignore=true})
 end)
 -- skk setting
 api.nvim_set_keymap('c', "<C-j>", "<Plug>(skkeleton-toggle)", { noremap = true, silent = true })
