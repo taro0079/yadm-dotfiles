@@ -461,10 +461,18 @@ require("lazy").setup({
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         config = true
     },
-    { 'mfussenegger/nvim-dap',            config = function() require('plugins.dap') end },
+    {
+        'mfussenegger/nvim-dap',
+        -- config = function() require('plugins.dap') end
+    },
     { 'nvim-telescope/telescope-dap.nvim' },
     -- { 'mfussenegger/nvim-dap-python' },
-    { "jay-babu/mason-nvim-dap.nvim",     config = function() require('plugins.mason-nvim-dap') end },
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+        config = function() require('plugins.mason-nvim-dap') end,
+        dependencies = {
+            "williamboman/mason-lspconfig.nvim" }
+    },
     { 'rcarriga/nvim-dap-ui',             config = function() require('plugins.nvim-dap-ui') end },
     {
         "ojroques/nvim-osc52",
