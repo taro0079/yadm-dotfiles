@@ -24,7 +24,10 @@ api.nvim_set_keymap('n', "<leader>gc", "<cmd>lua require('telescope.builtin').gi
     { noremap = true, silent = true })
 api.nvim_set_keymap('n', "<leader>gs", "<cmd>lua require('telescope.builtin').git_status({theme=get_dropdown})<cr>",
     { noremap = true, silent = true })
-
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ps', function()
+	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+end)
 -- skk setting
 api.nvim_set_keymap('c', "<C-j>", "<Plug>(skkeleton-toggle)", { noremap = true, silent = true })
 api.nvim_set_keymap('i', "<C-j>", "<Plug>(skkeleton-toggle)", { noremap = true, silent = true })
