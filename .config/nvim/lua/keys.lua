@@ -10,6 +10,9 @@ api.nvim_set_keymap('n', '<leader>fb', "<cmd>lua require('telescope.builtin').bu
     noremap = true,
     silent = true
 })
+-- Bookmark
+vim.keymap.set('n', '<leader>bb', '<Plug>BookmarkToggle')
+vim.keymap.set('n', '<leader>bx', '<Plug>BookmarkClearAll')
 api.nvim_set_keymap('n', '<leader>fh', "<cmd>lua require('telescope.builtin').search_history()<cr>",
     { noremap = true, silent = true })
 api.nvim_set_keymap('n', '<leader>ps',

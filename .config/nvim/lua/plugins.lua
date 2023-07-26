@@ -440,6 +440,9 @@ require("lazy").setup({
         -- event = "InsertEnter",
     },
     {
+        'tom-anders/telescope-vim-bookmarks.nvim'
+    },
+    {
         'chrisbra/csv.vim',
         ft = { 'csv' },
     },
@@ -450,6 +453,9 @@ require("lazy").setup({
         config = function()
             require("plugins.bookmarks")
         end
+    },
+    {
+        'MattesGroeger/vim-bookmarks',
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
