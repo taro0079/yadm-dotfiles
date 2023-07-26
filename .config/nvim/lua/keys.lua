@@ -39,21 +39,21 @@ api.nvim_set_keymap('n', "<C-n>", ":NvimTreeToggle<cr>", { noremap = true, silen
 api.nvim_set_keymap('n', "<leader>sd", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics() <cr>",
     { noremap = true, silent = true })
 
--- vim.api.nvim_set_keymap('', 'f',
--- 	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
--- 	, {})
--- vim.api.nvim_set_keymap('', 'F',
--- 	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
--- 	, {})
--- vim.api.nvim_set_keymap('', 't',
--- 	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>"
--- 	, {})
--- vim.api.nvim_set_keymap('', 'T',
--- 	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>"
--- 	, {})
--- vim.api.nvim_set_keymap('', '<leader><leader>w',
--- 	"<cmd> HopVertical <cr>"
--- 	, {})
+-- place this in one of your configuration file(s)
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
+vim.keymap.set('', 'f', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })
+end, {remap=true})
+vim.keymap.set('', 'F', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })
+end, {remap=true})
+vim.keymap.set('', 't', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })
+end, {remap=true})
+vim.keymap.set('', 'T', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })
+end, {remap=true})
 
 -- dial
 vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
@@ -177,3 +177,5 @@ local function on_attach(bufnr)
     -- You will need to insert "your code goes here" for any mappings with a custom action_cb
     vim.keymap.set('n', 'u', api.tree.change_root_to_parent, opts('Up'))
 end
+
+

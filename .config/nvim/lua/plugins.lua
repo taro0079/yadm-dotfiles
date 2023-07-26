@@ -222,6 +222,7 @@ require("lazy").setup({
         },
         config = function()
             require 'plugins.cmp'
+            require 'plugins.luasnip'
         end,
     },
     -- {
@@ -454,16 +455,26 @@ require("lazy").setup({
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         config = true
     },
-    -- {
-    --   'oberblastmeister/neuron.nvim',
-    --   config = function()
-    --     require 'neuron'.setup {
-    --       virtual_titles = true,
-    --       mappings = true,
-    --       run = nil,           -- function to run when in neuron dir
-    --       neuron_dir = "~/neuron", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
-    --       leader = "gz",       -- the leader key to for all mappings, remember with 'go zettel'
-    --     }
-    --   end
-    -- },
+    { 'mfussenegger/nvim-dap',            config = function() require('plugins.dap') end },
+    { 'nvim-telescope/telescope-dap.nvim' },
+    -- { 'mfussenegger/nvim-dap-python' },
+    { "jay-babu/mason-nvim-dap.nvim",     config = function() require('plugins.mason-nvim-dap') end },
+    { 'rcarriga/nvim-dap-ui',             config = function() require('plugins.nvim-dap-ui') end },
+    {
+        "ojroques/nvim-osc52",
+        config = function()
+            require("osc52").setup({})
+            vim.keymap.set("n", "<leader>c", require("osc52").copy_operator, { expr = true })
+            vim.keymap.set("n", "<leader>cc", "<leader>c_", { remap = true })
+            vim.keymap.set("x", "<leader>c", require("osc52").copy_visual)
+        end,
+    },
+    {
+        'phaazon/hop.nvim',
+        branch = 'v2', -- optional but strongly recommended
+        config = function()
+            -- you can configure Hop the way you like here; see :h hop-config
+            require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+        end
+    }
 })
