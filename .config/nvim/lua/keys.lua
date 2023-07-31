@@ -61,6 +61,8 @@ vim.keymap.set('', 'T', function()
   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })
 end, {remap=true})
 
+vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
+vim.keymap.set("n", "ga", "<Plug>(EasyAlign)")
 -- dial
 vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
 vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true })
