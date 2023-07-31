@@ -179,6 +179,15 @@ require("lazy").setup({
         lazy = false,
         priority = 1000,
         config = function()
+            require("tokyonight").setup({
+                transparent = false,
+                styles = {
+                    comments = { italic = true },
+                    keywords = { italic = true },
+                    -- sidebars = "transparent",
+                    -- floats = "transparent"
+                }
+            })
             vim.cmd([[colorscheme tokyonight]])
         end
     },
@@ -254,6 +263,16 @@ require("lazy").setup({
         'romgrk/barbar.nvim',
         dependencies = 'nvim-tree/nvim-web-devicons',
         version = '^1.0.0',
+        config = function()
+            require("barbar").setup {
+                icons = {
+                    button = "x",
+                    buffer_number = true,
+                    preset = "powerline"
+                }
+
+            }
+        end
     },
 
     {
