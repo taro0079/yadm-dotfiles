@@ -180,12 +180,12 @@ require("lazy").setup({
         priority = 1000,
         config = function()
             require("tokyonight").setup({
-                transparent = true,
+                transparent = false,
                 styles = {
                     comments = { italic = true },
                     keywords = { italic = true },
-                    sidebars = "transparent",
-                    floats = "transparent"
+                    -- sidebars = "transparent",
+                    -- floats = "transparent"
                 }
             })
             vim.cmd([[colorscheme tokyonight]])
