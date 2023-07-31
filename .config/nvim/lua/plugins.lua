@@ -263,6 +263,16 @@ require("lazy").setup({
         'romgrk/barbar.nvim',
         dependencies = 'nvim-tree/nvim-web-devicons',
         version = '^1.0.0',
+        config = function()
+            require("barbar").setup {
+                icons = {
+                    button = "x",
+                    buffer_number = true,
+                    preset = "powerline"
+                }
+
+            }
+        end
     },
 
     {
