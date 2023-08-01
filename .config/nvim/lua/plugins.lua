@@ -509,5 +509,14 @@ require("lazy").setup({
             -- you can configure Hop the way you like here; see :h hop-config
             require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
         end
-    }
+    },
+    {
+        'tpope/vim-surround'
+    },
+    {
+        'thinca/vim-qfhl'
+    },
+    {
+        'tpope/vim-commentary'
+    },
 })
