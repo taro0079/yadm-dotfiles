@@ -24,6 +24,10 @@ set nowb
 set noswapfile
 set noundofile
 set wildmenu
+set backspace=indent,eol,start
+set expandtab
+set listchars=eol:$,tab:>.,trail:~,space:_
+set list
 set tabstop=4
 set shiftwidth=4
 set showtabline=2
@@ -224,8 +228,8 @@ vmap <leader>c <Plug>OSCYankVisual
 
 
 " " vimrc setting --- {{{1
-" nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
-" nnoremap <silent> <leader>v :e ~/.vimrc<CR>
+nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
+nnoremap <silent> <leader>v :e ~/.vimrc<CR>
 " tmux seeting
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
