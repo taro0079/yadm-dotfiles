@@ -26,7 +26,7 @@ set noundofile
 set wildmenu
 set backspace=indent,eol,start
 set expandtab
-set listchars=eol:$,tab:>.,trail:~,space:_
+set listchars=eol:$,tab:>.,trail:~,space:·,nbsp:%
 set list
 set tabstop=4
 set shiftwidth=4
