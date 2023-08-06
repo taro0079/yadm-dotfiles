@@ -1,0 +1,11 @@
+{
+    "let": {
+        "prefix": "let",
+        "body": [
+            "let ${1:variableName} = ${2:variableValue}"
+        ],
+        "description": "let"
+    }
+}
+
+
