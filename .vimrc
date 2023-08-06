@@ -26,7 +26,7 @@ set noundofile
 set wildmenu
 set backspace=indent,eol,start
 set expandtab
-set listchars=eol:$,tab:>.,trail:~,space:·,nbsp:%
+set listchars=eol:↲,tab:>.,trail:~,space:␣,nbsp:%
 set list
 set tabstop=4
 set shiftwidth=4
@@ -49,7 +49,7 @@ call plug#begin()
 " Plug 'MattesGroeger/vim-bookmarks'
 " " Plug 'nordtheme/vim'
 " Plug 'tomasr/molokai'
-" Plug 'danilo-augusto/vim-afterglow'
+Plug 'danilo-augusto/vim-afterglow'
 " Plug 'taro0079/path_to_clipboard'
 Plug 'github/copilot.vim'
 " Plug 'morhetz/gruvbox'
@@ -64,7 +64,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 " Plug 'soramugi/auto-ctags.vim'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -77,6 +77,7 @@ Plug 'vim-skk/eskk.vim'
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'mattn/vim-lsp-settings'
+Plug 'lifepillar/vim-solarized8'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'taro0079/fd.vim'
@@ -85,8 +86,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " Plug 'easymotion/vim-easymotion'
 " Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production'  }
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'mileszs/ack.vim'
 " Plug 'lambdalisue/suda.vim'
 " Plug 'kana/vim-textobj-user'
 " Plug 'osyo-manga/vim-textobj-blockwise'
@@ -164,9 +163,8 @@ nmap <leader>fq :RG<CR>
 syntax on
 filetype on
 set termguicolors
-" let g:vim_monokai_tasty_italic = 1
-" let g:vim_monokai_tasty_highlight_active_window = 1
-colorscheme afterglow
+colorscheme solarized8
+set background=dark
 
 
 " ESKK setting ------------------------------- {{{1
@@ -225,3 +223,8 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+highlight SpecialKey gui=NONE ctermbg=None ctermfg=238 guifg=#444444 guibg=NONE
+highlight NonText gui=NONE ctermbg=None ctermfg=238 guifg=#444444 guibg=NONE
+
+
