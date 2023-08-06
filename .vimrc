@@ -66,13 +66,16 @@ Plug 'tpope/vim-commentary'
 " Plug 'soramugi/auto-ctags.vim'
 " Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
+Plug 'jiangmiao/auto-pairs'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'morhetz/gruvbox'
 
 Plug 'mattn/emmet-vim'
 " Plug 'patstockwell/vim-monokai-tasty'
 Plug 'justinmk/vim-sneak'
 Plug 'vim-skk/eskk.vim'
+Plug 'tomasr/molokai'
 " Plug 'prabirshrestha/asyncomplete.vim'
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Plug 'prabirshrestha/vim-lsp'
@@ -163,9 +166,8 @@ nmap <leader>fq :RG<CR>
 syntax on
 filetype on
 set termguicolors
-colorscheme solarized8
+colorscheme gruvbox
 set background=dark
-
 
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
@@ -223,8 +225,3 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-highlight SpecialKey gui=NONE ctermbg=None ctermfg=238 guifg=#444444 guibg=NONE
-highlight NonText gui=NONE ctermbg=None ctermfg=238 guifg=#444444 guibg=NONE
-
-
