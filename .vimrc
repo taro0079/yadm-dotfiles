@@ -39,10 +39,11 @@ set hidden
 set cursorline
 set ignorecase
 set t_Co=256
-set foldmethod=indent
-set foldlevel=1
-set foldclose=all
+" set foldmethod=indent
+" set foldlevel=1
+" set foldclose=all
 set laststatus=2
+set path+=**
 
 " Plugins ---------------------------- {{{1
 call plug#begin()
@@ -123,11 +124,11 @@ nmap <leader>fq :RG<CR>
 " let g:suda_smart_edit = 1
 
 " fold settings ---------------------- {{{1
-" set foldmethod=manual
-" augroup filetype_vim
-"   autocmd!
-"   autocmd FileType vim setlocal foldmethod=marker
-" augroup END
+set foldmethod=manual
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
 
 " lsp settings --- {{{1
 " let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
@@ -164,7 +165,7 @@ nmap <leader>fq :RG<CR>
 " set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
 syntax on
-filetype on
+filetype plugin on
 set termguicolors
 colorscheme gruvbox
 set background=dark
@@ -225,3 +226,10 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" newtrw settings ---- {{{1
+let g:netrw_banner=0
+let g:netrw_browse_split=3
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
