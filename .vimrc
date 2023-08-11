@@ -44,6 +44,8 @@ set t_Co=256
 " set foldclose=all
 set laststatus=2
 set path+=**
+set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\ [TYPE=%Y]\ %=[CODE=0x%02B]\ [POS=%l/%L(%02v)]
+
 
 " Plugins ---------------------------- {{{1
 call plug#begin()
