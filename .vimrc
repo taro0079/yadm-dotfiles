@@ -27,7 +27,7 @@ set wildmenu
 set backspace=indent,eol,start
 set expandtab
 set listchars=eol:↲,tab:>.,trail:~,space:␣,nbsp:%
-set list
+" set list
 set tabstop=4
 set shiftwidth=4
 set showtabline=2
@@ -62,10 +62,13 @@ Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
 " Plug 'EinfachToll/DidYouMean'
 Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-endwise'
-" Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-endwise'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Plug 'soramugi/auto-ctags.vim'
 " Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
@@ -73,6 +76,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'morhetz/gruvbox'
+Plug 'altercation/vim-colors-solarized'
 
 Plug 'mattn/emmet-vim'
 " Plug 'patstockwell/vim-monokai-tasty'
@@ -132,6 +136,9 @@ augroup filetype_vim
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
+" list settings ---------------------- {{{1
+nnoremap <leader>lt :set list!<CR>
+
 " lsp settings --- {{{1
 " let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
 " let g:lsp_diagnostics_enabled = 1
@@ -166,11 +173,13 @@ augroup END
 " set list
 " set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
-syntax on
+syntax enable
 filetype plugin on
 set termguicolors
-colorscheme gruvbox
+" colorscheme gruvbox
+" colorscheme solarized8
 set background=dark
+colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
@@ -235,3 +244,17 @@ let g:netrw_browse_split=3
 let g:netrw_altv=1
 let g:netrw_liststyle=3
 let g:netrw_list_hide=netrw_gitignore#Hide()
+
+" lsp settings ---------------------------- {{{1
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+endfunction
+
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+
