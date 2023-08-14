@@ -1,0 +1,40 @@
+{
+    "class": {
+        "prefix": "class",
+        "body": [
+            "class ${1:Class}(${2:object}):",
+            "\t$3"
+        ],
+        "description": "class definition"
+    },
+    "def": {
+        "prefix": "def",
+        "body": [
+            "def ${1:function}(${2:args}):",
+            "\t$3"
+        ],
+        "description": "function definition"
+    },
+    "from": {
+        "prefix": "from",
+        "body": [
+            "from ${1:package} import ${2:module}"
+        ],
+        "description": "from package"
+    },
+    "import": {
+        "prefix": "imp",
+        "body": [
+            "import ${1:module}"
+        ],
+        "description": "import module"
+    },
+    "ifmain": {
+        "prefix": "ifmain",
+        "body": [
+            "if __name__ == '__main__':",
+            "\t${1:main()}"
+        ],
+        "description": "if main"
+    }
+}

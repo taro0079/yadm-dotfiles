@@ -1,4 +1,4 @@
-" basic settings ---------------------------- {{{1
+    " basic settings ---------------------------- {{{1
 let mapleader = ','
 set title
 " set cmdheight=1
@@ -24,6 +24,10 @@ set nowb
 set noswapfile
 set noundofile
 set wildmenu
+set backspace=indent,eol,start
+set expandtab
+set listchars=eol:↲,tab:>.,trail:~,space:␣,nbsp:%
+" set list
 set tabstop=4
 set shiftwidth=4
 set showtabline=2
@@ -35,21 +39,20 @@ set hidden
 set cursorline
 set ignorecase
 set t_Co=256
-set foldmethod=indent
-set foldlevel=1
-set foldclose=all
+" set foldmethod=indent
+" set foldlevel=1
+" set foldclose=all
 set laststatus=2
+set path+=**
+set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\ [TYPE=%Y]\ %=[CODE=0x%02B]\ [POS=%l/%L(%02v)]
+
 
 " Plugins ---------------------------- {{{1
 call plug#begin()
-" " Plug 'machakann/vim-sandwich'
 " Plug 'MattesGroeger/vim-bookmarks'
 " " Plug 'nordtheme/vim'
 " Plug 'tomasr/molokai'
-" Plug 'chriskempson/base16-vim'
-" Plug 'joshdick/onedark.vim'
-" Plug 'mattn/vim-lsp-icons'
-" Plug 'danilo-augusto/vim-afterglow'
+Plug 'danilo-augusto/vim-afterglow'
 " Plug 'taro0079/path_to_clipboard'
 Plug 'github/copilot.vim'
 " Plug 'morhetz/gruvbox'
@@ -58,48 +61,44 @@ Plug 'ojroques/vim-oscyank'
 Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
 " Plug 'EinfachToll/DidYouMean'
-" Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-repeat'
-" Plug 'dracula/vim'
-" Plug 'tpope/vim-endwise'
-" Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-endwise'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Plug 'soramugi/auto-ctags.vim'
 " Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-" Plug 'thomasfaingnaert/vim-lsp-snippets'
-" Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-" Plug 'mattn/emmet-vim'
-" " Plug 'majutsushi/tagbar'
+Plug 'jiangmiao/auto-pairs'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'morhetz/gruvbox'
+Plug 'altercation/vim-colors-solarized'
+
+Plug 'mattn/emmet-vim'
 " Plug 'patstockwell/vim-monokai-tasty'
 Plug 'justinmk/vim-sneak'
-" Plug 'liuchengxu/vista.vim'
 Plug 'vim-skk/eskk.vim'
+Plug 'tomasr/molokai'
 " Plug 'prabirshrestha/asyncomplete.vim'
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'mattn/vim-lsp-settings'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
+Plug 'lifepillar/vim-solarized8'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'taro0079/fd.vim'
+Plug 'taro0079/ripgrep.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " Plug 'easymotion/vim-easymotion'
 " Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production'  }
-" " fern
-" Plug 'lambdalisue/fern.vim'
-" Plug 'lambdalisue/fern-git-status.vim'
-" Plug 'lambdalisue/nerdfont.vim'
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'mileszs/ack.vim'
-" Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-" Plug 'lambdalisue/glyph-palette.vim'
-" Plug 'ryanoasis/vim-devicons'
 " Plug 'lambdalisue/suda.vim'
 " Plug 'kana/vim-textobj-user'
 " Plug 'osyo-manga/vim-textobj-blockwise'
-" Plug 'tc50cal/vim-terminal'
 Plug 'bronson/vim-trailing-whitespace'
 
 call plug#end()
@@ -117,9 +116,10 @@ call plug#end()
 " nmap <Leader>g <Plug>BookmarkMoveToLine
 
 " FZF settings ---- {{{1
-" nmap <C-p> :GFiles<CR>
-" nmap <leader>ff :Files<CR>
-" nmap <leader>fq :RG<CR>
+" let g:fzf_layout = { 'window': 'split' }
+nmap <C-p> :GFiles<CR>
+nmap <leader>ff :Files<CR>
+nmap <leader>fq :RG<CR>
 
 " easymotion settings ----------------------{{{1
 " map f <Plug>(easymotion-fl)
@@ -130,11 +130,14 @@ call plug#end()
 " let g:suda_smart_edit = 1
 
 " fold settings ---------------------- {{{1
-" set foldmethod=manual
-" augroup filetype_vim
-"   autocmd!
-"   autocmd FileType vim setlocal foldmethod=marker
-" augroup END
+set foldmethod=manual
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
+" list settings ---------------------- {{{1
+nnoremap <leader>lt :set list!<CR>
 
 " lsp settings --- {{{1
 " let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
@@ -170,13 +173,13 @@ call plug#end()
 " set list
 " set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
-syntax on
-filetype on
+syntax enable
+filetype plugin on
 set termguicolors
-" let g:vim_monokai_tasty_italic = 1
-" let g:vim_monokai_tasty_highlight_active_window = 1
-colorscheme afterglow
-
+" colorscheme gruvbox
+" colorscheme solarized8
+set background=dark
+colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
@@ -187,13 +190,6 @@ let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1
 nmap <leader>c <Plug>OSCYankOperator
 nmap <leader>cc <leader>c_
 vmap <leader>c <Plug>OSCYankVisual
-
-" " UltiSnips setting --- {{{1
-
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
 " toggle term setting === {{{1
 " let g:terminal_bufnr = -1
 
@@ -224,11 +220,41 @@ vmap <leader>c <Plug>OSCYankVisual
 
 
 " " vimrc setting --- {{{1
-" nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
-" nnoremap <silent> <leader>v :e ~/.vimrc<CR>
+nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
+nnoremap <silent> <leader>v :e ~/.vimrc<CR>
 " tmux seeting
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" vim easymotion setting ---- {{{1
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" vim-vsnip setting ---- {{{1
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" newtrw settings ---- {{{1
+let g:netrw_banner=0
+let g:netrw_browse_split=3
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+
+" lsp settings ---------------------------- {{{1
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+endfunction
+
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 

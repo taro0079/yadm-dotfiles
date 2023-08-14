@@ -1,0 +1,46 @@
+{
+  "Class": {
+    "prefix": ["class"],
+    "body": [
+      "/**",
+      " * @author ${VIM:\\$USER}",
+      " * @params",
+      " * @return",
+      " */",
+      "class $1 ${2:extends ${3:Parent} }{",
+      "\t function __construct() {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "Class definition template."
+  },
+  "Function": {
+      "prefix": ["function"],
+      "body": [
+          "function $1 (${2:args}) {",
+          "\t$3",
+          "}"
+      ],
+      "description": "function definition templete"
+  },
+  "For loop": {
+      "prefix": ["for"],
+      "body": [
+          "for (\\$${1:val} = ${2:value}; ${3:\\$$1 < ${4:value}}; ${5:\\$$1++};) {",
+          "\t$6",
+          "}"
+      ],
+      "description": "for loop"
+  },
+  "Foreach loop": {
+      "prefix": ["foreach"],
+      "body": [
+          "foreach (\\$${1:array} as \\$${2:value}) {",
+          "\t$3",
+          "}"
+      ],
+      "description": "foreach loop"
+  }
+
+}
