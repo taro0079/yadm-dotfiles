@@ -26,3 +26,5 @@ vim.o.title = true
 vim.o.autoindent = true
 vim.wo.wrap = true
 vim.o.hidden = true
+vim.wo.list = true
+vim.wo.listchars = "eol:↲,tab:>.,trail:~,space:␣,nbsp:%"

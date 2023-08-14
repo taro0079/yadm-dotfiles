@@ -110,28 +110,28 @@ require("lazy").setup({
         'johmsalas/text-case.nvim',
         config = true
     },
-    {
-        'johnfrankmorgan/whitespace.nvim',
-        config = function()
-            require('whitespace-nvim').setup({
-                -- configuration options and their defaults
-
-                -- `highlight` configures which highlight is used to display
-                -- trailing whitespace
-                highlight = 'DiffDelete',
-
-                -- `ignored_filetypes` configures which filetypes to ignore when
-                -- displaying trailing whitespace
-                ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
-
-                -- `ignore_terminal` configures whether to ignore terminal buffers
-                ignore_terminal = true,
-            })
-
-            -- remove trailing whitespace with a keybinding
-            vim.keymap.set('n', '<Leader>t', require('whitespace-nvim').trim)
-        end
-    },
+    -- {
+    --     'johnfrankmorgan/whitespace.nvim',
+    --     config = function()
+    --         require('whitespace-nvim').setup({
+    --             -- configuration options and their defaults
+    --
+    --             -- `highlight` configures which highlight is used to display
+    --             -- trailing whitespace
+    --             highlight = 'DiffDelete',
+    --
+    --             -- `ignored_filetypes` configures which filetypes to ignore when
+    --             -- displaying trailing whitespace
+    --             ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
+    --
+    --             -- `ignore_terminal` configures whether to ignore terminal buffers
+    --             ignore_terminal = true,
+    --         })
+    --
+    --         -- remove trailing whitespace with a keybinding
+    --         vim.keymap.set('n', '<Leader>t', require('whitespace-nvim').trim)
+    --     end
+    -- },
 
     {
         'nvim-treesitter/nvim-treesitter-context',
@@ -329,9 +329,6 @@ require("lazy").setup({
         event = "InsertEnter",
     },
     { "tpope/vim-repeat" },
-    { "tpope/vim-rails",    ft = { "ruby" } },
-    { "rust-lang/rust.vim", ft = { "rs" } },
-
     {
         "vim-skk/skkeleton",
         dependencies = { "vim-denops/denops.vim" },
@@ -447,23 +444,12 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = "nvim-treesitter/nvim-treesitter",
     },
-    -- markdown
-    {
-        "previm/previm",
-        config = function()
-            vim.cmd([[let g:previm_open_cmd = 'open -a "Firefox"']])
-        end
-    },
     {
         'tpope/vim-fugitive',
         -- event = "InsertEnter",
     },
     {
         'tom-anders/telescope-vim-bookmarks.nvim'
-    },
-    {
-        'chrisbra/csv.vim',
-        ft = { 'csv' },
     },
     -- bookmarks
     {
@@ -515,8 +501,5 @@ require("lazy").setup({
     },
     {
         'thinca/vim-qfhl'
-    },
-    {
-        'tpope/vim-commentary'
     },
 })
