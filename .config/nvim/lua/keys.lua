@@ -10,6 +10,7 @@ api.nvim_set_keymap('n', '<leader>fb', "<cmd>lua require('telescope.builtin').bu
     noremap = true,
     silent = true
 })
+vim.keymap.set('n', '<leader>lt', ':set list!<CR>')
 -- Bookmark
 vim.keymap.set('n', '<leader>bb', '<Plug>BookmarkToggle')
 vim.keymap.set('n', '<leader>bx', '<Plug>BookmarkClearAll')
