@@ -12,45 +12,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     { "folke/which-key.nvim", lazy = true },
-    { "folke/zen-mode.nvim",  cmd = "ZenMode", config = true },
     "soramugi/auto-ctags.vim",
     {
         'norcalli/nvim-colorizer.lua',
         config = true
     },
-    -- {
-    --   "nvim-neorg/neorg",
-    --   build = ":Neorg sync-parsers",
-    --   opts = {
-    --     load = {
-    --           ["core.defaults"] = {}, -- Loads default behaviour
-    --           ["core.concealer"] = {
-    --         config = {
-    --           folds = false
-    --         }
-    --       }, -- Adds pretty icons to your documents
-    --           ["core.completion"] = {
-    --         config = {
-    --           engine = "nvim-cmp"
-    --         }
-    --       },
-    --           ["core.presenter"] = {
-    --         config = {
-    --           zen_mode = "zen-mode"
-    --         },
-    --       },
-    --           ["core.export"] = {},
-    --           ["core.dirman"] = { -- Manages Neorg workspaces
-    --         config = {
-    --           workspaces = {
-    --             notes = "~/.nb/home/",
-    --           },
-    --         },
-    --       },
-    --     },
-    --   },
-    --   dependencies = { { "nvim-lua/plenary.nvim" } },
-    -- },
     {
         'taro0079/path_to_clipboard'
     },
@@ -67,13 +33,6 @@ require("lazy").setup({
             require("plugins.other")
         end
     },
-    -- {
-    --   "chentoast/marks.nvim",
-    --   event = "BufEnter",
-    --   config = function()
-    --     require("plugins.marks")
-    --   end
-    -- },
     {
         "andymass/vim-matchup",
         config = function()
@@ -110,29 +69,6 @@ require("lazy").setup({
         'johmsalas/text-case.nvim',
         config = true
     },
-    -- {
-    --     'johnfrankmorgan/whitespace.nvim',
-    --     config = function()
-    --         require('whitespace-nvim').setup({
-    --             -- configuration options and their defaults
-    --
-    --             -- `highlight` configures which highlight is used to display
-    --             -- trailing whitespace
-    --             highlight = 'DiffDelete',
-    --
-    --             -- `ignored_filetypes` configures which filetypes to ignore when
-    --             -- displaying trailing whitespace
-    --             ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
-    --
-    --             -- `ignore_terminal` configures whether to ignore terminal buffers
-    --             ignore_terminal = true,
-    --         })
-    --
-    --         -- remove trailing whitespace with a keybinding
-    --         vim.keymap.set('n', '<Leader>t', require('whitespace-nvim').trim)
-    --     end
-    -- },
-
     {
         'nvim-treesitter/nvim-treesitter-context',
         config = function()
@@ -148,22 +84,6 @@ require("lazy").setup({
         'cappyzawa/trim.nvim',
         config = function()
             require('plugins.trim')
-        end
-    },
-
-    -- remoteで作業するに便利するやつ
-    {
-        'chipsenkbeil/distant.nvim',
-        branch = 'v0.2',
-        config = function()
-            require('distant').setup {
-                -- Applies Chip's personal settings to every machine you connect to
-                --
-                -- 1. Ensures that distant servers terminate with no connections
-                -- 2. Provides navigation bindings for remote directories
-                -- 3. Provides keybinding to jump into a remote file's parent directory
-                ['*'] = require('distant.settings').chip_default()
-            }
         end
     },
     {
@@ -191,14 +111,6 @@ require("lazy").setup({
             vim.cmd([[colorscheme tokyonight]])
         end
     },
-    -- {
-    --   "EdenEast/nightfox.nvim",
-    --   lazy = false,
-    --   priority = 1000,
-    --   config = function()
-    --     vim.cmd([[colorscheme duskfox]])
-    --   end,
-    -- },
     {
         "dstein64/vim-startuptime",
         -- lazy-load on a command
@@ -234,18 +146,6 @@ require("lazy").setup({
             require 'plugins.luasnip'
         end,
     },
-    -- {
-    --   'quangnguyen30192/cmp-nvim-ultisnips',
-    --   config = true
-    -- },
-    -- {
-    --   "utilyre/barbecue.nvim",
-    --   dependencies = {
-    --     "SmiteshP/nvim-navic"
-    --   },
-    --   config = function() require("barbecue").setup() end
-    -- },
-
     {
         "folke/trouble.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
@@ -270,7 +170,6 @@ require("lazy").setup({
                     buffer_number = true,
                     preset = "powerline"
                 }
-
             }
         end
     },
@@ -410,7 +309,7 @@ require("lazy").setup({
     -- { "previm/previm",            event = "BufEnter" }, -- markdown のプレビュープラグイン
 
     -- nvim-lsp
-    { 'ray-x/lsp_signature.nvim', config = function() require "lsp_signature".setup() end },
+    -- { 'ray-x/lsp_signature.nvim', config = function() require "lsp_signature".setup() end },
     { 'williamboman/mason.nvim',  dependencies = { 'williamboman/mason-lspconfig.nvim' } },
     { 'junegunn/vim-emoji' },
     { 'folke/lsp-colors.nvim' },
@@ -461,10 +360,6 @@ require("lazy").setup({
     },
     {
         'MattesGroeger/vim-bookmarks',
-    },
-    {
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = true
     },
     {
         'mfussenegger/nvim-dap',

@@ -11,6 +11,8 @@ elseif vim.g.vscode then
     vim.wo.wrap = true
     vim.o.hidden = true
     vim.o.smartindent = true
+    vim.wo.list = true
+    vim.wo.listchars = "eol:↲,tab:>.,trail:~,space:␣,nbsp:%"
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
         vim.fn.system({
@@ -28,6 +30,9 @@ elseif vim.g.vscode then
             'easymotion/vim-easymotion'
         },
         {
+            "junegunn/vim-easy-align"
+        },
+        {
             'tpope/vim-surround'
         },
         {
@@ -41,4 +46,6 @@ elseif vim.g.vscode then
         }
 
     })
+vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
+vim.keymap.set("n", "ga", "<Plug>(EasyAlign)")
 end

@@ -251,6 +251,7 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-reference)
 endfunction
 
 augroup lsp_install
@@ -259,3 +260,9 @@ augroup lsp_install
 augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
+" rspt チケット加工処理 ---- {{{1
+function! RpstTicketNum()
+    execute ":%v/^#\\d.\\+/s/.*//g"
+    execute ":%s/^#\\(\\d\\+\\)\\|.+$/\\1/g"
+    execute ":%s/^\\n//g"
+endfunction
