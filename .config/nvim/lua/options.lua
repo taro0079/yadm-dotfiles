@@ -26,5 +26,5 @@ vim.o.mouse = ""
 vim.o.autoindent = true
 vim.wo.wrap = true
 vim.o.hidden = true
-vim.wo.list = false
 vim.wo.listchars = "eol:↲,tab:>.,trail:~,space:␣,nbsp:%"
+vim.wo.list = false

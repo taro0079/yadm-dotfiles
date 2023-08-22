@@ -8,7 +8,7 @@ font:
   italic:
     family: PlemolJP Console NF
     style: Italic
-  size: 18
+  size: 14
 window:
   padding:
     x: 0

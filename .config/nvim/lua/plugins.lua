@@ -23,7 +23,21 @@ require("lazy").setup({
     {
         'RRethy/nvim-base16',
         config = function()
-            vim.cmd([[colorscheme base16-gruvbox-dark-pale]])
+            -- vim.cmd([[colorscheme base16-gruvbox-dark-pale]])
+        end
+    },
+    {
+        'rose-pine/neovim',
+        config = function()
+            require('plugins.rose-pine')
+        end
+    },
+
+    {
+        'nyoom-engineering/oxocarbon.nvim',
+        config = function()
+            -- vim.opt.background = "dark"
+            -- vim.cmd.colorscheme "oxocarbon"
         end
     },
     {
