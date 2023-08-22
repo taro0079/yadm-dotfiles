@@ -21,9 +21,15 @@ require("lazy").setup({
         'taro0079/path_to_clipboard'
     },
     {
+        'RRethy/nvim-base16',
+        config = function()
+            vim.cmd([[colorscheme base16-gruvbox-dark-medium]])
+        end
+    },
+    {
         'Matsuuu/pinkmare',
         config = function()
-            vim.cmd([[colorscheme pinkmare]])
+            -- vim.cmd([[colorscheme pinkmare]])
         end
     },
     {
