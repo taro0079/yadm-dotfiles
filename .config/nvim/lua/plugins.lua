@@ -21,6 +21,12 @@ require("lazy").setup({
         'taro0079/path_to_clipboard'
     },
     {
+        'Matsuuu/pinkmare',
+        config = function()
+            vim.cmd([[colorscheme pinkmare]])
+        end
+    },
+    {
         "stevearc/aerial.nvim",
         config = function()
             require("plugins.aerial")
@@ -108,7 +114,7 @@ require("lazy").setup({
                     -- floats = "transparent"
                 }
             })
-            vim.cmd([[colorscheme tokyonight]])
+            -- vim.cmd([[colorscheme tokyonight]])
         end
     },
     {

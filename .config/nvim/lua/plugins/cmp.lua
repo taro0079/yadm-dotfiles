@@ -38,6 +38,7 @@ local cmp_kinds = {
 
 cmp.setup {
     completion = { completeopt = 'menu,menuone,noselect' },
+    preselect = cmp.PreselectMode.None,
     snippet = {
         -- expand = function(args)
         --   vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
