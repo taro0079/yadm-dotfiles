@@ -119,7 +119,7 @@ require("lazy").setup({
 
         }
     },
-    { 'onsails/lspkind-nvim',   dependencies = "hrsh7th/nvim-cmp" },
+    { 'onsails/lspkind-nvim', dependencies = "hrsh7th/nvim-cmp" },
     {
         'folke/tokyonight.nvim',
         lazy = false,
@@ -308,7 +308,7 @@ require("lazy").setup({
             require("plugins.gitsign")
         end,
     },
-    { "kdheepak/lazygit.nvim",    cmd = "LazyGit" },
+    { "kdheepak/lazygit.nvim",   cmd = "LazyGit" },
     {
         "akinsho/git-conflict.nvim",
         config = true
@@ -331,15 +331,15 @@ require("lazy").setup({
         -- install jsregexp (optional!).
         build = "make install_jsregexp"
     },
-    { "honza/vim-snippets",       event = "InsertEnter" },
+    { "honza/vim-snippets",      event = "InsertEnter" },
     -- { "previm/previm",            event = "BufEnter" }, -- markdown のプレビュープラグイン
 
     -- nvim-lsp
     -- { 'ray-x/lsp_signature.nvim', config = function() require "lsp_signature".setup() end },
-    { 'williamboman/mason.nvim',  dependencies = { 'williamboman/mason-lspconfig.nvim' } },
+    { 'williamboman/mason.nvim', dependencies = { 'williamboman/mason-lspconfig.nvim' } },
     { 'junegunn/vim-emoji' },
     { 'folke/lsp-colors.nvim' },
-    { 'RRethy/vim-illuminate',    event = "BufEnter" },
+    { 'RRethy/vim-illuminate',   event = "BufEnter" },
     {
         'jose-elias-alvarez/null-ls.nvim',
         config = function() require 'plugins.null-ls' end,
@@ -423,4 +423,10 @@ require("lazy").setup({
     {
         'thinca/vim-qfhl'
     },
+    {
+        'kenn7/vim-arsync',
+        dependencies = {
+            {'prabirshrestha/async.vim'}
+        }
+    }
 })
