@@ -23,7 +23,7 @@ require("lazy").setup({
     {
         'RRethy/nvim-base16',
         config = function()
-            vim.cmd([[colorscheme base16-gruvbox-dark-medium]])
+            vim.cmd([[colorscheme base16-gruvbox-dark-pale]])
         end
     },
     {
