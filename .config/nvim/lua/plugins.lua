@@ -420,9 +420,9 @@ require("lazy").setup({
     {
         'tpope/vim-surround'
     },
-    {
-        'thinca/vim-qfhl'
-    },
+    -- {
+    --     'thinca/vim-qfhl'
+    -- },
     {
         'kenn7/vim-arsync',
         dependencies = {
