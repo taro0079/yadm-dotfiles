@@ -102,14 +102,14 @@ cmp.setup {
         { name = 'path' },
         { name = 'neorg' },
         { name = 'nerdfont' },
-        -- { name = 'spell' },
+        { name = 'spell' },
         -- { name = 'ultisnips' },
         { name = 'emoji' },
         { name = 'luasnip' },
         -- { name = 'calc' },
-        { name = 'copilot' },
+        -- { name = 'copilot' },
         { name = 'nvim_lsp_signature_help' },
-        -- { name = 'dictionary',
+        { name = 'dictionary' },
         -- keyword_length = 2 }
     },
     experimental = {

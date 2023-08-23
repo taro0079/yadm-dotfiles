@@ -10,6 +10,7 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(lazypath)
+
 require("lazy").setup({
     { "folke/which-key.nvim", lazy = true },
     "soramugi/auto-ctags.vim",
@@ -142,9 +143,9 @@ require("lazy").setup({
         -- lazy-load on a command
         cmd = "StartupTime",
     },
-    {
-        "github/copilot.vim",
-    },
+    -- {
+    --     "github/copilot.vim",
+    -- },
     {
         "hrsh7th/nvim-cmp",
         -- load cmp on InsertEnter
@@ -162,7 +163,7 @@ require("lazy").setup({
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline',
             'f3fora/cmp-spell',
-            'hrsh7th/cmp-copilot',
+            -- 'hrsh7th/cmp-copilot',
             'chrisgrieser/cmp-nerdfont',
             'saadparwaiz1/cmp_luasnip'
             -- 'uga-rosa/cmp-dictionary', config = function() require 'plugins.dictionary' end } #TODO
@@ -428,5 +429,9 @@ require("lazy").setup({
         dependencies = {
             {'prabirshrestha/async.vim'}
         }
+    },
+    {
+        'hesselbom/vim-hsftp'
     }
+
 })
