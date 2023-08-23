@@ -26,7 +26,7 @@ set noundofile
 set wildmenu
 set backspace=indent,eol,start
 set expandtab
-set listchars=eol:↲,tab:>.,trail:~,space:␣,nbsp:%
+set listchars=eol:¿,tab:>.,trail:~,space:¿,nbsp:%
 " set list
 set tabstop=4
 set shiftwidth=4
@@ -172,7 +172,7 @@ nnoremap <leader>lt :set list!<CR>
 " endfunction
 
 " set list
-" set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+" set listchars=tab:»-,trail:-,eol:¿,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
 syntax enable
 filetype plugin on
@@ -260,7 +260,7 @@ augroup lsp_install
 augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
-" rspt チケット加工処理 ---- {{{1
+" rspt ¿¿¿¿¿¿¿¿ ---- {{{1
 function! RpstTicketNum()
     execute ":%v/^#\\d.\\+/s/.*//g"
     execute ":%s/^#\\(\\d\\+\\)\\|.+$/\\1/g"
