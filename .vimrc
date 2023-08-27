@@ -54,7 +54,7 @@ call plug#begin()
 " Plug 'tomasr/molokai'
 Plug 'danilo-augusto/vim-afterglow'
 " Plug 'taro0079/path_to_clipboard'
-Plug 'github/copilot.vim'
+Plug 'vim-denops/denops.vim'
 " Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank'
 " Plug 'prabirshrestha/async.vim'
@@ -70,6 +70,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'skywind3000/asyncrun.vim'
+
 " Plug 'soramugi/auto-ctags.vim'
 " Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
@@ -95,6 +97,7 @@ Plug 'taro0079/fd.vim'
 Plug 'taro0079/ripgrep.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'eshion/vim-sync'
 " Plug 'easymotion/vim-easymotion'
 " Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production'  }
 " Plug 'lambdalisue/suda.vim'
@@ -177,10 +180,9 @@ nnoremap <leader>lt :set list!<CR>
 syntax enable
 filetype plugin on
 set termguicolors
-" colorscheme gruvbox
-" colorscheme solarized8
 set background=dark
-colorscheme solarized8
+colorscheme gruvbox
+" colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
@@ -260,9 +262,13 @@ augroup lsp_install
 augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
-" rspt ¿¿¿¿¿¿¿¿ ---- {{{1
+" rspt チケット番号抽出コマンド ---- {{{1
 function! RpstTicketNum()
     execute ":%v/^#\\d.\\+/s/.*//g"
     execute ":%s/^#\\(\\d\\+\\)\\|.+$/\\1/g"
     execute ":%s/^\\n//g"
 endfunction
+
+" denops setting --- {{{ 1
+set runtimepath^=~/dev/denops-tutorial
+let g:denops#debug = 1

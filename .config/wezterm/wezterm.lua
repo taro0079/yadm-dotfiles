@@ -21,12 +21,12 @@ end
 if mac then
   return {
     font = wezterm.font_with_fallback {
-      { family = 'PlemolJP Console NF', weight = "Regular", italic = false },
-      { family = 'PlemolJP Console NF', weight = "Regular", italic = true },
-      { family = 'PlemolJP Console NF', weight = "Bold" }
+      { family = 'UbuntuMono Nerd Font', weight = "Regular", italic = false },
+      { family = 'UbuntuMono Nerd Font', weight = "Regular", italic = true },
+      { family = 'UbuntuMono Nerd Font', weight = "Bold" }
     },
    -- disable_default_key_bindings = true,
-    font_size = 16,
+    font_size = 18,
     keys = mykeys,
     color_scheme = "Tokyo Night Storm",
     send_composed_key_when_right_alt_is_pressed = false,

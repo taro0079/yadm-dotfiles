@@ -24,15 +24,15 @@ require("lazy").setup({
     {
         'RRethy/nvim-base16',
         config = function()
-            -- vim.cmd([[colorscheme base16-gruvbox-dark-pale]])
+            vim.cmd([[colorscheme base16-gruvbox-dark-soft]])
         end
     },
-    {
-        'rose-pine/neovim',
-        config = function()
-            require('plugins.rose-pine')
-        end
-    },
+    -- {
+    --     'rose-pine/neovim',
+    --     config = function()
+    --         require('plugins.rose-pine')
+    --     end
+    -- },
 
     {
         'nyoom-engineering/oxocarbon.nvim',
@@ -432,6 +432,12 @@ require("lazy").setup({
     },
     {
         'hesselbom/vim-hsftp'
-    }
+    },
+    -- {
+    --     'tanvirtin/monokai.nvim',
+    --     config =function ()
+    --         require("plugins.monokai")
+    --     end
+    -- }
 
 })
