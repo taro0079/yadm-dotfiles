@@ -76,10 +76,8 @@ require("lazy").setup({
         end,
     },
     {
-        'dinhhuy258/git.nvim',
-        config = function()
-            require('plugins.git')
-        end
+        'tpope/vim-fugitive'
+
     },
     {
         'NeogitOrg/neogit',
@@ -410,13 +408,16 @@ require("lazy").setup({
             vim.keymap.set("x", "<leader>c", require("osc52").copy_visual)
         end,
     },
+    -- {
+    --     'phaazon/hop.nvim',
+    --     branch = 'v2', -- optional but strongly recommended
+    --     config = function()
+    --         -- you can configure Hop the way you like here; see :h hop-config
+    --         require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    --     end
+    -- },
     {
-        'phaazon/hop.nvim',
-        branch = 'v2', -- optional but strongly recommended
-        config = function()
-            -- you can configure Hop the way you like here; see :h hop-config
-            require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-        end
+        'justinmk/vim-sneak'
     },
     {
         'tpope/vim-surround'
@@ -427,7 +428,7 @@ require("lazy").setup({
     {
         'kenn7/vim-arsync',
         dependencies = {
-            {'prabirshrestha/async.vim'}
+            { 'prabirshrestha/async.vim' }
         }
     },
     {

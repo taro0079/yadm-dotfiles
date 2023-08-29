@@ -8,7 +8,7 @@ font:
   italic:
     family: UbuntuMono Nerd Font
     style: Italic
-  size: 16
+  size: 20
 window:
   padding:
     x: 0
