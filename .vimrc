@@ -45,7 +45,10 @@ set t_Co=256
 set laststatus=2
 set path+=**
 set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\ [TYPE=%Y]\ %=[CODE=0x%02B]\ [POS=%l/%L(%02v)]
-
+if executable('rg')
+    let &grepprg = 'rg --vimgrep --hidden'
+    set grepformat=%f:%l:%c:%m
+endif
 
 " Plugins ---------------------------- {{{1
 call plug#begin()
