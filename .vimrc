@@ -1,4 +1,4 @@
-    " basic settings ---------------------------- {{{1
+" basic settings ---------------------------- {{{1
 let mapleader = ','
 set title
 " set cmdheight=1
@@ -53,17 +53,13 @@ endif
 " Plugins ---------------------------- {{{1
 call plug#begin()
 " Plug 'MattesGroeger/vim-bookmarks'
-" " Plug 'nordtheme/vim'
-" Plug 'tomasr/molokai'
 Plug 'danilo-augusto/vim-afterglow'
 " Plug 'taro0079/path_to_clipboard'
 Plug 'vim-denops/denops.vim'
 " Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank'
-" Plug 'prabirshrestha/async.vim'
 Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
-" Plug 'EinfachToll/DidYouMean'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
 Plug 'prabirshrestha/vim-lsp'
@@ -75,38 +71,35 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'skywind3000/asyncrun.vim'
 
-" Plug 'soramugi/auto-ctags.vim'
-" Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'morhetz/gruvbox'
 Plug 'altercation/vim-colors-solarized'
 
 Plug 'mattn/emmet-vim'
-" Plug 'patstockwell/vim-monokai-tasty'
 Plug 'justinmk/vim-sneak'
 Plug 'vim-skk/eskk.vim'
 Plug 'tomasr/molokai'
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 Plug 'lifepillar/vim-solarized8'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'taro0079/fd.vim'
-Plug 'taro0079/ripgrep.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'eshion/vim-sync'
-" Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 " Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production'  }
 " Plug 'lambdalisue/suda.vim'
 " Plug 'kana/vim-textobj-user'
 " Plug 'osyo-manga/vim-textobj-blockwise'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 
 call plug#end()
 
@@ -147,35 +140,35 @@ augroup END
 nnoremap <leader>lt :set list!<CR>
 
 " lsp settings --- {{{1
-" let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
-" let g:lsp_diagnostics_enabled = 1
-" let g:lsp_diagnostics_float_cursor = 1
-" let g:lsp_diagnostics_highlights_enabled = 1
-" let g:lsp_diagnostics_virtual_text_align = 'after'
-" hi DiagnosticError guifg=Red
-" hi DiagnosticWarn  guifg=DarkOrange
-" hi DiagnosticInfo  guifg=Blue
-" hi DiagnosticHint  guifg=Green
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_highlights_enabled = 1
+let g:lsp_diagnostics_virtual_text_align = 'after'
+hi DiagnosticError guifg=Red
+hi DiagnosticWarn  guifg=DarkOrange
+hi DiagnosticInfo  guifg=Blue
+hi DiagnosticHint  guifg=Green
 
-" if executable('ag')
-"   let g:ackprg = 'ag --vimgrep'
-" endif
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
-" " vim lsp settings --- {{{1
-" function! s:on_lsp_buffer_enabled() abort
-"   setlocal omnifunc=lsp#complete
-"   setlocal signcolumn=yes
-"   nmap <buffer> gd <plug>(lsp-definition)
-"   nmap <buffer> gs <plug>(lsp-document-symbol-search)
-"   nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-"   nmap <buffer> gr <plug>(lsp-references)
-"   nmap <buffer> gi <plug>(lsp-implementation)
-"   nmap <buffer> gt <plug>(lsp-type-definition)
-"   nmap <buffer> <leader>rn <plug>(lsp-rename)
-"   nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-"   nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-"   nmap <buffer> K <plug>(lsp-hover)
-" endfunction
+" vim lsp settings --- {{{1
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+endfunction
 
 " set list
 " set listchars=tab:»-,trail:-,eol:¿,extends:»,precedes:«,nbsp:%
@@ -236,13 +229,13 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " vim-vsnip setting ---- {{{1
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-" Jump forward or backward
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+" imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+" smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+" " Jump forward or backward
+" imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+" smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+" imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+" smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
 " newtrw settings ---- {{{1
 let g:netrw_banner=0
@@ -272,6 +265,12 @@ function! RpstTicketNum()
     execute ":%s/^\\n//g"
 endfunction
 
-" denops setting --- {{{ 1
+" denops setting --- {{{1
 set runtimepath^=~/dev/denops-tutorial
-let g:denops#debug = 1
+" let g:denops#debug = 1
+
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+" If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
