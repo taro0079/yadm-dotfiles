@@ -282,7 +282,8 @@ require("lazy").setup({
         },
     },
     -- snippets
-    { "honza/vim-snippets",      event = "InsertEnter" },
+    { "SirVer/ultisnips", },
+    { "honza/vim-snippets", },
 
     -- nvim-lsp
     { 'williamboman/mason.nvim', dependencies = { 'williamboman/mason-lspconfig.nvim' } },
@@ -342,7 +343,7 @@ require("lazy").setup({
         'mfussenegger/nvim-dap',
         event = "VimEnter"
     },
-    { 
+    {
         'nvim-telescope/telescope-dap.nvim',
         event = "VimEnter"
     },
@@ -353,8 +354,8 @@ require("lazy").setup({
             "williamboman/mason-lspconfig.nvim" },
         event = "BufEnter"
     },
-    { 
-        'rcarriga/nvim-dap-ui',             
+    {
+        'rcarriga/nvim-dap-ui',
         config = function() require('plugins.nvim-dap-ui') end,
         event = "BufEnter"
     },

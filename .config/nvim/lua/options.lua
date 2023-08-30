@@ -1,4 +1,7 @@
 -- vim.g.maplocalleader = ','
+vim.g.UltiSnipsExpandTrigger = "<c-l>"
+vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
+vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
 vim.o.tags = './tags'
 vim.wo.number = true
 vim.wo.relativenumber = true
