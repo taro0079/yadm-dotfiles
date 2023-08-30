@@ -13,13 +13,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     { "folke/which-key.nvim", lazy = true },
-    "soramugi/auto-ctags.vim",
     {
         'norcalli/nvim-colorizer.lua',
         config = true
     },
     {
-        'taro0079/path_to_clipboard'
+        'taro0079/path_to_clipboard',
+        event = "BufEnter",
     },
     {
         'RRethy/nvim-base16',
@@ -27,37 +27,10 @@ require("lazy").setup({
             vim.cmd([[colorscheme base16-gruvbox-dark-soft]])
         end
     },
-    -- {
-    --     'rose-pine/neovim',
-    --     config = function()
-    --         require('plugins.rose-pine')
-    --     end
-    -- },
-
-    {
-        'nyoom-engineering/oxocarbon.nvim',
-        config = function()
-            -- vim.opt.background = "dark"
-            -- vim.cmd.colorscheme "oxocarbon"
-        end
-    },
-    {
-        'Matsuuu/pinkmare',
-        config = function()
-            -- vim.cmd([[colorscheme pinkmare]])
-        end
-    },
     {
         "stevearc/aerial.nvim",
         config = function()
             require("plugins.aerial")
-        end
-    },
-    {
-        "rgroli/other.nvim",
-        event = "BufEnter",
-        config = function()
-            require("plugins.other")
         end
     },
     {
@@ -87,10 +60,6 @@ require("lazy").setup({
 
     },
     {
-        'yuki-yano/fuzzy-motion.vim',
-        dependencies = "vim-denops/denops.vim"
-    },
-    {
         'johmsalas/text-case.nvim',
         config = true
     },
@@ -109,14 +78,16 @@ require("lazy").setup({
         'cappyzawa/trim.nvim',
         config = function()
             require('plugins.trim')
-        end
+        end,
+        event = "InsertEnter",
     },
     {
         "RRethy/nvim-treesitter-endwise",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
 
-        }
+        },
+        event = "InsertEnter",
     },
     { 'onsails/lspkind-nvim', dependencies = "hrsh7th/nvim-cmp" },
     {
@@ -141,9 +112,6 @@ require("lazy").setup({
         -- lazy-load on a command
         cmd = "StartupTime",
     },
-    -- {
-    --     "github/copilot.vim",
-    -- },
     {
         "hrsh7th/nvim-cmp",
         -- load cmp on InsertEnter
@@ -168,7 +136,7 @@ require("lazy").setup({
         },
         config = function()
             require 'plugins.cmp'
-            require 'plugins.luasnip'
+            -- require 'plugins.luasnip'
         end,
     },
     {
@@ -202,14 +170,6 @@ require("lazy").setup({
     {
         'easymotion/vim-easymotion'
     },
-    {
-        'koenverburg/peepsight.nvim',
-        config = function()
-            require("plugins.peepsight")
-        end,
-        dependencies = 'nvim-treesitter/nvim-treesitter'
-    },
-
     {
         "hoob3rt/lualine.nvim",
         config = function()
@@ -321,20 +281,10 @@ require("lazy").setup({
             -- options
         },
     },
-
     -- snippets
-    {
-        "L3MON4D3/LuaSnip",
-        -- follow latest release.
-        version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-        -- install jsregexp (optional!).
-        build = "make install_jsregexp"
-    },
     { "honza/vim-snippets",      event = "InsertEnter" },
-    -- { "previm/previm",            event = "BufEnter" }, -- markdown のプレビュープラグイン
 
     -- nvim-lsp
-    -- { 'ray-x/lsp_signature.nvim', config = function() require "lsp_signature".setup() end },
     { 'williamboman/mason.nvim', dependencies = { 'williamboman/mason-lspconfig.nvim' } },
     { 'junegunn/vim-emoji' },
     { 'folke/lsp-colors.nvim' },
@@ -352,7 +302,8 @@ require("lazy").setup({
         "monaqa/dial.nvim", event = "BufEnter", config = function() require('plugins.dial') end
     },
     {
-        'mattn/emmet-vim'
+        'mattn/emmet-vim',
+        event = "InsertEnter"
     },
     {
         "kylechui/nvim-surround",
@@ -385,20 +336,28 @@ require("lazy").setup({
     },
     {
         'MattesGroeger/vim-bookmarks',
+        event = "VimEnter"
     },
     {
         'mfussenegger/nvim-dap',
-        -- config = function() require('plugins.dap') end
+        event = "VimEnter"
     },
-    { 'nvim-telescope/telescope-dap.nvim' },
-    -- { 'mfussenegger/nvim-dap-python' },
+    { 
+        'nvim-telescope/telescope-dap.nvim',
+        event = "VimEnter"
+    },
     {
         "jay-babu/mason-nvim-dap.nvim",
         config = function() require('plugins.mason-nvim-dap') end,
         dependencies = {
-            "williamboman/mason-lspconfig.nvim" }
+            "williamboman/mason-lspconfig.nvim" },
+        event = "BufEnter"
     },
-    { 'rcarriga/nvim-dap-ui',             config = function() require('plugins.nvim-dap-ui') end },
+    { 
+        'rcarriga/nvim-dap-ui',             
+        config = function() require('plugins.nvim-dap-ui') end,
+        event = "BufEnter"
+    },
     {
         "ojroques/nvim-osc52",
         config = function()
@@ -408,37 +367,19 @@ require("lazy").setup({
             vim.keymap.set("x", "<leader>c", require("osc52").copy_visual)
         end,
     },
-    -- {
-    --     'phaazon/hop.nvim',
-    --     branch = 'v2', -- optional but strongly recommended
-    --     config = function()
-    --         -- you can configure Hop the way you like here; see :h hop-config
-    --         require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-    --     end
-    -- },
     {
-        'justinmk/vim-sneak'
+        'justinmk/vim-sneak',
+        event = "BufEnter",
     },
     {
-        'tpope/vim-surround'
+        'tpope/vim-surround',
+        event = "InsertEnter",
     },
-    -- {
-    --     'thinca/vim-qfhl'
-    -- },
     {
         'kenn7/vim-arsync',
         dependencies = {
             { 'prabirshrestha/async.vim' }
-        }
+        },
+        event = "BufEnter",
     },
-    {
-        'hesselbom/vim-hsftp'
-    },
-    -- {
-    --     'tanvirtin/monokai.nvim',
-    --     config =function ()
-    --         require("plugins.monokai")
-    --     end
-    -- }
-
 })

@@ -1,6 +1,6 @@
 local cmp = require 'cmp'
 local lspkind = require 'lspkind'
-local luasnip = require("luasnip")
+-- local luasnip = require("luasnip")
 -- local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -44,7 +44,7 @@ cmp.setup {
         --   vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         -- end,
         expand = function(args)
-            require 'luasnip'.lsp_expand(args.body)
+            -- require 'luasnip'.lsp_expand(args.body)
         end
     },
 
@@ -61,11 +61,11 @@ cmp.setup {
         ['<C-e>'] = cmp.mapping.abort(),
         ['<C-h>'] = cmp.mapping(
             function(fallback)
-                if luasnip.choice_active() then
-                    luasnip.change_choice(1)
-                else
-                    fallback()
-                end
+                -- if luasnip.choice_active() then
+                --     luasnip.change_choice(1)
+                -- else
+                --     fallback()
+                -- end
             end, { "i", "s" }
         ),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
@@ -73,8 +73,8 @@ cmp.setup {
         function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
-                elseif luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
+                -- elseif luasnip.expand_or_jumpable() then
+                --     luasnip.expand_or_jump()
                 elseif has_words_before() then
                     cmp.complete()
                 else
@@ -87,8 +87,8 @@ cmp.setup {
         function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
-                elseif luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
+                -- elseif luasnip.jumpable(-1) then
+                --     luasnip.jump(-1)
                 else
                     fallback()
                 end
@@ -105,7 +105,7 @@ cmp.setup {
         { name = 'spell' },
         -- { name = 'ultisnips' },
         { name = 'emoji' },
-        { name = 'luasnip' },
+        -- { name = 'luasnip' },
         -- { name = 'calc' },
         -- { name = 'copilot' },
         { name = 'nvim_lsp_signature_help' },

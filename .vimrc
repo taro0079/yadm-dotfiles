@@ -44,7 +44,7 @@ set t_Co=256
 " set foldclose=all
 set laststatus=2
 set path+=**
-set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\ [TYPE=%Y]\ %=[CODE=0x%02B]\ [POS=%l/%L(%02v)]
+set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ %=[CODE=0x%02B]\ [POS=%l/%L(%02v)]\ [%{fugitive#statusline()}]
 if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
@@ -54,7 +54,7 @@ endif
 call plug#begin()
 " Plug 'MattesGroeger/vim-bookmarks'
 Plug 'danilo-augusto/vim-afterglow'
-" Plug 'taro0079/path_to_clipboard'
+Plug 'taro0079/path_to_clipboard'
 Plug 'vim-denops/denops.vim'
 " Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank'
