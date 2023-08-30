@@ -28,7 +28,7 @@ if mac then
    -- disable_default_key_bindings = true,
     font_size = 18,
     keys = mykeys,
-    color_scheme = "Tokyo Night Storm",
+    -- color_scheme = "Tokyo Night Storm",
     send_composed_key_when_right_alt_is_pressed = false,
     hide_tab_bar_if_only_one_tab = true,
     window_padding = {

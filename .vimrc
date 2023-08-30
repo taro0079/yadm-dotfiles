@@ -1,5 +1,5 @@
 " basic settings ---------------------------- {{{1
-let mapleader = ','
+" let mapleader = ','
 set title
 " set cmdheight=1
 " set tags=tags;
@@ -267,10 +267,13 @@ endfunction
 
 " denops setting --- {{{1
 set runtimepath^=~/dev/denops-tutorial
-" let g:denops#debug = 1
+let g:denops#debug = 1
 
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " If you want :UltiSnipsEdit to split your window.
 " let g:UltiSnipsEditSplit="vertical"
+
+" myfd --- {{{1
+nmap <leader>fd :MyFd<cr>
