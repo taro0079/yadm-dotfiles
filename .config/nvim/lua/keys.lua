@@ -14,7 +14,7 @@ vim.keymap.set('n', '<leader>lt', ':set list!<CR>')
 -- Bookmark
 vim.keymap.set('n', '<leader>bb', '<Plug>BookmarkToggle')
 vim.keymap.set('n', '<leader>bx', '<Plug>BookmarkClearAll')
-api.nvim_set_keymap('n', '<leader>fh', "<cmd>lua require('telescope.builtin').search_history()<cr>",
+api.nvim_set_keymap('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>",
     { noremap = true, silent = true })
 api.nvim_set_keymap('n', '<leader>ps',
     "<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input('Grep For > ')}) <cr>",

@@ -39,12 +39,12 @@ set hidden
 set cursorline
 set ignorecase
 set t_Co=256
-" set foldmethod=indent
+set foldmethod=indent
 " set foldlevel=1
 " set foldclose=all
 set laststatus=2
 set path+=**
-set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ [%{cfi#get_func_name()}()]\ %=[CODE=0x%02B]\ [POS=%l/%L(%02v)]\ [%{fugitive#statusline()}]
+set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ [%{cfi#get_func_name()}()]\ %=[POS=%l/%L(%02v)]\ [%{fugitive#statusline()}]
 if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
@@ -71,6 +71,7 @@ Plug 'morhetz/gruvbox'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'justinmk/vim-sneak'
+Plug 'KenN7/vim-arsync'
 Plug 'tyru/current-func-info.vim'
 Plug 'vim-skk/eskk.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -86,6 +87,8 @@ Plug 'osyo-manga/vim-textobj-blockwise'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'easymotion/vim-easymotion'
+
 
 
 call plug#end()
@@ -98,8 +101,9 @@ nmap <leader>fq :RG<CR>
 
 
 " fold settings ---------------------- {{{1
-set foldmethod=manual
+" set foldmethod=manual
 augroup filetype_vim
+  set foldmethod=manual
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END

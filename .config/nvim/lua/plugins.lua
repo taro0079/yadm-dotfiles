@@ -24,7 +24,7 @@ require("lazy").setup({
     {
         'RRethy/nvim-base16',
         config = function()
-            vim.cmd([[colorscheme base16-gruvbox-dark-soft]])
+            vim.cmd([[colorscheme base16-gruvbox-material-dark-soft]])
         end
     },
     {
@@ -152,20 +152,20 @@ require("lazy").setup({
         "numToStr/Navigator.nvim",
         config = function() require("plugins.navigator") end
     },
-    {
-        'romgrk/barbar.nvim',
-        dependencies = 'nvim-tree/nvim-web-devicons',
-        version = '^1.0.0',
-        config = function()
-            require("barbar").setup {
-                icons = {
-                    button = "x",
-                    buffer_number = true,
-                    preset = "powerline"
-                }
-            }
-        end
-    },
+    -- {
+    --     'romgrk/barbar.nvim',
+    --     dependencies = 'nvim-tree/nvim-web-devicons',
+    --     version = '^1.0.0',
+    --     config = function()
+    --         require("barbar").setup {
+    --             icons = {
+    --                 button = "x",
+    --                 buffer_number = true,
+    --                 preset = "powerline"
+    --             }
+    --         }
+    --     end
+    -- },
 
     {
         'easymotion/vim-easymotion'
