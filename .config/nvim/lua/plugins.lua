@@ -90,6 +90,7 @@ require("lazy").setup({
         event = "InsertEnter",
     },
     { 'onsails/lspkind-nvim', dependencies = "hrsh7th/nvim-cmp" },
+    {"quangnguyen30192/cmp-nvim-ultisnips"},
     {
         'folke/tokyonight.nvim',
         lazy = false,
@@ -131,7 +132,7 @@ require("lazy").setup({
             'f3fora/cmp-spell',
             -- 'hrsh7th/cmp-copilot',
             'chrisgrieser/cmp-nerdfont',
-            'saadparwaiz1/cmp_luasnip'
+            -- 'saadparwaiz1/cmp_luasnip'
             -- 'uga-rosa/cmp-dictionary', config = function() require 'plugins.dictionary' end } #TODO
         },
         config = function()

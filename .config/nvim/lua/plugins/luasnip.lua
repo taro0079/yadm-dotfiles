@@ -81,5 +81,18 @@ ls.add_snippets(nil, {
             text({ "", "" }),
             text({ "end" }),
         })
+    },
+    php = {
+        snip("class",{
+            text({"class "}), insert(1),
+            text({ "", "" }),
+            text({"{"}),
+            text({ "", "" }),
+            text({ '    ' }), insert(0),
+            text({ "", "" }),
+            text({"}"}),
+        }
+
+        )
     }
 })
