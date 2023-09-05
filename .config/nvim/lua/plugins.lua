@@ -24,8 +24,15 @@ require("lazy").setup({
     {
         'RRethy/nvim-base16',
         config = function()
-            vim.cmd([[colorscheme base16-gruvbox-material-dark-soft]])
+            -- vim.cmd([[colorscheme base16-gruvbox-material-dark-soft]])
         end
+    },
+    {
+        'AlexvZyl/nordic.nvim',
+        config = function ()
+            vim.cmd([[colorscheme nordic]])
+        end
+
     },
     {
         "stevearc/aerial.nvim",
