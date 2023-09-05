@@ -4,6 +4,7 @@ if not vim.g.vscode then
     require('keys')
     require('config')
     require('gui-settings')
+    require('helper.matchit-setting')
 elseif vim.g.vscode then
     vim.wo.number = true
     vim.wo.relativenumber = true

@@ -14,7 +14,7 @@ vim.keymap.set('n', '<leader>lt', ':set list!<CR>')
 -- Bookmark
 vim.keymap.set('n', '<leader>bb', '<Plug>BookmarkToggle')
 vim.keymap.set('n', '<leader>bx', '<Plug>BookmarkClearAll')
-api.nvim_set_keymap('n', '<leader>fh', "<cmd>lua require('telescope.builtin').search_history()<cr>",
+api.nvim_set_keymap('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>",
     { noremap = true, silent = true })
 api.nvim_set_keymap('n', '<leader>ps',
     "<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input('Grep For > ')}) <cr>",
@@ -47,20 +47,20 @@ api.nvim_set_keymap('n', "<leader>sd", "<cmd>lua vim.lsp.diagnostic.show_line_di
     { noremap = true, silent = true })
 
 -- place this in one of your configuration file(s)
-local hop = require('hop')
-local directions = require('hop.hint').HintDirection
-vim.keymap.set('', 'f', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })
-end, {remap=true})
-vim.keymap.set('', 'F', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })
-end, {remap=true})
-vim.keymap.set('', 't', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })
-end, {remap=true})
-vim.keymap.set('', 'T', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })
-end, {remap=true})
+-- local hop = require('hop')
+-- local directions = require('hop.hint').HintDirection
+-- vim.keymap.set('', 'f', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })
+-- end, {remap=true})
+-- vim.keymap.set('', 'F', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })
+-- end, {remap=true})
+-- vim.keymap.set('', 't', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false, hint_offset = -1 })
+-- end, {remap=true})
+-- vim.keymap.set('', 'T', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false, hint_offset = 1 })
+-- end, {remap=true})
 
 vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
 vim.keymap.set("n", "ga", "<Plug>(EasyAlign)")
@@ -186,5 +186,4 @@ local function on_attach(bufnr)
     -- You will need to insert "your code goes here" for any mappings with a custom action_cb
     vim.keymap.set('n', 'u', api.tree.change_root_to_parent, opts('Up'))
 end
-
 

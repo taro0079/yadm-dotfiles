@@ -36,12 +36,12 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
   -- add your sources / config options here
   sources = {
-        null_ls.builtins.formatting.prettier.with({
-            filetypes = {
-                "javascript", "typescript", "typescriptreact", "json", "yaml",  "html", "css", "scss"
-            }
-        }),
-    -- null_ls.builtins.diagnostics.eslint,
+  --       null_ls.builtins.formatting.prettier.with({
+  --           filetypes = {
+  --               "javascript", "typescript", "typescriptreact", "json", "yaml",  "html", "css", "scss"
+  --           }
+  --       }),
+    null_ls.builtins.diagnostics.eslint,
     -- null_ls.builtins.diagnostics.markdownlint,
     -- null_ls.builtins.formatting.deno_fmt.with({
     --   filetypes = { "markdown" },
@@ -50,7 +50,7 @@ null_ls.setup({
     -- null_ls.builtins.formatting.erb_format,
     -- null_ls.builtins.formatting.rufo,
     -- null_ls.builtins.formatting.rubocop,
-    -- null_ls.builtins.formatting.eslint,
+    null_ls.builtins.formatting.eslint,
     -- null_ls.builtins.formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
   },
   debug = true,
