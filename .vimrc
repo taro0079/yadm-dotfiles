@@ -69,6 +69,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'morhetz/gruvbox'
 Plug 'mattn/emmet-vim'
+Plug 'catppuccin/vim', { 'as': 'catppuccin'  }
 Plug 'sheerun/vim-polyglot'
 Plug 'justinmk/vim-sneak'
 Plug 'KenN7/vim-arsync'
@@ -149,7 +150,7 @@ syntax enable
 filetype plugin on
 set termguicolors
 set background=dark
-colorscheme gruvbox
+colorscheme catppuccin_macchiato
 " colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1
