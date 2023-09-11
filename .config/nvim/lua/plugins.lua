@@ -28,13 +28,6 @@ require("lazy").setup({
         end
     },
     {
-        'AlexvZyl/nordic.nvim',
-        config = function ()
-            vim.cmd([[colorscheme nordic]])
-        end
-
-    },
-    {
         "stevearc/aerial.nvim",
         config = function()
             require("plugins.aerial")
@@ -97,7 +90,7 @@ require("lazy").setup({
         event = "InsertEnter",
     },
     { 'onsails/lspkind-nvim', dependencies = "hrsh7th/nvim-cmp" },
-    {"quangnguyen30192/cmp-nvim-ultisnips"},
+    -- {"quangnguyen30192/cmp-nvim-ultisnips"},
     {
         'folke/tokyonight.nvim',
         lazy = false,
@@ -112,7 +105,7 @@ require("lazy").setup({
                     -- floats = "transparent"
                 }
             })
-            -- vim.cmd([[colorscheme tokyonight]])
+            vim.cmd([[colorscheme tokyonight]])
         end
     },
     {
@@ -139,12 +132,12 @@ require("lazy").setup({
             'f3fora/cmp-spell',
             -- 'hrsh7th/cmp-copilot',
             'chrisgrieser/cmp-nerdfont',
-            -- 'saadparwaiz1/cmp_luasnip'
+            'saadparwaiz1/cmp_luasnip'
             -- 'uga-rosa/cmp-dictionary', config = function() require 'plugins.dictionary' end } #TODO
         },
         config = function()
             require 'plugins.cmp'
-            -- require 'plugins.luasnip'
+            require 'plugins.luasnip'
         end,
     },
     {
@@ -290,7 +283,7 @@ require("lazy").setup({
         },
     },
     -- snippets
-    { "SirVer/ultisnips", },
+    -- { "SirVer/ultisnips", },
     { "honza/vim-snippets", },
 
     -- nvim-lsp
@@ -391,4 +384,32 @@ require("lazy").setup({
         },
         event = "BufEnter",
     },
+    {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
+    },
+
+    {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
 })

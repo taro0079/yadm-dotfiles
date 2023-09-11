@@ -1,5 +1,6 @@
 local ls = require("luasnip")
 -- some shorthands...
+require("luasnip.loaders.from_snipmate").load()
 local snip = ls.snippet
 local node = ls.snippet_node
 local r = ls.restore_node
@@ -8,7 +9,6 @@ local insert = ls.insert_node
 local func = ls.function_node
 local choice = ls.choice_node
 local dynamicn = ls.dynamic_node
-
 local date = function() return { os.date('%Y-%m-%d') } end
 local function copy(args)
     return args[1]
