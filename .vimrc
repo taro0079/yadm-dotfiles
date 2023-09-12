@@ -1,9 +1,5 @@
 " basic settings ---------------------------- {{{1
-" let mapleader = ','
 set title
-" set cmdheight=1
-" set tags=tags;
-" set clipboard&
 set clipboard=unnamed,unnamedplus
 set showcmd
 set ruler
@@ -40,8 +36,6 @@ set cursorline
 set ignorecase
 set t_Co=256
 set foldmethod=indent
-" set foldlevel=1
-" set foldclose=all
 set laststatus=2
 set path+=**
 set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ [%{cfi#get_func_name()}()]\ %=[POS=%l/%L(%02v)]\ [%{fugitive#statusline()}]
@@ -67,7 +61,6 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'morhetz/gruvbox'
 Plug 'mattn/emmet-vim'
 Plug 'catppuccin/vim', { 'as': 'catppuccin'  }
 Plug 'sheerun/vim-polyglot'
@@ -75,30 +68,25 @@ Plug 'justinmk/vim-sneak'
 Plug 'KenN7/vim-arsync'
 Plug 'tyru/current-func-info.vim'
 Plug 'vim-skk/eskk.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'taro0079/fd.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'eshion/vim-sync'
-Plug 'prettier/vim-prettier', { 'do': 'yarn workspaces focus --all --production', 'for': ['javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'jsx', 'tsx', 'css', 'json']  }
 Plug 'lambdalisue/suda.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'osyo-manga/vim-textobj-blockwise'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
-
-
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mattn/ctrlp-matchfuzzy'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'junegunn/goyo.vim'
+Plug 'github/copilot.vim'
 
 call plug#end()
-
-" FZF settings ---- {{{1
-" let g:fzf_layout = { 'window': 'split' }
-nmap <C-p> :GFiles<CR>
-nmap <leader>ff :Files<CR>
-nmap <leader>fq :RG<CR>
 
 
 " fold settings ---------------------- {{{1
@@ -205,12 +193,14 @@ endfunction
 set runtimepath^=~/dev/denops-tutorial
 " let g:denops#debug = 1
 
-" Ultisnips settings --- {{{1
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
 " myfd --- {{{1
 nmap <leader>fd :MyFd<cr>
+
+" CtrlP settings --- {{{1
+let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+
+" snipmate setting --- {{{1
+let g:snipMate = { 'snippet_version' : 1 }
+imap <C-k> <Plug>snipMateNextOrTrigger
+
+
