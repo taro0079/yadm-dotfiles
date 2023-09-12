@@ -375,4 +375,8 @@ require("lazy").setup({
         build = "make install_jsregexp",
         event = "BufEnter"
     },
+    {
+        'tpope/vim-dadbod',
+        cmd = "DB"
+    }
 })
