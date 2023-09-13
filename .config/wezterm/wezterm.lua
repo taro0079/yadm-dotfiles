@@ -21,14 +21,14 @@ end
 if mac then
     return {
         font = wezterm.font_with_fallback {
-            { family = 'UbuntuMono Nerd Font', weight = "Regular", italic = false },
-            { family = 'UbuntuMono Nerd Font', weight = "Regular", italic = true },
-            { family = 'UbuntuMono Nerd Font', weight = "Bold" },
+            { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
+            { family = 'HackGen Console NF', weight = "Regular", italic = true },
+            { family = 'CaskaydiaCove Nerd Font', weight = "Bold" },
             { family = 'HackGen Console NF', weight = "Bold" }
 
         },
         -- disable_default_key_bindings = true,
-        font_size = 18,
+        font_size = 16,
         keys = mykeys,
         -- color_scheme = "Tokyo Night Storm",
         send_composed_key_when_right_alt_is_pressed = false,

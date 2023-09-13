@@ -77,11 +77,6 @@ vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual(), { noremap = tru
 -- vim.keymap.set("v", "s","<cmd>Pounce<CR>", {noremap = true})
 -- vim.keymap.set("o", "gs","<cmd>Pounce<CR>", {noremap = true})
 
--- navogator
-vim.keymap.set({ 'n', 't' }, '<C-h>', '<cmd>lua require("Navigator").left()<cr>', { noremap = true })
-vim.keymap.set({ 'n', 't' }, '<C-j>', '<cmd>lua require("Navigator").down()<cr>', { noremap = true })
-vim.keymap.set({ 'n', 't' }, '<C-k>', '<cmd>lua require("Navigator").up()<cr>', { noremap = true })
-vim.keymap.set({ 'n', 't' }, '<C-l>', '<cmd>lua require("Navigator").right()<cr>', { noremap = true })
 
 -- Move to previous/next
 vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
