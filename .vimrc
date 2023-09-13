@@ -85,6 +85,7 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'junegunn/goyo.vim'
 Plug 'github/copilot.vim'
+Plug 'tpope/vim-dadbod'
 
 call plug#end()
 
