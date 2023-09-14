@@ -13,6 +13,14 @@ set incsearch
 set nocompatible
 " set signcolumn=yes
 set smartcase
+set display+=lastline
+set number
+set showmatch
+set incsearch
+set incsearch
+set nocompatible
+" set signcolumn=yes
+set smartcase
 set hlsearch
 set incsearch
 set nobackup
@@ -22,7 +30,7 @@ set noundofile
 set wildmenu
 set backspace=indent,eol,start
 set expandtab
-set listchars=eol:¿,tab:>.,trail:~,space:¿,nbsp:%
+set listchars=eol:¿,tab:>,trail:~,space:,nbsp:%
 " set list
 set tabstop=4
 set shiftwidth=4
@@ -32,7 +40,7 @@ set ai "Auto Indent"
 set si "Smart Indent"
 set wrap "Wrap lines"
 set hidden
-set cursorline
+" set cursorline
 set ignorecase
 set t_Co=256
 set foldmethod=indent
@@ -43,7 +51,6 @@ if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
 endif
-
 " Plugins ---------------------------- {{{1
 call plug#begin()
 Plug 'taro0079/path_to_clipboard'
@@ -85,7 +92,11 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'junegunn/goyo.vim'
 Plug 'github/copilot.vim'
+<<<<<<< Updated upstream
 Plug 'tpope/vim-dadbod'
+=======
+Plug 'itchyny/vim-parenmatch'
+>>>>>>> Stashed changes
 
 call plug#end()
 
@@ -204,4 +215,29 @@ let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 let g:snipMate = { 'snippet_version' : 1 }
 imap <C-k> <Plug>snipMateNextOrTrigger
 
+
+function! ProfileCursorMove() abort
+  let profile_file = expand('~/log/vim-profile.log')
+  if filereadable(profile_file)
+    call delete(profile_file)
+  endif
+
+  normal! gg
+  normal! zR
+
+  execute 'profile start ' . profile_file
+  profile func *
+  profile file *
+
+  augroup ProfileCursorMove
+    autocmd!
+    autocmd CursorHold <buffer> profile pause | q
+  augroup END
+
+  for i in range(2000)
+    call feedkeys('j')
+  endfor
+endfunction
+
+let g:loaded_matchparen = 1
 
