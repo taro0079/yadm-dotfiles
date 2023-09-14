@@ -30,7 +30,8 @@ set noundofile
 set wildmenu
 set backspace=indent,eol,start
 set expandtab
-set listchars=eol:¿,tab:>,trail:~,space:,nbsp:%
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set list
 " set list
 set tabstop=4
 set shiftwidth=4
@@ -96,7 +97,6 @@ Plug 'tpope/vim-dadbod'
 Plug 'itchyny/vim-parenmatch'
 
 call plug#end()
-
 
 " fold settings ---------------------- {{{1
 " set foldmethod=manual
@@ -237,4 +237,5 @@ function! ProfileCursorMove() abort
 endfunction
 
 let g:loaded_matchparen = 1
-
+" 正規表現のマッチングエンジンを変更
+set regexpengine=1
