@@ -237,5 +237,10 @@ function! ProfileCursorMove() abort
 endfunction
 
 let g:loaded_matchparen = 1
+if executable('rg')
+  let g:ctrlp_use_caching = 0
+  "let g:ctrlp_user_command = 'cd %s && rg "" -i -r --no-color -l ./**/*'
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+endif
 " 正規表現のマッチングエンジンを変更
 set regexpengine=1
