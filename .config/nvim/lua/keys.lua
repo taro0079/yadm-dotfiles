@@ -65,12 +65,6 @@ api.nvim_set_keymap('n', "<leader>sd", "<cmd>lua vim.lsp.diagnostic.show_line_di
 vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
 vim.keymap.set("n", "ga", "<Plug>(EasyAlign)")
 -- dial
-vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
-vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true })
-vim.keymap.set("v", "<C-a>", require("dial.map").inc_visual(), { noremap = true })
-vim.keymap.set("v", "<C-x>", require("dial.map").dec_visual(), { noremap = true })
-vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual(), { noremap = true })
-vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual(), { noremap = true })
 -- pounce
 -- vim.keymap.set("n", "s","<cmd>Pounce<CR>", {noremap = true})
 -- vim.keymap.set("n", "S","<cmd>PounceRepeat<CR>", {noremap = true})
@@ -182,3 +176,4 @@ local function on_attach(bufnr)
     vim.keymap.set('n', 'u', api.tree.change_root_to_parent, opts('Up'))
 end
 
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)

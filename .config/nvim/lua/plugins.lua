@@ -14,6 +14,31 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     { "folke/which-key.nvim", lazy = true },
     {
+	  'VonHeikemen/lsp-zero.nvim',
+	  branch = 'v1.x',
+	  dependencies = {
+		  -- LSP Support
+		  {'neovim/nvim-lspconfig'},
+		  {'williamboman/mason.nvim'},
+		  {'williamboman/mason-lspconfig.nvim'},
+
+		  -- Autocompletion
+		  {'hrsh7th/nvim-cmp'},
+		  {'hrsh7th/cmp-buffer'},
+		  {'hrsh7th/cmp-path'},
+		  {'saadparwaiz1/cmp_luasnip'},
+		  {'hrsh7th/cmp-nvim-lsp'},
+		  {'hrsh7th/cmp-nvim-lua'},
+
+		  -- Snippets
+		  {'L3MON4D3/LuaSnip'},
+		  {'rafamadriz/friendly-snippets'},
+	  },
+        config = function ()
+           require('plugins.lsp')
+        end
+    },
+    {
         'norcalli/nvim-colorizer.lua',
         config = true,
         event = "BufEnter"
@@ -82,33 +107,6 @@ require("lazy").setup({
         config = function()
             require("plugins.rose-pine")
         end
-    },
-    {
-        "hrsh7th/nvim-cmp",
-        -- load cmp on InsertEnter
-        event = "InsertEnter",
-        -- these dependencies will only be loaded when cmp loads
-        -- dependencies are always lazy-loaded unless specified otherwise
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            'hrsh7th/cmp-calc',
-            'hrsh7th/cmp-omni',
-            'hrsh7th/cmp-nvim-lsp-signature-help',
-            'hrsh7th/cmp-nvim-lsp-document-symbol',
-            'hrsh7th/cmp-emoji',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-cmdline',
-            'f3fora/cmp-spell',
-            -- 'hrsh7th/cmp-copilot',
-            'chrisgrieser/cmp-nerdfont',
-            'saadparwaiz1/cmp_luasnip'
-            -- 'uga-rosa/cmp-dictionary', config = function() require 'plugins.dictionary' end } #TODO
-        },
-        config = function()
-            require 'plugins.cmp'
-            require 'plugins.luasnip'
-        end,
     },
     {
         "folke/trouble.nvim",
@@ -238,8 +236,6 @@ require("lazy").setup({
     -- { "SirVer/ultisnips", },
     { "honza/vim-snippets", },
 
-    -- nvim-lsp
-    { 'williamboman/mason.nvim', dependencies = { 'williamboman/mason-lspconfig.nvim' } },
     {
         'junegunn/vim-emoji',
         event = "BufEnter",
@@ -254,7 +250,6 @@ require("lazy").setup({
         config = function() require 'plugins.null-ls' end,
         dependencies = { "nvim-lua/plenary.nvim" }
     },
-    { 'neovim/nvim-lspconfig', config = function() require 'plugins.lsp' end },
     { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' },   event = "InsertEnter" },
 
     {
@@ -317,15 +312,13 @@ require("lazy").setup({
         event = "VeryLazy",
     },
     {
-        "L3MON4D3/LuaSnip",
-        -- follow latest release.
-        version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-        -- install jsregexp (optional!).
-        build = "make install_jsregexp",
-        event = "BufEnter"
-    },
-    {
         'tpope/vim-dadbod',
         cmd = "DB"
+    },
+    {
+        "mbbill/undotree"
+    },
+    {
+        "github/copilot.vim"
     }
 })

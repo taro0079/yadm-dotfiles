@@ -57,23 +57,24 @@ cmp.setup {
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
-        ["<Tab>"] = cmp.mapping(
+        
+        -- ["<Tab>"] = cmp.mapping(
         -- function(fallback)
         --     cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
         -- end,
-            function(fallback)
-                if cmp.visible() then
-                    cmp.select_next_item()
-                elseif luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
-                elseif has_words_before() then
-                    cmp.complete()
-                else
-                    fallback()
-                end
-            end,
-            { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
-        ),
+            -- function(fallback)
+            --     if cmp.visible() then
+            --         cmp.select_next_item()
+            --     elseif luasnip.expand_or_jumpable() then
+            --         luasnip.expand_or_jump()
+            --     elseif has_words_before() then
+            --         cmp.complete()
+            --     else
+            --         fallback()
+            --     end
+            -- end,
+            -- { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
+        -- ),
         ["<S-Tab>"] = cmp.mapping(
         -- function(fallback)
         --     cmp_ultisnips_mappings.jump_backwards(fallback)
@@ -91,7 +92,7 @@ cmp.setup {
         ),
     }),
     sources = {
-        -- { name = 'buffer' },
+        { name = 'buffer' },
         { name = 'nvim_lsp' },
         { name = 'path' },
         { name = 'nerdfont' },
