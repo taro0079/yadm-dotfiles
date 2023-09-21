@@ -51,18 +51,6 @@ require("lazy").setup({
 
     },
     {
-        'NeogitOrg/neogit',
-        config = function()
-            require('plugins.neogit')
-        end,
-        cmd = "Neogit",
-
-    },
-    -- {
-    --     'johmsalas/text-case.nvim',
-    --     config = true
-    -- },
-    {
         'nvim-treesitter/nvim-treesitter-context',
         config = function()
             require("plugins.treesitter-context")
@@ -90,27 +78,10 @@ require("lazy").setup({
     },
     { 'onsails/lspkind-nvim', dependencies = "hrsh7th/nvim-cmp" },
     -- {"quangnguyen30192/cmp-nvim-ultisnips"},
-    {
-        'folke/tokyonight.nvim',
-        lazy = false,
-        priority = 1000,
+    { 'rose-pine/neovim', name = 'rose-pine',
         config = function()
-            require("tokyonight").setup({
-                transparent = false,
-                styles = {
-                    comments = { italic = true },
-                    keywords = { italic = true },
-                    -- sidebars = "transparent",
-                    -- floats = "transparent"
-                }
-            })
-            vim.cmd([[colorscheme tokyonight]])
+            require("plugins.rose-pine")
         end
-    },
-    {
-        "dstein64/vim-startuptime",
-        -- lazy-load on a command
-        cmd = "StartupTime",
     },
     {
         "hrsh7th/nvim-cmp",
@@ -153,12 +124,6 @@ require("lazy").setup({
         'easymotion/vim-easymotion',
         event = "BufEnter"
 
-    },
-    {
-        "hoob3rt/lualine.nvim",
-        config = function()
-            require("plugins.lualine")
-        end,
     },
     {
         "nvim-telescope/telescope.nvim",
@@ -223,16 +188,8 @@ require("lazy").setup({
         end,
         event = "BufEnter"
     },
-    { "haya14busa/vim-edgemotion", event = "BufEnter" },
     { "t9md/vim-quickhl",          event = "BufEnter" },
     { "junegunn/vim-easy-align",   event = "BufEnter" },
-    {
-        "petertriho/nvim-scrollbar",
-        config = function()
-            require("scrollbar").setup({})
-        end,
-        event = "BufEnter"
-    },
     {
         "ziontee113/icon-picker.nvim",
         event = "BufEnter",
@@ -298,12 +255,8 @@ require("lazy").setup({
         dependencies = { "nvim-lua/plenary.nvim" }
     },
     { 'neovim/nvim-lspconfig', config = function() require 'plugins.lsp' end },
-    -- { 'MunifTanjim/prettier.nvim', config = function() require 'plugins.prettier' end, event = "BufEnter" },
     { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' },   event = "InsertEnter" },
 
-    {
-        "monaqa/dial.nvim", event = "BufEnter", config = function() require('plugins.dial') end
-    },
     {
         'mattn/emmet-vim',
         event = "InsertEnter"
@@ -337,10 +290,6 @@ require("lazy").setup({
         config = function()
             require("plugins.bookmarks")
         end
-    },
-    {
-        'MattesGroeger/vim-bookmarks',
-        event = "VimEnter"
     },
     {
         "ojroques/nvim-osc52",
