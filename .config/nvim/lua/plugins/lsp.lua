@@ -1,5 +1,5 @@
 local lsp = require("lsp-zero")
-
+require('luasnip.loaders.from_vscode').lazy_load()
 lsp.preset("recommended")
 
 lsp.ensure_installed({
@@ -21,6 +21,7 @@ lsp.configure('lua-language-server', {
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_action = require('lsp-zero').cmp_action()
 local cmp_mappings = lsp.defaults.cmp_mappings({
   ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
@@ -30,6 +31,9 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
+cmp_mappings['<C-f>'] = cmp_action.luasnip_jump_forward()
+cmp_mappings['<C-b>'] = cmp_action.luasnip_jump_backward()
+
 
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings
