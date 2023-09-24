@@ -160,3 +160,8 @@ alias ga='git add'
 if [[ "$OSTYPE" == "darwin" ]]; then
   alias ctags="brew --prefix /usr/bin/ctags"
 fi
+
+# BEGIN SNIPPET: Platform.sh CLI configuration
+HOME=${HOME:-'/Users/awesometaro'}
+export PATH="$HOME/"'.platformsh/bin':"$PATH"
+if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET

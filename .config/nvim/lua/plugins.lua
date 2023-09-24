@@ -196,14 +196,14 @@ require("lazy").setup({
         end,
         event = "InsertEnter"
     },
-    {
-        'nvim-tree/nvim-tree.lua',
-        config = function()
-            require("plugins.nvim-tree")
-        end,
-        event = "VeryLazy"
-    },
-
+    -- {
+    --     'nvim-tree/nvim-tree.lua',
+    --     config = function()
+    --         require("plugins.nvim-tree")
+    --     end,
+    --     event = "VeryLazy"
+    -- },
+    --
     -- git
     {
         'sindrets/diffview.nvim',

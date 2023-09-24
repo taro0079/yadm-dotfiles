@@ -49,4 +49,14 @@ alt - e : yabai -m window --toggle split
 alt - t : yabai -m window --toggle float && yabai -m window --grid 4:4:1:1:2:2
 alt - o : yabai -m space --focus 2
 alt - i : yabai -m space --move 2
+# stackline
+# Stack window
+alt + ctrl - s : yabai -m window --stack next
+# Focus window up/down in stack
+alt + ctrl - n : yabai -m window --focus stack.next
+alt + ctrl - p : yabai -m window --focus stack.prev
+alt + ctrl - left  : yabai -m window west --stack $(yabai -m query --windows --window | jq -r '.id')
+alt + ctrl - down  : yabai -m window south --stack $(yabai -m query --windows --window | jq -r '.id')
+alt + ctrl - up    : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id')
+alt + ctrl - right : yabai -m window east --stack $(yabai -m query --windows --window | jq -r '.id')
 
