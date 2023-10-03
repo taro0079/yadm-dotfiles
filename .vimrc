@@ -55,8 +55,11 @@ endif
 " Plugins ---------------------------- {{{1
 call plug#begin()
 Plug 'taro0079/path_to_clipboard'
-Plug 'vim-denops/denops.vim'
+" Plug 'vim-denops/denops.vim'
 Plug 'ojroques/vim-oscyank'
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'aklt/plantuml-syntax'
 Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-repeat'

@@ -234,7 +234,7 @@ require("lazy").setup({
     },
     -- snippets
     -- { "SirVer/ultisnips", },
-    { "honza/vim-snippets", },
+    -- { "honza/vim-snippets", },
 
     {
         'junegunn/vim-emoji',

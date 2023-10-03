@@ -41,7 +41,7 @@ null_ls.setup({
   --               "javascript", "typescript", "typescriptreact", "json", "yaml",  "html", "css", "scss"
   --           }
   --       }),
-    null_ls.builtins.diagnostics.eslint,
+    -- null_ls.builtins.diagnostics.eslint,
     -- null_ls.builtins.diagnostics.markdownlint,
     -- null_ls.builtins.formatting.deno_fmt.with({
     --   filetypes = { "markdown" },

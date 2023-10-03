@@ -17,7 +17,7 @@ alias l='clear && ls'
 bindkey -v
 
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # GOPATH setting
 export GOPATH=~/go  # GOPATHにすると決めた場所
@@ -132,9 +132,9 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$HOME/.symfony5/bin:$PATH"
 
 # auto suggestion settings
-bindkey '^j' autosuggest-accept
+# bindkey '^j' autosuggest-accept
 # starship
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
@@ -165,3 +165,4 @@ fi
 HOME=${HOME:-'/Users/awesometaro'}
 export PATH="$HOME/"'.platformsh/bin':"$PATH"
 if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET
+export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
