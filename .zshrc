@@ -166,3 +166,4 @@ HOME=${HOME:-'/Users/awesometaro'}
 export PATH="$HOME/"'.platformsh/bin':"$PATH"
 if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET
 export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
