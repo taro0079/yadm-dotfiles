@@ -50,37 +50,29 @@ vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
 vim.keymap.set("n", "ga", "<Plug>(EasyAlign)")
 
 
--- Move to previous/next
-vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
--- Re-order to previous/next
-vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
-vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
--- Goto buffer in position...
-vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-vim.keymap.set('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-vim.keymap.set('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-vim.keymap.set('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-vim.keymap.set('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-vim.keymap.set('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
-vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
--- Pin/unpin buffer
-vim.keymap.set('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
 
-vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
-vim.keymap.set('n', '<C-b>', '<Cmd>BufferPick<CR>', opts)
--- Sort automatically by...
-vim.keymap.set('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
-vim.keymap.set('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
-vim.keymap.set('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
-vim.keymap.set('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
-
--- fuzzy motion
-vim.keymap.set('n', '<leader>s', '<Cmd>FuzzyMotion<CR>', { noremap = true })
 -- vim.cmd[[imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")]]
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("i", "<C-c>", "<Esc>")
+
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("i", "<C-c>", "<Esc>")
+
+-- from https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/remap.lua
+-- greatest remap ever
+vim.keymap.set("x", "<leader>p", [["_dP]])
+
+-- next greatest remap ever : asbjornHaland
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+
+
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
