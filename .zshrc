@@ -161,6 +161,7 @@ alias gc='git commit'
 alias gpush='git push origin'
 alias gpull='git pull origin'
 alias gcb='git checkout -b'
+alias gco='git checkout'
 alias gaa='git add .'
 alias ga='git add'
 

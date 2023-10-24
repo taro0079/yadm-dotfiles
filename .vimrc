@@ -98,6 +98,9 @@ Plug 'junegunn/goyo.vim'
 Plug 'github/copilot.vim'
 Plug 'tpope/vim-dadbod'
 Plug 'itchyny/vim-parenmatch'
+Plug 'sainnhe/sonokai'
+Plug 'dense-analysis/ale'
+Plug 'phanviet/vim-monokai-pro'
 
 call plug#end()
 
@@ -150,7 +153,7 @@ syntax enable
 filetype plugin on
 set termguicolors
 set background=dark
-colorscheme catppuccin_macchiato
+colorscheme monokai_pro
 " colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1
@@ -247,3 +250,8 @@ if executable('rg')
 endif
 " 正規表現のマッチングエンジンを変更
 set regexpengine=1
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_text_changed = 'never'
