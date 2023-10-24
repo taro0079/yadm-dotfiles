@@ -12,23 +12,48 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    { "folke/which-key.nvim", lazy = true },
+    -- { "folke/which-key.nvim", lazy = true },
     {
-        'norcalli/nvim-colorizer.lua',
-        config = true,
-        event = "BufEnter"
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v1.x',
+        dependencies = {
+            -- LSP Support
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
+
+            -- Autocompletion
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
+
+            -- Snippets
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
+        },
+        config = function()
+            require('plugins.lsp')
+        end
     },
+    -- {
+    --     'norcalli/nvim-colorizer.lua',
+    --     config = true,
+    --     event = "BufEnter"
+    -- },
     {
         'taro0079/path_to_clipboard',
         event = "BufEnter",
     },
-    {
-        "stevearc/aerial.nvim",
-        config = function()
-            require("plugins.aerial")
-        end,
-        event = "BufEnter"
-    },
+    -- {
+    --     "stevearc/aerial.nvim",
+    --     config = function()
+    --         require("plugins.aerial")
+    --     end,
+    --     event = "BufEnter"
+    -- },
     {
         "andymass/vim-matchup",
         config = function()
@@ -50,18 +75,6 @@ require("lazy").setup({
         event = "BufEnter"
 
     },
-    {
-        'NeogitOrg/neogit',
-        config = function()
-            require('plugins.neogit')
-        end,
-        cmd = "Neogit",
-
-    },
-    -- {
-    --     'johmsalas/text-case.nvim',
-    --     config = true
-    -- },
     {
         'nvim-treesitter/nvim-treesitter-context',
         config = function()
@@ -88,56 +101,14 @@ require("lazy").setup({
         },
         event = "InsertEnter",
     },
-    { 'onsails/lspkind-nvim', dependencies = "hrsh7th/nvim-cmp" },
+    -- { 'onsails/lspkind-nvim', dependencies = "hrsh7th/nvim-cmp" },
     -- {"quangnguyen30192/cmp-nvim-ultisnips"},
     {
-        'folke/tokyonight.nvim',
-        lazy = false,
-        priority = 1000,
+        'rose-pine/neovim',
+        name = 'rose-pine',
         config = function()
-            require("tokyonight").setup({
-                transparent = false,
-                styles = {
-                    comments = { italic = true },
-                    keywords = { italic = true },
-                    -- sidebars = "transparent",
-                    -- floats = "transparent"
-                }
-            })
-            vim.cmd([[colorscheme tokyonight]])
+            require("plugins.rose-pine")
         end
-    },
-    {
-        "dstein64/vim-startuptime",
-        -- lazy-load on a command
-        cmd = "StartupTime",
-    },
-    {
-        "hrsh7th/nvim-cmp",
-        -- load cmp on InsertEnter
-        event = "InsertEnter",
-        -- these dependencies will only be loaded when cmp loads
-        -- dependencies are always lazy-loaded unless specified otherwise
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            'hrsh7th/cmp-calc',
-            'hrsh7th/cmp-omni',
-            'hrsh7th/cmp-nvim-lsp-signature-help',
-            'hrsh7th/cmp-nvim-lsp-document-symbol',
-            'hrsh7th/cmp-emoji',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-cmdline',
-            'f3fora/cmp-spell',
-            -- 'hrsh7th/cmp-copilot',
-            'chrisgrieser/cmp-nerdfont',
-            'saadparwaiz1/cmp_luasnip'
-            -- 'uga-rosa/cmp-dictionary', config = function() require 'plugins.dictionary' end } #TODO
-        },
-        config = function()
-            require 'plugins.cmp'
-            require 'plugins.luasnip'
-        end,
     },
     {
         "folke/trouble.nvim",
@@ -155,12 +126,6 @@ require("lazy").setup({
 
     },
     {
-        "hoob3rt/lualine.nvim",
-        config = function()
-            require("plugins.lualine")
-        end,
-    },
-    {
         "nvim-telescope/telescope.nvim",
         -- lazy=true,
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -168,7 +133,7 @@ require("lazy").setup({
             require("plugins.telescope")
         end,
     },
-    { "stevearc/dressing.nvim",    event = "VeryLazy" },
+    { "stevearc/dressing.nvim",  event = "VeryLazy" },
 
     {
         "windwp/nvim-ts-autotag",
@@ -176,13 +141,13 @@ require("lazy").setup({
         event = "InsertEnter",
         ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue", "markdown" }
     },
-    {
-        "akinsho/toggleterm.nvim",
-        config = function()
-            require("plugins.toggleterm")
-        end,
-        event = 'BufEnter'
-    },
+    -- {
+    --     "akinsho/toggleterm.nvim",
+    --     config = function()
+    --         require("plugins.toggleterm")
+    --     end,
+    --     event = 'BufEnter'
+    -- },
     {
         "numToStr/Comment.nvim",
         config = function()
@@ -218,21 +183,15 @@ require("lazy").setup({
     },
     {
         "lukas-reineke/indent-blankline.nvim",
+        main = 'ibl',
         config = function()
-            require("plugins.indent-blankline")
+            require('ibl').setup()
+            -- require("plugins.indent-blankline")
         end,
         event = "BufEnter"
     },
-    { "haya14busa/vim-edgemotion", event = "BufEnter" },
-    { "t9md/vim-quickhl",          event = "BufEnter" },
-    { "junegunn/vim-easy-align",   event = "BufEnter" },
-    {
-        "petertriho/nvim-scrollbar",
-        config = function()
-            require("scrollbar").setup({})
-        end,
-        event = "BufEnter"
-    },
+    -- { "t9md/vim-quickhl",          event = "BufEnter" },
+    { "junegunn/vim-easy-align", event = "BufEnter" },
     {
         "ziontee113/icon-picker.nvim",
         event = "BufEnter",
@@ -241,20 +200,20 @@ require("lazy").setup({
         end,
         event = "InsertEnter"
     },
-    {
-        'nvim-tree/nvim-tree.lua',
-        config = function()
-            require("plugins.nvim-tree")
-        end,
-        event = "VeryLazy"
-    },
-
+    -- {
+    --     'nvim-tree/nvim-tree.lua',
+    --     config = function()
+    --         require("plugins.nvim-tree")
+    --     end,
+    --     event = "VeryLazy"
+    -- },
+    --
     -- git
-    {
-        'sindrets/diffview.nvim',
-        dependencies = { "nvim-lua/plenary.nvim" },
-        event = "BufEnter",
-    },
+    -- {
+    --     'sindrets/diffview.nvim',
+    --     dependencies = { "nvim-lua/plenary.nvim" },
+    --     event = "BufEnter",
+    -- },
     {
         'lewis6991/gitsigns.nvim',
         event = "BufEnter",
@@ -262,12 +221,12 @@ require("lazy").setup({
             require("plugins.gitsign")
         end,
     },
-    { "kdheepak/lazygit.nvim",   cmd = "LazyGit" },
-    {
-        "akinsho/git-conflict.nvim",
-        config = true,
-        event = "BufEnter",
-    },
+    -- { "kdheepak/lazygit.nvim",   cmd = "LazyGit" },
+    -- {
+    --     "akinsho/git-conflict.nvim",
+    --     config = true,
+    --     event = "BufEnter",
+    -- },
 
     {
         "j-hui/fidget.nvim",
@@ -279,14 +238,12 @@ require("lazy").setup({
     },
     -- snippets
     -- { "SirVer/ultisnips", },
-    { "honza/vim-snippets", },
+    -- { "honza/vim-snippets", },
 
-    -- nvim-lsp
-    { 'williamboman/mason.nvim', dependencies = { 'williamboman/mason-lspconfig.nvim' } },
-    {
-        'junegunn/vim-emoji',
-        event = "BufEnter",
-    },
+    -- {
+    --     'junegunn/vim-emoji',
+    --     event = "BufEnter",
+    -- },
     {
         'folke/lsp-colors.nvim',
         event = "BufEnter",
@@ -297,13 +254,8 @@ require("lazy").setup({
         config = function() require 'plugins.null-ls' end,
         dependencies = { "nvim-lua/plenary.nvim" }
     },
-    { 'neovim/nvim-lspconfig', config = function() require 'plugins.lsp' end },
-    -- { 'MunifTanjim/prettier.nvim', config = function() require 'plugins.prettier' end, event = "BufEnter" },
-    { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' },   event = "InsertEnter" },
+    { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' }, event = "InsertEnter" },
 
-    {
-        "monaqa/dial.nvim", event = "BufEnter", config = function() require('plugins.dial') end
-    },
     {
         'mattn/emmet-vim',
         event = "InsertEnter"
@@ -322,26 +274,22 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = "nvim-treesitter/nvim-treesitter",
     },
-    {
-        'tpope/vim-fugitive',
-        event = "BufEnter",
-    },
-    {
-        'tom-anders/telescope-vim-bookmarks.nvim',
-        event = "BufEnter",
-    },
+    -- {
+    --     'tpope/vim-fugitive',
+    --     event = "BufEnter",
+    -- },
+    -- {
+    --     'tom-anders/telescope-vim-bookmarks.nvim',
+    --     event = "BufEnter",
+    -- },
     -- bookmarks
-    {
-        'tomasky/bookmarks.nvim',
-        event = "VimEnter",
-        config = function()
-            require("plugins.bookmarks")
-        end
-    },
-    {
-        'MattesGroeger/vim-bookmarks',
-        event = "VimEnter"
-    },
+    -- {
+    --     'tomasky/bookmarks.nvim',
+    --     event = "VimEnter",
+    --     config = function()
+    --         require("plugins.bookmarks")
+    --     end
+    -- },
     {
         "ojroques/nvim-osc52",
         config = function()
@@ -352,10 +300,10 @@ require("lazy").setup({
         end,
         event = "VeryLazy"
     },
-    {
-        'justinmk/vim-sneak',
-        event = "BufEnter",
-    },
+    -- {
+    --     'justinmk/vim-sneak',
+    --     event = "BufEnter",
+    -- },
     {
         'tpope/vim-surround',
         event = "InsertEnter",
@@ -368,15 +316,16 @@ require("lazy").setup({
         event = "VeryLazy",
     },
     {
-        "L3MON4D3/LuaSnip",
-        -- follow latest release.
-        version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-        -- install jsregexp (optional!).
-        build = "make install_jsregexp",
-        event = "BufEnter"
+        "mbbill/undotree"
     },
     {
-        'tpope/vim-dadbod',
-        cmd = "DB"
-    }
+        "github/copilot.vim"
+    },
+    {
+        "theprimeagen/harpoon",
+        config = function()
+            require("plugins.harpoon")
+        end
+    },
+
 })

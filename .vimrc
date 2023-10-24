@@ -13,6 +13,14 @@ set incsearch
 set nocompatible
 " set signcolumn=yes
 set smartcase
+set display+=lastline
+set number
+set showmatch
+set incsearch
+set incsearch
+set nocompatible
+" set signcolumn=yes
+set smartcase
 set hlsearch
 set incsearch
 set nobackup
@@ -22,7 +30,8 @@ set noundofile
 set wildmenu
 set backspace=indent,eol,start
 set expandtab
-set listchars=eol:¿,tab:>.,trail:~,space:¿,nbsp:%
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set list
 " set list
 set tabstop=4
 set shiftwidth=4
@@ -32,7 +41,7 @@ set ai "Auto Indent"
 set si "Smart Indent"
 set wrap "Wrap lines"
 set hidden
-set cursorline
+" set cursorline
 set ignorecase
 set t_Co=256
 set foldmethod=indent
@@ -43,12 +52,14 @@ if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
 endif
-
 " Plugins ---------------------------- {{{1
 call plug#begin()
 Plug 'taro0079/path_to_clipboard'
-Plug 'vim-denops/denops.vim'
+" Plug 'vim-denops/denops.vim'
 Plug 'ojroques/vim-oscyank'
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'aklt/plantuml-syntax'
 Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-repeat'
@@ -86,9 +97,9 @@ Plug 'garbas/vim-snipmate'
 Plug 'junegunn/goyo.vim'
 Plug 'github/copilot.vim'
 Plug 'tpope/vim-dadbod'
+Plug 'itchyny/vim-parenmatch'
 
 call plug#end()
-
 
 " fold settings ---------------------- {{{1
 " set foldmethod=manual
@@ -205,3 +216,34 @@ let g:snipMate = { 'snippet_version' : 1 }
 imap <C-k> <Plug>snipMateNextOrTrigger
 
 
+function! ProfileCursorMove() abort
+  let profile_file = expand('~/log/vim-profile.log')
+  if filereadable(profile_file)
+    call delete(profile_file)
+  endif
+
+  normal! gg
+  normal! zR
+
+  execute 'profile start ' . profile_file
+  profile func *
+  profile file *
+
+  augroup ProfileCursorMove
+    autocmd!
+    autocmd CursorHold <buffer> profile pause | q
+  augroup END
+
+  for i in range(2000)
+    call feedkeys('j')
+  endfor
+endfunction
+
+let g:loaded_matchparen = 1
+if executable('rg')
+  let g:ctrlp_use_caching = 0
+  "let g:ctrlp_user_command = 'cd %s && rg "" -i -r --no-color -l ./**/*'
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+endif
+" 正規表現のマッチングエンジンを変更
+set regexpengine=1

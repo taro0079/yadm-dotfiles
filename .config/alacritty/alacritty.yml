@@ -8,7 +8,7 @@ font:
   italic:
     family: CaskaydiaCove Nerd Font
     style: Italic
-  size: 16
+  size: 14
 window:
   padding:
     x: 0
