@@ -1,0 +1,19 @@
+
+[editor]
+line-number = "relative"
+mouse = false
+true-color = true
+
+[editor.file-picker]
+hidden = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.lsp]
+display-messages = true
+
+[editor.soft-wrap]
+enable = true

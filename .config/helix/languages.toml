@@ -1,0 +1,8 @@
+[[language]]
+name = "php"
+indent = { tab-width = 4, unit = "    "}
+
+[[language]]
+name = "yaml"
+file-types = ["yaml", "yml"]
+language-servers = ["yaml-language-server"]
