@@ -167,21 +167,6 @@ require("lazy").setup({
         event = "BufEnter"
     },
     {
-        "vim-skk/skkeleton",
-        dependencies = { "vim-denops/denops.vim" },
-        config = function()
-            require("plugins.skkeleton")
-        end,
-        event = "BufEnter"
-    },
-    {
-        "delphinus/skkeleton_indicator.nvim",
-        config = function()
-            require("skkeleton_indicator").setup({})
-        end,
-        event = "BufEnter"
-    },
-    {
         "lukas-reineke/indent-blankline.nvim",
         main = 'ibl',
         config = function()
