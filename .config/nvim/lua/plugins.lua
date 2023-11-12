@@ -239,7 +239,10 @@ require("lazy").setup({
         config = function() require 'plugins.null-ls' end,
         dependencies = { "nvim-lua/plenary.nvim" }
     },
-    { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' }, event = "InsertEnter" },
+    -- { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' }, event = "InsertEnter" },
+    {
+        'Mofiqul/dracula.nvim',
+    },
 
     {
         'mattn/emmet-vim',
