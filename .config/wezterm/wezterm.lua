@@ -21,7 +21,7 @@ end
 if mac then
     return {
         font = wezterm.font_with_fallback {
-            { family = 'Fira Code', weight = "Regular", italic = false },
+            { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
             { family = 'HackGen Console NF', weight = "Regular", italic = true },
             { family = 'CaskaydiaCove Nerd Font', weight = "Bold" },
             { family = 'HackGen Console NF', weight = "Bold" }
