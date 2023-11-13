@@ -10,6 +10,5 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     callback = function()
         vim.cmd('!php-cs-fixer fix %')
         vim.cmd('e!')
-
     end
 })
