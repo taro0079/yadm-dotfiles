@@ -14,6 +14,13 @@ select = "underline"
 
 [editor.lsp]
 display-messages = true
+snippets = true
 
 [editor.soft-wrap]
 enable = true
+
+[editor.whitespace]
+render = "all"
+
+[editor.indent-guides]
+render = true

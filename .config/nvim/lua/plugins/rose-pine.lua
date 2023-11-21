@@ -54,4 +54,4 @@ require('rose-pine').setup({
 })
 
 -- Set colorscheme after options
-vim.cmd('colorscheme dracula')
+-- vim.cmd('colorscheme dracula')
