@@ -57,9 +57,9 @@ call plug#begin()
 Plug 'taro0079/path_to_clipboard'
 " Plug 'vim-denops/denops.vim'
 Plug 'ojroques/vim-oscyank'
-Plug 'weirongxu/plantuml-previewer.vim'
-Plug 'tyru/open-browser.vim'
-Plug 'aklt/plantuml-syntax'
+" Plug 'weirongxu/plantuml-previewer.vim'
+" Plug 'tyru/open-browser.vim'
+" Plug 'aklt/plantuml-syntax'
 Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-repeat'
@@ -70,10 +70,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'skywind3000/asyncrun.vim'
+" Plug 'skywind3000/asyncrun.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
-Plug 'catppuccin/vim', { 'as': 'catppuccin'  }
 Plug 'sheerun/vim-polyglot'
 Plug 'justinmk/vim-sneak'
 Plug 'KenN7/vim-arsync'
@@ -82,7 +81,7 @@ Plug 'vim-skk/eskk.vim'
 Plug 'taro0079/fd.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'eshion/vim-sync'
+" Plug 'eshion/vim-sync'
 Plug 'lambdalisue/suda.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'osyo-manga/vim-textobj-blockwise'
@@ -98,9 +97,14 @@ Plug 'junegunn/goyo.vim'
 Plug 'github/copilot.vim'
 Plug 'tpope/vim-dadbod'
 Plug 'itchyny/vim-parenmatch'
-Plug 'sainnhe/sonokai'
+" Plug 'sainnhe/sonokai'
 Plug 'dense-analysis/ale'
 Plug 'phanviet/vim-monokai-pro'
+
+" Plug 'Shougo/ddc.vim'
+" Plug 'Shougo/pum.vim'
+" Plug 'vim-denops/denops.vim'
+" Plug 'Shougo/ddc-around'
 
 call plug#end()
 
@@ -258,3 +262,16 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {'php': ['php_cs_fixer']}
 
+
+" ddc setting
+" call ddc#custom#patch_global('completionMenu', 'pum.vim')
+" call ddc#custom#patch_global('sources', ['around', 'vim-lsp'])
+" call ddc#custom#patch_global('sourceOptions', {
+"       \ 'around': {'mark': 'Around'},
+"       \ 'vim-lsp': {
+"       \ 'mark': 'LSP',
+"       \  'matchers': ['matcher_head'],
+"       \    'forceCompletionPattern': '\.|:|->"\w_/*'
+"       \}
+"       \})
+" call ddc#enable()
