@@ -53,6 +53,12 @@ if executable('rg')
     set grepformat=%f:%l:%c:%m
 endif
 " Plugins ---------------------------- {{{1
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    \ >/dev/null 2>&1
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin()
 Plug 'taro0079/path_to_clipboard'
 " Plug 'vim-denops/denops.vim'
