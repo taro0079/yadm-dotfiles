@@ -106,6 +106,7 @@ Plug 'itchyny/vim-parenmatch'
 " Plug 'sainnhe/sonokai'
 Plug 'dense-analysis/ale'
 Plug 'phanviet/vim-monokai-pro'
+Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 
 " Plug 'Shougo/ddc.vim'
 " Plug 'Shougo/pum.vim'
