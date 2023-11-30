@@ -136,8 +136,8 @@ augroup END
 nnoremap <leader>lt :set list!<CR>
 
 " " lsp settings --- {{{1
-let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
-let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+let g:lsp_diagnostics_enabled = 0
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_diagnostics_highlights_enabled = 0
 let g:lsp_diagnostics_virtual_text_align = 'after'
