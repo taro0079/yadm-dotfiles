@@ -268,7 +268,7 @@ if executable('rg')
   let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 endif
 " 正規表現のマッチングエンジンを変更
-set regexpengine=1
+" set regexpengine=1
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_error = '✘'
