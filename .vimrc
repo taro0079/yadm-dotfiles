@@ -82,6 +82,7 @@ Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'justinmk/vim-sneak'
 Plug 'KenN7/vim-arsync'
+Plug 'morhetz/gruvbox'
 Plug 'tyru/current-func-info.vim'
 Plug 'vim-skk/eskk.vim'
 Plug 'taro0079/fd.vim'
@@ -135,11 +136,11 @@ augroup END
 nnoremap <leader>lt :set list!<CR>
 
 " " lsp settings --- {{{1
-" let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
-" let g:lsp_diagnostics_enabled = 1
-" let g:lsp_diagnostics_float_cursor = 1
-" let g:lsp_diagnostics_highlights_enabled = 1
-" let g:lsp_diagnostics_virtual_text_align = 'after'
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_highlights_enabled = 0
+let g:lsp_diagnostics_virtual_text_align = 'after'
 " hi DiagnosticError guifg=Red
 " hi DiagnosticWarn  guifg=DarkOrange
 " hi DiagnosticInfo  guifg=Blue
@@ -150,20 +151,20 @@ if executable('ag')
 endif
 
 " vim lsp settings --- {{{1
-" function! s:on_lsp_buffer_enabled() abort
-"   setlocal omnifunc=lsp#complete
-"   setlocal signcolumn=yes
-"   nmap <buffer> gd <plug>(lsp-definition)
-"   nmap <buffer> gs <plug>(lsp-document-symbol-search)
-"   nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-"   nmap <buffer> gr <plug>(lsp-references)
-"   nmap <buffer> gi <plug>(lsp-implementation)
-"   nmap <buffer> gt <plug>(lsp-type-definition)
-"   nmap <buffer> <leader>rn <plug>(lsp-rename)
-"   nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-"   nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-"   nmap <buffer> K <plug>(lsp-hover)
-" endfunction
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+endfunction
 
 " set list
 " set listchars=tab:»-,trail:-,eol:¿,extends:»,precedes:«,nbsp:%
@@ -172,7 +173,7 @@ syntax enable
 filetype plugin on
 set termguicolors
 set background=dark
-colorscheme monokai_pro
+colorscheme gruvbox
 " colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1
