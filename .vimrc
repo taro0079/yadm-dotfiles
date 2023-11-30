@@ -107,18 +107,20 @@ Plug 'itchyny/vim-parenmatch'
 " Plug 'sainnhe/sonokai'
 Plug 'dense-analysis/ale'
 Plug 'phanviet/vim-monokai-pro'
+Plug 'Shougo/ddc-source-around'
 Plug 'shun/ddc-source-vim-lsp'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-
 Plug 'Shougo/ddc.vim'
 Plug 'Shougo/pum.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'Shougo/ddc-around'
 Plug 'Shougo/ddc-filter-matcher_head'
 Plug 'Shougo/ddc-ui-native'
-
-
+Plug 'tani/ddc-fuzzy'
+Plug 'Shougo/ddc-source-cmdline'
+Plug 'Shougo/ddc-source-cmdline-history'
+Plug 'Shougo/ddc-ui-native'
+Plug 'Shougo/ddc-ui-pum'
+Plug 'Shougo/ddc-source-rg'
 call plug#end()
 
 " fold settings ---------------------- {{{1
@@ -277,14 +279,73 @@ let g:ale_fixers = {'php': ['php_cs_fixer']}
 
 
 " ddc setting
-call ddc#custom#patch_global('ui', 'native')
-call ddc#custom#patch_global('sources', ['around', 'vim-lsp'])
-call ddc#custom#patch_global('sources', ['vim-lsp'])
+call ddc#custom#patch_global(#{
+      \  ui: 'pum',
+      \  autoCompleteEvents: ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged'],
+      \  cmdlineSources: {
+      \    ':': ['cmdline', 'around', 'cmdline-history']
+      \  }
+      \})
+call ddc#custom#patch_global('sources', ['around', 'vim-lsp', 'cmdline', 'cmdline-history', 'rg'])
 call ddc#custom#patch_global('sourceOptions', #{
-    \   vim-lsp: #{
-    \     matchers: ['matcher_head'],
-    \     mark: 'lsp',
-    \   },
-    \ })
- call ddc#enable()
+            \ _: #{
+            \   matchers: ['matcher_fuzzy'],
+            \   sorters: ['sorter_fuzzy'],
+            \   converters: ['converter_fuzzy']
+            \ },
+            \ around: #{ mark: 'A' },
+            \ vim-lsp: #{
+            \   matchers: ['matcher_fuzzy'],
+            \   forceCompletionPattern: '\.\w*|:\w*|->\w*',
+            \   mark: 'lsp',
+            \ },
+            \ cmdline: #{
+            \   mark: 'cmdline',
+            \ },
+            \ cmdline-history: #{
+            \  mark: 'cmdline-history',
+            \ },
+            \ rg: #{
+            \   mark: 'rg',
+            \   minAutoCompleteLength: 3,
+            \ }
+            \ })
+call ddc#custom#patch_global('sourceParams', #{
+      \ around: #{ maxsize: 500 }
+      \})
+
+inoremap <silent><expr> <TAB>
+      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+      \ '<TAB>' : ddc#map#manual_complete()
+inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
+inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
+inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+
+nnoremap :       <Cmd>call CommandlinePre()<CR>:
+
+function! CommandlinePre() abort
+    cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+    cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+    cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+    cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+    cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+    cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+
+    autocmd User DDCCmdlineLeave ++once call CommandlinePost()
+
+    " Enable command line completion for the buffer
+    call ddc#enable_cmdline_completion()
+endfunction
+function! CommandlinePost() abort
+    silent! cunmap <Tab>
+    silent! cunmap <S-Tab>
+    silent! cunmap <C-n>
+    silent! cunmap <C-p>
+    silent! cunmap <C-y>
+    silent! cunmap <C-e>
+endfunction
+call ddc#enable()
 
