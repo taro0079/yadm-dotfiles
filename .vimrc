@@ -74,8 +74,8 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Plug 'skywind3000/asyncrun.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
@@ -99,6 +99,7 @@ Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
+Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 Plug 'junegunn/goyo.vim'
 Plug 'github/copilot.vim'
 Plug 'tpope/vim-dadbod'
@@ -106,12 +107,17 @@ Plug 'itchyny/vim-parenmatch'
 " Plug 'sainnhe/sonokai'
 Plug 'dense-analysis/ale'
 Plug 'phanviet/vim-monokai-pro'
-Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
+Plug 'shun/ddc-source-vim-lsp'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Plug 'Shougo/ddc.vim'
-" Plug 'Shougo/pum.vim'
-" Plug 'vim-denops/denops.vim'
-" Plug 'Shougo/ddc-around'
+
+Plug 'Shougo/ddc.vim'
+Plug 'Shougo/pum.vim'
+Plug 'vim-denops/denops.vim'
+Plug 'Shougo/ddc-around'
+Plug 'Shougo/ddc-filter-matcher_head'
+Plug 'Shougo/ddc-ui-native'
+
 
 call plug#end()
 
@@ -126,36 +132,36 @@ augroup END
 " list settings ---------------------- {{{1
 nnoremap <leader>lt :set list!<CR>
 
-" lsp settings --- {{{1
-let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_diagnostics_float_cursor = 1
-let g:lsp_diagnostics_highlights_enabled = 1
-let g:lsp_diagnostics_virtual_text_align = 'after'
-hi DiagnosticError guifg=Red
-hi DiagnosticWarn  guifg=DarkOrange
-hi DiagnosticInfo  guifg=Blue
-hi DiagnosticHint  guifg=Green
+" " lsp settings --- {{{1
+" let g:lsp_diagnostics_highlights_insert_mode_enabled = 1
+" let g:lsp_diagnostics_enabled = 1
+" let g:lsp_diagnostics_float_cursor = 1
+" let g:lsp_diagnostics_highlights_enabled = 1
+" let g:lsp_diagnostics_virtual_text_align = 'after'
+" hi DiagnosticError guifg=Red
+" hi DiagnosticWarn  guifg=DarkOrange
+" hi DiagnosticInfo  guifg=Blue
+" hi DiagnosticHint  guifg=Green
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
 " vim lsp settings --- {{{1
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> gs <plug>(lsp-document-symbol-search)
-  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-  nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gi <plug>(lsp-implementation)
-  nmap <buffer> gt <plug>(lsp-type-definition)
-  nmap <buffer> <leader>rn <plug>(lsp-rename)
-  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-  nmap <buffer> K <plug>(lsp-hover)
-endfunction
+" function! s:on_lsp_buffer_enabled() abort
+"   setlocal omnifunc=lsp#complete
+"   setlocal signcolumn=yes
+"   nmap <buffer> gd <plug>(lsp-definition)
+"   nmap <buffer> gs <plug>(lsp-document-symbol-search)
+"   nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+"   nmap <buffer> gr <plug>(lsp-references)
+"   nmap <buffer> gi <plug>(lsp-implementation)
+"   nmap <buffer> gt <plug>(lsp-type-definition)
+"   nmap <buffer> <leader>rn <plug>(lsp-rename)
+"   nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+"   nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+"   nmap <buffer> K <plug>(lsp-hover)
+" endfunction
 
 " set list
 " set listchars=tab:»-,trail:-,eol:¿,extends:»,precedes:«,nbsp:%
@@ -271,14 +277,14 @@ let g:ale_fixers = {'php': ['php_cs_fixer']}
 
 
 " ddc setting
-" call ddc#custom#patch_global('completionMenu', 'pum.vim')
-" call ddc#custom#patch_global('sources', ['around', 'vim-lsp'])
-" call ddc#custom#patch_global('sourceOptions', {
-"       \ 'around': {'mark': 'Around'},
-"       \ 'vim-lsp': {
-"       \ 'mark': 'LSP',
-"       \  'matchers': ['matcher_head'],
-"       \    'forceCompletionPattern': '\.|:|->"\w_/*'
-"       \}
-"       \})
-" call ddc#enable()
+call ddc#custom#patch_global('ui', 'native')
+call ddc#custom#patch_global('sources', ['around', 'vim-lsp'])
+call ddc#custom#patch_global('sources', ['vim-lsp'])
+call ddc#custom#patch_global('sourceOptions', #{
+    \   vim-lsp: #{
+    \     matchers: ['matcher_head'],
+    \     mark: 'lsp',
+    \   },
+    \ })
+ call ddc#enable()
+
