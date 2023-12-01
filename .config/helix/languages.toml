@@ -20,3 +20,8 @@ language-servers = [ "deno", "eslint", "emmet-ls" ]
 formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "tsx" ] }
 auto-format = true
+
+[[language]]
+name = "rust"
+# language-servers= ["rust-analyzer"]
+auto-format = true
