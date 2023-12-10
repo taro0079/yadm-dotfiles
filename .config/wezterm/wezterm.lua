@@ -51,6 +51,9 @@ if mac then
                 repeat_x = 'Mirror',
                 hsb = { brightness = 0.1 },
                 opacity = 0.7,
+                repeat_x = 'NoRepeat',
+                repeat_y = 'NoRepeat',
+
                 -- horizontal_offset = 900,
                 -- vertical_offset = -50,
 
