@@ -25,3 +25,9 @@ auto-format = true
 name = "rust"
 # language-servers= ["rust-analyzer"]
 auto-format = true
+
+[[language]]
+name = "go"
+language-servers = [ "gopls" ]
+formatter = { command = "gofmt" }
+auto-format = true

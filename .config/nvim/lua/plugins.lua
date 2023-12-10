@@ -54,14 +54,14 @@ require("lazy").setup({
     --     end,
     --     event = "BufEnter"
     -- },
-    {
-        "andymass/vim-matchup",
-        config = function()
-            -- may set any options here
-            vim.g.matchup_matchparen_offscreen = { method = "popup" }
-        end,
-        event = "BufEnter"
-    },
+    -- {
+    --     "andymass/vim-matchup",
+    --     config = function()
+    --         -- may set any options here
+    --         vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    --     end,
+    --     event = "BufEnter"
+    -- },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
