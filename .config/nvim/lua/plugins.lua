@@ -38,30 +38,10 @@ require("lazy").setup({
             require('plugins.lsp')
         end
     },
-    -- {
-    --     'norcalli/nvim-colorizer.lua',
-    --     config = true,
-    --     event = "BufEnter"
-    -- },
     {
         'taro0079/path_to_clipboard',
         event = "BufEnter",
     },
-    -- {
-    --     "stevearc/aerial.nvim",
-    --     config = function()
-    --         require("plugins.aerial")
-    --     end,
-    --     event = "BufEnter"
-    -- },
-    -- {
-    --     "andymass/vim-matchup",
-    --     config = function()
-    --         -- may set any options here
-    --         vim.g.matchup_matchparen_offscreen = { method = "popup" }
-    --     end,
-    --     event = "BufEnter"
-    -- },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -101,8 +81,6 @@ require("lazy").setup({
         },
         event = "InsertEnter",
     },
-    -- { 'onsails/lspkind-nvim', dependencies = "hrsh7th/nvim-cmp" },
-    -- {"quangnguyen30192/cmp-nvim-ultisnips"},
     {
         'rose-pine/neovim',
         name = 'rose-pine',
@@ -141,13 +119,6 @@ require("lazy").setup({
         event = "InsertEnter",
         ft = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue", "markdown" }
     },
-    -- {
-    --     "akinsho/toggleterm.nvim",
-    --     config = function()
-    --         require("plugins.toggleterm")
-    --     end,
-    --     event = 'BufEnter'
-    -- },
     {
         "numToStr/Comment.nvim",
         config = function()
@@ -157,7 +128,7 @@ require("lazy").setup({
         end,
     },
     {
-          'JoosepAlviste/nvim-ts-context-commentstring',
+        'JoosepAlviste/nvim-ts-context-commentstring',
     },
     {
         "windwp/nvim-autopairs",
@@ -197,12 +168,6 @@ require("lazy").setup({
     --     event = "VeryLazy"
     -- },
     --
-    -- git
-    -- {
-    --     'sindrets/diffview.nvim',
-    --     dependencies = { "nvim-lua/plenary.nvim" },
-    --     event = "BufEnter",
-    -- },
     {
         'lewis6991/gitsigns.nvim',
         event = "BufEnter",
@@ -210,13 +175,6 @@ require("lazy").setup({
             require("plugins.gitsign")
         end,
     },
-    -- { "kdheepak/lazygit.nvim",   cmd = "LazyGit" },
-    -- {
-    --     "akinsho/git-conflict.nvim",
-    --     config = true,
-    --     event = "BufEnter",
-    -- },
-
     {
         "j-hui/fidget.nvim",
         tag = "legacy",
@@ -244,8 +202,15 @@ require("lazy").setup({
         dependencies = { "nvim-lua/plenary.nvim" }
     },
     -- { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' }, event = "InsertEnter" },
+    -- {
+    --     'Mofiqul/dracula.nvim',
+    -- },
     {
-        'Mofiqul/dracula.nvim',
+        'rose-pine/neovim',
+        as = 'rose-pine',
+        config = function()
+            vim.cmd('colorscheme rose-pine')
+        end
     },
 
     {
@@ -327,23 +292,7 @@ require("lazy").setup({
             vim.g['eskk#large_dictionary'] = { path = '~/.config/eskk/SKK-JISYO.L', sorted = 1, encoding = 'euc-jp' }
         end,
     }
-    ,
-{ 
-  'olivercederborg/poimandres.nvim',
-  lazy = false,
-  priority = 1000,
-  config = function()
-    require('poimandres').setup {
-      -- leave this setup function empty for default config
-      -- or refer to the configuration section
-      -- for configuration options
-    }
-  end,
-
-  -- optionally set the colorscheme within lazy config
-  init = function()
-    vim.cmd("colorscheme dracula")
-  end
-}
+    
+    
 
 })

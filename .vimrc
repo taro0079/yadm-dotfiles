@@ -47,7 +47,7 @@ set t_Co=256
 set foldmethod=indent
 set laststatus=2
 set path+=**
-set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ [%{cfi#get_func_name()}()]\ %=[POS=%l/%L(%02v)]\ [%{fugitive#statusline()}]
+set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ %=[POS=%l/%L(%02v)]\ [%{fugitive#statusline()}]
 if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
@@ -81,9 +81,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'justinmk/vim-sneak'
-Plug 'KenN7/vim-arsync'
 Plug 'morhetz/gruvbox'
-Plug 'tyru/current-func-info.vim'
 Plug 'vim-skk/eskk.vim'
 Plug 'taro0079/fd.vim'
 Plug 'tpope/vim-fugitive'
@@ -97,17 +95,11 @@ Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-matchfuzzy'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
-Plug 'junegunn/goyo.vim'
 Plug 'github/copilot.vim'
-Plug 'tpope/vim-dadbod'
 Plug 'itchyny/vim-parenmatch'
-" Plug 'sainnhe/sonokai'
 Plug 'dense-analysis/ale'
-Plug 'phanviet/vim-monokai-pro'
 Plug 'Shougo/ddc-source-around'
 Plug 'shun/ddc-source-vim-lsp'
 Plug 'Shougo/ddc.vim'
@@ -122,6 +114,7 @@ Plug 'Shougo/ddc-source-cmdline-history'
 Plug 'Shougo/ddc-ui-native'
 Plug 'Shougo/ddc-ui-pum'
 Plug 'Shougo/ddc-source-rg'
+Plug 'MarcWeber/vim-addon-mw-utils'
 call plug#end()
 
 " fold settings ---------------------- {{{1
@@ -204,18 +197,12 @@ let g:netrw_liststyle    = 3
 let g:netrw_list_hide    = netrw_gitignore#Hide()
 
 " lsp settings ---------------------------- {{{1
-function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-reference)
-endfunction
 
 augroup lsp_install
     au!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+" command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
 " rspt チケット番号抽出コマンド ---- {{{1
 function! RpstTicketNum()
@@ -315,13 +302,13 @@ call ddc#custom#patch_global('sourceParams', #{
       \ around: #{ maxsize: 500 }
       \})
 
-inoremap <silent><expr> <TAB>
-      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-      \ '<TAB>' : ddc#map#manual_complete()
-inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
-inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
+" inoremap <silent><expr> <TAB>
+"       \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+"       \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+"       \ '<TAB>' : ddc#map#manual_complete()
+" inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 
