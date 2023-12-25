@@ -64,8 +64,14 @@ elseif linux then
     return {
         color_scheme = "tokyonight",
         enable_tab_bar = false,
-        font = wezterm.font('FiraCode Nerd Font', { weight = 'Medium', italic = false }),
-        font_size = 10,
+        font = wezterm.font_with_fallback {
+            { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
+            { family = 'HackGen Console NF', weight = "Regular", italic = true },
+            { family = 'CaskaydiaCove Nerd Font', weight = "Bold" },
+            { family = 'HackGen Console NF', weight = "Bold" }
+
+        },
+        font_size = 16,
         color_scheme = 'tokyonight',
         window_padding = {
             left = 0,
