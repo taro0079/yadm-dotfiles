@@ -101,6 +101,7 @@ Plug 'github/copilot.vim'
 Plug 'itchyny/vim-parenmatch'
 Plug 'dense-analysis/ale'
 Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 " fold settings ---------------------- {{{1
@@ -152,8 +153,8 @@ syntax enable
 filetype plugin on
 set termguicolors
 set background=dark
-colorscheme gruvbox
-" colorscheme solarized8
+" colorscheme gruvbox
+colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
