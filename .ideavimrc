@@ -41,3 +41,5 @@ nmap <leader>as :action ActivateStructureToolWindow<cr>
 
 " ヤンクでクリップボードにコピー
 set clipboard+=unnamed
+nmap [c <Action>(VcsShowPrevChangeMarker)
+nmap ]c <Action>(VcsShowNextChangeMarker)
