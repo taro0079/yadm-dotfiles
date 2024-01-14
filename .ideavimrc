@@ -43,3 +43,9 @@ nmap <leader>as :action ActivateStructureToolWindow<cr>
 set clipboard+=unnamed
 nmap [c <Action>(VcsShowPrevChangeMarker)
 nmap ]c <Action>(VcsShowNextChangeMarker)
+nmap [q <Action>(GotoPreviousError)
+nmap ]q <Action>(GotoNextError)
+
+" マウスホバーの情報を出す
+nnmap <Leader>k <Action>(ShowHoverInfo)
+nnoremap <Leader><ctr> :<C-u>source ~/.ideavimrc<CR>
