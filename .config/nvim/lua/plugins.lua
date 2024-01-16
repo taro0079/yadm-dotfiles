@@ -291,8 +291,18 @@ require("lazy").setup({
             vim.g['eskk#dictionary'] = { path = '~/.config/eskk/my_jisyo', sorted = 1, encoding = 'utf-8' }
             vim.g['eskk#large_dictionary'] = { path = '~/.config/eskk/SKK-JISYO.L', sorted = 1, encoding = 'euc-jp' }
         end,
-    }
-    
-    
+    },
+    {
+        "craftzdog/solarized-osaka.nvim",
+        lazy = false,
+        config = function()
+            vim.cmd('colorscheme solarized-osaka')
+        end,
+        priority = 1000,
+        opts = {},
+    },
+
+
+
 
 })
