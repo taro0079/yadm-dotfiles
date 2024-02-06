@@ -6,7 +6,7 @@ require 'nvim-treesitter.configs'.setup {
   autotag = {
     enable = true
   },
-  ensure_installed = {"lua", "vim", "vimdoc", "typescript", "javascript", "php","python", "css"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = {"lua", "vim", "vimdoc", "typescript", "javascript", "php","python", "css", "html", "json"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   auto_install = true,
   ignore_install = {},
   indent = {

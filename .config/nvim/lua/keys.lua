@@ -80,3 +80,8 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 api.nvim_set_keymap('n', '<leader>n', ':NvimTreeToggle<CR>', {silent=true})
+
+-- keymap for rest.nvim
+vim.keymap.set("n", "<leader>rr", "<Plug>RestNvim")
+vim.keymap.set("n", "<leader>rp", "<Plug>RestNvimPreview")
+

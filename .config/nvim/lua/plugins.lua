@@ -205,13 +205,13 @@ require("lazy").setup({
     -- {
     --     'Mofiqul/dracula.nvim',
     -- },
-    {
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        -- config = function()
-        --     vim.cmd('colorscheme rose-pine-dawn')
-        -- end
-    },
+    -- {
+    --     'rose-pine/neovim',
+    --     as = 'rose-pine',
+    --     -- config = function()
+    --     --     vim.cmd('colorscheme rose-pine-dawn')
+    --     -- end
+    -- },
 
     {
         'mattn/emmet-vim',
@@ -292,17 +292,50 @@ require("lazy").setup({
             vim.g['eskk#large_dictionary'] = { path = '~/.config/eskk/SKK-JISYO.L', sorted = 1, encoding = 'euc-jp' }
         end,
     },
+    -- {
+    --     "craftzdog/solarized-osaka.nvim",
+    --     lazy = false,
+    --     config = function()
+    --         vim.cmd('colorscheme solarized-osaka')
+    --     end,
+    --     priority = 1000,
+    --     opts = {},
+    -- },
+    -- plugins/rest.lua
     {
-        "craftzdog/solarized-osaka.nvim",
+        "rest-nvim/rest.nvim",
+        dependencies = { { "nvim-lua/plenary.nvim" } },
+        config = function()
+            require("plugins.rest")
+        end
+    },
+    {
+        'ta-tikoma/php.easy.nvim',
+        config = true,
+        keys = {
+            { '-b',   '<CMD>PHPEasyDocBlock<CR>' },
+            { '-r',   '<CMD>PHPEasyReplica<CR>' },
+            { '-c',   '<CMD>PHPEasyCopy<CR>' },
+            { '-d',   '<CMD>PHPEasyDelete<CR>' },
+            { '-ii',  '<CMD>PHPEasyInitInterface<CR>' },
+            { '-ic',  '<CMD>PHPEasyInitClass<CR>' },
+            { '-iac', '<CMD>PHPEasyInitAbstractClass<CR>' },
+            { '-it',  '<CMD>PHPEasyInitTrait<CR>' },
+            { '-ie',  '<CMD>PHPEasyInitEnum<CR>' },
+            { '-ic',  '<CMD>PHPEasyAppendConstruct<CR>' },
+            { '-ac',  '<CMD>PHPEasyAppendConstant<CR>' },
+            { '-ap',  '<CMD>PHPEasyAppendProperty<CR>' },
+            { '-am',  '<CMD>PHPEasyAppendMethod<CR>' },
+            { '-aa',  '<CMD>PHPEasyAppendArgument<CR>' },
+        }
+    },
+    {
+        -- lazy
+        "sontungexpt/witch",
+        priority = 1000,
         lazy = false,
         config = function()
-            vim.cmd('colorscheme solarized-osaka')
-        end,
-        priority = 1000,
-        opts = {},
-    },
-
-
-
-
+            require("plugins.witch")
+        end
+    }
 })
