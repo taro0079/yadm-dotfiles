@@ -345,5 +345,22 @@ require("lazy").setup({
         end,
         event = { "BufWritePre" },
         cmd = { "ConformInfo" }
+    },
+    {
+        "mfussenegger/nvim-lint",
+        event = {
+            "BufReadPre",
+            "BufNewFile"
+        },
+        config = function()
+            require("plugins.nvim-lint")
+        end
+    },
+    {
+        "rshkarin/mason-nvim-lint",
+        config = function()
+            require("mason-nvim-lint").setup()
+        end
     }
+
 })
