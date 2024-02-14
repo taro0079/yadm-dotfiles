@@ -337,5 +337,13 @@ require("lazy").setup({
         config = function()
             require("plugins.witch")
         end
+    },
+    {
+        "stevearc/conform.nvim",
+        config = function()
+            require("plugins.conform")
+        end,
+        event = { "BufWritePre" },
+        cmd = { "ConformInfo" }
     }
 })

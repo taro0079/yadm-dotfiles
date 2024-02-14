@@ -5,13 +5,17 @@ require('config')
 require('gui-settings')
 require('helper.matchit-setting')
 
-vim.api.nvim_create_autocmd('BufWritePost', {
-    pattern = "*php",
-    callback = function()
-        vim.cmd('!php-cs-fixer fix %')
-        vim.cmd('e!')
-    end
-})
+-- vim.api.nvim_create_autocmd('BufWritePre', {
+--     -- pattern = "*php",
+--     -- callback = function()
+--     --     vim.cmd('!php-cs-fixer fix %')
+--     --     vim.cmd('e!')
+--     -- end
+--     pattern = "*",
+--     callback = function(args)
+--         require("conform").format({ async = true, bufnr = args.buf, lsp_fallback = true })
+--     end
+-- })
 
 incremental_selection = {
     enable = true,
