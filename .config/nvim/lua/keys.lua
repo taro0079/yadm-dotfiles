@@ -79,9 +79,9 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-api.nvim_set_keymap('n', '<leader>n', ':NvimTreeToggle<CR>', {silent=true})
+api.nvim_set_keymap('n', '<leader>n', ':NvimTreeToggle<CR>', { silent = true })
 
 -- keymap for rest.nvim
 vim.keymap.set("n", "<leader>rr", "<Plug>RestNvim")
 vim.keymap.set("n", "<leader>rp", "<Plug>RestNvimPreview")
-
+vim.keymap.set("n", "<leader>tc", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>")

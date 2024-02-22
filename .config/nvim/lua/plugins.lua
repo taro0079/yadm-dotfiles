@@ -329,15 +329,15 @@ require("lazy").setup({
             { '-aa',  '<CMD>PHPEasyAppendArgument<CR>' },
         }
     },
-    {
-        -- lazy
-        "sontungexpt/witch",
-        priority = 1000,
-        lazy = false,
-        config = function()
-            require("plugins.witch")
-        end
-    },
+    -- {
+    --     -- lazy
+    --     "sontungexpt/witch",
+    --     priority = 1000,
+    --     lazy = false,
+    --     config = function()
+    --         require("plugins.witch")
+    --     end
+    -- },
     {
         "stevearc/conform.nvim",
         config = function()
@@ -361,6 +361,40 @@ require("lazy").setup({
         config = function()
             require("mason-nvim-lint").setup()
         end
+    },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+        config = function()
+            vim.cmd('colorscheme tokyonight-storm')
+        end
+    },
+    {
+        "nvim-neotest/neotest",
+        lazy = true,
+        dependencies = {
+            "olimorris/neotest-phpunit",
+        },
+        config = function()
+            require("neotest").setup({
+                adapters = {
+                    require("neotest-phpunit")({
+                        phpunit_cmd = function()
+                            return vim.tbl_flatten({
+                                "docker",
+                                "exec",
+                                "oms-dev-docker-oms-backend-1",
+                                "symfony",
+                                "php",
+                                "bin/phpunit",
+                            })
+                            -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
+                        end,
+                    })
+                },
+            })
+        end
     }
-
 })
