@@ -6,3 +6,8 @@ if status is-interactive
     set -x PATH $PATH $HOME/.config/composer/vendor/bin
 
 end
+function fbr
+    set branches (git branch --all | grep -v HEAD)
+    set branch (echo "$branches" | fzf-tmux -d (math 2 + (count $branches)) +m)
+    git checkout (echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+end

@@ -1,1 +1,1 @@
-/home/ubuntu/.fzf/shell/key-bindings.fish
+/Users/taro_morita/.fzf/shell/key-bindings.fish
