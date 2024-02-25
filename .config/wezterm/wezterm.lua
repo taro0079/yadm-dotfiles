@@ -21,14 +21,14 @@ end
 if mac then
     return {
         font = wezterm.font_with_fallback {
-            { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
-            { family = 'HackGen Console NF', weight = "Regular", italic = true },
+            { family = 'FiraCode Nerd Font',      weight = "Regular", italic = false },
+            { family = 'HackGen Console NF',      weight = "Regular", italic = true },
             { family = 'CaskaydiaCove Nerd Font', weight = "Bold" },
-            { family = 'HackGen Console NF', weight = "Bold" }
+            { family = 'HackGen Console NF',      weight = "Bold" }
 
         },
         -- disable_default_key_bindings = true,
-        font_size = 14,
+        font_size = 16,
         keys = mykeys,
         -- color_scheme = "Tokyo Night Storm",
         send_composed_key_when_right_alt_is_pressed = false,
@@ -66,9 +66,9 @@ elseif linux then
         enable_tab_bar = false,
         font = wezterm.font_with_fallback {
             { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
-            { family = 'HackGen Console NF', weight = "Regular", italic = true },
+            { family = 'HackGen Console NF',      weight = "Regular", italic = true },
             { family = 'CaskaydiaCove Nerd Font', weight = "Bold" },
-            { family = 'HackGen Console NF', weight = "Bold" }
+            { family = 'HackGen Console NF',      weight = "Bold" }
 
         },
         font_size = 16,
