@@ -196,11 +196,11 @@ require("lazy").setup({
         event = "BufEnter",
     },
     { 'RRethy/vim-illuminate', event = "BufEnter" },
-    {
-        'jose-elias-alvarez/null-ls.nvim',
-        config = function() require 'plugins.null-ls' end,
-        dependencies = { "nvim-lua/plenary.nvim" }
-    },
+    -- {
+    --     'jose-elias-alvarez/null-ls.nvim',
+    --     config = function() require 'plugins.null-ls' end,
+    --     dependencies = { "nvim-lua/plenary.nvim" }
+    -- },
     -- { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' }, event = "InsertEnter" },
     -- {
     --     'Mofiqul/dracula.nvim',

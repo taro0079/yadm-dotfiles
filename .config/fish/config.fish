@@ -8,9 +8,15 @@ if status is-interactive
 
 end
 function fbr
-    set branches (git branch --all | grep -v HEAD)
-    set branch (echo "$branches" | fzf-tmux -d (math 2 + (count $branches)) +m)
-    git checkout (echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+    set -l branchname (
+        env FZF_DEFAULT_COMMAND='git --no-pager branch -a | grep -v HEAD | sed -e "s/^.* //g"' \
+            # fzf-tmux -d --height 70% --prompt "BRANCH NAME>" \
+            fzf-tmux -d --prompt "BRANCH NAME>" \
+                --preview "git --no-pager log -20 --color=always {}"
+    )
+    if test -n "$branchname"
+        git checkout (echo "$branchname"| sed "s#remotes/[^/]*/##")
+    end
 end
 
 function fshow
