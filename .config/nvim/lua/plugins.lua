@@ -375,23 +375,26 @@ require("lazy").setup({
         "nvim-neotest/neotest",
         lazy = true,
         dependencies = {
+            "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-treesitter/nvim-treesitter",
             "olimorris/neotest-phpunit",
         },
         config = function()
             require("neotest").setup({
                 adapters = {
                     require("neotest-phpunit")({
-                        phpunit_cmd = function()
-                            return vim.tbl_flatten({
-                                "docker",
-                                "exec",
-                                "oms-dev-docker-oms-backend-1",
-                                "symfony",
-                                "php",
-                                "bin/phpunit",
-                            })
-                            -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
-                        end,
+                        -- phpunit_cmd = function()
+                        -- return vim.tbl_flatten({
+                        --     "docker",
+                        --     "exec",
+                        --     "oms-dev-docker-oms-backend-1",
+                        --     "symfony",
+                        --     "php",
+                        --     "bin/phpunit",
+                        -- })
+                        -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
+                        -- end,
                     })
                 },
             })
