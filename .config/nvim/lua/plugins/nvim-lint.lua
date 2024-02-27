@@ -1,7 +1,7 @@
 local lint = require("lint")
 
 lint.linters_by_ft = {
-    php = { 'phpcs', 'phpstan' }
+    php = {}
 }
 
 local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = true })

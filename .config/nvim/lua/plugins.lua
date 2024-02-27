@@ -384,17 +384,16 @@ require("lazy").setup({
             require("neotest").setup({
                 adapters = {
                     require("neotest-phpunit")({
-                        -- phpunit_cmd = function()
-                        -- return vim.tbl_flatten({
-                        --     "docker",
-                        --     "exec",
-                        --     "oms-dev-docker-oms-backend-1",
-                        --     "symfony",
-                        --     "php",
-                        --     "bin/phpunit",
-                        -- })
+                        phpunit_cmd = function()
+                            -- return "symfony php bin/phpunit"
+
+                        return vim.tbl_flatten({
+                            "symfony",
+                            "php",
+                            "bin/phpunit",
+                        })
                         -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
-                        -- end,
+                        end,
                     })
                 },
             })
