@@ -1,6 +1,6 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/taro_morita/dev/rpst-oms-backend
+- /var/lib/rpst-oms-backend
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false
