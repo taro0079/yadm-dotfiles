@@ -4,6 +4,7 @@ if status is-interactive
     fzf_key_bindings
     set -x PATH $PATH $HOME/.config/composer/vendor/bin
     set -gx PATH "$HOME/.cargo/bin" $PATH;
+    set -x XDG_CONFIG_HOME $HOME/.config
 
 end
 function fbr
