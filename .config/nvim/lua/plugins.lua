@@ -356,12 +356,12 @@ require("lazy").setup({
             require("plugins.nvim-lint")
         end
     },
-    {
-        "rshkarin/mason-nvim-lint",
-        config = function()
-            require("mason-nvim-lint").setup()
-        end
-    },
+    -- {
+    --     "rshkarin/mason-nvim-lint",
+    --     config = function()
+    --         require("mason-nvim-lint").setup()
+    --     end
+    -- },
     {
         "folke/tokyonight.nvim",
         lazy = false,
