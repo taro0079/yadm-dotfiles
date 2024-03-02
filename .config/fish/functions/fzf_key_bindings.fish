@@ -1,1 +1,1 @@
-/Users/taro_morita/.fzf/shell/key-bindings.fish
+/Users/awesometaro/.fzf/shell/key-bindings.fish
