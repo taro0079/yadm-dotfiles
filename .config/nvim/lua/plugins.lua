@@ -287,7 +287,7 @@ require("lazy").setup({
     {
         'vim-skk/eskk.vim',
         config = function()
-            vim.g['eskk#directory'] = '~/config/eskk'
+            vim.g['eskk#directory'] = '~/.config/eskk'
             vim.g['eskk#dictionary'] = { path = '~/.config/eskk/my_jisyo', sorted = 1, encoding = 'utf-8' }
             vim.g['eskk#large_dictionary'] = { path = '~/.config/eskk/SKK-JISYO.L', sorted = 1, encoding = 'euc-jp' }
         end,
