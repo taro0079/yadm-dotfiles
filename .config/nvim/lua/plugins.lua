@@ -99,6 +99,14 @@ require("lazy").setup({
         cmd = "Trouble"
     },
     {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require('plugins.lualine')
+        end
+
+    },
+    {
         'easymotion/vim-easymotion',
         event = "BufEnter"
 
@@ -287,10 +295,11 @@ require("lazy").setup({
     {
         'vim-skk/eskk.vim',
         config = function()
-            vim.g['eskk#directory'] = '~/.config/eskk'
-            vim.g['eskk#dictionary'] = { path = '~/.config/eskk/my_jisyo', sorted = 1, encoding = 'utf-8' }
-            vim.g['eskk#large_dictionary'] = { path = '~/.config/eskk/SKK-JISYO.L', sorted = 1, encoding = 'euc-jp' }
-        end,
+            vim.cmd[[let g:eskk#directory        = "~/.config/eskk"]]
+            vim.cmd[[let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}]]
+            vim.cmd[[let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}]]
+        end
+
     },
     -- {
     --     "craftzdog/solarized-osaka.nvim",
@@ -371,6 +380,8 @@ require("lazy").setup({
             vim.cmd('colorscheme tokyonight-storm')
         end
     },
+    {'akinsho/toggleterm.nvim', version = "*", config = function() require('plugins.toggleterm') end},
+
     {
         "nvim-neotest/neotest",
         lazy = true,

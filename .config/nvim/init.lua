@@ -33,4 +33,3 @@ incremental_selection = {
         return true
     end
 }
-vim.lsp.set_log_level("debug")
