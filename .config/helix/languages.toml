@@ -1,6 +1,7 @@
 [[language]]
 name = "php"
 indent = { tab-width = 4, unit = "    "}
+language-servers = ['intelephense']
 
 [[language]]
 name = "yaml"

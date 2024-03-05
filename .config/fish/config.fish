@@ -2,6 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     set -x PATH $PATH $HOME/.volta/bin
     set -x PATH $PATH $HOME/.config/composer/vendor/bin
+    set -x PATH $PATH $HOME/.symfony5/bin
     set -gx PATH "$HOME/.cargo/bin" $PATH;
     set -x XDG_CONFIG_HOME $HOME/.config
     # eval (/opt/homebrew/bin/brew shellenv)

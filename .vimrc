@@ -69,6 +69,7 @@ Plug 'taro0079/path_to_clipboard'
 "Plug 'thinca/vim-qfhl'
 "Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-repeat'
+Plug 'tomasr/molokai'
 "Plug 'tpope/vim-endwise'
 "Plug 'prabirshrestha/vim-lsp'
 "Plug 'mattn/vim-lsp-settings'
@@ -152,8 +153,8 @@ nnoremap <leader>lt :set list!<CR>
 syntax enable
 filetype plugin on
 "set termguicolors
-"set background=dark
-" colorscheme gruvbox
+set background=dark
+colorscheme molokai
 "colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1
