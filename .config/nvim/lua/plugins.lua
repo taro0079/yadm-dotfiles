@@ -409,5 +409,9 @@ require("lazy").setup({
                 },
             })
         end
+    },
+    {
+        'tpope/vim-dadbod'
+
     }
 })

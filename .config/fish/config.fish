@@ -6,6 +6,7 @@ if status is-interactive
     set -gx PATH "$HOME/.cargo/bin" $PATH;
     set -x XDG_CONFIG_HOME $HOME/.config
     # eval (/opt/homebrew/bin/brew shellenv)
+    zoxide init fish | source
 
 end
 function fbr
@@ -30,6 +31,13 @@ function fshow
                   {}
 FZF-EOF"
 end
+
+function ide
+    tmux split-window -v -p 30 
+    tmux split-window -h -p 66
+    tmux split-window -h -p 55
+end
+
 function dox
     docker exec -it (docker ps --format "{{.Names}}" | fzf) sh
 end
@@ -46,7 +54,6 @@ alias gcb='git checkout -b'
 alias gco='git checkout'
 alias gaa='git add .'
 alias ga='git add'
-zoxide init fish | source
 fzf_key_bindings
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH

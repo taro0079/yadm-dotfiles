@@ -1,7 +1,9 @@
 lastupdatecheck: 0
 recentrepos:
 - /var/lib/rpst-oms-backend
+- /home/taro_morita/dev/rpst-oms-backend
 startuppopupversion: 5
-customcommandshistory: []
+customcommandshistory:
+- q
 hidecommandlog: false
 ignorewhitespaceindiffview: false
