@@ -88,3 +88,4 @@ vim.keymap.set("n", "<leader>tc", "<cmd>lua require('neotest').run.run(vim.fn.ex
 vim.keymap.set("n", "<leader>tt", "<cmd>lua require('neotest').run.run()<cr>")
 vim.keymap.set("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>")
 vim.keymap.set("n", "<leader>to", "<cmd>lua require('neotest').output.open({ enter = true })<cr>")
+vim.keymap.set("n", "<leader>tw", "<cmd>lua require('neotest').watch.toggle()<cr>")
