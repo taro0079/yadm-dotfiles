@@ -36,7 +36,9 @@
 (leaf company
   :ensure t
   :leaf-defer nil
-  :blackout t)
+  :blackout t
+  :hook ((after-init-hook . global-company-mode)))
+
 
 (leaf flycheck
   :ensure t
@@ -58,3 +60,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+
+
+
