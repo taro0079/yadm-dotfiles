@@ -1,3 +1,4 @@
+(set-frame-font "UbuntuMono Nerd Font-14" nil t)
 (eval-and-compile
   (when (or load-file-name byte-compile-current-file)
     (setq user-emacs-directory
@@ -23,9 +24,11 @@
 	(leaf-keywords-init)))
 (leaf lsp-mode
   :init
-  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-keymap-prefix "C-c l"
+	lsp-clients-php-server-command '("intelephense" "--stdio")
+  )
   :hook (
-	 (php-mode . lsp)
+	 (php-mode-hook . lsp)
 	 (lsp-mode . lsp-enabmel-which-key-integration))
   :commands lsp)
 (leaf lsp-ui :commands lsp-ui-mode)
@@ -40,11 +43,22 @@
   :hook ((after-init-hook . global-company-mode)))
 
 
-(leaf flycheck
+;;(leaf flycheck
+;;:ensure t
+;;:bind (("M-n" . flycheck-next-error)
+;;	 ("M-p" . flycheck-previous-error))
+;;:global-minor-mode global-flycheck-mode)
+(leaf doom-themes
   :ensure t
-  :bind (("M-n" . flycheck-next-error)
-	 ("M-p" . flycheck-previous-error))
-  :global-minor-mode global-flycheck-mode)
+  :config
+  (setq doom-themes-enable-bold t
+	doom-themes-enable-italic t)
+  (load-theme 'doom-one t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (setq doom-themes-treemacs-theme "doom-atom")
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
 
 (provide 'init)
 (custom-set-variables
@@ -52,6 +66,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e" default))
  '(package-selected-packages
    '(which-key treemacs lsp-ivy company lsp-ui blackout el-get hydra leaf-keywords)))
 (custom-set-faces
@@ -60,8 +76,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-
-
-
 
