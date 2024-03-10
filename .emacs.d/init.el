@@ -1,4 +1,15 @@
 (set-frame-font "UbuntuMono Nerd Font-14" nil t)
+(global-set-key "\C-cm" 'set-mark-command)
+
+(defun finder-current-dir-open()
+  (interactive)
+  (shell-command "open ."))
+
+(defun yadm-add()
+  (interactive)
+  (shell-command "yadm add -u"))
+
+
 (eval-and-compile
   (when (or load-file-name byte-compile-current-file)
     (setq user-emacs-directory
