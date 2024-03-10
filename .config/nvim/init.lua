@@ -33,3 +33,6 @@ incremental_selection = {
         return true
     end
 }
+
+-- vim.api.nvim_set_keymap('n', '<leader>g', ':lua askNameGeet()<CR>',  {noremap=true, silent=true})
+-- vim.api.nvim_create_user_command("test", askNameGeet(), {})

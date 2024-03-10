@@ -9,7 +9,6 @@
   (interactive)
   (shell-command "yadm add -u"))
 
-
 (eval-and-compile
   (when (or load-file-name byte-compile-current-file)
     (setq user-emacs-directory
