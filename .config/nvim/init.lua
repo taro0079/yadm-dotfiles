@@ -5,18 +5,6 @@ require('config')
 require('gui-settings')
 require('helper.matchit-setting')
 
--- vim.api.nvim_create_autocmd('BufWritePre', {
---     -- pattern = "*php",
---     -- callback = function()
---     --     vim.cmd('!php-cs-fixer fix %')
---     --     vim.cmd('e!')
---     -- end
---     pattern = "*",
---     callback = function(args)
---         require("conform").format({ async = true, bufnr = args.buf, lsp_fallback = true })
---     end
--- })
-
 incremental_selection = {
     enable = true,
     keymaps = {
@@ -34,5 +22,3 @@ incremental_selection = {
     end
 }
 
--- vim.api.nvim_set_keymap('n', '<leader>g', ':lua askNameGeet()<CR>',  {noremap=true, silent=true})
--- vim.api.nvim_create_user_command("test", askNameGeet(), {})
