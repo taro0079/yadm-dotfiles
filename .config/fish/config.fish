@@ -5,8 +5,9 @@ if status is-interactive
     set -x PATH $PATH $HOME/.symfony5/bin
     set -gx PATH "$HOME/.cargo/bin" $PATH;
     set -x XDG_CONFIG_HOME $HOME/.config
-    # eval (/opt/homebrew/bin/brew shellenv)
+    eval (/opt/homebrew/bin/brew shellenv)
     zoxide init fish | source
+    # set PATH /opt/homebrew/bin/brew $PATH
 
 end
 function fbr
@@ -54,7 +55,7 @@ alias gcb='git checkout -b'
 alias gco='git checkout'
 alias gaa='git add .'
 alias ga='git add'
-fzf_key_bindings
+# fzf_key_bindings
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
 set -gx PATH "$HOME/.symfony5/bin" $PATH
