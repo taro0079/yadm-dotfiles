@@ -9,6 +9,22 @@
   (interactive)
   (shell-command "yadm add -u"))
 
+(defun my-php-mode-setup ()
+  "My PHP-mode hook."
+  (interactive)
+  (require 'flycheck-phpstan)
+  (flycheck-mode t)
+  (flycheck-select-checker 'phpstan)
+  (setq indent-tabs-mode nil
+	tab-width 4
+	c-basic-offset 4))
+
+(add-hook 'php-mode-hook 'my-php-mode-setup)
+
+
+(add-hook 'php-mode-hook 'my-php-mode-setup)
+(global-auto-revert-mode t)
+
 (eval-and-compile
   (when (or load-file-name byte-compile-current-file)
     (setq user-emacs-directory
@@ -33,12 +49,15 @@
 	:config
 	(leaf-keywords-init)))
 (leaf lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :config
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-intelephense-php-version 8.2)
   :init
-  (setq lsp-keymap-prefix "C-c l"
-	lsp-clients-php-server-command '("intelephense" "--stdio")
-  )
   :hook (
 	 (php-mode-hook . lsp)
+	 (lsp-mode-hook . lsp-ui-mode)
 	 (lsp-mode . lsp-enabmel-which-key-integration))
   :commands lsp)
 (leaf lsp-ui :commands lsp-ui-mode)
@@ -53,11 +72,11 @@
   :hook ((after-init-hook . global-company-mode)))
 
 
-;;(leaf flycheck
-;;:ensure t
-;;:bind (("M-n" . flycheck-next-error)
-;;	 ("M-p" . flycheck-previous-error))
-;;:global-minor-mode global-flycheck-mode)
+(leaf flycheck
+:ensure t
+:bind (("M-n" . flycheck-next-error)
+	 ("M-p" . flycheck-previous-error))
+:global-minor-mode global-flycheck-mode)
 (leaf doom-themes
   :ensure t
   :config
@@ -78,8 +97,12 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e" default))
+ '(package-archives
+   '(("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/")
+     ("org" . "https://orgmode.org/elpa/")))
  '(package-selected-packages
-   '(which-key treemacs lsp-ivy company lsp-ui blackout el-get hydra leaf-keywords)))
+   '(flycheck-phpstan lsp-mode php-mode magit which-key treemacs lsp-ivy company lsp-ui blackout el-get hydra leaf-keywords)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

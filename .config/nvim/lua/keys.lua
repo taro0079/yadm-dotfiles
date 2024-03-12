@@ -93,3 +93,6 @@ vim.keymap.set("n", "<leader>tw", "<cmd>lua require('neotest').watch.toggle()<cr
 -- command runner
 vim.keymap.set("n", "<leader>rc", "<cmd>lua require('command').run()<cr>")
 vim.keymap.set("n", "<leader>sc", "<cmd>lua require('command').read()<cr>")
+
+-- db commander
+vim.keymap.set("v", "<leader>db", "<cmd>lua require('db').db_execute_visual_selection()<cr>")
