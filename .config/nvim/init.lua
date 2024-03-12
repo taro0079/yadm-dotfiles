@@ -22,3 +22,6 @@ incremental_selection = {
     end
 }
 
+vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='magenta' })
+vim.api.nvim_set_hl(0, 'LineNr', { fg='yellow' })
+vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='magenta' })
