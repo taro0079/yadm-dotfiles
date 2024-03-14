@@ -1,4 +1,4 @@
-(set-frame-font "UbuntuMono Nerd Font-14" nil t)
+(set-frame-font "UbuntuMono Nerd Font-16" nil t)
 (global-set-key "\C-cm" 'set-mark-command)
 
 (defun finder-current-dir-open()
@@ -70,7 +70,14 @@
   :leaf-defer nil
   :blackout t
   :hook ((after-init-hook . global-company-mode)))
-
+(leaf skk
+  :ensure ddskk
+  :custom ((default-input-method . "japanese-skk"))
+  :config
+  (leaf ddskk-posframe
+    :ensure t
+    :global-minor-mode t))
+(global-set-key "\C-x\C-j" 'skk-mode)
 
 (leaf flycheck
 :ensure t
