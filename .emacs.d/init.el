@@ -76,7 +76,8 @@
   (tree-sitter-require 'php)
   :hook
   (php-mode-hook . tree-sitter-mode))
-		       
+
+
 (leaf eglot
   :ensure t
   :require t
