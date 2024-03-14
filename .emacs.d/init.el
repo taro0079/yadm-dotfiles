@@ -1,5 +1,7 @@
 (set-frame-font "UbuntuMono Nerd Font-16" nil t)
 (global-set-key "\C-cm" 'set-mark-command)
+(line-number-mode 1)
+(global-display-line-numbers-mode)
 
 (defun finder-current-dir-open()
   (interactive)
@@ -70,6 +72,7 @@
   :leaf-defer nil
   :blackout t
   :hook ((after-init-hook . global-company-mode)))
+
 (leaf skk
   :ensure ddskk
   :custom ((default-input-method . "japanese-skk"))
