@@ -1,4 +1,4 @@
-(set-frame-font "UbuntuMono Nerd Font-16" nil t)
+(set-frame-font "UbuntuMono Nerd Font-18" nil t)
 (global-set-key "\C-cm" 'set-mark-command)
 (line-number-mode 1)
 (global-display-line-numbers-mode)
@@ -53,21 +53,7 @@
 
 	:config
 	(leaf-keywords-init)))
-;;(leaf lsp-mode
-;;  :ensure t
-;;  :commands (lsp lsp-deferred)
-;;  :config
-;;  (setq lsp-prefer-flymake nil)
-;;  (setq lsp-intelephense-php-version 8.2)
-;;  :init
-;;  :hook (
-;;	 (php-mode-hook . lsp)
-;;	 (lsp-mode-hook . lsp-ui-mode)
-;;	 (lsp-mode . lsp-enabmel-which-key-integration))
-;;  :commands lsp)
-;;(leaf lsp-ui :commands lsp-ui-mode)
-;;(leaf lsp-ivy :commands lsp-ivy-workspace-symbol)
-;;(leaf lsp-treemacs :commands lsp-treemacs-errors-list)
+
 (leaf tree-sitter
   :ensure t
   :config
@@ -77,6 +63,10 @@
   :hook
   (php-mode-hook . tree-sitter-mode))
 
+(leaf org-bullets
+  :ensure t
+  :hook
+  (org-mode-hook . (lambda () (org-bullets-mode t))))
 
 (leaf eglot
   :ensure t
@@ -87,6 +77,7 @@
 (leaf which-key
   :ensure t
   :config (which-key-mode))
+
 (leaf company
   :ensure t
   :leaf-defer nil
@@ -107,20 +98,63 @@
 :bind (("M-n" . flycheck-next-error)
 	 ("M-p" . flycheck-previous-error))
 :global-minor-mode global-flycheck-mode)
-(leaf doom-themes
+
+(leaf helm
+  :ensure t
+  :require t
+  :bind ("\C-c h" . helm-for-files))
+
+(leaf web-mode
+  :ensure t)
+
+(leaf yaml-mode
+  :ensure t)
+
+(leaf projectile
   :ensure t
   :config
-  (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t)
-  (load-theme 'doom-one t)
+  (when (require 'projectile nil t)
+    (projectile-mode)
+    (add-to-list
+     'projectile-globally-ignored-directories
+     "node_modules")
+    (setq projectile-enable-caching t))
+  )
+;;  Color scheme
+(leaf doom-themes
+  :ensure t
+  :custom
+  (doom-themes-enable-bold)
+  (doom-themes-enable-italic)
+  :config
+  (load-theme 'doom-dracula t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   (setq doom-themes-treemacs-theme "doom-atom")
   (doom-themes-treemacs-config)
-  (doom-themes-org-config))
-
+  (doom-themes-org-config)
+  :custom-face
+  (doom-modeline-bar '((t (:background "#6272a4")))))
+;; (leaf srcery-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'srcery t))
+;; 
 (leaf magit
   :ensure t)
+
+(leaf git-gutter
+  :ensure t
+  :custom
+  (git-gutter:modified-sign . "~")
+  (git-gutter:added-sign . "+")
+  (git-gutter:deleted-sign . "-")
+  :custom-face
+  (git-gutter:modified . '((t (:foreground "#404040" :background "#c0fc7f"))))
+  (git-gutter:added    . '((t (:foreground "#108a3b" :background "#50fc7f"))))
+  (git-gutter:deleted  . '((t (:foreground "#8f2986" :background "#ff79c6"))))
+  :global-minor-mode global-git-gutter-mode)
+
 
 
 (provide 'init)
