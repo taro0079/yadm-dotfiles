@@ -1,0 +1,10 @@
+[window]
+opacity = 0.9
+padding = { x = 0, y = 0 }
+blur = true
+
+[font]
+size = 18
+normal = { family = "SpaceMono Nerd Font", style = "Regular" }
+
+

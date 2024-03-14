@@ -83,7 +83,9 @@
   :hook
   (php-mode-hook . eglot-ensure))
 
-(leaf which-key :config (which-key-mode))
+(leaf which-key
+  :ensure t
+  :config (which-key-mode))
 (leaf company
   :ensure t
   :leaf-defer nil
@@ -115,6 +117,10 @@
   (setq doom-themes-treemacs-theme "doom-atom")
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
+
+(leaf magit
+  :ensure t)
+
 
 (provide 'init)
 (custom-set-variables
