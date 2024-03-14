@@ -2,6 +2,9 @@
 (global-set-key "\C-cm" 'set-mark-command)
 (line-number-mode 1)
 (global-display-line-numbers-mode)
+(tool-bar-mode 0)
+(with-eval-after-load "eglot"
+  (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
 
 (defun finder-current-dir-open()
   (interactive)
@@ -50,21 +53,35 @@
 
 	:config
 	(leaf-keywords-init)))
-(leaf lsp-mode
+;;(leaf lsp-mode
+;;  :ensure t
+;;  :commands (lsp lsp-deferred)
+;;  :config
+;;  (setq lsp-prefer-flymake nil)
+;;  (setq lsp-intelephense-php-version 8.2)
+;;  :init
+;;  :hook (
+;;	 (php-mode-hook . lsp)
+;;	 (lsp-mode-hook . lsp-ui-mode)
+;;	 (lsp-mode . lsp-enabmel-which-key-integration))
+;;  :commands lsp)
+;;(leaf lsp-ui :commands lsp-ui-mode)
+;;(leaf lsp-ivy :commands lsp-ivy-workspace-symbol)
+;;(leaf lsp-treemacs :commands lsp-treemacs-errors-list)
+(leaf tree-sitter
   :ensure t
-  :commands (lsp lsp-deferred)
   :config
-  (setq lsp-prefer-flymake nil)
-  (setq lsp-intelephense-php-version 8.2)
-  :init
-  :hook (
-	 (php-mode-hook . lsp)
-	 (lsp-mode-hook . lsp-ui-mode)
-	 (lsp-mode . lsp-enabmel-which-key-integration))
-  :commands lsp)
-(leaf lsp-ui :commands lsp-ui-mode)
-(leaf lsp-ivy :commands lsp-ivy-workspace-symbol)
-(leaf lsp-treemacs :commands lsp-treemacs-errors-list)
+  (leaf tree-sitter-langs
+    :ensure t)
+  (tree-sitter-require 'php)
+  :hook
+  (php-mode-hook . tree-sitter-mode))
+		       
+(leaf eglot
+  :ensure t
+  :require t
+  :hook
+  (php-mode-hook . eglot-ensure))
 
 (leaf which-key :config (which-key-mode))
 (leaf company
@@ -119,4 +136,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
