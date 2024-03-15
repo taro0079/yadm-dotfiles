@@ -55,6 +55,10 @@
 	:config
 	(leaf-keywords-init)))
 
+(leaf flycheck-phpstan
+  :ensure t)
+
+
 (leaf tree-sitter
   :ensure t
   :config
