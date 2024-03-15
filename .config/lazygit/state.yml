@@ -1,7 +1,6 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/awesometaro/dev/rpst-oms-backend
-- /Users/awesometaro/dev/agenda-php
+- /var/lib/rpst-oms-backend
 startuppopupversion: 5
 customcommandshistory:
 - q

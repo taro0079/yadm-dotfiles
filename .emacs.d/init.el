@@ -1,5 +1,6 @@
 (set-frame-font "UbuntuMono Nerd Font-18" nil t)
 (global-set-key "\C-cm" 'set-mark-command)
+(global-set-key "\C-t" 'other-window)
 (line-number-mode 1)
 (global-display-line-numbers-mode)
 (tool-bar-mode 0)
@@ -139,9 +140,21 @@
 ;;   :ensure t
 ;;   :config
 ;;   (load-theme 'srcery t))
-;; 
+;;
+
+(leaf org
+  :ensure t)
+
+(leaf org-roam
+  :ensure t)
+
 (leaf magit
   :ensure t)
+
+(leaf avy
+  :ensure t
+  :bind
+  (( "\C-c ;" . avy-goto-char)))
 
 (leaf git-gutter
   :ensure t
@@ -154,8 +167,6 @@
   (git-gutter:added    . '((t (:foreground "#108a3b" :background "#50fc7f"))))
   (git-gutter:deleted  . '((t (:foreground "#8f2986" :background "#ff79c6"))))
   :global-minor-mode global-git-gutter-mode)
-
-
 
 (provide 'init)
 (custom-set-variables
