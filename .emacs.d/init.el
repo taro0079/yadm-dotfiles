@@ -1,4 +1,4 @@
-(set-frame-font "UbuntuMono Nerd Font-18" nil t)
+(set-frame-font "FantasqueSansM Nerd Font-14" nil t)
 (global-set-key "\C-cm" 'set-mark-command)
 (global-set-key "\C-t" 'other-window)
 (line-number-mode 1)
@@ -165,7 +165,11 @@
   :init
   (with-eval-after-load "tramp"
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-    (add-to-list 'tramp-remote-path "/home/taro_morita/.volta/bin/intelephense")))
+    (add-to-list 'tramp-remote-path "/home/taro_morita/.volta/bin/intelephense")
+    (add-to-list 'tramp-connection-properties
+             (list (regexp-quote "/ssh:oms-dev:")
+                   "remote-shell" "/usr/bin/bash"))
+    ))
 
 
 (leaf avy

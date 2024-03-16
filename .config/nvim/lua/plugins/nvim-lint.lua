@@ -4,8 +4,9 @@ lint.linters_by_ft = {
     php = {"phpstan"}
 }
 
-local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" },
+
+local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = false }) -- clear falseにしないとnvim-lintのプロセスが終了されずにlinterのprocessがスタックしていく
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" },
     {
         group = lint_autogroup,
         callback = function()

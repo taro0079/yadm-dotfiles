@@ -416,5 +416,9 @@ require("lazy").setup({
     {
         'tpope/vim-dadbod'
 
+    },
+    {
+        "phpstan/vim-phpstan"
     }
+
 })
