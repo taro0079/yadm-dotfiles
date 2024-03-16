@@ -210,9 +210,12 @@ require("lazy").setup({
     --     dependencies = { "nvim-lua/plenary.nvim" }
     -- },
     -- { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' }, event = "InsertEnter" },
-    -- {
-    --     'Mofiqul/dracula.nvim',
-    -- },
+    {
+        'Mofiqul/dracula.nvim',
+        config = function()
+            vim.cmd('colorscheme dracula')
+        end
+    },
     -- {
     --     'rose-pine/neovim',
     --     as = 'rose-pine',
@@ -371,15 +374,15 @@ require("lazy").setup({
     --         require("mason-nvim-lint").setup()
     --     end
     -- },
-    {
-        "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 1000,
-        opts = {},
-        config = function()
-            vim.cmd('colorscheme tokyonight-storm')
-        end
-    },
+    -- {
+    --     "folke/tokyonight.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     opts = {},
+    --     config = function()
+    --         vim.cmd('colorscheme tokyonight-storm')
+    --     end
+    -- },
     {'akinsho/toggleterm.nvim', version = "*", config = function() require('plugins.toggleterm') end},
 
     {

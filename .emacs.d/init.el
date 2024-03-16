@@ -58,7 +58,10 @@
 (leaf flycheck-phpstan
   :ensure t)
 
-
+(leaf php-cs-fixer
+  :ensure t
+  :hook
+  (before-save-hook . php-cs-fixer-before-save))
 (leaf tree-sitter
   :ensure t
   :config
@@ -154,6 +157,16 @@
 
 (leaf magit
   :ensure t)
+
+(leaf tramp
+  :ensure t
+  :custom
+  (tramp-default-method . "sshx")
+  :init
+  (with-eval-after-load "tramp"
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+    (add-to-list 'tramp-remote-path "/home/taro_morita/.volta/bin/intelephense")))
+
 
 (leaf avy
   :ensure t
