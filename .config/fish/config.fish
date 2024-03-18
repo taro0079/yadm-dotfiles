@@ -7,6 +7,11 @@ if test "$TERM" = "dumb"
   function fish_greeting; end
   function fish_title; end
 end
+for mode in default insert visual
+    fish_default_key_bindings -M $mode
+end
+fish_vi_key_bindings --no-erase
+
 if status is-interactive
 
     # Commands to run in interactive sessions can go here
