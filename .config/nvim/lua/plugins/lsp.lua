@@ -1,5 +1,11 @@
 local lsp = require("lsp-zero")
 require('luasnip.loaders.from_vscode').lazy_load()
+-- require('luasnip.loaders.from_vscode').load_standalone({path = vim.fn.expand(vim.fn.stdpath("config") .. "my.code-snippets")})
+-- require('luasnip.loaders.from_vscode').lazy_load({paths = { vim.fn.expand(vim.fn.stdpath("config") .. "/my_snippets") }})
+-- require('luasnip.loaders.from_vscode').lazy_load()
+-- require'luasnip'.filetype_extend("php", {"php"})
+require'luasnip'.filetype_extend("php", {"phpdoc"})
+
 lsp.preset("recommended")
 
 lsp.ensure_installed({

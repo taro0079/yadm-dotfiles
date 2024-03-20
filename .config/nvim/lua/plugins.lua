@@ -313,16 +313,25 @@ require("lazy").setup({
     --     priority = 1000,
     --     opts = {},
     -- },
-    -- plugins/rest.lua
-    {
-        "rest-nvim/rest.nvim",
-        dependencies = { { "nvim-lua/plenary.nvim" } },
-        config = function()
-            require("plugins.rest")
-        end
-    },
+    -- -- plugins/rest.lua
+    -- {
+    --     "vhyrro/luarocks.nvim",
+    --     config = function()
+    --         require("luarocks").setup({})
+    --     end
+    -- },
+    -- {
+    --     "rest-nvim/rest.nvim",
+    --     ft　= "http",
+    --     dependencies = { { "nvim-lua/plenary.nvim", "luarocks.nvim"} },
+    --     config = function()
+    --         -- require("plugins.rest")
+    --         require("rest-nvim").setup()
+    --     end
+    -- },
     {
         'ta-tikoma/php.easy.nvim',
+        ft = "php",
         config = true,
         keys = {
             { '-b',   '<CMD>PHPEasyDocBlock<CR>' },
@@ -441,6 +450,6 @@ require("lazy").setup({
         },
       }
     end,
-  },
+    }
 
 })
