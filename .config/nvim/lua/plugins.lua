@@ -401,6 +401,7 @@ require("lazy").setup({
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
+            "nvim-neotest/nvim-nio",
             "olimorris/neotest-phpunit",
         },
         config = function()
