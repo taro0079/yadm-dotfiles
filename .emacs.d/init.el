@@ -1,11 +1,12 @@
-(set-frame-font "FantasqueSansM Nerd Font-14" nil t)
+(set-frame-font "ComicShannsMono Nerd Font-15" nil t)
 (global-set-key "\C-cm" 'set-mark-command)
 (global-set-key "\C-t" 'other-window)
 (line-number-mode 1)
 (global-display-line-numbers-mode)
 (tool-bar-mode 0)
 (with-eval-after-load "eglot"
-  (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
+  (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio"))
+  (add-to-list 'eglot-server-programs '(ruby-mode "solargraph" "--stdio")))
 
 (defun finder-current-dir-open()
   (interactive)
@@ -56,6 +57,10 @@
 	(leaf-keywords-init)))
 
 (leaf flycheck-phpstan
+  :ensure t)
+(leaf ruby-mode
+  :ensure t)
+(leaf clojure-mode
   :ensure t)
 
 (leaf php-cs-fixer
@@ -150,6 +155,11 @@
 ;;
 
 (leaf org
+  (org-babel-do-load-languages
+   'org-babel-do-load-languages '((python . t)
+				  ))
+  (leaf ob-python
+    :ensure t)
   :ensure t)
 
 (leaf org-roam
