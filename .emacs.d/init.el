@@ -63,7 +63,8 @@
 (leaf clojure-mode
   :ensure t)
 
-(leaf php-cs-fixer
+(leaf php-cs
+  -fixer
   :ensure t
   :hook
   (before-save-hook . php-cs-fixer-before-save))
@@ -219,3 +220,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun php-cs-fixer ()
+  (interactive)
+  (setq filename (buffer-file-name (current-buffer)))
+  (call-process "php-cs-fixer" nil nil nil "fix" filename )
+  (revert-buffer t t)
+  )
