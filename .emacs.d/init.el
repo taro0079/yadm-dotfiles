@@ -1,4 +1,4 @@
-(set-frame-font "ComicShannsMono Nerd Font-15" nil t)
+(set-frame-font "ComicShannsMono Nerd Font-14" nil t)
 (global-set-key "\C-cm" 'set-mark-command)
 (global-set-key "\C-t" 'other-window)
 (line-number-mode 1)
@@ -213,7 +213,7 @@
      ("melpa" . "https://melpa.org/packages/")
      ("org" . "https://orgmode.org/elpa/")))
  '(package-selected-packages
-   '(flycheck-phpstan  php-mode magit which-key treemacs lsp-ivy company lsp-ui blackout el-get hydra leaf-keywords)))
+   '(flycheck-phpstan php-mode magit which-key treemacs lsp-ivy company lsp-ui blackout el-get hydra leaf-keywords)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -226,3 +226,6 @@
   (call-process "php-cs-fixer" nil nil nil "fix" filename )
   (revert-buffer t t)
   )
+ '(git-gutter:added ((t (:foreground "#108a3b" :background "#50fc7f"))) nil "Customized with leaf in `git-gutter' block at `/Users/taro_morita/.emacs.d/init.el'")
+ '(git-gutter:deleted ((t (:foreground "#8f2986" :background "#ff79c6"))) nil "Customized with leaf in `git-gutter' block at `/Users/taro_morita/.emacs.d/init.el'")
+ '(git-gutter:modified ((t (:foreground "#404040" :background "#c0fc7f"))) nil "Customized with leaf in `git-gutter' block at `/Users/taro_morita/.emacs.d/init.el'"))
