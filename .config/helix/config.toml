@@ -4,6 +4,9 @@ theme = "onedark"
 line-number = "relative"
 mouse = false
 true-color = true
+color-modes = true
+auto-save = true
+cursorline = true
 
 [editor.file-picker]
 hidden = false
