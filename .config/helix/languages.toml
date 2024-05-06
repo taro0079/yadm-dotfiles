@@ -6,6 +6,11 @@ formatter = { command = "bash", args = ["-c", "cat > /tmp/helix_php_cs_fixer && 
 auto-format = true
 
 [[language]]
+name = "ruby"
+language-servers = ['solargraph']
+auto-format = true
+
+[[language]]
 name = "yaml"
 file-types = ["yaml", "yml"]
 language-servers = ["yaml-language-server"]
