@@ -66,6 +66,7 @@ alias ls=e
 # alias for git command
 alias gst='git status'
 alias gsw='git switch'
+alias gdiff='git diff'
 alias gc='git commit'
 alias gcm='git commit -m'
 alias gpush='git push origin'
@@ -74,6 +75,7 @@ alias gcb='git checkout -b'
 alias gco='git checkout'
 alias gaa='git add .'
 alias ga='git add'
+alias gau='git add -u'
 # fzf_key_bindings
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
