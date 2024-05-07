@@ -37,6 +37,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 eval "$(rbenv init -)"
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 #export FZF_DEFAULT_COMMAND="find -L"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
@@ -180,3 +181,5 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 export PATH="$HOME/.config/composer/vendor/friendsofphp/php-cs-fixer:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@8.2/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@8.2/sbin:$PATH"

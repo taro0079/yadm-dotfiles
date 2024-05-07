@@ -1,11 +1,14 @@
-if test "$TERM" = "dumb"
-  function fish_prompt
-    echo "\$ "
-  end
+if test "$TERM" = dumb
+    function fish_prompt
+        echo "\$ "
+    end
 
-  function fish_right_prompt; end
-  function fish_greeting; end
-  function fish_title; end
+    function fish_right_prompt
+    end
+    function fish_greeting
+    end
+    function fish_title
+    end
 end
 for mode in default insert visual
     fish_default_key_bindings -M $mode
@@ -18,7 +21,7 @@ if status is-interactive
     set -x PATH $PATH $HOME/.volta/bin
     set -x PATH $PATH $HOME/.config/composer/vendor/bin
     set -x PATH $PATH $HOME/.symfony5/bin
-    set -gx PATH "$HOME/.cargo/bin" $PATH;
+    set -gx PATH "$HOME/.cargo/bin" $PATH
     set -x XDG_CONFIG_HOME $HOME/.config
     eval (/opt/homebrew/bin/brew shellenv)
     zoxide init fish | source
@@ -39,9 +42,9 @@ end
 
 function fshow
     git log --graph --color=always \
-        --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" $argv | 
-    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-        --bind "ctrl-m:execute:
+        --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" $argv |
+        fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+            --bind "ctrl-m:execute:
                   (grep -o '[a-f0-9]\\{7\\}' | head -1 |
                   xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                   {}
@@ -49,7 +52,7 @@ FZF-EOF"
 end
 
 function ide
-    tmux split-window -v -p 30 
+    tmux split-window -v -p 30
     tmux split-window -h -p 66
     tmux split-window -h -p 55
 end
@@ -64,6 +67,7 @@ alias ls=e
 alias gst='git status'
 alias gsw='git switch'
 alias gc='git commit'
+alias gcm='git commit -m'
 alias gpush='git push origin'
 alias gpull='git pull origin'
 alias gcb='git checkout -b'

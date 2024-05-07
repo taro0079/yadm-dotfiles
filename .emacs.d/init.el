@@ -1,4 +1,4 @@
-(set-frame-font "ComicShannsMono Nerd Font-15" nil t)
+(set-frame-font "ComicShannsMono Nerd Font-14" nil t)
 (global-set-key "\C-cm" 'set-mark-command)
 (global-set-key "\C-t" 'other-window)
 (line-number-mode 1)
@@ -24,9 +24,18 @@
   (flycheck-select-checker 'phpstan)
   (setq indent-tabs-mode nil
 	tab-width 4
-	c-basic-offset 4))
+	c-basic-offset 4)
+  
+  )
 
-(add-hook 'php-mode-hook 'my-php-mode-setup)
+(defun my/php-mode-hook ()
+  ;; copmoser.elのcomposer-get-bin-dir関数を使い、各プロジェクトの./vendor/binをexec-path変数に追加すると便利
+  ;; https://github.com/emacs-php/composer.el
+  (let ((bin-dir (composer-get-bin-dir)))
+    (setq-local exec-path (cons bin-dir exec-path))
+    (php-cs-fixer-format-on-save-mode)))
+
+(add-hook 'php-mode-hook 'my/php-mode-hook)
 
 
 (add-hook 'php-mode-hook 'my-php-mode-setup)
@@ -63,11 +72,6 @@
 (leaf clojure-mode
   :ensure t)
 
-(leaf php-cs
-  -fixer
-  :ensure t
-  :hook
-  (before-save-hook . php-cs-fixer-before-save))
 (leaf tree-sitter
   :ensure t
   :config
@@ -182,6 +186,23 @@
                    "remote-shell" "/usr/bin/bash"))
     ))
 
+(leaf reformatter
+  :ensure t
+  )
+
+;; PHP-CS-Fixerの設定ファイルを指定するオプションを生成する関数
+(defun my/php-mode-php-cs-fixer-config-option ()
+  (let ((path (locate-dominating-file buffer-file-name ".php-cs-fixer.dist.php")))
+    (if path (concat "--config=" (expand-file-name ".php-cs-fixer.dist.php" path))
+      "")))
+
+(reformatter-define php-cs-fixer-format
+  :program "php-cs-fixer"
+  :stdin nil ;; 整形前コードを標準入力で渡さない場合はnil
+  :stdout nil ;; 整形済みコードを標準出力から受け取らない場合はnil
+  :args `("fix" "--show-progress=none" ,(my/php-mode-php-cs-fixer-config-option) ,input-file) ;; input-file変数には拡張子なしの一時ファイルのパスが格納されている(この場合は、:input-fileキーワード引数で指定したファイルパスが格納されている)
+  :input-file (reformatter-temp-file) ;; reformatter-temp-file関数は編集中の内容でテンポラリファイルを作って、その拡張子付きファイルパスを返却する関数
+  :lighter " PHP-CS-Fixer")
 
 (leaf avy
   :ensure t
@@ -213,16 +234,11 @@
      ("melpa" . "https://melpa.org/packages/")
      ("org" . "https://orgmode.org/elpa/")))
  '(package-selected-packages
-   '(flycheck-phpstan  php-mode magit which-key treemacs lsp-ivy company lsp-ui blackout el-get hydra leaf-keywords)))
+   '(flycheck-phpstan php-mode magit which-key treemacs lsp-ivy company lsp-ui blackout el-get hydra leaf-keywords)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(defun php-cs-fixer ()
-  (interactive)
-  (setq filename (buffer-file-name (current-buffer)))
-  (call-process "php-cs-fixer" nil nil nil "fix" filename )
-  (revert-buffer t t)
-  )
+
