@@ -453,19 +453,19 @@ require("lazy").setup({
                 ["*"] = {
                     ["app/src/*.php"] = {
                         alternate = "app/tests/Unit/{}Test.php",
-                        type = "test"
+                        type = "source"
                     },
                     ["app/src/*.php"] = {
                         alternate = "app/tests/Integration/{}Test.php",
-                        type = "test"
+                        type = "source"
                     },
                     ["app/tests/Unit/*Test.php"] = {
                         alternate = "app/src/{}.php",
-                        type = "source"
+                        type = "unittest"
                     },
                     ["app/tests/Integration/*Test.php"] = {
                         alternate = "app/src/{}.php",
-                        type = "source"
+                        type = "integration"
                     },
                 },
             }
