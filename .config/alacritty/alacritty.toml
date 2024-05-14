@@ -5,7 +5,13 @@ blur = true
 
 [font]
 size = 18
-normal = { family = "SpaceMono Nerd Font", style = "Regular" }
+normal = { family = "CaskaydiaCove Nerd Font", style = "Regular" }
+
+[shell]
+program = "/opt/homebrew/bin/fish"
+[env]
+TERM = "xterm-256color"
+
 
 [keyboard]
 bindings = [
