@@ -50,6 +50,7 @@ api.nvim_set_keymap('n', "<leader>sd", "<cmd>lua vim.lsp.diagnostic.show_line_di
 
 vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
 vim.keymap.set("n", "ga", "<Plug>(EasyAlign)")
+vim.keymap.set("n", "<leader>gt", ":A<CR>")
 
 
 

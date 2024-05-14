@@ -445,7 +445,30 @@ require("lazy").setup({
     },
     {
         'mg979/vim-visual-multi'
+    },
+    {
+        'tpope/vim-projectionist',
+        config = function()
+            vim.g.projectionist_heuristics = {
+                ["*"] = {
+                    ["app/src/*.php"] = {
+                        alternate = "app/tests/Unit/{}Test.php",
+                        type = "test"
+                    },
+                    ["app/src/*.php"] = {
+                        alternate = "app/tests/Integration/{}Test.php",
+                        type = "test"
+                    },
+                    ["app/tests/Unit/*Test.php"] = {
+                        alternate = "app/src/{}.php",
+                        type = "source"
+                    },
+                    ["app/tests/Integration/*Test.php"] = {
+                        alternate = "app/src/{}.php",
+                        type = "source"
+                    },
+                },
+            }
+        end,
     }
-
-
 })
