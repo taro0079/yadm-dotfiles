@@ -213,7 +213,7 @@ require("lazy").setup({
     {
         'Mofiqul/dracula.nvim',
         config = function()
-            vim.cmd('colorscheme dracula')
+            vim.cmd('colorscheme rose-pine-moon')
         end
     },
     -- {

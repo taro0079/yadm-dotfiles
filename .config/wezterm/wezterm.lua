@@ -21,9 +21,10 @@ end
 if mac then
     return {
         font = wezterm.font_with_fallback {
-            { family = 'ComicShannsMono Nerd Font',    weight = "Regular", italic = false },
+            { family = 'CaskaydiaCove Nerd Font',    weight = "Regular", italic = false },
             { family = 'HackGen Console NF',      weight = "Regular", italic = false },
             { family = 'CaskaydiaCove Nerd Font', weight = "Bold" },
+            { family = 'CaskaydiaCove Nerd Font', weight = "Bold", italic = true},
             { family = 'HackGen Console NF',      weight = "Bold" }
 
         },

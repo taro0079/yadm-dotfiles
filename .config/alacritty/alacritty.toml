@@ -4,7 +4,7 @@ padding = { x = 0, y = 0 }
 blur = true
 
 [font]
-size = 18
+size = 14
 normal = { family = "CaskaydiaCove Nerd Font", style = "Regular" }
 
 [shell]
@@ -90,5 +90,4 @@ bindings = [
    { key= "Key6",      mods= "Alt|Shift", chars= "x1b^"                       }, 
    { key= "Backslash", mods= "Alt",       chars= "x1b\\"                      }, 
    { key= "Backslash", mods= "Alt|Shift", chars= "x1b|"                       } 
-  
 ]
