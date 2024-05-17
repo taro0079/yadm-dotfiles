@@ -466,6 +466,19 @@ require("lazy").setup({
         'mg979/vim-visual-multi'
     },
     {
+        'tani/dmacro.nvim',
+        config = function()
+            local dmacro = require('dmacro')
+            local dmacro_key = '<C-u>'
+            vim.on_key(dmacro.create_macro_recorder(dmacro_key))
+            vim.keymap.set({"i", "n"}, dmacro_key, function()
+                local keys, macro = dmacro.get_state()
+                keys, macro = dmacro.play_macro(vim.list_slice(keys, 1, #key - 1), macro)
+                dmacro.set_state(keys, macro)
+            end)
+        end
+    },
+    {
         'tpope/vim-projectionist',
         config = function()
             vim.g.projectionist_heuristics = {
