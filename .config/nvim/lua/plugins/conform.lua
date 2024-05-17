@@ -1,5 +1,5 @@
 require("conform").setup({
-    format_after_save = function(bufnr)
+    format_on_save = function(bufnr)
         return { timeout_ms = 500, lsp_fallback = true, async = false }
     end,
     formatters_by_ft = {
