@@ -32,7 +32,7 @@ require("lazy").setup({
 
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
-            { 'rafamadriz/friendly-snippets' },
+            -- { 'rafamadriz/friendly-snippets' },
         },
         config = function()
             require('plugins.lsp')
@@ -203,7 +203,7 @@ require("lazy").setup({
         'folke/lsp-colors.nvim',
         event = "BufEnter",
     },
-    { 'RRethy/vim-illuminate', event = "BufEnter" },
+    { 'RRethy/vim-illuminate',   event = "BufEnter" },
     -- {
     --     'jose-elias-alvarez/null-ls.nvim',
     --     config = function() require 'plugins.null-ls' end,
@@ -298,9 +298,9 @@ require("lazy").setup({
     {
         'vim-skk/eskk.vim',
         config = function()
-            vim.cmd[[let g:eskk#directory        = "~/.config/eskk"]]
-            vim.cmd[[let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}]]
-            vim.cmd[[let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}]]
+            vim.cmd [[let g:eskk#directory        = "~/.config/eskk"]]
+            vim.cmd [[let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}]]
+            vim.cmd [[let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}]]
         end
 
     },
@@ -392,7 +392,7 @@ require("lazy").setup({
     --         vim.cmd('colorscheme tokyonight-storm')
     --     end
     -- },
-    {'akinsho/toggleterm.nvim', version = "*", config = function() require('plugins.toggleterm') end},
+    { 'akinsho/toggleterm.nvim', version = "*",     config = function() require('plugins.toggleterm') end },
 
     {
         "nvim-neotest/neotest",
@@ -411,12 +411,12 @@ require("lazy").setup({
                         phpunit_cmd = function()
                             -- return "symfony php bin/phpunit"
 
-                        return vim.tbl_flatten({
-                            "symfony",
-                            "php",
-                            "bin/phpunit",
-                        })
-                        -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
+                            return vim.tbl_flatten({
+                                "symfony",
+                                "php",
+                                "bin/phpunit",
+                            })
+                            -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
                         end,
                     })
                 },
@@ -439,44 +439,52 @@ require("lazy").setup({
     {
         "nvim-neorg/neorg",
         dependencies = { "luarocks.nvim" },
-        lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
         version = "*", -- Pin Neorg to the latest stable release
         -- config = true,
-            config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {},
-          ["core.concealer"] = {},
-          ["core.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~/notes",
-              },
-              default_workspace = "notes",
-            },
-          },
-        },
-      }
+        config = function()
+            require("neorg").setup {
+                load = {
+                    ["core.defaults"] = {},
+                    ["core.concealer"] = {},
+                    ["core.dirman"] = {
+                        config = {
+                            workspaces = {
+                                notes = "~/notes",
+                            },
+                            default_workspace = "notes",
+                        },
+                    },
+                },
+            }
 
-      vim.wo.foldlevel = 99
-      vim.wo.conceallevel = 2
-    end,
+            vim.wo.foldlevel = 99
+            vim.wo.conceallevel = 2
+        end,
     },
     {
         'mg979/vim-visual-multi'
     },
+    -- {
+    --     'tani/dmacro.nvim',
+    --     config = function()
+    --         require('dmacro').setup({
+    --             dmacro_key = '<C-u>' --  you need to set the dmacro_key
+    --         })
+    --     end
+    -- },
     {
-        'tani/dmacro.nvim',
-        config = function()
-            local dmacro = require('dmacro')
-            local dmacro_key = '<C-u>'
-            vim.on_key(dmacro.create_macro_recorder(dmacro_key))
-            vim.keymap.set({"i", "n"}, dmacro_key, function()
-                local keys, macro = dmacro.get_state()
-                keys, macro = dmacro.play_macro(vim.list_slice(keys, 1, #key - 1), macro)
-                dmacro.set_state(keys, macro)
-            end)
-        end
+        "gbprod/phpactor.nvim",
+        build = function()
+            require("phpactor.handler.update")()
+        end,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "neovim/nvim-lspconfig"
+        },
+        opts = {
+            -- you're options coes here
+        },
     },
     {
         'tpope/vim-projectionist',
