@@ -99,7 +99,7 @@ cmp.setup {
         { name = 'spell' },
         -- { name = 'ultisnips' },
         { name = 'emoji' },
-        { name = 'luasnip' },
+        { name = 'luasnip', keyword_length = 1 },
         -- { name = 'calc' },
         -- { name = 'copilot' },
         { name = 'nvim_lsp_signature_help' },

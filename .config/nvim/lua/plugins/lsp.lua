@@ -1,4 +1,33 @@
 local lsp = require("lsp-zero")
+
+local cmp_kinds = {
+    Text = '  ',
+    Method = '  ',
+    Function = '  ',
+    Constructor = '  ',
+    Field = '  ',
+    Variable = '  ',
+    Class = '  ',
+    Interface = '  ',
+    Module = '  ',
+    Property = '  ',
+    Unit = '  ',
+    Value = '  ',
+    Enum = '  ',
+    Keyword = '  ',
+    Snippet = '  ',
+    Color = '  ',
+    File = '  ',
+    Reference = '  ',
+    Folder = '  ',
+    EnumMember = '  ',
+    Constant = '  ',
+    Struct = '  ',
+    Event = '  ',
+    Operator = '  ',
+    TypeParameter = '  ',
+}
+
 -- require('luasnip.loaders.from_vscode').lazy_load()
 -- require('luasnip.loaders.from_vscode').load_standalone({
 --     path = vim.fn.expand(vim.fn.stdpath("config") ..
@@ -42,9 +71,44 @@ cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 cmp_mappings['<C-f>'] = cmp_action.luasnip_jump_forward()
 cmp_mappings['<C-b>'] = cmp_action.luasnip_jump_backward()
+cmp.setup.cmdline(':', {
+    completion = { completeopt = 'noselect' },
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    }
+    )
+})
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+            { name = 'nvim_lsp_document_symbol' }
+        },
+        {
+            { name = 'buffer' }
+        })
+})
 
 
 lsp.setup_nvim_cmp({
+    formatting = {
+        format = function(_, vim_item)
+            vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+            return vim_item
+        end,
+    },
+    sources = {
+        {name = 'nvim_lsp'},
+        {name = 'luasnip', key_length = 1},
+        { name = 'buffer' },
+        { name = 'path' },
+        { name = 'nerdfont' },
+        { name = 'spell' },
+        { name = 'dictionary' },
+        { name = 'emoji' },
+    },
     mapping = cmp_mappings
 })
 
