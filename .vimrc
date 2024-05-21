@@ -154,7 +154,7 @@ syntax enable
 filetype plugin on
 "set termguicolors
 set background=dark
-colorscheme molokai
+colorscheme dracula
 "colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1

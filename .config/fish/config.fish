@@ -80,3 +80,4 @@ alias gau='git add -u'
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
 set -gx PATH "$HOME/.symfony5/bin" $PATH
+set TERM alacritty
