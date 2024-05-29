@@ -504,6 +504,6 @@ require("lazy").setup({
         ft = "php",
         -- tag = "*",
         build = "composer install --no-dev -o",
-    }
+    },
 
 })
