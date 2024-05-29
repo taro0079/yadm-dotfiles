@@ -69,7 +69,7 @@ Plug 'taro0079/path_to_clipboard'
 "Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-repeat'
-Plug 'dracula/vim'
+Plug 'rose-pine/vim'
 "Plug 'tpope/vim-endwise'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -153,7 +153,7 @@ syntax enable
 filetype plugin on
 "set termguicolors
 set background=dark
-colorscheme dracula
+colorscheme rosepine_moon
 "colorscheme solarized8
 
 " ESKK setting ------------------------------- {{{1
