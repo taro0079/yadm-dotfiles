@@ -3,9 +3,9 @@ require 'nvim-treesitter.configs'.setup {
     endwise = {
         enable = true
     },
-    autotag = {
-        enable = true
-    },
+    -- autotag = {
+    --     enable = true
+    -- },
     ensure_installed = { "lua", "vim", "vimdoc", "typescript", "javascript", "php", "python", "css", "html", "json", "yaml" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     auto_install = true,
     ignore_install = {},
@@ -44,7 +44,7 @@ require 'nvim-treesitter.configs'.setup {
             -- mapping query_strings to modes.
             selection_modes = {
                 ['@parameter.outer'] = 'v', -- charwise
-                ['@function.outer'] = 'V', -- linewise
+                ['@function.outer'] = 'V',  -- linewise
                 ['@class.outer'] = '<c-v>', -- blockwise
             },
             -- If you set this to `true` (default is `false`) then any textobject is
