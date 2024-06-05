@@ -82,13 +82,13 @@ require("lazy").setup({
         },
         event = "InsertEnter",
     },
-    -- {
-    --     'rose-pine/neovim',
-    --     name = 'rose-pine',
-    --     config = function()
-    --         require("plugins.rose-pine")
-    --     end
-    -- },
+    {
+        'rose-pine/neovim',
+        name = 'rose-pine',
+        config = function()
+            require("plugins.rose-pine")
+        end
+    },
     {
         "folke/trouble.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
@@ -384,15 +384,15 @@ require("lazy").setup({
     --         require("mason-nvim-lint").setup()
     --     end
     -- },
-    {
-        "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 1000,
-        opts = {},
-        config = function()
-            vim.cmd('colorscheme tokyonight-moon')
-        end
-    },
+    -- {
+    --     "folke/tokyonight.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     opts = {},
+    --     config = function()
+    --         vim.cmd('colorscheme tokyonight-moon')
+    --     end
+    -- },
     { 'akinsho/toggleterm.nvim', version = "*",     config = function() require('plugins.toggleterm') end },
 
     {
