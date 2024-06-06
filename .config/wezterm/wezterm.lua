@@ -21,10 +21,10 @@ end
 if mac then
     return {
         font = wezterm.font_with_fallback {
-            { family = 'CaskaydiaCove Nerd Font',    weight = "Regular", italic = false },
+            { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
             { family = 'HackGen Console NF',      weight = "Regular", italic = false },
             { family = 'CaskaydiaCove Nerd Font', weight = "Bold" },
-            { family = 'CaskaydiaCove Nerd Font', weight = "Bold", italic = true},
+            { family = 'CaskaydiaCove Nerd Font', weight = "Bold",    italic = true },
             { family = 'HackGen Console NF',      weight = "Bold" }
 
         },
@@ -43,6 +43,8 @@ if mac then
         adjust_window_size_when_changing_font_size = false,
         front_end = "WebGpu",
         window_background_opacity = 0.8,
+        macos_window_background_blur = 20,
+        macos_fps = 120,
 
         background = {
             {

@@ -505,5 +505,11 @@ require("lazy").setup({
         -- tag = "*",
         build = "composer install --no-dev -o",
     },
+    {
+        "vim-scripts/smartchr",
+        config = function()
+            vim.cmd [[autocmd FileType php inoremap <buffer> <expr> . smartchr#one_of('$', '->', '.')]]
+        end
+    }
 
 })
