@@ -27,9 +27,12 @@ formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "typescript" ] }
 auto-format = true
 
+
 [[language]]
 name = "tsx"
-language-servers = [ "deno", "eslint", "emmet-ls" ]
+# language-servers = [ "deno", "eslint", "emmet-ls" ]
+# formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+language-servers = [ "typescript-language-server", "eslint", "emmet-ls" ]
 formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "tsx" ] }
 auto-format = true
