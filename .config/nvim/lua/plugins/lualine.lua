@@ -220,6 +220,6 @@ local lualine = require('lualine')
 -- -- Now don't forget to initialize lualine
 lualine.setup({
     options = {
-        theme = 'rose-pine',
+        theme = 'horizon',
     }
 })

@@ -1,7 +1,14 @@
 local lint = require("lint")
 
 lint.linters_by_ft = {
-    php = {"phpstan", "phpmd"},
+    php = { "phpstan", "phpmd" },
+}
+local phpmd = require('lint').linters.phpmd
+phpmd.args = {
+    '-',
+    'json',
+    './.phpmd/phpmd.xml'
+
 }
 
 

@@ -12,19 +12,19 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        init = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-        end,
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        }
-    },
+    -- {
+    --     "folke/which-key.nvim",
+    --     event = "VeryLazy",
+    --     init = function()
+    --         vim.o.timeout = true
+    --         vim.o.timeoutlen = 300
+    --     end,
+    --     opts = {
+    --         -- your configuration comes here
+    --         -- or leave it empty to use the default settings
+    --         -- refer to the configuration section below
+    --     }
+    -- },
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
@@ -69,6 +69,12 @@ require("lazy").setup({
 
     },
     {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function() vim.fn["mkdp#util#install"]() end,
+    },
+    {
         'nvim-treesitter/nvim-treesitter-context',
         config = function()
             require("plugins.treesitter-context")
@@ -94,11 +100,18 @@ require("lazy").setup({
         },
         event = "InsertEnter",
     },
+    -- {
+    --     'rose-pine/neovim',
+    --     name = 'rose-pine',
+    --     config = function()
+    --         require("plugins.rose-pine")
+    --     end
+    -- },
+    --
     {
-        'rose-pine/neovim',
-        name = 'rose-pine',
+        "lunarvim/horizon.nvim",
         config = function()
-            require("plugins.rose-pine")
+            vim.cmd [[colorscheme horizon]]
         end
     },
     {
@@ -448,32 +461,6 @@ require("lazy").setup({
         priority = 1000,
         config = true,
 
-    },
-    {
-        "nvim-neorg/neorg",
-        dependencies = { "luarocks.nvim" },
-        lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-        version = "*", -- Pin Neorg to the latest stable release
-        -- config = true,
-        config = function()
-            require("neorg").setup {
-                load = {
-                    ["core.defaults"] = {},
-                    ["core.concealer"] = {},
-                    ["core.dirman"] = {
-                        config = {
-                            workspaces = {
-                                notes = "~/notes",
-                            },
-                            default_workspace = "notes",
-                        },
-                    },
-                },
-            }
-
-            vim.wo.foldlevel = 99
-            vim.wo.conceallevel = 2
-        end,
     },
     {
         'mg979/vim-visual-multi'
