@@ -521,6 +521,8 @@ require("lazy").setup({
         config = function()
             vim.cmd [[autocmd FileType php inoremap <buffer> <expr> . smartchr#one_of('$', '->', '.')]]
         end
-    }
+    },
+    { 'echasnovski/mini.ai', version = false },
+
 
 })
