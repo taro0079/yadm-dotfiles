@@ -56,3 +56,12 @@ brew install ripgrep bat exa fd gh pandoc zoxide
 
 # marp cli
 brew install marp-cli
+
+# 1password
+brew install --cask 1password
+
+# ruby environment 
+brew install rbenv ruby-build
+
+## dev environment
+mkdir dev
