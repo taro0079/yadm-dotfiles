@@ -3,6 +3,9 @@
 # install tpm (Tmux Plugin Manager)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+# install zsh
+brew install zsh
+
 # install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
@@ -21,3 +24,5 @@ if type "volta" > /dev/null 2>&1; then
 else 
 	curl https://get.volta.sh | bash
 fi
+
+echo "source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
