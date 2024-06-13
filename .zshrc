@@ -22,7 +22,7 @@ alias l='clear && ls'
 bindkey -v
 
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # GOPATH setting
 export GOPATH=~/go  # GOPATHにすると決めた場所
@@ -183,3 +183,5 @@ export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@8.2/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@8.2/sbin:$PATH"
+
+eval "$(starship init zsh)"

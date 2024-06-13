@@ -1,10 +1,13 @@
 #!/bin/bash
 
-# install tpm (Tmux Plugin Manager)
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# install brew 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # install zsh
 brew install zsh
+
+# install tpm (Tmux Plugin Manager)
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -25,4 +28,31 @@ else
 	curl https://get.volta.sh | bash
 fi
 
-echo "source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+# install starship
+if type "starship" > /dev/null 2>&1; then
+    echo "starship is already installed !"
+else 
+    curl -sS https://starship.rs/install.sh | sh
+fi
+
+# install editor
+brew install neovim vim
+
+# install orbstack (Docker)
+brew install --cask orbstack
+
+# install maqqy (clipboard manager)
+brew install --cask maccy
+
+# PHP environment
+# install symfony
+curl -sS https://get.symfony.com/cli/installer | bash
+
+# install php 8.2
+brew install php@8.2 rabbitmq-c
+
+# some tool
+brew install ripgrep bat exa fd gh pandoc zoxide
+
+# marp cli
+brew install marp-cli
