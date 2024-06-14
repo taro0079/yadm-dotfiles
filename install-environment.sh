@@ -53,6 +53,7 @@ curl -sS https://get.symfony.com/cli/installer | bash
 
 # install php 8.2
 brew install php@8.2 rabbitmq-c
+pecl install amqp # /opt/homebrew/opt/rabbitmq-c をパスに指定する
 
 # some tool
 brew install ripgrep bat exa fd gh pandoc zoxide zellij
