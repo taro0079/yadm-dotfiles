@@ -30,6 +30,8 @@ if type "volta" > /dev/null 2>&1; then
 else 
 	curl https://get.volta.sh | bash
 fi
+volta install node
+volta install yarn@1.22.18
 
 # install starship
 if type "starship" > /dev/null 2>&1; then
@@ -73,6 +75,6 @@ mkdir dev
 # install font
 brew install --cask font-0xproto-nerd-font
 
-cargo install exa
+cargo install exa raycast
 
 
