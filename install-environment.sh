@@ -74,3 +74,4 @@ brew install --cask font-0xproto-nerd-font
 
 cargo install exa
 
+
