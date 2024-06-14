@@ -5,6 +5,9 @@
 
 # install zsh
 brew install zsh
+mkdir .zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 
 # install tpm (Tmux Plugin Manager)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -52,7 +55,7 @@ curl -sS https://get.symfony.com/cli/installer | bash
 brew install php@8.2 rabbitmq-c
 
 # some tool
-brew install ripgrep bat exa fd gh pandoc zoxide
+brew install ripgrep bat exa fd gh pandoc zoxide zellij
 
 # marp cli
 brew install marp-cli
@@ -65,3 +68,9 @@ brew install rbenv ruby-build
 
 ## dev environment
 mkdir dev
+
+# install font
+brew install --cask font-0xproto-nerd-font
+
+cargo install exa
+
