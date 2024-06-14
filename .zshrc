@@ -1,4 +1,5 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+export PATH="/opt/homebrew/bin:$PATH"
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -166,6 +167,8 @@ alias ga='git add'
 
 if [[ "$OSTYPE" == "darwin" ]]; then
   alias ctags="brew --prefix /usr/bin/ctags"
+  export PATH=/opt/homebrew/bin:$PATH
+
 fi
 
 # BEGIN SNIPPET: Platform.sh CLI configuration
