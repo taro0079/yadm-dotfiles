@@ -123,7 +123,7 @@ require("lazy").setup({
                 -- ...
             })
 
-            vim.cmd('colorscheme github_dark_tritanopia')
+            -- vim.cmd('colorscheme github_dark_tritanopia')
         end,
     },
     {
@@ -523,6 +523,12 @@ require("lazy").setup({
         end
     },
     { 'echasnovski/mini.ai', version = false },
+    {
+        "rebelot/kanagawa.nvim",
+        config = function()
+            vim.cmd [[colorscheme kanagawa]]
+        end
+    }
 
 
 })
