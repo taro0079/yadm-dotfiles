@@ -77,4 +77,7 @@ brew install --cask font-0xproto-nerd-font
 
 cargo install exa raycast
 
+# git setting
+git config --global user.name "Taro Morita"
+git config --global user.email "morita0079@gmail.com"
 
