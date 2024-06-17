@@ -43,6 +43,8 @@ lsp.preset("recommended")
 lsp.ensure_installed({
     'tsserver',
     'rust_analyzer',
+    'intelephense',
+    'eslint-lsp'
 })
 
 -- Fix Undefined global 'vim'
@@ -100,8 +102,8 @@ lsp.setup_nvim_cmp({
         end,
     },
     sources = {
-        {name = 'nvim_lsp'},
-        {name = 'luasnip', key_length = 1},
+        { name = 'nvim_lsp' },
+        { name = 'luasnip',   key_length = 1 },
         { name = 'buffer' },
         { name = 'path' },
         { name = 'nerdfont' },
