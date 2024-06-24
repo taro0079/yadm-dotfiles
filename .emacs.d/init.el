@@ -1,4 +1,4 @@
-(set-frame-font "ComicShannsMono Nerd Font-14" nil t)
+(set-frame-font "0xProto Nerd Font" nil t)
 (global-set-key "\C-cm" 'set-mark-command)
 (global-set-key "\C-t" 'other-window)
 (line-number-mode 1)
