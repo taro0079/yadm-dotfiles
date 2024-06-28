@@ -525,9 +525,9 @@ require("lazy").setup({
     { 'echasnovski/mini.ai', version = false },
     {
         "rebelot/kanagawa.nvim",
-        -- config = function()
-        --     vim.cmd [[colorscheme kanagawa]]
-        -- end
+        config = function()
+            vim.cmd [[colorscheme kanagawa]]
+        end
     },
     {
         "scottmckendry/cyberdream.nvim",
@@ -544,7 +544,7 @@ require("lazy").setup({
     {
         "sainnhe/gruvbox-material",
         config = function()
-            vim.cmd [[colorscheme gruvbox-material]]
+            -- vim.cmd [[colorscheme gruvbox-material]]
         end
 
     }

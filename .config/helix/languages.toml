@@ -18,6 +18,7 @@ auto-format = true
 [[language]]
 name = "yaml"
 file-types = ["yaml", "yml"]
+indent = { tab-width = 4, unit = "    "}
 language-servers = ["yaml-language-server"]
 
 [[language]]

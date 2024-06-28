@@ -29,8 +29,9 @@ enable = true
 # render = "all"
 
 [editor.indent-guides]
-render = true
+render = false
 
 [keys.normal]
 "C-S-`" = "switch_to_uppercase"
+"C-g" = [":new", ":insert-output lazygit", ":redraw", "jump_backward"]
 
