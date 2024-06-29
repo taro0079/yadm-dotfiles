@@ -1,5 +1,5 @@
 
-theme = "rose_pine_moon"
+theme = "kanagawa"
 [editor]
 line-number = "relative"
 mouse = false
@@ -33,5 +33,7 @@ render = false
 
 [keys.normal]
 "C-S-`" = "switch_to_uppercase"
-"C-g" = [":new", ":insert-output lazygit", ":redraw", "jump_backward"]
 
+[keys.normal."'"]
+y = ":sh zellij run --floating -n 'yazi picker' -- ~/.config/myscripts/open_in_helix_from_yazi.zsh"
+g = [":new", ":insert-output lazygit", ":redraw", "jump_backward"]
