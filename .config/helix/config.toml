@@ -36,4 +36,4 @@ render = false
 
 [keys.normal."'"]
 y = ":sh zellij run --floating -n 'yazi picker' -- ~/.config/myscripts/open_in_helix_from_yazi.zsh"
-g = [":new", ":insert-output lazygit", ":redraw", "jump_backward"]
+g = [":new", ":insert-output lazygit", ":redraw", "jump_backward", ":reload"]
