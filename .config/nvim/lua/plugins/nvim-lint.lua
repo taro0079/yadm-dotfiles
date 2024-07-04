@@ -11,18 +11,18 @@ phpmd.args = {
 
 }
 
-local phpstan = require('lint').linters.phpstan
-phpstan.args = {
-    'analyse',
-    '--error-format',
-    'json',
-    '--no-progress',
-    '--memory-limit',
-    '1G',
-    '--configuration',
-    './phpstan.dist.neon',
-    '-'
-}
+-- local phpstan = require('lint').linters.phpstan
+-- phpstan.args = {
+--     'analyse',
+--     '--error-format',
+--     'json',
+--     '--no-progress',
+--     '--memory-limit',
+--     '1G',
+--     '--configuration',
+--     './phpstan.dist.neon',
+--     '-'
+-- }
 
 
 local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = false }) -- clear falseにしないとnvim-lintのプロセスが終了されずにlinterのprocessがスタックしていく
