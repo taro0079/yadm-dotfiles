@@ -1,8 +1,4 @@
 local lint = require("lint")
-
-lint.linters_by_ft = {
-    php = { "phpstan", "phpmd" },
-}
 local phpmd = require('lint').linters.phpmd
 phpmd.args = {
     '-',
@@ -10,6 +6,9 @@ phpmd.args = {
     './.phpmd/phpmd.xml'
 
 }
+-- lint.linters_by_ft = {
+--     php = { "phpstan", "phpmd" },
+-- }
 
 -- local phpstan = require('lint').linters.phpstan
 -- phpstan.args = {
@@ -35,3 +34,24 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" },
     }
 
 )
+
+local function file_exists(name)
+    local f = io.open(name, "r")
+    if f ~= nil then
+        io.close(f)
+        return true
+    else
+        return false
+    end
+end
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+    group = lint_autogroup,
+    callback = function()
+        if file_exists("vendor/bin/phpstan") then
+            lint.linters_by_ft.php = { "phpstan" }
+        elseif file_exists("vendor/bin/phpmd") then
+            lint.linters_by_ft.php = { "phpmd" }
+        end
+    end
+})

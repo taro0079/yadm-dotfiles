@@ -1,5 +1,5 @@
 
-theme = "default"
+theme = "everforest_dark"
 [editor]
 line-number = "relative"
 mouse = false

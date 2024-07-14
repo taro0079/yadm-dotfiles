@@ -48,3 +48,11 @@ name = "go"
 language-servers = [ "gopls" ]
 formatter = { command = "gofmt" }
 auto-format = true
+
+[[language]]
+name = "python"
+auto-format = true
+
+[[language]]
+name = "ruby"
+auto-format = true
