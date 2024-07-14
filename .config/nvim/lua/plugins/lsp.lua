@@ -44,7 +44,8 @@ lsp.ensure_installed({
     'tsserver',
     'rust_analyzer',
     'intelephense',
-    'eslint-lsp'
+    'eslint-lsp',
+    'typos-lsp'
 })
 
 -- Fix Undefined global 'vim'

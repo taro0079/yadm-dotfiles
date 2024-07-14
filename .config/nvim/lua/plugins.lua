@@ -1,3 +1,4 @@
+local file_exist = require "helper.file_exist"
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -205,6 +206,13 @@ require("lazy").setup({
             require("icon-picker")
         end,
         event = "InsertEnter"
+    },
+    {
+        'nyoom-engineering/oxocarbon.nvim',
+        config = function()
+            vim.opt.background = "dark" -- set this to dark or light
+            vim.cmd("colorscheme oxocarbon")
+        end
     },
     {
         'nvim-tree/nvim-tree.lua',
@@ -443,17 +451,21 @@ require("lazy").setup({
             "olimorris/neotest-phpunit",
         },
         config = function()
+            local file_exists = require("helper.file_exist")
             require("neotest").setup({
                 adapters = {
                     require("neotest-phpunit")({
                         phpunit_cmd = function()
                             -- return "symfony php bin/phpunit"
-
-                            return vim.tbl_flatten({
-                                "symfony",
-                                "php",
-                                "bin/phpunit",
-                            })
+                            if file_exist.file_exist("vendor/bin/phpunit") then
+                                return "vendor/bin/phpunit"
+                            elseif file_exist.file_exist("bin/phpunit") then
+                                return vim.tbl_flatten({
+                                    "symfony",
+                                    "php",
+                                    "bin/phpunit",
+                                })
+                            end
                             -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
                         end,
                     })
@@ -526,7 +538,7 @@ require("lazy").setup({
     {
         "rebelot/kanagawa.nvim",
         config = function()
-            vim.cmd [[colorscheme kanagawa]]
+            -- vim.cmd [[colorscheme kanagawa]]
         end
     },
     {

@@ -7,7 +7,7 @@ vim.o.cursorline = true
 vim.o.pumblend = 20
 vim.o.winblend = 20
 if vim.fn.has("wsl") == 0 then
-  vim.o.clipboard = "unnamed,unnamedplus"
+    vim.o.clipboard = "unnamed,unnamedplus"
 end
 vim.o.completeopt = "menuone,noinsert,noselect"
 vim.o.expandtab = true
@@ -30,3 +30,5 @@ vim.wo.listchars = "eol:↲,tab:>.,trail:~,space:␣,nbsp:%"
 vim.wo.list = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
+vim.opt.spell = true
+vim.opt.spelllang = { "en" }
