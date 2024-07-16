@@ -1,4 +1,4 @@
-HOST="172.27.250.17"
+HOST="172.27.250.10"
 PORT="3306"
 USER="root"
 PASSWORD="!ChangeMe!"

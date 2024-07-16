@@ -457,14 +457,14 @@ require("lazy").setup({
                     require("neotest-phpunit")({
                         phpunit_cmd = function()
                             -- return "symfony php bin/phpunit"
-                            if file_exist.file_exist("vendor/bin/phpunit") then
-                                return "vendor/bin/phpunit"
-                            elseif file_exist.file_exist("bin/phpunit") then
+                            if file_exist.file_exist("bin/phpunit") then
                                 return vim.tbl_flatten({
                                     "symfony",
                                     "php",
                                     "bin/phpunit",
                                 })
+                            elseif file_exist.file_exist("vendor/bin/phpunit") then
+                                return "vendor/bin/phpunit"
                             end
                             -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
                         end,

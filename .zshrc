@@ -190,3 +190,4 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 eval "$(starship init zsh)"
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
