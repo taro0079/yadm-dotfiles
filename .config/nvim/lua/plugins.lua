@@ -209,10 +209,10 @@ require("lazy").setup({
     },
     {
         'nyoom-engineering/oxocarbon.nvim',
-        config = function()
-            vim.opt.background = "dark" -- set this to dark or light
-            vim.cmd("colorscheme oxocarbon")
-        end
+        -- config = function()
+        --     vim.opt.background = "dark" -- set this to dark or light
+        --     vim.cmd("colorscheme oxocarbon")
+        -- end
     },
     {
         'nvim-tree/nvim-tree.lua',
@@ -545,12 +545,12 @@ require("lazy").setup({
         "scottmckendry/cyberdream.nvim",
         lazy = false,
         priority = 1000,
-        -- config = function()
-        --     require("cyberdream").setup({
-        --         transparent = true,
-        --     })
-        --     vim.cmd("colorscheme cyberdream")
-        -- end
+        config = function()
+            require("cyberdream").setup({
+                transparent = true,
+            })
+            vim.cmd("colorscheme cyberdream")
+        end
 
     },
     {

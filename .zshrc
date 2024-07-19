@@ -76,11 +76,11 @@ COLOR_YELLOW="\e[1;33m"
 COLOR_WHITE="\e[1;37m"
 COLOR_NONE="\e[0m"
 
-if [ -z "$TMUX" ]; then
-    export TERM=xterm-256color-italic
-else
-    export TERM=tmux-256color
-fi
+# if [ -z "$TMUX" ]; then
+#     export TERM=xterm-256color-italic
+# else
+#     export TERM=tmux-256color
+# fi
 
 fbr() {
   local branches branch
@@ -121,9 +121,9 @@ if [ "$(uname)" = "Darwin" ]; then
 	export LIBRARY_PATH=$LIBRARY_PATH:$(brew --prefix zstd)/lib
 fi
 
-alias dox='docker exec -it `docker ps --format "{{.Names}}" | fzf` sh'
-fpath=(~/.zsh/completion $fpath)
-source ~/.ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
+# alias dox='docker exec -it `docker ps --format "{{.Names}}" | fzf` sh'
+# fpath=(~/.zsh/completion $fpath)
+# source ~/.ghq/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.zsh
 eval "$(zoxide init zsh)"
 
 # Generated for envman. Do not edit.
