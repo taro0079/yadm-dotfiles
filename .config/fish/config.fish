@@ -78,7 +78,7 @@ alias gaa='git add .'
 alias ga='git add'
 alias gau='git add -u'
 # fzf_key_bindings
-set -gx VOLTA_HOME "$HOME/.volta"
-set -gx PATH "$VOLTA_HOME/bin" $PATH
 set -gx PATH "$HOME/.symfony5/bin" $PATH
 set TERM alacritty
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH

@@ -182,8 +182,6 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="$HOME/.config/composer/vendor/friendsofphp/php-cs-fixer:$PATH"
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@8.2/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@8.2/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -191,3 +189,5 @@ eval "$(rbenv init -)"
 
 eval "$(starship init zsh)"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
