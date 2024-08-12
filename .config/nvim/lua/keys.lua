@@ -1,6 +1,6 @@
 local api = vim.api
 -- Telescope -- {{ 1
-api.nvim_set_keymap('n', '<C-p>', "<cmd>lua require('telescope.builtin').git_files()<cr>",
+api.nvim_set_keymap('n', '<leader>pp', "<cmd>lua require('telescope.builtin').git_files()<cr>",
     { noremap = true, silent = true })
 api.nvim_set_keymap('n', '<leader>pf',
     "<cmd>lua require('telescope.builtin').find_files({hidden=true, no_ignore=true})<cr>",
