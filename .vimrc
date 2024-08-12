@@ -299,4 +299,4 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 " vim-test --- {{1
-let test#php#phpunit#executable = 'phpunit' // テストランナーをphpunitに変更
+let test#php#phpunit#executable = 'phpunit' " テストランナーをphpunitに変更
