@@ -62,7 +62,7 @@ endif
 call plug#begin()
 Plug 'taro0079/path_to_clipboard'
 "" Plug 'vim-denops/denops.vim'
-"Plug 'ojroques/vim-oscyank'
+Plug 'ojroques/vim-oscyank'
 "" Plug 'weirongxu/plantuml-previewer.vim'
 "" Plug 'tyru/open-browser.vim'
 "" Plug 'aklt/plantuml-syntax'
@@ -87,6 +87,8 @@ Plug 'justinmk/vim-sneak'
 Plug 'vim-skk/eskk.vim'
 "Plug 'taro0079/fd.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 "Plug 'airblade/vim-gitgutter'
 "Plug 'lambdalisue/suda.vim'
 "Plug 'kana/vim-textobj-user'
@@ -94,15 +96,15 @@ Plug 'tpope/vim-fugitive'
 "Plug 'bronson/vim-trailing-whitespace'
 "Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-matchfuzzy'
 "Plug 'garbas/vim-snipmate'
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
-"Plug 'github/copilot.vim'
+Plug 'vim-test/vim-test'
+Plug 'github/copilot.vim'
 "Plug 'itchyny/vim-parenmatch'
 Plug 'dense-analysis/ale'
 "Plug 'MarcWeber/vim-addon-mw-utils'
-"Plug 'lifepillar/vim-solarized8'
+Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 " fold settings ---------------------- {{{1
@@ -154,9 +156,9 @@ syntax enable
 filetype plugin on
 "set termguicolors
 set background=dark
-colorscheme rosepine_moon
-"colorscheme solarized8
-
+" colorscheme rosepine_moon
+" colorscheme solarized8
+colorscheme elflord
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
 let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
@@ -295,3 +297,6 @@ vmap <silent><Leader>hh     :<C-u>call phpactor#Hover()<CR>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+" vim-test --- {{1
+let test#php#phpunit#executable = 'phpunit'

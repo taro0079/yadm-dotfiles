@@ -30,5 +30,3 @@ vim.wo.listchars = "eol:↲,tab:>.,trail:~,space:␣,nbsp:%"
 vim.wo.list = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
-vim.opt.spell = true
-vim.opt.spelllang = { "en" }

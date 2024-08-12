@@ -18,6 +18,7 @@ alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
 alias lt=et
 alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
 alias lta=eta
+alias hx='helix'
 alias l='clear && ls'
 # vim keybind
 bindkey -v
@@ -39,6 +40,7 @@ eval "$(rbenv init -)"
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
+export PATH="$HOME/.phpenv/bin:$PATH"
 
 #export FZF_DEFAULT_COMMAND="find -L"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
@@ -181,7 +183,7 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export PATH="$HOME/.config/composer/vendor/friendsofphp/php-cs-fixer:$PATH"
+export PATH="$HOME/tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer:$PATH"
 export PATH="/opt/homebrew/opt/php@8.2/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@8.2/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -191,3 +193,4 @@ eval "$(starship init zsh)"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+eval "$(phpenv init -)"
