@@ -1,8 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
+    - /home/taro/dev/rpst-oms-backend
     - /home/taro/dev/symfony-observer-pattern
     - /home/taro/dev/migration_checker
-    - /home/taro/dev/rpst-oms-backend
 startuppopupversion: 5
 lastversion: 0.43.1
 customcommandshistory:

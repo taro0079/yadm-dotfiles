@@ -94,6 +94,16 @@ require("lazy").setup({
         event = "InsertEnter",
     },
     {
+        url = "https://codeberg.org/jthvai/lavender.nvim",
+        branch = "stable", -- versioned tags + docs updates from main
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.cmd("colorscheme lavender")
+        end
+    },
+
+    {
         "RRethy/nvim-treesitter-endwise",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
@@ -546,10 +556,10 @@ require("lazy").setup({
         lazy = false,
         priority = 1000,
         config = function()
-            require("cyberdream").setup({
-                transparent = true,
-            })
-            vim.cmd("colorscheme cyberdream")
+            -- require("cyberdream").setup({
+            --     transparent = true,
+            -- })
+            -- vim.cmd("colorscheme cyberdream")
         end
 
     },

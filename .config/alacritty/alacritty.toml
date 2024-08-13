@@ -13,7 +13,8 @@ normal = { family = "0xProto Nerd Font", style = "Regular" }
 # [shell]
 # program = "/opt/homebrew/bin/zsh"
 [env]
-TERM = "xterm-256color"
+# TERM = "xterm-256color"
+TERM = alacritty
 
 
 
