@@ -99,6 +99,14 @@ require("lazy").setup({
         lazy = false,
         priority = 1000,
         config = function()
+            vim.g.lavender = {
+                transparent = {
+                    background = true, -- do not render the main background
+                    float      = true, -- do not render the background in floating windows
+                    popup      = true, -- do not render the background in popup menus
+                    sidebar    = true, -- do not render the background in sidebars
+                },
+            }
             vim.cmd("colorscheme lavender")
         end
     },
@@ -198,15 +206,6 @@ require("lazy").setup({
         "tpope/vim-repeat",
         event = "BufEnter"
     },
-    -- {
-    --     "lukas-reineke/indent-blankline.nvim",
-    --     main = 'ibl',
-    --     config = function()
-    --         require('ibl').setup()
-    --         -- require("plugins.indent-blankline")
-    --     end,
-    --     event = "BufEnter"
-    -- },
     -- { "t9md/vim-quickhl",          event = "BufEnter" },
     { "junegunn/vim-easy-align", event = "BufEnter" },
     {
@@ -298,14 +297,6 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = "nvim-treesitter/nvim-treesitter",
     },
-    -- {
-    --     'tpope/vim-fugitive',
-    --     event = "BufEnter",
-    -- },
-    -- {
-    --     'tom-anders/telescope-vim-bookmarks.nvim',
-    --     event = "BufEnter",
-    -- },
     -- bookmarks
     -- {
     --     'tomasky/bookmarks.nvim',
@@ -369,22 +360,6 @@ require("lazy").setup({
     --     priority = 1000,
     --     opts = {},
     -- },
-    -- -- plugins/rest.lua
-    -- {
-    --     "vhyrro/luarocks.nvim",
-    --     config = function()
-    --         require("luarocks").setup({})
-    --     end
-    -- },
-    -- {
-    --     "rest-nvim/rest.nvim",
-    --     ft　= "http",
-    --     dependencies = { { "nvim-lua/plenary.nvim", "luarocks.nvim"} },
-    --     config = function()
-    --         -- require("plugins.rest")
-    --         require("rest-nvim").setup()
-    --     end
-    -- },
     {
         'ta-tikoma/php.easy.nvim',
         ft = "php",
@@ -437,15 +412,6 @@ require("lazy").setup({
     --     "rshkarin/mason-nvim-lint",
     --     config = function()
     --         require("mason-nvim-lint").setup()
-    --     end
-    -- },
-    -- {
-    --     "folke/tokyonight.nvim",
-    --     lazy = false,
-    --     priority = 1000,
-    --     opts = {},
-    --     config = function()
-    --         vim.cmd('colorscheme tokyonight-moon')
     --     end
     -- },
     { 'akinsho/toggleterm.nvim', version = "*",     config = function() require('plugins.toggleterm') end },

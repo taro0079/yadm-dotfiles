@@ -7,14 +7,14 @@ option_as_alt = "Both"
 
 [font]
 size = 14
-normal = { family = "0xProto Nerd Font", style = "Regular" }
-# normal = { family = "Fira Code", style = "Regular" }
+# normal = { family = "0xProto Nerd Font", style = "Regular" }
+normal = { family = "Fira Code", style = "Regular" }
 
 # [shell]
 # program = "/opt/homebrew/bin/zsh"
 [env]
 # TERM = "xterm-256color"
-TERM = alacritty
+TERM = "alacritty"
 
 
 
