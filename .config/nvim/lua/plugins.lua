@@ -103,9 +103,10 @@ require("lazy").setup({
                 transparent = {
                     background = true, -- do not render the main background
                     float      = true, -- do not render the background in floating windows
-                    popup      = true, -- do not render the background in popup menus
+                    popup      = false, -- do not render the background in popup menus
                     sidebar    = true, -- do not render the background in sidebars
                 },
+                signs = true,
             }
             vim.cmd("colorscheme lavender")
         end
@@ -305,16 +306,6 @@ require("lazy").setup({
     --         require("plugins.bookmarks")
     --     end
     -- },
-    {
-        "ojroques/nvim-osc52",
-        config = function()
-            require("osc52").setup({})
-            vim.keymap.set("n", "<leader>c", require("osc52").copy_operator, { expr = true })
-            vim.keymap.set("n", "<leader>cc", "<leader>c_", { remap = true })
-            vim.keymap.set("x", "<leader>c", require("osc52").copy_visual)
-        end,
-        event = "VeryLazy"
-    },
     -- {
     --     'justinmk/vim-sneak',
     --     event = "BufEnter",

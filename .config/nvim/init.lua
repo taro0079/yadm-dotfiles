@@ -1,5 +1,6 @@
 require('options')
 require('plugins')
+require('ui')
 require('keys')
 require('config')
 require('gui-settings')
