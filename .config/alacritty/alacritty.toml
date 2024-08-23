@@ -1,9 +1,12 @@
 # import = ["~/.config/alacritty/rose-pine.toml"]
 [window]
-opacity = 0.7
+opacity = 0.6
 padding = { x = 0, y = 0 }
 blur = true
 option_as_alt = "Both"
+
+[terminal]
+osc52 = "CopyPaste"
 
 [font]
 size = 14
