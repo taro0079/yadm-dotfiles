@@ -1,4 +1,4 @@
-# import = ["~/.config/alacritty/rose-pine.toml"]
+import = ["~/.config/alacritty/dracula.toml"]
 [window]
 opacity = 0.7
 padding = { x = 0, y = 0 }
