@@ -101,10 +101,10 @@ require("lazy").setup({
         config = function()
             vim.g.lavender = {
                 transparent = {
-                    background = true, -- do not render the main background
-                    float      = true, -- do not render the background in floating windows
+                    background = true,  -- do not render the main background
+                    float      = true,  -- do not render the background in floating windows
                     popup      = false, -- do not render the background in popup menus
-                    sidebar    = true, -- do not render the background in sidebars
+                    sidebar    = true,  -- do not render the background in sidebars
                 },
                 signs = true,
             }
@@ -306,10 +306,15 @@ require("lazy").setup({
     --         require("plugins.bookmarks")
     --     end
     -- },
-    -- {
-    --     'justinmk/vim-sneak',
-    --     event = "BufEnter",
-    -- },
+    {
+        'justinmk/vim-sneak',
+        event = "BufEnter",
+        config = function()
+            vim.cmd [[
+            let g:sneak#label = 1
+            ]]
+        end
+    },
     {
         'tpope/vim-surround',
         event = "InsertEnter",
