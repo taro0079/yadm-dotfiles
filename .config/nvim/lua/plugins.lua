@@ -370,8 +370,8 @@ require("lazy").setup({
             { '-iac', '<CMD>PHPEasyInitAbstractClass<CR>' },
             { '-it',  '<CMD>PHPEasyInitTrait<CR>' },
             { '-ie',  '<CMD>PHPEasyInitEnum<CR>' },
-            { '-ic',  '<CMD>PHPEasyAppendConstruct<CR>' },
-            { '-ac',  '<CMD>PHPEasyAppendConstant<CR>' },
+            { '-ac',  '<CMD>PHPEasyAppendConstruct<CR>' },
+            -- { '-ac',  '<CMD>PHPEasyAppendConstant<CR>' },
             { '-ap',  '<CMD>PHPEasyAppendProperty<CR>' },
             { '-am',  '<CMD>PHPEasyAppendMethod<CR>' },
             { '-aa',  '<CMD>PHPEasyAppendArgument<CR>' },
@@ -421,25 +421,42 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
             "nvim-neotest/nvim-nio",
             "olimorris/neotest-phpunit",
+            "praem90/neotest-docker-phpunit.nvim"
         },
         config = function()
             local file_exists = require("helper.file_exist")
             require("neotest").setup({
                 adapters = {
-                    require("neotest-phpunit")({
-                        phpunit_cmd = function()
-                            -- return "symfony php bin/phpunit"
-                            if file_exist.file_exist("bin/phpunit") then
-                                return vim.tbl_flatten({
-                                    "symfony",
-                                    "php",
-                                    "bin/phpunit",
-                                })
-                            elseif file_exist.file_exist("vendor/bin/phpunit") then
-                                return "vendor/bin/phpunit"
-                            end
-                            -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
-                        end,
+                    -- require("neotest-phpunit")({
+                    --     phpunit_cmd = function()
+                    --         -- return "symfony php bin/phpunit"
+                    --         if file_exist.file_exist("bin/phpunit") then
+                    --             return vim.tbl_flatten({
+                    --                 "docker",
+                    --                 "compose",
+                    --                 "--env-file",
+                    --                 "/dev/null",
+                    --                 "exec",
+                    --                 "php-dev",
+                    --                 "symfony",
+                    --                 "php",
+                    --                 "bin/phpunit",
+                    --             })
+                    --         elseif file_exist.file_exist("vendor/bin/phpunit") then
+                    --             return "vendor/bin/phpunit"
+                    --         end
+                    --         -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
+                    --     end,
+                    -- })
+                    require("neotest-docker-phpunit").setup({
+                        phpunit_cmd = "neotest-docker-phpunit",
+                        docker_phpunit = {
+                            default = {
+                                container = "php-dev",
+                                volume = "/Users/taro_morita/dev/rpst-oms-backend/app/:/srv/app/",
+                                standalone = false,
+                            },
+                        },
                     })
                 },
             })
