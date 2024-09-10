@@ -41,7 +41,7 @@ require('luasnip.loaders.from_snipmate').lazy_load({ paths = { vim.fn.expand(vim
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-    'tsserver',
+    'ts_ls',
     'rust_analyzer',
     'intelephense',
     'eslint-lsp',
@@ -128,9 +128,9 @@ lsp.set_preferences({
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
-    if client.name == 'tsserver' then
-        client.server_capabilities.documentFormattingProvider = false
-    end
+    -- if client.name == 'tsserver' then
+    --     client.server_capabilities.documentFormattingProvider = false
+    -- end
 
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)

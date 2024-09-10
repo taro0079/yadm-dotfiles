@@ -27,6 +27,13 @@ require("lazy").setup({
     --     }
     -- },
     {
+        "EdenEast/nightfox.nvim",
+        config = function()
+            require("plugins.nightfox")
+            vim.cmd('colorscheme nightfox')
+        end
+    }, -- lazy
+    {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
         dependencies = {
@@ -108,7 +115,7 @@ require("lazy").setup({
                 },
                 signs = true,
             }
-            vim.cmd("colorscheme lavender")
+            -- vim.cmd("colorscheme lavender")
         end
     },
 
