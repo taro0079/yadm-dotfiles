@@ -440,11 +440,9 @@ require("lazy").setup({
                     --         if file_exist.file_exist("bin/phpunit") then
                     --             return vim.tbl_flatten({
                     --                 "docker",
-                    --                 "compose",
-                    --                 "--env-file",
-                    --                 "/dev/null",
                     --                 "exec",
-                    --                 "php-dev",
+                    --                 "-it",
+                    --                 "rpst-oms-backend_php-dev_1",
                     --                 "symfony",
                     --                 "php",
                     --                 "bin/phpunit",
@@ -456,12 +454,12 @@ require("lazy").setup({
                     --     end,
                     -- })
                     require("neotest-docker-phpunit").setup({
-                        phpunit_cmd = "neotest-docker-phpunit",
+                        phpunit_cmd = "/Users/taro_morita/dev/neotest-docker-phpunit/target/debug/neotest-docker-phpunit",
                         docker_phpunit = {
                             default = {
-                                container = "php-dev",
+                                container = "rpst-oms-backend_php-dev_1",
                                 volume = "/Users/taro_morita/dev/rpst-oms-backend/app/:/srv/app/",
-                                standalone = false,
+                                standalone = true,
                             },
                         },
                     })
