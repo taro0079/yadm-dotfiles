@@ -13,19 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    -- {
-    --     "folke/which-key.nvim",
-    --     event = "VeryLazy",
-    --     init = function()
-    --         vim.o.timeout = true
-    --         vim.o.timeoutlen = 300
-    --     end,
-    --     opts = {
-    --         -- your configuration comes here
-    --         -- or leave it empty to use the default settings
-    --         -- refer to the configuration section below
-    --     }
-    -- },
     {
         "EdenEast/nightfox.nvim",
         config = function()
@@ -77,12 +64,6 @@ require("lazy").setup({
 
     },
     {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
-        build = function() vim.fn["mkdp#util#install"]() end,
-    },
-    {
         'nvim-treesitter/nvim-treesitter-context',
         config = function()
             require("plugins.treesitter-context")
@@ -101,25 +82,6 @@ require("lazy").setup({
         event = "InsertEnter",
     },
     {
-        url = "https://codeberg.org/jthvai/lavender.nvim",
-        branch = "stable", -- versioned tags + docs updates from main
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.g.lavender = {
-                transparent = {
-                    background = true,  -- do not render the main background
-                    float      = true,  -- do not render the background in floating windows
-                    popup      = false, -- do not render the background in popup menus
-                    sidebar    = true,  -- do not render the background in sidebars
-                },
-                signs = true,
-            }
-            -- vim.cmd("colorscheme lavender")
-        end
-    },
-
-    {
         "RRethy/nvim-treesitter-endwise",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
@@ -127,31 +89,11 @@ require("lazy").setup({
         },
         event = "InsertEnter",
     },
-    -- {
-    --     'rose-pine/neovim',
-    --     name = 'rose-pine',
-    --     config = function()
-    --         require("plugins.rose-pine")
-    --     end
-    -- },
-    --
     {
         "lunarvim/horizon.nvim",
         -- config = function()
         --     vim.cmd [[colorscheme horizon]]
         -- end
-    },
-    {
-        'projekt0n/github-nvim-theme',
-        lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-        priority = 1000, -- make sure to load this before all the other start plugins
-        config = function()
-            require('github-theme').setup({
-                -- ...
-            })
-
-            -- vim.cmd('colorscheme github_dark_tritanopia')
-        end,
     },
     {
         "folke/trouble.nvim",
@@ -225,13 +167,6 @@ require("lazy").setup({
         event = "InsertEnter"
     },
     {
-        'nyoom-engineering/oxocarbon.nvim',
-        -- config = function()
-        --     vim.opt.background = "dark" -- set this to dark or light
-        --     vim.cmd("colorscheme oxocarbon")
-        -- end
-    },
-    {
         'nvim-tree/nvim-tree.lua',
         config = function()
             require("plugins.nvim-tree")
@@ -268,25 +203,11 @@ require("lazy").setup({
     },
     { 'RRethy/vim-illuminate',   event = "BufEnter" },
     -- {
-    --     'jose-elias-alvarez/null-ls.nvim',
-    --     config = function() require 'plugins.null-ls' end,
-    --     dependencies = { "nvim-lua/plenary.nvim" }
-    -- },
-    -- { 'rinx/cmp-skkeleton',    dependencies = { 'nvim-cmp', 'skkeleton' }, event = "InsertEnter" },
-    -- {
     --     'Mofiqul/dracula.nvim',
     --     config = function()
     --         vim.cmd('colorscheme rose-pine-moon')
     --     end
     -- },
-    -- {
-    --     'rose-pine/neovim',
-    --     as = 'rose-pine',
-    --     -- config = function()
-    --     --     vim.cmd('colorscheme rose-pine-dawn')
-    --     -- end
-    -- },
-
     {
         'mattn/emmet-vim',
         event = "InsertEnter"
@@ -305,14 +226,6 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = "nvim-treesitter/nvim-treesitter",
     },
-    -- bookmarks
-    -- {
-    --     'tomasky/bookmarks.nvim',
-    --     event = "VimEnter",
-    --     config = function()
-    --         require("plugins.bookmarks")
-    --     end
-    -- },
     {
         'justinmk/vim-sneak',
         event = "BufEnter",
@@ -326,16 +239,16 @@ require("lazy").setup({
         'tpope/vim-surround',
         event = "InsertEnter",
     },
-    {
-        'kenn7/vim-arsync',
-        dependencies = {
-            { 'prabirshrestha/async.vim' }
-        },
-        event = "VeryLazy",
-    },
-    {
-        "mbbill/undotree"
-    },
+    -- {
+    --     'kenn7/vim-arsync',
+    --     dependencies = {
+    --         { 'prabirshrestha/async.vim' }
+    --     },
+    --     event = "VeryLazy",
+    -- },
+    -- {
+    --     "mbbill/undotree"
+    -- },
     {
         "github/copilot.vim"
     },
@@ -384,15 +297,6 @@ require("lazy").setup({
             { '-aa',  '<CMD>PHPEasyAppendArgument<CR>' },
         }
     },
-    -- {
-    --     -- lazy
-    --     "sontungexpt/witch",
-    --     priority = 1000,
-    --     lazy = false,
-    --     config = function()
-    --         require("plugins.witch")
-    --     end
-    -- },
     {
         "stevearc/conform.nvim",
         config = function()
@@ -411,12 +315,6 @@ require("lazy").setup({
             require("plugins.nvim-lint")
         end
     },
-    -- {
-    --     "rshkarin/mason-nvim-lint",
-    --     config = function()
-    --         require("mason-nvim-lint").setup()
-    --     end
-    -- },
     { 'akinsho/toggleterm.nvim', version = "*",     config = function() require('plugins.toggleterm') end },
 
     {
@@ -472,49 +370,10 @@ require("lazy").setup({
 
     },
     {
-        "phpstan/vim-phpstan"
-    },
-    {
         "vhyrro/luarocks.nvim",
         priority = 1000,
         config = true,
 
-    },
-    {
-        'mg979/vim-visual-multi'
-    },
-    -- {
-    --     'tani/dmacro.nvim',
-    --     config = function()
-    --         require('dmacro').setup({
-    --             dmacro_key = '<C-u>' --  you need to set the dmacro_key
-    --         })
-    --     end
-    -- },
-    {
-        'tpope/vim-projectionist',
-        config = function()
-            vim.g.projectionist_heuristics = {
-                ["*"] = {
-                    ["app/src/*.php"] = {
-                        alternate = "app/tests/Unit/{}Test.php",
-                        type = "source"
-                    },
-                    ["app/src/*.php"] = {
-                        alternate = "app/tests/Integration/{}Test.php",
-                        type = "source"
-                    },
-                    ["app/tests/Unit/*Test.php"] = {
-                        alternate = "app/src/{}.php",
-                        type = "unittest"
-                    },
-                    ["app/tests/Integration/*Test.php"] = {
-                        alternate = "app/src/{}.php",
-                        type = "integration"
-                    },
-                },
-            }
-        end,
     },
     {
         "phpactor/phpactor",
@@ -536,24 +395,9 @@ require("lazy").setup({
         end
     },
     {
-        "scottmckendry/cyberdream.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            -- require("cyberdream").setup({
-            --     transparent = true,
-            -- })
-            -- vim.cmd("colorscheme cyberdream")
-        end
-
-    },
-    {
         "sainnhe/gruvbox-material",
         config = function()
             -- vim.cmd [[colorscheme gruvbox-material]]
         end
-
     }
-
-
 })
