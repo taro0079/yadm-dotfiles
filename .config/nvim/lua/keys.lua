@@ -14,8 +14,6 @@ api.nvim_set_keymap('n', '<leader>pb', "<cmd>lua require('telescope.builtin').bu
 })
 vim.keymap.set('n', '<leader>lt', ':set list!<CR>')
 -- Bookmark
-vim.keymap.set('n', '<leader>bb', '<Plug>BookmarkToggle')
-vim.keymap.set('n', '<leader>bx', '<Plug>BookmarkClearAll')
 api.nvim_set_keymap('n', '<leader>ph', "<cmd>lua require('telescope.builtin').help_tags()<cr>",
     { noremap = true, silent = true })
 api.nvim_set_keymap('n', '<leader>ps',
@@ -42,7 +40,6 @@ api.nvim_set_keymap('n', "<leader>-", "<cmd> vertical resize -5<cr>", { noremap 
 -- source init.lua
 api.nvim_set_keymap('n', "<leader><cr>", "<cmd> so ~/.config/nvim/init.lua <cr>", { noremap = true, silent = true })
 
-api.nvim_set_keymap('n', "<C-n>", ":NvimTreeToggle<cr>", { noremap = true, silent = true })
 
 -- lsp diagnostic
 api.nvim_set_keymap('n', "<leader>sd", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics() <cr>",
@@ -55,14 +52,13 @@ vim.keymap.set("n", "<leader>gt", ":A<CR>")
 
 
 -- vim.cmd[[imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")]]
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+-- vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("i", "<C-c>", "<Esc>")
 
 -- from https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/remap.lua
 -- greatest remap ever
@@ -80,21 +76,11 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-api.nvim_set_keymap('n', '<leader>n', ':NvimTreeToggle<CR>', { silent = true })
 
--- keymap for rest.nvim
-vim.keymap.set("n", "<leader>rr", "<Plug>RestNvim")
-vim.keymap.set("n", "<leader>rp", "<Plug>RestNvimPreview")
-vim.keymap.set("n", "<leader>tc", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>")
-vim.keymap.set("n", "<leader>tt", "<cmd>lua require('neotest').run.run()<cr>")
-vim.keymap.set("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>")
-vim.keymap.set("n", "<leader>to", "<cmd>lua require('neotest').output.open({ enter = true })<cr>")
-vim.keymap.set("n", "<leader>tw", "<cmd>lua require('neotest').watch.toggle()<cr>")
-vim.keymap.set("n", "<leader>tp", "<cmd>lua require('neotest').output_panel.toggle()<cr>")
 
 -- command runner
-vim.keymap.set("n", "<leader>rc", "<cmd>lua require('command').run()<cr>")
-vim.keymap.set("n", "<leader>sc", "<cmd>lua require('command').read()<cr>")
-
--- db commander
-vim.keymap.set("v", "<leader>db", "<cmd>lua require('db').db_execute_visual_selection()<cr>")
+-- vim.keymap.set("n", "<leader>rc", "<cmd>lua require('command').run()<cr>")
+-- vim.keymap.set("n", "<leader>sc", "<cmd>lua require('command').read()<cr>")
+--
+-- -- db commander
+-- vim.keymap.set("v", "<leader>db", "<cmd>lua require('db').db_execute_visual_selection()<cr>")

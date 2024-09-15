@@ -106,14 +106,6 @@ require("lazy").setup({
         cmd = "Trouble"
     },
     {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function()
-            require('plugins.lualine')
-        end
-
-    },
-    {
         'easymotion/vim-easymotion',
         event = "BufEnter"
 
@@ -165,13 +157,6 @@ require("lazy").setup({
             require("icon-picker")
         end,
         event = "InsertEnter"
-    },
-    {
-        'nvim-tree/nvim-tree.lua',
-        config = function()
-            require("plugins.nvim-tree")
-        end,
-        event = "VeryLazy"
     },
 
     {
