@@ -154,11 +154,10 @@ endfunction
 " vim color scheme settings --- {{{1
 syntax enable
 filetype plugin on
-"set termguicolors
+set termguicolors
 set background=dark
 " colorscheme rosepine_moon
-" colorscheme solarized8
-colorscheme elflord
+colorscheme solarized8
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
 let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
@@ -202,6 +201,7 @@ function! RpstTicketNum()
     execute ":%s/^#\\(\\d\\+\\)\\|.+$/\\1/g"
     execute ":%s/^\\n//g"
 endfunction
+command! RpstTicketNum call RpstTicketNum()
 
 " denops setting --- {{{1
 "set runtimepath^=~/dev/denops-tutorial
