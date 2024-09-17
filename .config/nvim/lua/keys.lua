@@ -75,6 +75,13 @@ vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+-- neotest
+vim.keymap.set("n", "<leader>tc", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>")
+vim.keymap.set("n", "<leader>tt", "<cmd>lua require('neotest').run.run()<cr>")
+vim.keymap.set("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>")
+vim.keymap.set("n", "<leader>to", "<cmd>lua require('neotest').output.open({ enter = true })<cr>")
+vim.keymap.set("n", "<leader>tw", "<cmd>lua require('neotest').watch.toggle()<cr>")
+vim.keymap.set("n", "<leader>tp", "<cmd>lua require('neotest').output_panel.toggle()<cr>")
 
 
 
