@@ -13,14 +13,7 @@ set incsearch
 set nocompatible
 " set signcolumn=yes
 set smartcase
-set display+=lastline
-set number
-set showmatch
-set incsearch
-set incsearch
-set nocompatible
 " set signcolumn=yes
-set smartcase
 set hlsearch
 set incsearch
 set nobackup
@@ -47,7 +40,7 @@ set t_Co=256
 "set foldmethod=indent
 set laststatus=2
 set path+=**
-set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ %=[POS=%l/%L(%02v)]
+" set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ %=[POS=%l/%L(%02v)]
 if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
@@ -64,47 +57,44 @@ Plug 'taro0079/path_to_clipboard'
 "" Plug 'vim-denops/denops.vim'
 Plug 'ojroques/vim-oscyank'
 "" Plug 'weirongxu/plantuml-previewer.vim'
-"" Plug 'tyru/open-browser.vim'
-"" Plug 'aklt/plantuml-syntax'
 "Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
 Plug 'chrisbra/csv.vim'
 Plug 'tpope/vim-repeat'
 Plug 'rose-pine/vim'
-"Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-endwise'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-"" Plug 'skywind3000/asyncrun.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 "Plug 'sheerun/vim-polyglot'
 Plug 'justinmk/vim-sneak'
-"Plug 'morhetz/gruvbox'
 Plug 'vim-skk/eskk.vim'
 "Plug 'taro0079/fd.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-"Plug 'airblade/vim-gitgutter'
-"Plug 'lambdalisue/suda.vim'
-"Plug 'kana/vim-textobj-user'
-"Plug 'osyo-manga/vim-textobj-blockwise'
-"Plug 'bronson/vim-trailing-whitespace'
-"Plug 'honza/vim-snippets'
+Plug 'airblade/vim-gitgutter'
+Plug 'lambdalisue/suda.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'osyo-manga/vim-textobj-blockwise'
+Plug 'bronson/vim-trailing-whitespace'
+" Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
 Plug 'mattn/ctrlp-matchfuzzy'
 "Plug 'garbas/vim-snipmate'
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 Plug 'vim-test/vim-test'
-Plug 'github/copilot.vim'
 "Plug 'itchyny/vim-parenmatch'
 Plug 'dense-analysis/ale'
 "Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'lifepillar/vim-solarized8'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 call plug#end()
 
 " fold settings ---------------------- {{{1
@@ -156,7 +146,6 @@ syntax enable
 filetype plugin on
 set termguicolors
 set background=dark
-" colorscheme rosepine_moon
 colorscheme solarized8
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
@@ -300,3 +289,25 @@ inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 " vim-test --- {{1
 let test#php#phpunit#executable = 'phpunit' " テストランナーをphpunitに変更
+
+" vim-vsnip -- {{1
+" Expand
+imap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
+smap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)

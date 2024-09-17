@@ -1,4 +1,18 @@
 {
+    "Php tag": {
+        "prefix": ["php"],
+        "body": [
+            "<?php"
+        ],
+        "description": "php tag."
+    },
+    "this->": {
+        "prefix": ["this"],
+        "body": [
+            "\\$this->"
+        ],
+        "description": "this"
+    },
   "Class": {
     "prefix": ["class"],
     "body": [
@@ -18,8 +32,8 @@
   "Function": {
       "prefix": ["function"],
       "body": [
-          "function $1 (${2:args}) {",
-          "\t$3",
+          "${1|private,public|} function $2 (${3:args}) {",
+          "\t$4",
           "}"
       ],
       "description": "function definition templete"

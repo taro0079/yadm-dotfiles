@@ -1,0 +1,45 @@
+{
+    "p": {
+        "prefix": "p",
+        "body": [
+            "<p>$1</p>"
+        ],
+        "description": "p"
+    },
+    "div": {
+        "prefix": "div",
+        "body": [
+            "<div>$1</div>"
+        ],
+        "description": "div"
+    },
+    "body": {
+        "prefix": "body",
+        "body": [
+            "<body>$1</body>"
+        ],
+        "description": "body"
+    },
+    "head": {
+        "prefix": "head",
+        "body": [
+            "<head>$1</head>"
+        ],
+        "description": "head"
+    },
+    "html": {
+        "prefix": "html",
+        "body": [
+            "<html>$1</html>"
+        ],
+        "description": "html"
+    },
+    "tag": {
+        "prefix": "tag",
+        "body": [
+            "<$1>",
+            "\t$2",
+            "</$1>"
+        ]
+    }
+}
