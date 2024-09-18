@@ -59,9 +59,8 @@ Plug 'ojroques/vim-oscyank'
 "" Plug 'weirongxu/plantuml-previewer.vim'
 "Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
-Plug 'chrisbra/csv.vim'
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'tpope/vim-repeat'
-Plug 'rose-pine/vim'
 Plug 'tpope/vim-endwise'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -72,7 +71,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 "Plug 'sheerun/vim-polyglot'
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 Plug 'vim-skk/eskk.vim'
 "Plug 'taro0079/fd.vim'
 Plug 'tpope/vim-fugitive'
@@ -85,7 +84,7 @@ Plug 'osyo-manga/vim-textobj-blockwise'
 Plug 'bronson/vim-trailing-whitespace'
 " Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
-Plug 'mattn/ctrlp-matchfuzzy'
+" Plug 'mattn/ctrlp-matchfuzzy'
 "Plug 'garbas/vim-snipmate'
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 Plug 'vim-test/vim-test'
@@ -109,6 +108,9 @@ call plug#end()
 nnoremap <leader>lt :set list!<CR>
 
 " " lsp settings --- {{{1
+let g:lsp_settings = {
+\  'typeprof': {'disabled': 1},
+\}
 let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_diagnostics_float_cursor = 1
@@ -158,8 +160,8 @@ let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1
 "vmap <leader>c <Plug>OSCYankVisual
 
 " " vimrc setting --- {{{1
-"nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
-"nnoremap <silent> <leader>v :e ~/.vimrc<CR>
+nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
+nnoremap <silent> <leader>v :e ~/.vimrc<CR>
 " tmux seeting
 "let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 "let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -185,12 +187,45 @@ let g:netrw_list_hide    = netrw_gitignore#Hide()
 
 " rspt チケット番号抽出コマンド ---- {{{1
 "
-function! RpstTicketNum()
-    execute ":%v/^#\\d.\\+/s/.*//g"
-    execute ":%s/^#\\(\\d\\+\\)\\|.+$/\\1/g"
-    execute ":%s/^\\n//g"
+" function! RpstTicketNum()
+"     execute ":%v/^#\\d.\\+/s/.*//g"
+"     execute ":%s/^#\\(\\d\\+\\)\\|.+$/\\1/g"
+"     execute ":%s/^\\n//g"
+" endfunction
+" command! RpstTicketNum call RpstTicketNum()
+
+function! ExtractTicketNumbers()
+    " Get the entire buffer content as a list of lines
+    let lines = getline(1, '$')
+    let ticket_numbers = []
+
+    " Initialize an empty list to store the ticket numbers
+
+    " Regular expression to match ticket numbers starting with '#'
+    let pattern = '^#\(\d\+\)'
+
+    " Iterate through each line
+    for line in lines
+        " Check if the line contains a ticket number
+        let matches = matchlist(line, pattern)
+        " If a match is found, add it to the ticket_numbers list
+        if !empty(matches)
+            " Add the match to the list (first match is at index 0)
+            call add(ticket_numbers, matches[1])
+        endif
+    endfor
+
+    " Print or return the ticket_numbers list
+    echo ticket_numbers
+    if !empty(ticket_numbers)
+        let joined_ticket_numbers = join(ticket_numbers, ",")
+        call append('$', joined_ticket_numbers)
+    else
+        call append('$', "No tickets found")
+    endif
 endfunction
-command! RpstTicketNum call RpstTicketNum()
+
+command! TicketExtract call ExtractTicketNumbers()
 
 " denops setting --- {{{1
 "set runtimepath^=~/dev/denops-tutorial
@@ -292,8 +327,8 @@ let test#php#phpunit#executable = 'phpunit' " テストランナーをphpunitに
 
 " vim-vsnip -- {{1
 " Expand
-imap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
-smap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 
 " Expand or jump
 imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
