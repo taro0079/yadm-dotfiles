@@ -172,7 +172,7 @@ nmap ga <Plug>(EasyAlign)
 
 " newtrw settings ---- {{{1
 let g:netrw_banner       = 0
-let g:netrw_browse_split = 3
+let g:netrw_browse_split = 0
 let g:netrw_altv         = 1
 let g:netrw_liststyle    = 3
 let g:netrw_list_hide    = netrw_gitignore#Hide()
@@ -344,5 +344,5 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 " See https://github.com/hrsh7th/vim-vsnip/pull/50
 nmap        s   <Plug>(vsnip-select-text)
 xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
+nmap        X   <Plug>(vsnip-cut-text)
+xmap        X   <Plug>(vsnip-cut-text)

@@ -38,7 +38,7 @@
         "prefix": "tag",
         "body": [
             "<$1>",
-            "\t$2",
+            "\t${2:$TM_SELECTED_TEXT}",
             "</$1>"
         ]
     }
