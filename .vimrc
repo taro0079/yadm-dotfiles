@@ -92,6 +92,7 @@ Plug 'vim-test/vim-test'
 Plug 'dense-analysis/ale'
 "Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'lifepillar/vim-solarized8'
+Plug 'thinca/vim-quickrun'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 call plug#end()
@@ -364,3 +365,4 @@ xmap        s   <Plug>(vsnip-select-text)
 nmap        X   <Plug>(vsnip-cut-text)
 xmap        X   <Plug>(vsnip-cut-text)
 
+nmap <leader>qr :QuickRun<cr>
