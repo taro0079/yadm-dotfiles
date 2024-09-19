@@ -153,6 +153,7 @@ colorscheme solarized8
 let g:eskk#directory        = "~/.config/eskk"
 let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
+imap <C-j> <Plug>(eskk:toggle)
 
 " OSC52 setting --- {{{1
 "nmap <leader>c <Plug>OSCYankOperator
@@ -193,6 +194,22 @@ let g:netrw_list_hide    = netrw_gitignore#Hide()
 "     execute ":%s/^\\n//g"
 " endfunction
 " command! RpstTicketNum call RpstTicketNum()
+"
+
+function! Test()
+    let current_file_path =  expand('%')
+    let output = system(printf("ruby ~/dev/test_ruby/test.rb %s", current_file_path))
+    let lines =  split(output, '\n')
+    " 最初にバッファの全ての行を削除しておく
+    execute '%delete _'
+    let current_line = 0
+    for line in lines
+        call append(current_line, line)
+        let current_line += 1
+    endfor
+    " call setline(1, output)
+endfunction
+command! Rtest call Test()
 
 function! ExtractTicketNumbers()
     " Get the entire buffer content as a list of lines
@@ -327,8 +344,8 @@ let test#php#phpunit#executable = 'phpunit' " テストランナーをphpunitに
 
 " vim-vsnip -- {{1
 " Expand
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+imap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
+smap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
 
 " Expand or jump
 imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
@@ -346,3 +363,4 @@ nmap        s   <Plug>(vsnip-select-text)
 xmap        s   <Plug>(vsnip-select-text)
 nmap        X   <Plug>(vsnip-cut-text)
 xmap        X   <Plug>(vsnip-cut-text)
+
