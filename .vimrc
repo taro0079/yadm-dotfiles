@@ -81,6 +81,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/suda.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'osyo-manga/vim-textobj-blockwise'
+Plug 'dracula/vim'
 Plug 'bronson/vim-trailing-whitespace'
 " Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
@@ -149,7 +150,7 @@ syntax enable
 filetype plugin on
 set termguicolors
 set background=dark
-colorscheme solarized8
+colorscheme dracula
 " ESKK setting ------------------------------- {{{1
 let g:eskk#directory        = "~/.config/eskk"
 let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
