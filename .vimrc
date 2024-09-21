@@ -245,30 +245,29 @@ function! ExtractTicketNumbers()
 
     " Print or return the ticket_numbers list
     echo ticket_numbers
-    if !empty(ticket_numbers)
-        let joined_ticket_numbers = join(ticket_numbers, ",")
-        call append('$', joined_ticket_numbers)
-    else
-        call append('$', "No tickets found")
-    endif
+    " if !empty(ticket_numbers)
+    "     let joined_ticket_numbers = join(ticket_numbers, ",")
+    "     call append('$', joined_ticket_numbers)
+    " else
+    "     call append('$', "No tickets found")
+    " endif
+    return ticket_numbers
 endfunction
 
 command! TicketExtract call ExtractTicketNumbers()
+
+function! ReleaseWithN
+    let tickets = call ExtractTicketNumbers()
+    let command_path = expand('~/dev/make_slack_post/make_slack_post.php')
+    let command = printf('php %s %s', command_path, tickets)
+    call ExternalCommandOutputToBuffer(command)
+endfunction
 
 function! IloveReleaseCommand()
     let pr_number = input("What is target PR number ? > ")
     let command_path = expand('~/dev/make_slack_post/fetch_pr.rb')
     let command = printf('ruby %s %s', command_path, pr_number)
     call ExternalCommandOutputToBuffer(command)
-    " let output = system(command)
-    " let lines =  split(output, '\n')
-    " " 最初にバッファの全ての行を削除しておく
-    " execute '%delete _'
-    " let current_line = 0
-    " for line in lines
-    "     call append(current_line, line)
-    "     let current_line += 1
-    " endfor
 
 endfunction
 
