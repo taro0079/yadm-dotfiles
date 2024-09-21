@@ -74,6 +74,7 @@ Plug 'mattn/emmet-vim'
 " Plug 'justinmk/vim-sneak'
 Plug 'vim-skk/eskk.vim'
 "Plug 'taro0079/fd.vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -227,8 +228,6 @@ function! ExtractTicketNumbers()
     let lines = getline(1, '$')
     let ticket_numbers = []
 
-    " Initialize an empty list to store the ticket numbers
-
     " Regular expression to match ticket numbers starting with '#'
     let pattern = '^#\(\d\+\)'
 
@@ -245,19 +244,13 @@ function! ExtractTicketNumbers()
 
     " Print or return the ticket_numbers list
     echo ticket_numbers
-    " if !empty(ticket_numbers)
-    "     let joined_ticket_numbers = join(ticket_numbers, ",")
-    "     call append('$', joined_ticket_numbers)
-    " else
-    "     call append('$', "No tickets found")
-    " endif
     return ticket_numbers
 endfunction
 
 command! TicketExtract call ExtractTicketNumbers()
 
-function! ReleaseWithN
-    let tickets = call ExtractTicketNumbers()
+function! ReleaseWithN()
+    let tickets = join(ExtractTicketNumbers(), ',')
     let command_path = expand('~/dev/make_slack_post/make_slack_post.php')
     let command = printf('php %s %s', command_path, tickets)
     call ExternalCommandOutputToBuffer(command)
@@ -268,7 +261,6 @@ function! IloveReleaseCommand()
     let command_path = expand('~/dev/make_slack_post/fetch_pr.rb')
     let command = printf('ruby %s %s', command_path, pr_number)
     call ExternalCommandOutputToBuffer(command)
-
 endfunction
 
 function ExternalCommandOutputToBuffer(command)
@@ -405,4 +397,4 @@ xmap        s   <Plug>(vsnip-select-text)
 nmap        X   <Plug>(vsnip-cut-text)
 xmap        X   <Plug>(vsnip-cut-text)
 
-nmap <leader>qr :QuickRun<cr>
+nmap <leader>q :QuickRun<cr>
