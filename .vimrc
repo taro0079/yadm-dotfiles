@@ -197,7 +197,15 @@ let g:netrw_list_hide    = netrw_gitignore#Hide()
 " endfunction
 " command! RpstTicketNum call RpstTicketNum()
 "
+" 選択範囲のテキストを取得するコマンド
+" 範囲の終端は必ず行末になるように設定してある
+function! GetRegionText()
+    let start = getpos("v")
+    let end = getpos("'>")
+    return getregion(start, end)
+endfunction
 
+" rpst-symfonyのクラス郡を生成するコマンド
 function! Test()
     let current_file_path =  expand('%')
     let output = system(printf("ruby ~/dev/test_ruby/test.rb %s", current_file_path))
@@ -213,6 +221,7 @@ function! Test()
 endfunction
 command! Rtest call Test()
 
+" コミットログからチケット番号を自動抽出してくれるコマンド v1
 function! ExtractTicketNumbers()
     " Get the entire buffer content as a list of lines
     let lines = getline(1, '$')
@@ -245,6 +254,37 @@ function! ExtractTicketNumbers()
 endfunction
 
 command! TicketExtract call ExtractTicketNumbers()
+
+function! IloveReleaseCommand()
+    let pr_number = input("What is target PR number ? > ")
+    let command_path = expand('~/dev/make_slack_post/fetch_pr.rb')
+    let command = printf('ruby %s %s', command_path, pr_number)
+    call ExternalCommandOutputToBuffer(command)
+    " let output = system(command)
+    " let lines =  split(output, '\n')
+    " " 最初にバッファの全ての行を削除しておく
+    " execute '%delete _'
+    " let current_line = 0
+    " for line in lines
+    "     call append(current_line, line)
+    "     let current_line += 1
+    " endfor
+
+endfunction
+
+function ExternalCommandOutputToBuffer(command)
+    let output = system(a:command)
+    let lines =  split(output, '\n')
+    " 最初にバッファの全ての行を削除しておく
+    execute '%delete _'
+    let current_line = 0
+    for line in lines
+        call append(current_line, line)
+        let current_line += 1
+    endfor
+endfunction
+
+command! IloveRelease call IloveReleaseCommand()
 
 " denops setting --- {{{1
 "set runtimepath^=~/dev/denops-tutorial
