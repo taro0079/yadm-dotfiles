@@ -61,6 +61,7 @@ Plug 'Shougo/ddc-ui-native'
 Plug 'Shougo/ddc-source-around'
 Plug 'Shougo/ddc-filter-matcher_head'
 Plug 'Shougo/ddc-filter-sorter_rank'
+Plug 'shun/ddc-source-vim-lsp'
 "" Plug 'weirongxu/plantuml-previewer.vim'
 "Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
@@ -130,12 +131,19 @@ nnoremap <leader>lt :set list!<CR>
 
 " ddc setings ---------------------- {{{1
 call ddc#custom#patch_global('ui', 'native')
-call ddc#custom#patch_global('sources', ['around'])
+call ddc#custom#patch_global('sources', ['vim-lsp', 'around'])
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \    'matchers': ['matcher_head'],
-      \    'sorters': ['sorter_rank']}
-      \ })
+      \    'sorters': ['sorter_rank'],
+      \    'minAutoCompleteLength': 1
+      \  },
+      \ 'vim-lsp': {
+      \    'matchers': ['matcher_head'],
+      \    'mark': 'lsp',
+      \    'maxItems': 15,
+      \ },
+      \})
 call ddc#enable()
 " " lsp settings --- {{{1
 " let g:lsp_settings = {
@@ -240,10 +248,10 @@ xmap        X   <Plug>(vsnip-cut-text)
 nmap <leader>q :QuickRun<cr>
 
 " asynccomplete settings --- {{1
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+" ddcを利用するため一旦以下は無効化
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 " newtrw settings ---- {{{1
 let g:netrw_banner       = 0
