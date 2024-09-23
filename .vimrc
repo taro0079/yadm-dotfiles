@@ -62,8 +62,15 @@ Plug 'Shougo/ddc-source-around'
 Plug 'Shougo/ddc-filter-matcher_head'
 Plug 'Shougo/ddc-filter-sorter_rank'
 Plug 'shun/ddc-source-vim-lsp'
-"" Plug 'weirongxu/plantuml-previewer.vim'
-"Plug 'thinca/vim-qfhl'
+Plug 'Shougo/ddu.vim'
+Plug 'Shougo/ddu-ui-ff'
+Plug 'Shougo/ddu-kind-file'
+Plug 'Shougo/ddu-source-file'
+Plug 'Shougo/ddu-source-file_rec'
+Plug 'Shougo/ddu-source-register'
+Plug 'Shougo/ddu-commands.vim'
+Plug 'shun/ddu-source-buffer'
+Plug 'Shougo/ddu-filter-matcher_substring'
 Plug 'junegunn/vim-easy-align'
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'tpope/vim-repeat'
@@ -72,14 +79,9 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
-"Plug 'sheerun/vim-polyglot'
-" Plug 'justinmk/vim-sneak'
 Plug 'vim-skk/eskk.vim'
-"Plug 'taro0079/fd.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -90,15 +92,10 @@ Plug 'kana/vim-textobj-user'
 Plug 'osyo-manga/vim-textobj-blockwise'
 Plug 'dracula/vim'
 Plug 'bronson/vim-trailing-whitespace'
-" Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
-" Plug 'mattn/ctrlp-matchfuzzy'
-"Plug 'garbas/vim-snipmate'
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 Plug 'vim-test/vim-test'
-"Plug 'itchyny/vim-parenmatch'
 Plug 'dense-analysis/ale'
-"Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'lifepillar/vim-solarized8'
 Plug 'thinca/vim-quickrun'
 Plug 'hrsh7th/vim-vsnip'
@@ -138,6 +135,9 @@ call ddc#custom#patch_global('sourceOptions', {
       \    'sorters': ['sorter_rank'],
       \    'minAutoCompleteLength': 1
       \  },
+      \ 'around': {
+      \   'mark': 'A',
+      \ },
       \ 'vim-lsp': {
       \    'matchers': ['matcher_head'],
       \    'mark': 'lsp',
@@ -145,7 +145,58 @@ call ddc#custom#patch_global('sourceOptions', {
       \ },
       \})
 call ddc#enable()
-" " lsp settings --- {{{1
+
+" ddu settings ---------------------- {{{1
+call ddu#custom#patch_global({
+      \  'ui': 'ff',
+      \  'sources': [{'name':'register'},
+      \    {
+      \      'name': 'file_rec',
+      \      'params': {
+      \        'ignoredDirectories': ['.git', 'node_modules', 'vendor', '.next']
+      \      }
+      \    }],
+      \  'sourceOptions': {
+      \    '_': {
+      \      'matchers': ["matcher_substring"],
+      \    },
+      \  },
+      \  'kindOptions': {
+      \    'file': {
+      \      'defaultAction': 'open',
+      \    },
+      \  }
+      \})
+
+" ddu key setting
+autocmd FileType ddu-ff call s:ddu_my_settings()
+function! s:ddu_my_settings() abort
+  nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#do_action('itemAction')<CR>
+  nnoremap <buffer><silent> <Space> <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
+  nnoremap <buffer><silent> i <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
+  nnoremap <buffer><silent> q <Cmd>call ddu#ui#do_action('quit')<CR>
+endfunction
+
+autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
+function! s:ddu_filter_my_settings() abort
+  nnoremap <buffer> <CR> <Cmd>call ddu#ui#do_action('itemAction')<CR>
+  nnoremap <buffer><silent> q <Cmd>call ddu#ui#do_action('quit')<CR>
+  inoremap <buffer> <CR> <Cmd>call ddu#ui#do_action('itemAction')<CR>
+  inoremap <buffer> <C-n> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR>
+  inoremap <buffer> <C-p> <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR>
+endfunction
+
+" ddu keymapping
+nnoremap <SID>[ug] <Nop>
+nmap ,u <SID>[ug]
+
+nnoremap <silent> <SID>[ug]m :<C-u>Ddu mr<CR>
+nnoremap <silent> <SID>[ug]b :<C-u>Ddu buffer<CR>
+nnoremap <silent> <SID>[ug]r :<C-u>Ddu register<CR>
+nnoremap <silent> <SID>[ug]n :<C-u>Ddu file file -source-param-new -source-option-volatile<CR>
+nnoremap <silent> <SID>[ug]f :<C-u>Ddu file_rec<CR>
+
+" lsp settings --- {{{1
 " let g:lsp_settings = {
 " \  'typeprof': {'disabled': 1},
 " \}
