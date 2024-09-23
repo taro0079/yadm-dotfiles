@@ -1,3 +1,5 @@
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 export PATH="/opt/homebrew/bin:$PATH"
 # Initialization code that may require console input (password prompts, [y/n]
@@ -46,11 +48,6 @@ export PATH="$HOME/.phpenv/bin:$PATH"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_CTRL_T_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'
-
-
-
-export DENO_INSTALL="/home/taro/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
 
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:~/.nimble/bin
@@ -193,6 +190,10 @@ eval "$(starship init zsh)"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
-export DENO_INSTALL="~/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-eval "$(phpenv init -)"
+
+# fnm
+FNM_PATH="/home/awesometaro/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/awesometaro/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi

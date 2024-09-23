@@ -242,7 +242,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(git-gutter:added ((t (:foreground "#108a3b" :background "#50fc7f"))) nil "Customized with leaf in `git-gutter' block at `/home/taro/.emacs.d/init.el'")
- '(git-gutter:deleted ((t (:foreground "#8f2986" :background "#ff79c6"))) nil "Customized with leaf in `git-gutter' block at `/home/taro/.emacs.d/init.el'")
- '(git-gutter:modified ((t (:foreground "#404040" :background "#c0fc7f"))) nil "Customized with leaf in `git-gutter' block at `/home/taro/.emacs.d/init.el'"))
+ '(git-gutter:added ((t (:foreground "#108a3b" :background "#50fc7f"))) nil "Customized with leaf in `git-gutter' block at `/home/awesometaro/.emacs.d/init.el'")
+ '(git-gutter:deleted ((t (:foreground "#8f2986" :background "#ff79c6"))) nil "Customized with leaf in `git-gutter' block at `/home/awesometaro/.emacs.d/init.el'")
+ '(git-gutter:modified ((t (:foreground "#404040" :background "#c0fc7f"))) nil "Customized with leaf in `git-gutter' block at `/home/awesometaro/.emacs.d/init.el'"))
 
