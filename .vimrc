@@ -54,8 +54,13 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin()
 Plug 'taro0079/path_to_clipboard'
-"" Plug 'vim-denops/denops.vim'
+Plug 'vim-denops/denops.vim'
 Plug 'ojroques/vim-oscyank'
+Plug 'Shougo/ddc.vim'
+Plug 'Shougo/ddc-ui-native'
+Plug 'Shougo/ddc-source-around'
+Plug 'Shougo/ddc-filter-matcher_head'
+Plug 'Shougo/ddc-filter-sorter_rank'
 "" Plug 'weirongxu/plantuml-previewer.vim'
 "Plug 'thinca/vim-qfhl'
 Plug 'junegunn/vim-easy-align'
@@ -66,8 +71,8 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 "Plug 'sheerun/vim-polyglot'
@@ -123,6 +128,15 @@ colorscheme dracula
 " list settings ---------------------- {{{1
 nnoremap <leader>lt :set list!<CR>
 
+" ddc setings ---------------------- {{{1
+call ddc#custom#patch_global('ui', 'native')
+call ddc#custom#patch_global('sources', ['around'])
+call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {
+      \    'matchers': ['matcher_head'],
+      \    'sorters': ['sorter_rank']}
+      \ })
+call ddc#enable()
 " " lsp settings --- {{{1
 " let g:lsp_settings = {
 " \  'typeprof': {'disabled': 1},
