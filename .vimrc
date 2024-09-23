@@ -99,6 +99,19 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 call plug#end()
 
+" ESKK setting ------------------------------- {{{1
+let g:eskk#directory        = "~/.config/eskk"
+let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
+let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
+imap <C-j> <Plug>(eskk:toggle)
+
+" Color settings ------------------------------- {{{1
+syntax enable
+filetype plugin on
+set termguicolors
+set background=dark
+colorscheme dracula
+
 " fold settings ---------------------- {{{1
 " set foldmethod=manual
 "augroup filetype_vim
@@ -111,68 +124,112 @@ call plug#end()
 nnoremap <leader>lt :set list!<CR>
 
 " " lsp settings --- {{{1
-let g:lsp_settings = {
-\  'typeprof': {'disabled': 1},
-\}
-let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_diagnostics_float_cursor = 1
-let g:lsp_diagnostics_highlights_enabled = 0
-let g:lsp_diagnostics_virtual_text_align = 'after'
- hi DiagnosticError guifg=Red
- hi DiagnosticWarn  guifg=DarkOrange
- hi DiagnosticInfo  guifg=Blue
- hi DiagnosticHint  guifg=Green
+" let g:lsp_settings = {
+" \  'typeprof': {'disabled': 1},
+" \}
+" let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+" let g:lsp_diagnostics_enabled = 0
+" let g:lsp_diagnostics_float_cursor = 1
+" let g:lsp_diagnostics_highlights_enabled = 0
+" let g:lsp_diagnostics_virtual_text_align = 'after'
+"  hi DiagnosticError guifg=Red
+"  hi DiagnosticWarn  guifg=DarkOrange
+"  hi DiagnosticInfo  guifg=Blue
+"  hi DiagnosticHint  guifg=Green
 
 "if executable('ag')
 "  let g:ackprg = 'ag --vimgrep'
 "endif
 
 " vim lsp settings --- {{{1
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> gs <plug>(lsp-document-symbol-search)
-  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-  nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gi <plug>(lsp-implementation)
-  nmap <buffer> gt <plug>(lsp-type-definition)
-  nmap <buffer> <leader>rn <plug>(lsp-rename)
-  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-  nmap <buffer> K <plug>(lsp-hover)
-endfunction
+" function! s:on_lsp_buffer_enabled() abort
+"   setlocal omnifunc=lsp#complete
+"   setlocal signcolumn=yes
+"   nmap <buffer> gd <plug>(lsp-definition)
+"   nmap <buffer> gs <plug>(lsp-document-symbol-search)
+"   nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+"   nmap <buffer> gr <plug>(lsp-references)
+"   nmap <buffer> gi <plug>(lsp-implementation)
+"   nmap <buffer> gt <plug>(lsp-type-definition)
+"   nmap <buffer> <leader>rn <plug>(lsp-rename)
+"   nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+"   nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+"   nmap <buffer> K <plug>(lsp-hover)
+" endfunction
 
 " set list
 " set listchars=tab:»-,trail:-,eol:¿,extends:»,precedes:«,nbsp:%
 " vim color scheme settings --- {{{1
-syntax enable
-filetype plugin on
-set termguicolors
-set background=dark
-colorscheme dracula
-" ESKK setting ------------------------------- {{{1
-let g:eskk#directory        = "~/.config/eskk"
-let g:eskk#dictionary       = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
-let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
-imap <C-j> <Plug>(eskk:toggle)
 
 " OSC52 setting --- {{{1
 "nmap <leader>c <Plug>OSCYankOperator
 "nmap <leader>cc <leader>c_
 "vmap <leader>c <Plug>OSCYankVisual
 
-" " vimrc setting --- {{{1
+" keymaps
+" vimrc setting --- {{{1
 nnoremap <silent> <leader><CR> :source ~/.vimrc<CR>
 nnoremap <silent> <leader>v :e ~/.vimrc<CR>
-" tmux seeting
-"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 "vim EasyAlign setting ---- {{{1
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" phpactor setting
+autocmd FileType php setlocal omnifunc=phpactor#Complete
+" useの補完
+nmap <silent><Leader>u      :<C-u>call phpactor#UseAdd()<CR>
+" コンテキストメニューの起動(カーソル下のクラスやメンバに対して実行可能な選択肢を表示してくれます)
+nmap <silent><Leader>mm     :<C-u>call phpactor#ContextMenu()<CR>
+" ナビゲーションメニューの起動(クラスの参照元を列挙したり、他ファイルへのジャンプなど)
+nmap <silent><Leader>nn     :<C-u>call phpactor#Navigate()<CR>
+" カーソル下のクラスやメンバの定義元にジャンプ
+nmap <silent><Leader>o      :<C-u>call phpactor#GotoDefinition()<CR>
+" 編集中のクラスに対し各種の変更を加える(コンストラクタ補完、インタフェース実装など)
+nmap <silent><Leader>tt     :<C-u>call phpactor#Transform()<CR>
+" 新しいクラスを生成する(編集中のファイルに)
+nmap <silent><Leader>cc     :<C-u>call phpactor#ClassNew()<CR>
+" 選択した範囲を変数に抽出する
+nmap <silent><Leader>ee     :<C-u>call phpactor#ExtractExpression(v:false)<CR>
+" 選択した範囲を変数に抽出する
+vmap <silent><Leader>ee     :<C-u>call phpactor#ExtractExpression(v:true)<CR>
+" 選択した範囲を新たなメソッドとして抽出する
+vmap <silent><Leader>em     :<C-u>call phpactor#ExtractMethod()<CR>
+" split → jump
+nmap <silent><C-w><Leader>o :<C-u>call DefinitionJumpWithPhpactor()<CR>
+" カーソル下のクラスや変数の情報を表示する
+" 他のエディタで、マウスカーソルをおいたときに表示されるポップアップなどに相当
+vmap <silent><Leader>hh     :<C-u>call phpactor#Hover()<CR>
+
+" vim-vsnip -- {{1
+" Expand
+imap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
+smap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        X   <Plug>(vsnip-cut-text)
+xmap        X   <Plug>(vsnip-cut-text)
+
+nmap <leader>q :QuickRun<cr>
+
+" asynccomplete settings --- {{1
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 " newtrw settings ---- {{{1
 let g:netrw_banner       = 0
@@ -180,6 +237,10 @@ let g:netrw_browse_split = 0
 let g:netrw_altv         = 1
 let g:netrw_liststyle    = 3
 let g:netrw_list_hide    = netrw_gitignore#Hide()
+
+" tmux seeting
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " lsp settings ---------------------------- {{{1
 
@@ -189,7 +250,9 @@ let g:netrw_list_hide    = netrw_gitignore#Hide()
 "augroup END
 " command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
-" rspt チケット番号抽出コマンド ---- {{{1
+" my functions
+"
+"rspt チケット番号抽出コマンド ---- {{{1
 "
 " function! RpstTicketNum()
 "     execute ":%v/^#\\d.\\+/s/.*//g"
@@ -207,9 +270,9 @@ function! GetRegionText()
 endfunction
 
 " rpst-symfonyのクラス郡を生成するコマンド
-function! Test()
+function! OmsGenerator()
     let current_file_path =  expand('%')
-    let output = system(printf("ruby ~/dev/test_ruby/test.rb %s", current_file_path))
+    let output = system(printf("ruby ~/dev/oms-create-rb/test.rb %s", current_file_path))
     let lines =  split(output, '\n')
     " 最初にバッファの全ての行を削除しておく
     execute '%delete _'
@@ -220,29 +283,24 @@ function! Test()
     endfor
     " call setline(1, output)
 endfunction
-command! Rtest call Test()
+command! OmsForever call OmsGenerator()
 
 " コミットログからチケット番号を自動抽出してくれるコマンド v1
 function! ExtractTicketNumbers()
-    " Get the entire buffer content as a list of lines
+    " バッファ全体の行についてリストとして格納
     let lines = getline(1, '$')
     let ticket_numbers = []
 
-    " Regular expression to match ticket numbers starting with '#'
     let pattern = '^#\(\d\+\)'
 
-    " Iterate through each line
     for line in lines
-        " Check if the line contains a ticket number
         let matches = matchlist(line, pattern)
-        " If a match is found, add it to the ticket_numbers list
+
         if !empty(matches)
-            " Add the match to the list (first match is at index 0)
             call add(ticket_numbers, matches[1])
         endif
     endfor
 
-    " Print or return the ticket_numbers list
     echo ticket_numbers
     return ticket_numbers
 endfunction
@@ -331,8 +389,6 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 "let g:ale_fix_on_save = 1
 "let g:ale_fixers = {'php': ['php_cs_fixer']}
 
-"
-"
 "" php actor
 " 画面を分割して定義元へのジャンプ
 function! DefinitionJumpWithPhpactor()
@@ -340,61 +396,6 @@ function! DefinitionJumpWithPhpactor()
     call phpactor#GotoDefinition()
 endfunction
 
-autocmd FileType php setlocal omnifunc=phpactor#Complete
-" useの補完
-nmap <silent><Leader>u      :<C-u>call phpactor#UseAdd()<CR>
-" コンテキストメニューの起動(カーソル下のクラスやメンバに対して実行可能な選択肢を表示してくれます)
-nmap <silent><Leader>mm     :<C-u>call phpactor#ContextMenu()<CR>
-" ナビゲーションメニューの起動(クラスの参照元を列挙したり、他ファイルへのジャンプなど)
-nmap <silent><Leader>nn     :<C-u>call phpactor#Navigate()<CR>
-" カーソル下のクラスやメンバの定義元にジャンプ
-nmap <silent><Leader>o      :<C-u>call phpactor#GotoDefinition()<CR>
-" 編集中のクラスに対し各種の変更を加える(コンストラクタ補完、インタフェース実装など)
-nmap <silent><Leader>tt     :<C-u>call phpactor#Transform()<CR>
-" 新しいクラスを生成する(編集中のファイルに)
-nmap <silent><Leader>cc     :<C-u>call phpactor#ClassNew()<CR>
-" 選択した範囲を変数に抽出する
-nmap <silent><Leader>ee     :<C-u>call phpactor#ExtractExpression(v:false)<CR>
-" 選択した範囲を変数に抽出する
-vmap <silent><Leader>ee     :<C-u>call phpactor#ExtractExpression(v:true)<CR>
-" 選択した範囲を新たなメソッドとして抽出する
-vmap <silent><Leader>em     :<C-u>call phpactor#ExtractMethod()<CR>
-" split → jump
-nmap <silent><C-w><Leader>o :<C-u>call DefinitionJumpWithPhpactor()<CR>
-" カーソル下のクラスや変数の情報を表示する
-" 他のエディタで、マウスカーソルをおいたときに表示されるポップアップなどに相当
-vmap <silent><Leader>hh     :<C-u>call phpactor#Hover()<CR>
-
-
-" asynccomplete settings --- {{1
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
-
 " vim-test --- {{1
 let test#php#phpunit#executable = 'phpunit' " テストランナーをphpunitに変更
 
-" vim-vsnip -- {{1
-" Expand
-imap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
-smap <expr> <C-d>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-d>'
-
-" Expand or jump
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-" Jump forward or backward
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        X   <Plug>(vsnip-cut-text)
-xmap        X   <Plug>(vsnip-cut-text)
-
-nmap <leader>q :QuickRun<cr>
