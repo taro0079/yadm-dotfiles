@@ -167,7 +167,12 @@
 (defun php-cs-fixer ()
   (interactive)
   (when (eq major-mode 'php-mode)
-     (shell-command-to-string (concat "php-cs-fixer fix " (shell-quote-argument (buffer-file-name))))
+    (let ((php-cs-fixer-directory "~/dev/rpst-oms-backend/app/"))
+      (shell-command-to-string
+       (concat "php-cs-fixer fix "
+	       (shell-quote-argument (buffer-file-name))
+	       " --path-mode=intersection --working-dir="
+	       (shell-quote-argument php-cs-fixer-directory)))
      (revert-buffer t t t)))
 
 (defun my-php-mode-hook ()
