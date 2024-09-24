@@ -15,6 +15,7 @@ set nocompatible
 set smartcase
 " set signcolumn=yes
 set hlsearch
+set autoread
 set incsearch
 set nobackup
 set nowb
@@ -61,10 +62,11 @@ Plug 'ojroques/vim-oscyank'
 Plug 'Shougo/ddc.vim'
 Plug 'Shougo/ddc-ui-native'
 Plug 'Shougo/ddc-source-around'
+Plug 'matsui54/ddc-matcher_fuzzy'
 Plug 'Shougo/ddc-filter-matcher_head'
 Plug 'Shougo/ddc-filter-sorter_rank'
-Plug 'shun/ddc-source-vim-lsp'
 Plug 'Shougo/ddu.vim'
+Plug 'Shougo/ddc-source-lsp'
 Plug 'Shougo/ddu-ui-ff'
 Plug 'Shougo/ddu-kind-file'
 Plug 'Shougo/ddu-source-file'
@@ -80,6 +82,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
+Plug 'shun/ddc-source-vim-lsp'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'tpope/vim-surround'
@@ -104,7 +107,6 @@ Plug 'vim-test/vim-test'
 Plug 'lifepillar/vim-solarized8'
 Plug 'thinca/vim-quickrun'
 Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
 call plug#end()
 
 " ESKK setting ------------------------------- {{{1
@@ -136,17 +138,16 @@ call ddc#custom#patch_global('ui', 'native')
 call ddc#custom#patch_global('sources', ['vim-lsp', 'around', 'vsnip'])
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
-      \    'matchers': ['matcher_head'],
+      \    'matchers': ['matcher_fuzzy'],
       \    'sorters': ['sorter_rank'],
       \    'minAutoCompleteLength': 1
       \  },
       \ 'around': {
-      \   'mark': 'A',
+      \   'mark': 'around',
       \ },
       \ 'vim-lsp': {
-      \    'matchers': ['matcher_head'],
       \    'mark': 'lsp',
-      \    'maxItems': 15,
+      \    'forceCompletionPattern': '\.\w*|->\w*|\$\w*'
       \ },
       \ 'vsnip': {
       \   'mark': 'vsnip'
@@ -234,9 +235,14 @@ nnoremap <silent> <SID>[ug]p <Cmd>call ddu#start({
 function! s:php_fixer() abort
     let current_file = expand('%')
     let output =  system(printf('php-cs-fixer fix %s', current_file))
+    silent! edit
     echo(output)
 endfunction
-autocmd! BufWritePost *.php call s:php_fixer()
+augroup php_cs_fixer
+    autocmd!
+    autocmd BufWritePost *.php silent! call s:php_fixer()
+augroup END
+
 " lsp settings --- {{{1
 
 " vim lsp settings --- {{{1
@@ -490,6 +496,7 @@ command! IloveRelease call IloveReleaseCommand()
 "endif
 " 正規表現のマッチングエンジンを変更
 " set regexpengine=1
+
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 "let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 "let g:ale_sign_error = '✘'
