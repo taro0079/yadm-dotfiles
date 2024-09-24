@@ -71,6 +71,7 @@ Plug 'Shougo/ddu-source-file'
 Plug 'Shougo/ddu-source-file_rec'
 Plug 'Shougo/ddu-source-register'
 Plug 'Shougo/ddu-commands.vim'
+Plug 'uga-rosa/ddc-source-vsnip'
 Plug 'matsui54/ddu-source-file_external'
 Plug 'tpope/vim-dadbod'
 Plug 'shun/ddu-source-buffer'
@@ -132,7 +133,7 @@ nnoremap <leader>lt :set list!<CR>
 
 " ddc setings ---------------------- {{{1
 call ddc#custom#patch_global('ui', 'native')
-call ddc#custom#patch_global('sources', ['vim-lsp', 'around'])
+call ddc#custom#patch_global('sources', ['vim-lsp', 'around', 'vsnip'])
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \    'matchers': ['matcher_head'],
@@ -147,8 +148,17 @@ call ddc#custom#patch_global('sourceOptions', {
       \    'mark': 'lsp',
       \    'maxItems': 15,
       \ },
+      \ 'vsnip': {
+      \   'mark': 'vsnip'
+      \ },
       \})
 call ddc#enable()
+
+" inoremap <expr> <TAB>
+"     \ pumvisible() ? '<C-n>' :
+"     \ (col('.')) <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+"     \ '<TAB>' : ddc#map#manual_complete()
+" inoremap <expr> <C-k> pumvisible() > '<C-p>' : ''
 
 " ddu settings ---------------------- {{{1
 call ddu#custom#patch_global({
@@ -220,39 +230,41 @@ nnoremap <silent> <SID>[ug]p <Cmd>call ddu#start({
             \  'sources': [{'name': 'file_external'}]
             \ })<CR>
 
+" phpファイルの保存時にphp-cs-fixerを適用する
+function! s:php_fixer() abort
+    let current_file = expand('%')
+    let output =  system(printf('php-cs-fixer fix %s', current_file))
+    echo(output)
+endfunction
+autocmd! BufWritePost *.php call s:php_fixer()
 " lsp settings --- {{{1
-" let g:lsp_settings = {
-" \  'typeprof': {'disabled': 1},
-" \}
-" let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-" let g:lsp_diagnostics_enabled = 0
-" let g:lsp_diagnostics_float_cursor = 1
-" let g:lsp_diagnostics_highlights_enabled = 0
-" let g:lsp_diagnostics_virtual_text_align = 'after'
-"  hi DiagnosticError guifg=Red
-"  hi DiagnosticWarn  guifg=DarkOrange
-"  hi DiagnosticInfo  guifg=Blue
-"  hi DiagnosticHint  guifg=Green
-
-"if executable('ag')
-"  let g:ackprg = 'ag --vimgrep'
-"endif
 
 " vim lsp settings --- {{{1
-" function! s:on_lsp_buffer_enabled() abort
-"   setlocal omnifunc=lsp#complete
-"   setlocal signcolumn=yes
-"   nmap <buffer> gd <plug>(lsp-definition)
-"   nmap <buffer> gs <plug>(lsp-document-symbol-search)
-"   nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-"   nmap <buffer> gr <plug>(lsp-references)
-"   nmap <buffer> gi <plug>(lsp-implementation)
-"   nmap <buffer> gt <plug>(lsp-type-definition)
-"   nmap <buffer> <leader>rn <plug>(lsp-rename)
-"   nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-"   nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-"   nmap <buffer> K <plug>(lsp-hover)
-" endfunction
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 " set list
 " set listchars=tab:»-,trail:-,eol:¿,extends:»,precedes:«,nbsp:%
