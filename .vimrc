@@ -40,6 +40,8 @@ set t_Co=256
 "set foldmethod=indent
 set laststatus=2
 set path+=**
+" Use English interface.
+language message C
 " set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ %=[POS=%l/%L(%02v)]
 if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
@@ -69,6 +71,7 @@ Plug 'Shougo/ddu-source-file'
 Plug 'Shougo/ddu-source-file_rec'
 Plug 'Shougo/ddu-source-register'
 Plug 'Shougo/ddu-commands.vim'
+Plug 'matsui54/ddu-source-file_external'
 Plug 'shun/ddu-source-buffer'
 Plug 'Shougo/ddu-filter-matcher_substring'
 Plug 'junegunn/vim-easy-align'
@@ -82,10 +85,10 @@ Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 Plug 'vim-skk/eskk.vim'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/suda.vim'
 Plug 'kana/vim-textobj-user'
@@ -95,7 +98,7 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'easymotion/vim-easymotion'
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 Plug 'vim-test/vim-test'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'lifepillar/vim-solarized8'
 Plug 'thinca/vim-quickrun'
 Plug 'hrsh7th/vim-vsnip'
@@ -152,26 +155,42 @@ call ddu#custom#patch_global({
       \  'sources': [{'name':'register'},
       \    {
       \      'name': 'file_rec',
-      \      'params': {
-      \        'ignoredDirectories': ['.git', 'node_modules', 'vendor', '.next']
-      \      }
+      \      'params': {},
       \    }],
+      \  'sourceParams': {
+      \    'file_external': {
+      \      'cmd': ['git', 'ls-files']
+      \    },
+      \    'file_rec': {
+      \        'ignoredDirectories': ['.git', 'node_modules', 'vendor', '.next']
+      \    },
+      \  },
       \  'sourceOptions': {
       \    '_': {
       \      'matchers': ["matcher_substring"],
+      \      'ignoreCase': 'true',
       \    },
       \  },
+      \  'filterParams': {
+      \    'matcher_substring': {
+      \      'highlightMatched': 'Title'
+      \    }
+      \  },
       \  'kindOptions': {
-      \    'file': {
+      \    'file_rec': {
       \      'defaultAction': 'open',
       \    },
+      \    'file_external': {
+      \      'defaultAction': 'open',
+      \    }
       \  }
       \})
 
 " ddu key setting
 autocmd FileType ddu-ff call s:ddu_my_settings()
 function! s:ddu_my_settings() abort
-  nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#do_action('itemAction')<CR>
+    nnoremap <buffer><silent> <CR> <Cmd>call ddu#ui#do_action('itemAction',
+                \ {'name': 'open', 'params':{}})<CR>
   nnoremap <buffer><silent> <Space> <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
   nnoremap <buffer><silent> i <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
   nnoremap <buffer><silent> q <Cmd>call ddu#ui#do_action('quit')<CR>
@@ -193,8 +212,12 @@ nmap ,u <SID>[ug]
 nnoremap <silent> <SID>[ug]m :<C-u>Ddu mr<CR>
 nnoremap <silent> <SID>[ug]b :<C-u>Ddu buffer<CR>
 nnoremap <silent> <SID>[ug]r :<C-u>Ddu register<CR>
-nnoremap <silent> <SID>[ug]n :<C-u>Ddu file file -source-param-new -source-option-volatile<CR>
+nnoremap <silent> <SID>[ug]n :<C-u>Ddu file -source-param-new -source-option-volatile<CR>
 nnoremap <silent> <SID>[ug]f :<C-u>Ddu file_rec<CR>
+nnoremap <silent> <SID>[ug]p <Cmd>call ddu#start({
+            \  'name': 'file_external',
+            \  'sources': [{'name': 'file_external'}]
+            \ })<CR>
 
 " lsp settings --- {{{1
 " let g:lsp_settings = {
