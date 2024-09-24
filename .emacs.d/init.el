@@ -153,7 +153,8 @@
  '(package-selected-packages
    '(blackout clojure-mode company ddskk-posframe el-get
 	      exec-path-from-shell git-gutter hydra leaf-keywords
-	      magit org-roam projectile ripgrep web-mode yaml-mode)))
+	      magit org-roam php-mode projectile ripgrep web-mode
+	      yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -163,3 +164,13 @@
  '(git-gutter:deleted ((t (:foreground "#8f2986" :background "#ff79c6"))) nil "Customized with leaf in `git-gutter' block")
  '(git-gutter:modified ((t (:foreground "#404040" :background "#c0fc7f"))) nil "Customized with leaf in `git-gutter' block"))
 
+(defun php-cs-fixer ()
+  (interactive)
+  (when (eq major-mode 'php-mode)
+     (shell-command-to-string (concat "php-cs-fixer fix " (shell-quote-argument (buffer-file-name))))
+     (revert-buffer t t t)))
+
+(defun my-php-mode-hook ()
+  (add-hook 'after-save-hook 'php-cs-fixer nil t))
+
+(add-hook 'php-mode-hook 'my-php-mode-hook)
