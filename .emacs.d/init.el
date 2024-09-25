@@ -1,3 +1,9 @@
+(defun shell-other-window ()
+  (interactive)
+  (let ((buf (shell)))
+    (switch-to-buffer (other-buffer buf))
+    (switch-to-buffer-other-window buf)))
+
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
 (exec-path-from-shell-initialize)
 (add-to-list 'exec-path "/Users/taro_morita/.volta/bin")
@@ -15,6 +21,11 @@
 (defun finder-current-dir-open()
   (interactive)
   (shell-command "open ."))
+
+; 現在のファイルをphp-unitする。oms用
+(defun php-unit()
+  (interactive)
+  (shell-command (concat "docker compose run --rm php-dev symfony php bin/phpunit " (replace-regexp-in-string "/Users/taro_morita/dev/rpst-oms-backend/" "/srv/" buffer-file-name))))
 
 (defun yadm-add()
   (interactive)
@@ -48,6 +59,7 @@
 
 (leaf ruby-mode
   :ensure t)
+
 (leaf clojure-mode
   :ensure t)
 
@@ -55,7 +67,16 @@
   :ensure t
   :require t
   :hook
-  (php-mode-hook . eglot-ensure))
+  
+(leaf eglot-booster
+  :when (executable-find "emacs-lsp-booster")
+  :vc ( :url "https://github.com/jdtsmith/eglot-booster")
+  :global-minor-mode t)
+
+(leaf vertico
+  :doc "VERTical Interactive COmpletion"
+  :ensure t
+  :global-minor-mode t)
 
 (leaf which-key
   :ensure t
@@ -66,6 +87,10 @@
   :leaf-defer nil
   :blackout t
   :hook ((after-init-hook . global-company-mode)))
+
+(leaf dracula-theme
+  :ensure t)
+(load-theme 'dracula t)
 
 (leaf skk
   :ensure ddskk

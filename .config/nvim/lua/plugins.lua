@@ -337,7 +337,7 @@ require("lazy").setup({
                     --     end,
                     -- })
                     require("neotest-docker-phpunit").setup({
-                        phpunit_cmd = "neotest-docker-phpunit",
+                        phpunit_cmd = "/Users/taro_morita/neotest-docker-phpunit/target/debug/neotest-docker-phpunit",
                         docker_phpunit = {
                             default = {
                                 container = "rpst-oms-backend_php-dev_1",
