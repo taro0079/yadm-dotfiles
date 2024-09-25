@@ -25,7 +25,11 @@
 ; 現在のファイルをphp-unitする。oms用
 (defun php-unit()
   (interactive)
-  (shell-command (concat "docker compose run --rm php-dev symfony php bin/phpunit " (replace-regexp-in-string "/Users/taro_morita/dev/rpst-oms-backend/" "/srv/" buffer-file-name))))
+  (async-shell-command (concat "docker compose run --rm php-dev symfony php bin/phpunit " (replace-regexp-in-string "/Users/taro_morita/dev/rpst-oms-backend/" "/srv/" buffer-file-name))))
+
+(defun php-unit-all()
+  (interactive)
+  (async-shell-command "docker compose run --rm php-dev ./test_scripts.sh"))
 
 (defun yadm-add()
   (interactive)
