@@ -31,3 +31,4 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.bo.expandtab = true
     end
 })
+require('phpunit_runner')

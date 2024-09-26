@@ -513,5 +513,6 @@ function! DefinitionJumpWithPhpactor()
 endfunction
 
 " vim-test --- {{1
-let test#php#phpunit#executable = 'phpunit' " テストランナーをphpunitに変更
+let test#php#phpunit#executable = 'docker compose -f ../docker-compose.yml run
+            \ --rm php-dev symfony php bin/phpunit' " テストランナーをphpunitに変更
 

@@ -317,34 +317,27 @@ require("lazy").setup({
             local file_exists = require("helper.file_exist")
             require("neotest").setup({
                 adapters = {
-                    -- require("neotest-phpunit")({
-                    --     phpunit_cmd = function()
-                    --         -- return "symfony php bin/phpunit"
-                    --         if file_exist.file_exist("bin/phpunit") then
-                    --             return vim.tbl_flatten({
-                    --                 "docker",
-                    --                 "exec",
-                    --                 "-it",
-                    --                 "rpst-oms-backend_php-dev_1",
-                    --                 "symfony",
-                    --                 "php",
-                    --                 "bin/phpunit",
-                    --             })
-                    --         elseif file_exist.file_exist("vendor/bin/phpunit") then
-                    --             return "vendor/bin/phpunit"
-                    --         end
-                    --         -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
-                    --     end,
-                    -- })
-                    require("neotest-docker-phpunit").setup({
-                        phpunit_cmd = "/Users/taro_morita/neotest-docker-phpunit/target/debug/neotest-docker-phpunit",
-                        docker_phpunit = {
-                            default = {
-                                container = "rpst-oms-backend_php-dev_1",
-                                volume = "/Users/taro_morita/dev/rpst-oms-backend/app/:/srv/app/",
-                                standalone = true,
-                            },
-                        },
+                    require("neotest-phpunit")({
+                        phpunit_cmd = function()
+                            -- return "symfony php bin/phpunit"
+                            if file_exist.file_exist("bin/phpunit") then
+                                return vim.tbl_flatten({
+                                    "docker",
+                                    "compose",
+                                    "-f",
+                                    "../docker-compose.yml",
+                                    "run",
+                                    "--rm",
+                                    "php-dev",
+                                    "symfony",
+                                    "php",
+                                    "bin/phpunit",
+                                })
+                            elseif file_exist.file_exist("vendor/bin/phpunit") then
+                                return "vendor/bin/phpunit"
+                            end
+                            -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
+                        end,
                     })
                 },
             })
@@ -384,5 +377,5 @@ require("lazy").setup({
         config = function()
             -- vim.cmd [[colorscheme gruvbox-material]]
         end
-    }
+    },
 })
