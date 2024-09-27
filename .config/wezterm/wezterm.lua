@@ -20,7 +20,9 @@ end
 
 if mac then
     return {
+        color_scheme = "tokyonight",
         font = wezterm.font_with_fallback {
+            { family = 'JetBrainsMono Nerd Font', weight = "Regular", italic = false },
             { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
             { family = 'HackGen Console NF',      weight = "Regular", italic = false },
             { family = 'CaskaydiaCove Nerd Font', weight = "Bold" },
@@ -44,7 +46,7 @@ if mac then
         front_end = "WebGpu",
         window_background_opacity = 0.8,
         macos_window_background_blur = 20,
-        macos_fps = 120,
+        -- macos_fps = 120,
 
         background = {
             {
