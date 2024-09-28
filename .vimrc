@@ -107,6 +107,7 @@ Plug 'vim-test/vim-test'
 Plug 'lifepillar/vim-solarized8'
 Plug 'thinca/vim-quickrun'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'ghifarit53/tokyonight-vim'
 call plug#end()
 
 " ESKK setting ------------------------------- {{{1
@@ -120,7 +121,9 @@ syntax enable
 filetype plugin on
 set termguicolors
 set background=dark
-colorscheme dracula
+let g:tokyonight_enable_italic = 1
+let g:tokyonight_transparent_background = 1
+colorscheme tokyonight
 
 " fold settings ---------------------- {{{1
 " set foldmethod=manual
@@ -448,8 +451,27 @@ function ExternalCommandOutputToBuffer(command)
     endfor
 endfunction
 
+function ExternalCommandOutputToNewBuffer(command)
+    enew
+    let output = system(a:command)
+    let lines =  split(output, '\n')
+    " 最初にバッファの全ての行を削除しておく
+    execute '%delete _'
+    let current_line = 0
+    for line in lines
+        call append(current_line, line)
+        let current_line += 1
+    endfor
+endfunction
 command! IloveRelease call IloveReleaseCommand()
 
+function! PhpUnitRunner()
+    let file = expand('%')
+    let command = printf('docker compose -f ~/dev/rpst-oms-backend/docker-compose.yml run --rm php-dev symfony php bin/phpunit %s', file)
+    call ExternalCommandOutputToNewBuffer(command)
+endfunction
+
+command! PhpUnitRunner call PhpUnitRunner()
 " denops setting --- {{{1
 "set runtimepath^=~/dev/denops-tutorial
 " let g:denops#debug = 1
@@ -512,6 +534,9 @@ function! DefinitionJumpWithPhpactor()
     call phpactor#GotoDefinition()
 endfunction
 
+let g:lsp_settings = {
+\  'typeprof': {'disabled': 1},
+\}
 " vim-test --- {{1
 let test#php#phpunit#executable = 'docker compose -f ../docker-compose.yml run
             \ --rm php-dev symfony php bin/phpunit' " テストランナーをphpunitに変更

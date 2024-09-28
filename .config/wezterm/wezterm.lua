@@ -44,26 +44,8 @@ if mac then
         },
         adjust_window_size_when_changing_font_size = false,
         front_end = "WebGpu",
-        window_background_opacity = 0.8,
+        window_background_opacity = 0.93,
         macos_window_background_blur = 20,
-        -- macos_fps = 120,
-
-        background = {
-            {
-                source = {
-                    File = "/Users/awesometaro/.config/wezterm/the-rolling-stone-neon-signage.jpg"
-                },
-                repeat_x = 'Mirror',
-                hsb = { brightness = 0.1 },
-                opacity = 0.7,
-                repeat_x = 'NoRepeat',
-                repeat_y = 'NoRepeat',
-
-                -- horizontal_offset = 900,
-                -- vertical_offset = -50,
-
-            },
-        },
     }
 elseif linux then
     return {
