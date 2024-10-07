@@ -1,28 +1,32 @@
-(package-initialize)
+
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
-
+(add-to-list 'package-archives
+	     '("gnu" . "https://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives
+	     '("org" . "http://orgmode.org/elpa/") t)
+(package-initialize)
 
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
 (exec-path-from-shell-initialize)
 (add-to-list 'exec-path "/Users/taro_morita/.volta/bin")
 
-(setq custom-file "~/.emacs.custom.el")
+; (setq custom-file "~/.emacs.custom.el")
 
 ;; key bindings
 (global-set-key "\C-t" 'other-window)
 
 
-(add-to-list 'default-frame-alist `(font . "Iosevka-20"))
+(add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-18"))
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-(ido-mode 1)
-(ido-everywhere 1)
+;(ido-mode 1)
+;(ido-everywhere 1)
 (setq ido-show-dot-for-dired t)
 (global-display-line-numbers-mode)
 
-(load-file custom-file)
+; (load-file custom-file)
 
 (defvar package-contents-refreshed nil)
 
@@ -68,8 +72,18 @@
   :ensure t
   :global-minor-mode t)
 
-(leaf vertico-directory
-  :after vertico
+;(use-package vertico-directory
+;  :ensure t
+;  :after vertico
+;  :bind (:map vertico-map
+;	      ("C-l" . vertico-directory-up)
+;	      ("\\d" . vertico-directory-delete-char)))
+;  )
+
+(leaf csv-mode
+  :ensure t)
+
+(leaf go-mode
   :ensure t)
 
 (leaf skk
@@ -96,5 +110,11 @@
 
 (leaf dracula-theme
   :ensure t)
+(leaf multiple-cursors
+  :ensure t)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (load-theme 'dracula t)
