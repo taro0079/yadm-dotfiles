@@ -5,6 +5,8 @@
 (add-to-list 'package-archives
 	     '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
+; native-compの警告を表示しない
+(setq native-comp-async-report-warnings-errors 'silent)
 
 
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
@@ -113,11 +115,20 @@
 (leaf org
   :ensure t)
 
+(leaf org-modern
+  :ensure t)
+(with-eval-after-load 'org (global-org-modern-mode))
+
+(leaf blamer
+  :ensure t
+  :config
+  (global-blamer-mode 1))
+  
 (leaf ripgrep
   :ensure t)
 
 (leaf dracula-theme
-  :ensure t)
+￥  :ensure t)
 (leaf multiple-cursors
   :ensure t)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -126,7 +137,26 @@
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (leaf consult
-  :ensure t)
+  :ensure t
+  :bind (
+   ("C-c h" . consult-history)
+   ("C-c m" . consult-mode-command)
+   ; :map goto-map
+   ; ("e" . consult-compile-error)
+   ; ("f" . consult-flymake)
+   ; ("g" . consult-goto-line)
+   ; ("o" . consult-outline)
+   ; :map search-map
+   ; ("d" . consult-fd)
+   ; ("g" . consult-grep)
+   ; ("G" . consult-git-grep)
+   ; ("r" . consult-ripgrep)
+   ))
+(leaf avy
+  :ensure t
+  :config
+  (global-set-key (kbd "C-:") 'avy-goto-char))
+
 (leaf affe
   :ensure t
   :config
