@@ -1,4 +1,3 @@
-
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
@@ -7,11 +6,12 @@
 	     '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
+
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
 (exec-path-from-shell-initialize)
 (add-to-list 'exec-path "/Users/taro_morita/.volta/bin")
 
-; (setq custom-file "~/.emacs.custom.el")
+(setq custom-file "~/.emacs.custom.el")
 
 ;; key bindings
 (global-set-key "\C-t" 'other-window)
@@ -23,10 +23,10 @@
 (scroll-bar-mode 0)
 ;(ido-mode 1)
 ;(ido-everywhere 1)
-(setq ido-show-dot-for-dired t)
+;(setq ido-show-dot-for-dired t)
 (global-display-line-numbers-mode)
 
-; (load-file custom-file)
+(load-file custom-file)
 
 (defvar package-contents-refreshed nil)
 
@@ -57,7 +57,12 @@
 (rc-require 'leaf)
 
 (leaf ruby-mode
-      :ensure t)
+  :ensure t)
+
+(leaf company
+  :ensure t
+  :leaf-defer nil
+  :hook ((after-init-hook . global-company-mode)))
 
 (leaf eglot
   :ensure t
@@ -72,19 +77,22 @@
   :ensure t
   :global-minor-mode t)
 
-;(use-package vertico-directory
-;  :ensure t
-;  :after vertico
-;  :bind (:map vertico-map
-;	      ("C-l" . vertico-directory-up)
-;	      ("\\d" . vertico-directory-delete-char)))
-;  )
-
 (leaf csv-mode
   :ensure t)
 
 (leaf go-mode
   :ensure t)
+
+(leaf tramp
+  :ensure t
+  :init
+  (with-eval-after-load "tramp"
+    (add-to-list 'tramp-remote-path "home/taro_morita/.npm-global/bin")
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)))
+
+(with-eval-after-load "eglot"
+  (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
+
 
 (leaf skk
   :ensure ddskk
@@ -117,4 +125,24 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+(leaf consult
+  :ensure t)
+(leaf affe
+  :ensure t
+  :config
+  ;; Manual preview key for `affe-grep'
+  (consult-customize affe-grep :preview-key "M-."))
+
+(leaf orderless
+  :ensure t
+  :custom
+  (completion-styles . '(orderless)))
+;(consult-customize
+; consult-ripgrep consult-git-grep consult-grep
+; consult-bookmark consult-recent-file consult-xref
+; consult--source-recent-file
+; consult--source-project-recent-file
+; consult--source-bookmark
+; :preview-key (kbd "M-."))
 (load-theme 'dracula t)
+(load-file custom-file)
