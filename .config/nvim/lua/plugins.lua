@@ -389,4 +389,42 @@ require("lazy").setup({
             },
         },
     },
+    {
+        "nvim-neorg/neorg",
+        lazy = false,
+        version = "*",
+        config = function()
+            require('neorg').setup {
+                load = {
+                    ["core.defaults"] = {},
+                    ["core.concealer"] = {},
+                    ["core.dirman"] = {
+                        config = {
+                            workspaces = {
+                                notes = "~/neorg",
+                            },
+                            default_workspace = "notes"
+                        },
+                    }
+                }
+            }
+            vim.wo.foldlevel = 99
+            vim.wo.conceallevel = 2
+        end
+    },
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            -- add any options here
+        },
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        }
+    }
 })

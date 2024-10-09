@@ -123,7 +123,7 @@ function transport_v2()
             stdout_buffered = true,
             on_stdout = function(_, data)
                 if data then
-                    vim.notify("Error: " .. table.concat(data, "\n"))
+                    vim.notify("Message: " .. table.concat(data, "\n"))
                 end
             end,
             on_stderr = function(_, data)
