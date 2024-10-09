@@ -5,6 +5,7 @@ require('keys')
 require('config')
 require('gui-settings')
 require('helper.matchit-setting')
+require('myfunc')
 
 incremental_selection = {
     enable = true,
@@ -31,6 +32,21 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.bo.expandtab = true
     end
 })
+
+local file_paths = require('myfunc').load_files("~/.yadm-auto-update-list")
+if file_paths then
+    for _, file_path in ipairs(file_paths) do
+        print(file_path)
+        vim.api.nvim_create_autocmd("BufWritePost", {
+            pattern = file_path,
+            callback = function()
+                print(file_path .. "is edited.")
+            end
+        })
+    end
+end
+
+
 require('phpunit_runner')
 
 
