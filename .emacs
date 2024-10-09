@@ -7,11 +7,12 @@
 (package-initialize)
 ; native-compの警告を表示しない
 (setq native-comp-async-report-warnings-errors 'silent)
-
+(setq make-backup-files nil)
+(setq backup-inhibited nil)
+(setq create-lockfiles nil)
 
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
 (exec-path-from-shell-initialize)
-(add-to-list 'exec-path "/Users/taro_morita/.volta/bin")
 
 (setq custom-file "~/.emacs.custom.el")
 
@@ -19,7 +20,7 @@
 (global-set-key "\C-t" 'other-window)
 
 
-(add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-18"))
+(add-to-list 'default-frame-alist `(font . "JetBrainsMono Nerd Font-16"))
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -64,11 +65,20 @@
 (leaf company
   :ensure t
   :leaf-defer nil
-  :hook ((after-init-hook . global-company-mode)))
+  :config
+  (global-company-mode)
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1))  
+
 
 (leaf eglot
   :ensure t
-  :require t)
+  :require t
+  :config
+  (define-key eglot-mode-map (kbd "M-.") 'xref-find-definitions)
+  (define-key eglot-mode-map (kbd "M-,") 'pip-tag-mark)
+  
+  )
 
 (leaf eglot-booster
   :when (executable-find "emacs-lsp-booster")
@@ -78,6 +88,16 @@
 (leaf vertico
   :ensure t
   :global-minor-mode t)
+
+; 括弧の自動補完
+(leaf elec-pair
+  :config
+  (electric-pair-mode +1))
+
+; 他プロセスの編集をバッファに反映する
+(leaf autorevert
+  :init
+  (global-auto-revert-mode +1))
 
 (leaf csv-mode
   :ensure t)
@@ -89,7 +109,7 @@
   :ensure t
   :init
   (with-eval-after-load "tramp"
-    (add-to-list 'tramp-remote-path "home/taro_morita/.npm-global/bin")
+;    (add-to-list 'tramp-remote-path "home/taro_morita/.npm-global/bin")
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)))
 
 (with-eval-after-load "eglot"
@@ -116,8 +136,14 @@
   :ensure t)
 
 (leaf org-modern
-  :ensure t)
-(with-eval-after-load 'org (global-org-modern-mode))
+  :ensure t
+  :config
+  (with-eval-after-load 'org (global-org-modern-mode))
+  (setq
+   org-pretty-entities t
+   org-insert-heading-respect-content t
+   org-hide-emphasis-markers t))
+
 
 (leaf blamer
   :ensure t
@@ -128,7 +154,7 @@
   :ensure t)
 
 (leaf dracula-theme
-￥  :ensure t)
+  :ensure t)
 (leaf multiple-cursors
   :ensure t)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -157,6 +183,33 @@
   :config
   (global-set-key (kbd "C-:") 'avy-goto-char))
 
+(leaf diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-mode))
+
+(leaf doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t
+	doom-themes-enable-italic t)
+  (load-theme 'doom-one t)
+  (doom-themes-org-config))
+
+(leaf solarized-theme
+  :ensure t
+  :config
+;  (load-theme 'solarized-light t)
+  )
+
+(defvar my-error-map (make-keymap))
+
+(leaf flymake
+  :doc "A universal on-the-fly syntax checker"
+  :bind ((prog-mode-map
+          ("M-n" . flymake-goto-next-error)
+          ("M-p" . flymake-goto-prev-error))))
+
 (leaf affe
   :ensure t
   :config
@@ -167,6 +220,30 @@
   :ensure t
   :custom
   (completion-styles . '(orderless)))
+
+(defvar local-project-path "~/dev/rpst-v2/"
+  "ローカルのプロジェクトのパス"
+  )
+(defvar remote-project-path "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
+  "リモートのプロジェクトのパス"
+  )
+
+(defun transport-v2 ()
+  (message "transport-v2: called")
+  (when (and (buffer-file-name)
+	     (string-prefix-p (expand-file-name local-project-path)
+			      (buffer-file-name)))
+    (message "File is inside the project directory")
+    (let ((relative-path (file-relative-name (buffer-file-name) (expand-file-name local-project-path))))
+      (message "Transferring file: %s to remote path: %s" (buffer-file-name)
+	       (concat remote-project-path relative-path))
+
+      (start-process "rsync" "*rsync-output*"
+		     "rsync" "-avz" (buffer-file-name)
+		     (concat remote-project-path relative-path)))))
+
+(add-hook 'after-save-hook 'transport-v2)
+
 ;(consult-customize
 ; consult-ripgrep consult-git-grep consult-grep
 ; consult-bookmark consult-recent-file consult-xref
@@ -174,5 +251,5 @@
 ; consult--source-project-recent-file
 ; consult--source-bookmark
 ; :preview-key (kbd "M-."))
-(load-theme 'dracula t)
+; (load-theme 'dracula t)
 (load-file custom-file)
