@@ -33,6 +33,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
+-- yadm にファイルを追加する関数
 local function add_yaml(target_file_path)
     cmd = "yadm add " .. target_file_path
     vim.fn.jobstart(cmd, {
@@ -58,22 +59,6 @@ local function add_yaml(target_file_path)
     })
 
 end
-
-local file_paths = require('myfunc').load_files("~/.yadm-auto-update-list")
-if file_paths then
-    for _, file_path in ipairs(file_paths) do
-        vim.api.nvim_create_autocmd("BufWritePost", {
-            pattern = file_path,
-            callback = function()
-                print(file_path .. " is edited.")
-                add_yaml(file_path)
-
-            end
-        })
-    end
-end
-
-
 
 require('phpunit_runner')
 
@@ -176,3 +161,18 @@ vim.api.nvim_create_autocmd("BufWritePost", {
         transport_v2()
     end
 })
+
+-- yadm-auto-update-list に記載されているファイルを編集した際に yadm add する
+local file_paths = require('myfunc').load_files("~/.yadm-auto-update-list")
+if file_paths then
+    for _, file_path in ipairs(file_paths) do
+        vim.api.nvim_create_autocmd("BufWritePost", {
+            pattern = file_path,
+            callback = function()
+                print(file_path .. " is edited.")
+                add_yaml(file_path)
+
+            end
+        })
+    end
+end
