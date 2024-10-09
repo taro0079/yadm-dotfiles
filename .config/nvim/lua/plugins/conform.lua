@@ -1,8 +1,8 @@
 require("conform").setup({
     format_on_save = function(bufnr)
-        return { timeout_ms = 5000, lsp_fallback = true, async = false }
+        return { timeout_ms = 5000, lsp_fallback = false, async = false }
     end,
     formatters_by_ft = {
-        php = { "php_cs_fixer" }
+        -- php = { "php_cs_fixer" }
     }
 })

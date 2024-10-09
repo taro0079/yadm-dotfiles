@@ -5,7 +5,7 @@ function M.load_files(path_of_file_list)
     local is_use_relative_path = string.find(path_of_file_list, '~')
     local home_dir = os.getenv('HOME')
     if home_dir == nil then
-        print('HOME is not set.')
+        vim.notify('HOME is not set.')
         return
     end
     if is_use_relative_path then
@@ -17,7 +17,7 @@ function M.load_files(path_of_file_list)
     if file then
         for line in file:lines() do
             local is_used_relative_path = string.find(line, '~')
-            print(is_used_relative_path)
+            vim.notify(is_used_relative_path)
             if is_used_relative_path then
                 local line = string.gsub(line, '~', home_dir)
             end
@@ -25,7 +25,7 @@ function M.load_files(path_of_file_list)
         end
         file:close()
     else
-        print('File is not exist.')
+        vim.notify('File is not exist.')
     end
     return files
 end

@@ -108,33 +108,34 @@ end
 local_project_path = "~/dev/rpst-v2/"
 remote_project_path = "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
 
+-- rpst-v2のプロジェクトディレクトリ内のファイルをリモートサーバに転送する関数
 function transport_v2()
     local file_path = vim.fn.expand("%:p")
     if file_path:find(vim.fn.expand(local_project_path), 1, true) == 1 then
-        print("File is inside the project directory")
+        vim.notify("File is inside the project directory")
 
         local relative_path = file_path:sub(#vim.fn.expand(local_project_path) + 1)
-        print("Transferring file: " .. file_path .. " to remote path: " .. remote_project_path .. relative_path)
+        vim.notify("Transferring file: " .. file_path .. " to remote path: " .. remote_project_path .. relative_path)
 
-        -- rsync コマンド実行
+        -- rsync コマンドを非同期で実行
         local cmd = string.format("rsync -avz %s %s%s", file_path, remote_project_path, relative_path)
         vim.fn.jobstart(cmd, {
             stdout_buffered = true,
             on_stdout = function(_, data)
                 if data then
-                    print("Error: " .. table.concat(data, "\n"))
+                    vim.notify("Error: " .. table.concat(data, "\n"))
                 end
             end,
             on_stderr = function(_, data)
                 if data then
-                    print("Error: " .. table.concat(data, "\n"))
+                    vim.notify("Error: " .. table.concat(data, "\n"))
                 end
             end,
             on_exit = function(_, code)
                 if code == 0 then
-                    print("File transferred successfully")
+                    vim.notify("File transferred successfully")
                 else
-                    print("Error: " .. code)
+                    vim.notify("Error: " .. code)
                 end
             end
         })
