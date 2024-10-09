@@ -17,9 +17,8 @@ function M.load_files(path_of_file_list)
     if file then
         for line in file:lines() do
             local is_used_relative_path = string.find(line, '~')
-            vim.notify(is_used_relative_path)
             if is_used_relative_path then
-                local line = string.gsub(line, '~', home_dir)
+                 line = string.gsub(line, '~', home_dir)
             end
             table.insert(files, line)
         end

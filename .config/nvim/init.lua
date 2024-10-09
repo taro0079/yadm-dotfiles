@@ -33,18 +33,46 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
+local function add_yaml(target_file_path)
+    cmd = "yadm add " .. target_file_path
+    vim.fn.jobstart(cmd, {
+        stdout_buffered = true,
+        on_stdout = function(_, data)
+            if data[0] ~= nil then
+                vim.notify("Message: " .. table.concat(data, "\n"))
+            end
+        end,
+        on_stderr = function(_, data)
+            if data[0] ~= nil then
+                vim.notify("Error: " .. table.concat(data, "\n"))
+            end
+        end,
+        on_exit = function (_, code)
+            if code == 0 then
+                vim.notify("File added successfully")
+            else
+                vim.notify("Error: " .. code)
+            end
+            
+        end
+    })
+
+end
+
 local file_paths = require('myfunc').load_files("~/.yadm-auto-update-list")
 if file_paths then
     for _, file_path in ipairs(file_paths) do
-        print(file_path)
         vim.api.nvim_create_autocmd("BufWritePost", {
             pattern = file_path,
             callback = function()
-                print(file_path .. "is edited.")
+                print(file_path .. " is edited.")
+                add_yaml(file_path)
+
             end
         })
     end
 end
+
 
 
 require('phpunit_runner')
