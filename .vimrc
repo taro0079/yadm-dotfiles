@@ -73,12 +73,15 @@ Plug 'Shougo/ddu-kind-file'
 Plug 'Shougo/ddu-source-file'
 Plug 'Shougo/ddu-source-file_rec'
 Plug 'Shougo/ddu-source-register'
+Plug 'shun/ddu-source-rg'
 Plug 'Shougo/ddu-commands.vim'
 Plug 'uga-rosa/ddc-source-vsnip'
 Plug 'matsui54/ddu-source-file_external'
 Plug 'tpope/vim-dadbod'
 Plug 'shun/ddu-source-buffer'
 Plug 'Shougo/ddu-filter-matcher_substring'
+Plug 'Shougo/ddu-filter-matcher_relative'
+Plug 'yuki-yano/ddu-filter-fzf'
 Plug 'junegunn/vim-easy-align'
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'tpope/vim-repeat'
@@ -93,9 +96,11 @@ Plug 'mattn/emmet-vim'
 Plug 'vim-skk/eskk.vim'
 " Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/vim-gin'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 Plug 'lambdalisue/suda.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'osyo-manga/vim-textobj-blockwise'
@@ -179,6 +184,9 @@ call ddu#custom#patch_global({
       \    },
       \    'file_rec': {
       \        'ignoredDirectories': ['.git', 'node_modules', 'vendor', '.next']
+      \    },
+      \    'rg': {
+      \       'args': ['--column', '--no-heading', '--color', 'never']
       \    },
       \  },
       \  'sourceOptions': {
