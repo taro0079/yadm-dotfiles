@@ -45,6 +45,7 @@ set path+=**
 " Use English interface.
 language message C
 " set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ %=[POS=%l/%L(%02v)]
+set statusline+=\ %{gin#component#worktree#name()}
 if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
@@ -149,7 +150,8 @@ call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \    'matchers': ['matcher_fuzzy'],
       \    'sorters': ['sorter_rank'],
-      \    'minAutoCompleteLength': 1
+      \    'minAutoCompleteLength': 1,
+      \    'ignoreCase': 'true'
       \  },
       \ 'around': {
       \   'mark': 'around',
@@ -179,9 +181,6 @@ call ddu#custom#patch_global({
       \      'params': {},
       \    }],
       \  'sourceParams': {
-      \    'file_external': {
-      \      'cmd': ['git', 'ls-files']
-      \    },
       \    'file_rec': {
       \        'ignoredDirectories': ['.git', 'node_modules', 'vendor', '.next']
       \    },
@@ -209,6 +208,16 @@ call ddu#custom#patch_global({
       \    }
       \  }
       \})
+" git log --first-parent $(git branch --contains | cut -d " " -f 2) --pretty=format: --name-only --diff-filter=A | sort -u
+
+call ddu#custom#patch_local("git-files", {
+            \ "sources": ["file_external"],
+            \ "sourceParams": {
+            \     "file_external": {
+            \         "cmd": ["git", "ls-files"]
+            \     }
+            \  }
+            \})
 
 " ddu key setting
 autocmd FileType ddu-ff call s:ddu_my_settings()
@@ -239,8 +248,7 @@ nnoremap <silent> <SID>[ug]r :<C-u>Ddu register<CR>
 nnoremap <silent> <SID>[ug]n :<C-u>Ddu file -source-param-new -source-option-volatile<CR>
 nnoremap <silent> <SID>[ug]f :<C-u>Ddu file_rec<CR>
 nnoremap <silent> <SID>[ug]p <Cmd>call ddu#start({
-            \  'name': 'file_external',
-            \  'sources': [{'name': 'file_external'}]
+            \  'name': 'git-files',
             \ })<CR>
 
 " phpファイルの保存時にphp-cs-fixerを適用する
@@ -250,10 +258,10 @@ function! s:php_fixer() abort
     silent! edit
     echo(output)
 endfunction
-augroup php_cs_fixer
-    autocmd!
-    autocmd BufWritePost *.php silent! call s:php_fixer()
-augroup END
+" augroup php_cs_fixer
+"     autocmd!
+"     autocmd BufWritePre *.php silent! call s:php_fixer()
+" augroup END
 
 " lsp settings --- {{{1
 

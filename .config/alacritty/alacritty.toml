@@ -9,8 +9,8 @@ option_as_alt = "Both"
 osc52 = "CopyPaste"
 
 [font]
-size = 14
-normal = { family = "0xProto Nerd Font", style = "Regular" }
+size = 16
+normal = { family = "Iosevka Nerd Font", style = "Regular" }
 # normal = { family = "Fira Code", style = "Regular" }
 
 # [shell]

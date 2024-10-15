@@ -60,12 +60,11 @@ local function add_yaml(target_file_path)
 
 end
 
-require('phpunit_runner')
 
 
 function run_client()
     local cmd_prefix =
-    "docker compose -f ~/dev/rpst-oms-backend/docker-compose.yml run --rm php-dev mysql --defaults-extra-file=.my.cnf -Dapp_db"
+    "docker compose -f ~/dev/rpst-oms-backend/docker-compose.yml run --rm devcontainer mysql --defaults-extra-file=.my.cnf -Dapp_db"
     local cmd = cmd_prefix .. " -e 'select * from mst_warehouse;'"
     local result = vim.fn.system(cmd)
     local rows = vim.split(result, "\n")
@@ -162,6 +161,13 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     end
 })
 
+vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = "index.yaml",
+    callback = function()
+        CreateRedoc()
+    end
+})
+
 -- yadm-auto-update-list に記載されているファイルを編集した際に yadm add する
 local file_paths = require('myfunc').load_files("~/.yadm-auto-update-list")
 if file_paths then
@@ -175,4 +181,48 @@ if file_paths then
             end
         })
     end
+end
+
+function Phpunit()
+    local php_unit = require('phpunit_runner')
+    php_unit.test_runner()
+end
+function OmsForever()
+    local current_file_path = vim.fn.expand("%")
+    local cmd = string.format("ruby ~/dev/oms-create-rb/test.rb %s", current_file_path)
+    local cmd_output = vim.fn.system(cmd)
+    local lines = vim.split(cmd_output, "\n")
+
+    -- コマンドの出力をバッファに出力する前にバッファを全て削除する
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, {})
+
+    -- コマンドの出力をバッファに出力する
+    for i, line in ipairs(lines) do
+        vim.api.nvim_buf_set_lines(0, i - 1, i, false, { line })
+    end
+end
+
+function CreateRedoc()
+    local current_file_path = vim.fn.expand("%")
+    local cmd = string.format("redocly build-docs %s", current_file_path)
+        vim.fn.jobstart(cmd, {
+            stdout_buffered = true,
+            on_stdout = function(_, data)
+                if data then
+                    vim.notify("Message: " .. table.concat(data, "\n"))
+                end
+            end,
+            on_stderr = function(_, data)
+                if data then
+                    vim.notify("Error: " .. table.concat(data, "\n"))
+                end
+            end,
+            on_exit = function(_, code)
+                if code == 0 then
+                    vim.notify("File transferred successfully")
+                else
+                    vim.notify("Error: " .. code)
+                end
+            end
+        })
 end
