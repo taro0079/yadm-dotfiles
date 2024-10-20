@@ -21,6 +21,12 @@ require("lazy").setup({
         end
     }, -- lazy
     {
+        'vim-denops/denops.vim'
+    },
+    {
+        'lambdalisue/vim-gin'
+    },
+    {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
         dependencies = {
@@ -58,11 +64,11 @@ require("lazy").setup({
             require("plugins.tree-sitter")
         end,
     },
-    {
-        'tpope/vim-fugitive',
-        event = "BufEnter"
-
-    },
+    -- {
+    --     'tpope/vim-fugitive',
+    --     event = "BufEnter"
+    --
+    -- },
     {
         'nvim-treesitter/nvim-treesitter-context',
         config = function()
