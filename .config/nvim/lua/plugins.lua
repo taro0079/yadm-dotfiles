@@ -17,7 +17,7 @@ require("lazy").setup({
         "EdenEast/nightfox.nvim",
         config = function()
             require("plugins.nightfox")
-            vim.cmd('colorscheme nightfox')
+            -- vim.cmd('colorscheme nightfox')
         end
     }, -- lazy
     {
@@ -50,6 +50,31 @@ require("lazy").setup({
         },
         config = function()
             require('plugins.lsp')
+        end
+    },
+    {
+        "eldritch-theme/eldritch.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+        config = function()
+            -- vim.cmd [[colorscheme eldritch]]
+        end,
+    },
+    {
+        "xero/miasma.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            -- vim.cmd("colorscheme miasma")
+        end,
+    },
+    {
+        "dgox16/oldworld.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            -- vim.cmd [[colorscheme oldworld]]
         end
     },
     {
@@ -382,6 +407,14 @@ require("lazy").setup({
         "sainnhe/gruvbox-material",
         config = function()
             -- vim.cmd [[colorscheme gruvbox-material]]
+        end
+    },
+    {
+        'shmerl/neogotham',
+        lazy = false,  -- to make sure it's loaded on startup
+        priority = 1000, -- to load before other plugins
+        config = function()
+            vim.cmd.colorscheme("neogotham")
         end
     },
     {

@@ -22,8 +22,8 @@ if mac then
     return {
         color_scheme = "tokyonight",
         font = wezterm.font_with_fallback {
+            { family = 'Iosevka Nerd Font',      weight = "Regular" },
             { family = 'PleckJP',       weight = "Regular", italic = false },
-            { family = 'HackGen Console NF',      weight = "Bold" },
             { family = 'Cica',       weight = "Regular", italic = false },
             { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
             { family = 'HackGen Console NF',      weight = "Regular", italic = false },
