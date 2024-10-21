@@ -1,4 +1,4 @@
-vim.g.mapleader = ' '
+-- vim.g.mapleader = ' '
 vim.o.tags = './tags'
 vim.wo.number = true
 vim.wo.relativenumber = true
