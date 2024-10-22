@@ -451,6 +451,17 @@ require("lazy").setup({
             vim.wo.conceallevel = 2
         end
     },
+    {
+        'stevearc/oil.nvim',
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        config = function()
+            require('oil').setup()
+        end,
+        -- Optional dependencies
+        dependencies = { { "echasnovski/mini.icons", opts = {} } },
+}
     -- {
     --     "folke/noice.nvim",
     --     event = "VeryLazy",
