@@ -13,6 +13,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+    -- color schemas
+    {
+        "slugbyte/lackluster.nvim",
+        lazy = false,
+        priority = 1000,
+        init = function()
+            vim.cmd.colorscheme("lackluster")
+            -- vim.cmd.colorscheme("lackluster-hack") -- my favorite
+            -- vim.cmd.colorscheme("lackluster-mint")
+        end,
+    },
     {
         "EdenEast/nightfox.nvim",
         config = function()
@@ -20,6 +31,47 @@ require("lazy").setup({
             -- vim.cmd('colorscheme nightfox')
         end
     }, -- lazy
+    {
+        'Mofiqul/dracula.nvim',
+        config = function()
+            -- vim.cmd('colorscheme rose-pine-moon')
+        end
+    },
+    {
+        "lunarvim/horizon.nvim",
+        -- config = function()
+        --     vim.cmd [[colorscheme horizon]]
+        -- end
+    },
+    {
+        'shmerl/neogotham',
+        lazy = false,    -- to make sure it's loaded on startup
+        priority = 1000, -- to load before other plugins
+        config = function()
+            -- vim.cmd.colorscheme("neogotham")
+        end
+    },
+    {
+        "rebelot/kanagawa.nvim",
+        config = function()
+            -- vim.cmd [[colorscheme kanagawa]]
+        end
+    },
+    {
+        "sainnhe/gruvbox-material",
+        config = function()
+            -- vim.cmd [[colorscheme gruvbox-material]]
+        end
+    },
+    {
+        "craftzdog/solarized-osaka.nvim",
+        lazy = false,
+        config = function()
+            -- vim.cmd('colorscheme solarized-osaka')
+        end,
+        priority = 1000,
+        opts = {},
+    },
     {
         'vim-denops/denops.vim'
     },
@@ -121,12 +173,6 @@ require("lazy").setup({
         event = "InsertEnter",
     },
     {
-        "lunarvim/horizon.nvim",
-        -- config = function()
-        --     vim.cmd [[colorscheme horizon]]
-        -- end
-    },
-    {
         "folke/trouble.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
         config = function()
@@ -218,12 +264,6 @@ require("lazy").setup({
         event = "BufEnter",
     },
     { 'RRethy/vim-illuminate',   event = "BufEnter" },
-    -- {
-    --     'Mofiqul/dracula.nvim',
-    --     config = function()
-    --         vim.cmd('colorscheme rose-pine-moon')
-    --     end
-    -- },
     {
         'mattn/emmet-vim',
         event = "InsertEnter"
@@ -283,15 +323,6 @@ require("lazy").setup({
         end
 
     },
-    -- {
-    --     "craftzdog/solarized-osaka.nvim",
-    --     lazy = false,
-    --     config = function()
-    --         vim.cmd('colorscheme solarized-osaka')
-    --     end,
-    --     priority = 1000,
-    --     opts = {},
-    -- },
     {
         'ta-tikoma/php.easy.nvim',
         ft = "php",
@@ -397,26 +428,7 @@ require("lazy").setup({
         end
     },
     { 'echasnovski/mini.ai', version = false },
-    {
-        "rebelot/kanagawa.nvim",
-        config = function()
-            -- vim.cmd [[colorscheme kanagawa]]
-        end
-    },
-    {
-        "sainnhe/gruvbox-material",
-        config = function()
-            -- vim.cmd [[colorscheme gruvbox-material]]
-        end
-    },
-    {
-        'shmerl/neogotham',
-        lazy = false,  -- to make sure it's loaded on startup
-        priority = 1000, -- to load before other plugins
-        config = function()
-            vim.cmd.colorscheme("neogotham")
-        end
-    },
+
     {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -461,7 +473,7 @@ require("lazy").setup({
         end,
         -- Optional dependencies
         dependencies = { { "echasnovski/mini.icons", opts = {} } },
-}
+    }
     -- {
     --     "folke/noice.nvim",
     --     event = "VeryLazy",
