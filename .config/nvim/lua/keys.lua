@@ -83,7 +83,7 @@ vim.keymap.set("n", "<leader>to", "<cmd>lua require('neotest').output.open({ ent
 vim.keymap.set("n", "<leader>tw", "<cmd>lua require('neotest').watch.toggle()<cr>")
 vim.keymap.set("n", "<leader>tp", "<cmd>lua require('neotest').output_panel.toggle()<cr>")
 vim.keymap.set("n", "<leader>pu", "<cmd>lua require('phpunit_runner').test_runner()<cr>")
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "--", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 
 
