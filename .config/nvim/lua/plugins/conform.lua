@@ -3,7 +3,7 @@ require("conform").setup({
         return { timeout_ms = 5000, lsp_fallback = false  }
     end,
     formatters_by_ft = {
-        -- php = { "php_cs_fixer" }
+        php = { "php_cs_fixer" }
     }
 })
 -- vim.api.nvim_create_user_command("Format", function(args)

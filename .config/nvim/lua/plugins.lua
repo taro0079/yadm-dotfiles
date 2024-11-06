@@ -20,7 +20,7 @@ require("lazy").setup({
         priority = 1000,
         init = function()
             -- vim.cmd.colorscheme("wildcharm")
-            vim.cmd.colorscheme("lackluster-hack") -- my favorite
+            vim.cmd.colorscheme("terafox") -- my favorite
             -- vim.cmd.colorscheme("lackluster-mint")
         end,
     },
@@ -469,7 +469,11 @@ require("lazy").setup({
         ---@type oil.SetupOpts
         opts = {},
         config = function()
-            require('oil').setup()
+            require('oil').setup({
+                keymaps = {
+                    ['--'] = "actions.parent"
+                }
+            })
         end,
         -- Optional dependencies
         dependencies = { { "echasnovski/mini.icons", opts = {} } },

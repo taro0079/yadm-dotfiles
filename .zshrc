@@ -197,3 +197,4 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="/home/awesometaro/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
+export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
