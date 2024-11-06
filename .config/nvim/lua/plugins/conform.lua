@@ -17,3 +17,8 @@ require("conform").setup({
 --   end
 --   require("conform").format({ async = true, lsp_format = "fallback", range = range })
 -- end, { range = true })
+require("conform").formatters.php_cs_fixer = function(bufnr)
+    return {
+        args = { "fix", "$FILENAME", "--config", vim.fn.expand("%:h") .. '/.php-cs-fixer.dist.php' },
+    }
+end

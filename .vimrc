@@ -45,7 +45,6 @@ set path+=**
 " Use English interface.
 language message C
 " set statusline=%F%m%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FMT=%{&ff}]\[TYPE=%Y]\ %=[POS=%l/%L(%02v)]
-set statusline+=\ %{gin#component#worktree#name()}
 if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
@@ -97,7 +96,6 @@ Plug 'mattn/emmet-vim'
 Plug 'vim-skk/eskk.vim'
 " Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
-Plug 'lambdalisue/vim-gin'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
 " Plug 'airblade/vim-gitgutter'
@@ -130,7 +128,7 @@ set termguicolors
 set background=dark
 let g:tokyonight_enable_italic = 1
 let g:tokyonight_transparent_background = 1
-colorscheme tokyonight
+colorscheme solarized8
 
 " fold settings ---------------------- {{{1
 " set foldmethod=manual
