@@ -141,11 +141,11 @@ require("lazy").setup({
             require("plugins.tree-sitter")
         end,
     },
-    -- {
-    --     'tpope/vim-fugitive',
-    --     event = "BufEnter"
-    --
-    -- },
+    {
+        'tpope/vim-fugitive',
+        event = "BufEnter"
+
+    },
     {
         'nvim-treesitter/nvim-treesitter-context',
         config = function()

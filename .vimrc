@@ -482,7 +482,7 @@ command! IloveRelease call IloveReleaseCommand()
 
 function! PhpUnitRunner()
     let file = expand('%')
-    let command = printf('docker compose -f ~/dev/rpst-oms-backend/docker-compose.yml run --rm php-dev symfony php bin/phpunit %s', file)
+    let command = printf('docker compose -f ../docker-compose.yml run --rm devcontainer symfony php bin/phpunit %s', file)
     call ExternalCommandOutputToNewBuffer(command)
 endfunction
 
@@ -556,3 +556,13 @@ let g:lsp_settings = {
 let test#php#phpunit#executable = 'docker compose -f ../docker-compose.yml run
             \ --rm php-dev symfony php bin/phpunit' " テストランナーをphpunitに変更
 
+
+" augroup RpstV2Setting
+"     autocmd!
+"     autocmd BufEnter /var/www/rpst-v2/dev/* set local path+=app/*,cert/*,ci/*,data/*,html/*,tests/*,frontend/*,ftproot/*
+" augroup END
+
+" augroup RpstV2SettingOfApi
+"     autocmd!
+"     autocmd BufEnter /var/lib/rpst-api-docker/rpst-v2/* set local path+=app/*,cert/*,ci/*,data/*,html/*,tests/*,frontend/*,ftproot/*
+" augroup END
