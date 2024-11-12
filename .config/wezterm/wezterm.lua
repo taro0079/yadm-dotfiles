@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm';
 local mac = wezterm.target_triple:find("darwin")
 local linux = wezterm.target_triple:find("linux")
+audible_bell = "Disabled"
 
 local mykeys = {
     { key = 'n', mods = 'OPT',  action = wezterm.action.ToggleFullScreen },
@@ -60,7 +61,6 @@ elseif linux then
 
         },
         font_size = 16,
-        color_scheme = 'tokyonight',
         window_padding = {
             left = 0,
             right = 0,
