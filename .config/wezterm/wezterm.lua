@@ -46,8 +46,14 @@ if mac then
         },
         adjust_window_size_when_changing_font_size = false,
         front_end = "WebGpu",
-        window_background_opacity = 0.93,
-        macos_window_background_blur = 20,
+        window_background_opacity = 0.8,
+        -- macos_window_background_blur = 20,
+        window_background_image = "/Users/taro_morita/Downloads/sankaku.png",
+
+        window_background_image_hsb = {
+            mode = "Stretch",
+            opacity = 0.5,
+        }
     }
 elseif linux then
     return {

@@ -20,7 +20,7 @@ require("lazy").setup({
         priority = 1000,
         init = function()
             -- vim.cmd.colorscheme("wildcharm")
-            vim.cmd.colorscheme("terafox") -- my favorite
+            -- vim.cmd.colorscheme("terafox") -- my favorite
             -- vim.cmd.colorscheme("lackluster-mint")
         end,
     },
@@ -54,9 +54,25 @@ require("lazy").setup({
     {
         "rebelot/kanagawa.nvim",
         config = function()
+            require("kanagawa").setup({
+                transparent = true,
+                theme = "dark",
+            })
             -- vim.cmd [[colorscheme kanagawa]]
         end
     },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+        config = function()
+            require("plugins.tokyonight")
+
+            vim.cmd [[colorscheme tokyonight]]
+        end,
+    },
+
     {
         "sainnhe/gruvbox-material",
         config = function()

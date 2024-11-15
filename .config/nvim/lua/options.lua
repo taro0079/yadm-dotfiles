@@ -4,8 +4,8 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.smarttab = true
 vim.o.cursorline = true
-vim.o.pumblend = 20
-vim.o.winblend = 20
+vim.o.pumblend = 10
+vim.o.winblend = 10
 if vim.fn.has("wsl") == 0 then
     vim.o.clipboard = "unnamed,unnamedplus"
 end
