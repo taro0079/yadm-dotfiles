@@ -1,7 +1,6 @@
 local wezterm = require 'wezterm';
 local mac = wezterm.target_triple:find("darwin")
 local linux = wezterm.target_triple:find("linux")
-audible_bell = "Disabled"
 
 local mykeys = {
     { key = 'n', mods = 'OPT',  action = wezterm.action.ToggleFullScreen },
@@ -22,6 +21,7 @@ end
 if mac then
     return {
         color_scheme = "tokyonight",
+        audible_bell = "Disabled",
         font = wezterm.font_with_fallback {
             { family = 'Iosevka Nerd Font',      weight = "Regular" },
             { family = 'PleckJP',       weight = "Regular", italic = false },
