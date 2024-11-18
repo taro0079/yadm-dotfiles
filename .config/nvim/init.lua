@@ -117,20 +117,16 @@ function print_table(data)
     return new
 end
 
-local_project_path = "~/dev/rpst-v2/"
-remote_project_path = "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
-
--- rpst-v2のプロジェクトディレクトリ内のファイルをリモートサーバに転送する関数
-function transport_v2()
+function transport_to_remote(local_path, remote_path)
     local file_path = vim.fn.expand("%:p")
-    if file_path:find(vim.fn.expand(local_project_path), 1, true) == 1 then
+    if file_path:find(vim.fn.expand(local_path), 1, true) == 1 then
         vim.notify("File is inside the project directory")
 
-        local relative_path = file_path:sub(#vim.fn.expand(local_project_path) + 1)
-        vim.notify("Transferring file: " .. file_path .. " to remote path: " .. remote_project_path .. relative_path)
+        local relative_path = file_path:sub(#vim.fn.expand(local_path) + 1)
+        vim.notify("Transferring file: " .. file_path .. " to remote path: " .. remote_path .. relative_path)
 
         -- rsync コマンドを非同期で実行
-        local cmd = string.format("rsync -avz %s %s%s", file_path, remote_project_path, relative_path)
+        local cmd = string.format("rsync -avz %s %s%s", file_path, remote_path, relative_path)
         vim.fn.jobstart(cmd, {
             stdout_buffered = true,
             on_stdout = function(_, data)
@@ -154,10 +150,25 @@ function transport_v2()
     end
 end
 
+
+-- rpst-v2のプロジェクトディレクトリ内のファイルをリモートサーバに転送する関数
+function transport_v2()
+    local local_project_path = "~/dev/rpst-v2/"
+    local remote_project_path = "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
+    transport_to_remote(local_project_path, remote_project_path)
+end
+
+function transport_to_v2_of_rpst_api()
+    local local_project_path = "~/dev/rpst-v2/"
+    local remote_project_path = "taro_morita@oms-dev:/var/lib/rpst-api-docker/rpst-v2/"
+    transport_to_remote(local_project_path, remote_project_path)
+end
+
 vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "*",
+    pattern = "*/rpst-v2/*",
     callback = function()
         transport_v2()
+        transport_to_v2_of_rpst_api()
     end
 })
 

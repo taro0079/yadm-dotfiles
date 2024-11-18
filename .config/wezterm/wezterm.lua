@@ -50,10 +50,6 @@ if mac then
         -- macos_window_background_blur = 20,
         window_background_image = "/Users/taro_morita/Downloads/sankaku.png",
 
-        window_background_image_hsb = {
-            mode = "Stretch",
-            opacity = 0.5,
-        }
     }
 elseif linux then
     return {
