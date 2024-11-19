@@ -45,7 +45,7 @@ if mac then
             bottom = 0
         },
         adjust_window_size_when_changing_font_size = false,
-        front_end = "WebGpu",
+        -- front_end = "WebGpu",
         window_background_opacity = 0.8,
         -- macos_window_background_blur = 20,
         window_background_image = "/Users/taro_morita/Downloads/sankaku.png",
