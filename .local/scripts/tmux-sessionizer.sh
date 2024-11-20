@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/dev -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~/dev /var/lib/rpst-api-docker /var/lib/rpst-api-docker/api /var/lib/rpst-api-docker/rpst-v2 -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
