@@ -20,6 +20,14 @@ snippet docvar
      * @return ${3:type} ${1:var}
      */
 
+snippet prop
+    private ${1: type} $${1:var};
+
+snippet ormcol
+    #[ORM\Column(type: "${1:string}", name: "${2:column_name}"${3:, options: ["default": "${4:default_value}]" ]})]
+    private ${5: type} $${6:var};
+    
+
 snippet fn "function"
 	public function ${1:methodName}(${2:arguments})
 	{
