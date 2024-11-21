@@ -24,16 +24,24 @@ snippet prop
     private ${1: type} $${1:var};
 
 snippet ormcol
-    #[ORM\Column(type: "${1:string}", name: "${2:column_name}"${3:, options: ["default": "${4:default_value}]" ]})]
+    #[ORM\Column(type: ${1:type}, name: "${2:column_name}", ${3:, options: ["default" => "${4:default_value}" ]})]
     private ${5: type} $${6:var};
     
 
 snippet fn "function"
-	public function ${1:methodName}(${2:arguments})
-	{
-		${0:Method}
-	}
+	public function ${1:methodName}(${2:arguments}): ${3:returnType}
+    {
+        ${0:${VISUAL}}    
+    }
 
+snippet create_test "create test method"
+    /**
+     * @test
+     */
+    public function ${1:testMethodName}(): void
+    {
+        ${0:${VISUAL}}
+    }
 
 snippet c
 	class ${1:`vim_snippets#Filename()`}

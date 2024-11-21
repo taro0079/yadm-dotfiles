@@ -2,6 +2,7 @@
 vim.o.tags = './tags'
 vim.wo.number = true
 vim.wo.relativenumber = true
+vim.o.laststatus = 3
 vim.o.smarttab = true
 vim.o.cursorline = true
 vim.o.pumblend = 10
