@@ -40,7 +40,7 @@ set ignorecase
 set t_Co=256
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 "set foldmethod=indent
-set laststatus=2
+set laststatus=3
 set path+=**
 " Use English interface.
 language message C

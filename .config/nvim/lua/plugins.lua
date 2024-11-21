@@ -37,12 +37,20 @@ require("lazy").setup({
             -- vim.cmd('colorscheme rose-pine-moon')
         end
     },
-    { "rose-pine/neovim",
+    {
+        "rose-pine/neovim",
         name = "rose-pine",
-        config = function ()
+        config = function()
             vim.cmd [[colorscheme rose-pine]]
-            
         end
+    },
+    {
+        "sotte/presenting.nvim",
+        opts = {
+            -- fill in your options here
+            -- see :help Presenting.config
+        },
+        cmd = { "Presenting" },
     },
     {
         "lunarvim/horizon.nvim",

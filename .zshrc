@@ -9,17 +9,17 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 
-alias e='exa -la --icons --git'
-alias l=e
-alias ls=e
-alias ea='exa -a --icons --git'
-alias la=ea
-alias ee='exa -aahl --icons --git'
-alias ll=ee
-alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
-alias lt=et
-alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
-alias lta=eta
+# alias e='exa -la --icons --git'
+# alias l=e
+# alias ls=e
+# alias ea='exa -a --icons --git'
+# alias la=ea
+# alias ee='exa -aahl --icons --git'
+# alias ll=ee
+# alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+# alias lt=et
+# alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
+# alias lta=eta
 # alias hx='helix'
 alias l='clear && ls'
 # vim keybind
@@ -198,3 +198,4 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
+alias fssh="~/.local/scripts/fuzzy-ssh-selector.sh"
