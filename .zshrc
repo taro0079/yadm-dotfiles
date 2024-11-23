@@ -199,3 +199,5 @@ if [ -d "$FNM_PATH" ]; then
 fi
 export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 alias fssh="~/.local/scripts/fuzzy-ssh-selector.sh"
+alias sed='gsed'
+alias fff='~/.local/scripts/find-rank/find-rank.sh'

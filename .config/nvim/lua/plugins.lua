@@ -471,29 +471,29 @@ require("lazy").setup({
             },
         },
     },
-    {
-        "nvim-neorg/neorg",
-        lazy = false,
-        version = "*",
-        config = function()
-            require('neorg').setup {
-                load = {
-                    ["core.defaults"] = {},
-                    ["core.concealer"] = {},
-                    ["core.dirman"] = {
-                        config = {
-                            workspaces = {
-                                notes = "~/neorg",
-                            },
-                            default_workspace = "notes"
-                        },
-                    }
-                }
-            }
-            vim.wo.foldlevel = 99
-            vim.wo.conceallevel = 2
-        end
-    },
+    -- {
+    --     "nvim-neorg/neorg",
+    --     lazy = false,
+    --     version = "*",
+    --     config = function()
+    --         require('neorg').setup {
+    --             load = {
+    --                 ["core.defaults"] = {},
+    --                 ["core.concealer"] = {},
+    --                 ["core.dirman"] = {
+    --                     config = {
+    --                         workspaces = {
+    --                             notes = "~/neorg",
+    --                         },
+    --                         default_workspace = "notes"
+    --                     },
+    --                 }
+    --             }
+    --         }
+    --         vim.wo.foldlevel = 99
+    --         vim.wo.conceallevel = 2
+    --     end
+    -- },
     {
         'stevearc/oil.nvim',
         ---@module 'oil'

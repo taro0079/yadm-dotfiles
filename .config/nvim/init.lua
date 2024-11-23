@@ -48,16 +48,14 @@ local function add_yaml(target_file_path)
                 vim.notify("Error: " .. table.concat(data, "\n"))
             end
         end,
-        on_exit = function (_, code)
+        on_exit = function(_, code)
             if code == 0 then
                 vim.notify("File added successfully")
             else
                 vim.notify("Error: " .. code)
             end
-            
         end
     })
-
 end
 
 
@@ -150,7 +148,6 @@ function transport_to_remote(local_path, remote_path)
     end
 end
 
-
 -- rpst-v2のプロジェクトディレクトリ内のファイルをリモートサーバに転送する関数
 function transport_v2()
     local local_project_path = "~/dev/rpst-v2/"
@@ -188,7 +185,6 @@ if file_paths then
             callback = function()
                 print(file_path .. " is edited.")
                 add_yaml(file_path)
-
             end
         })
     end
@@ -198,6 +194,7 @@ function Phpunit()
     local php_unit = require('phpunit_runner')
     php_unit.test_runner()
 end
+
 function OmsForever()
     local current_file_path = vim.fn.expand("%")
     local cmd = string.format("ruby ~/dev/oms-create-rb/test.rb %s", current_file_path)
@@ -216,24 +213,28 @@ end
 function CreateRedoc()
     local current_file_path = vim.fn.expand("%")
     local cmd = string.format("redocly build-docs %s", current_file_path)
-        vim.fn.jobstart(cmd, {
-            stdout_buffered = true,
-            on_stdout = function(_, data)
-                if data then
-                    vim.notify("Message: " .. table.concat(data, "\n"))
-                end
-            end,
-            on_stderr = function(_, data)
-                if data then
-                    vim.notify("Error: " .. table.concat(data, "\n"))
-                end
-            end,
-            on_exit = function(_, code)
-                if code == 0 then
-                    vim.notify("File transferred successfully")
-                else
-                    vim.notify("Error: " .. code)
-                end
+    vim.fn.jobstart(cmd, {
+        stdout_buffered = true,
+        on_stdout = function(_, data)
+            if data then
+                vim.notify("Message: " .. table.concat(data, "\n"))
             end
-        })
+        end,
+        on_stderr = function(_, data)
+            if data then
+                vim.notify("Error: " .. table.concat(data, "\n"))
+            end
+        end,
+        on_exit = function(_, code)
+            if code == 0 then
+                vim.notify("File transferred successfully")
+            else
+                vim.notify("Error: " .. code)
+            end
+        end
+    })
 end
+
+vim.api.nvim_create_user_command("AwesomeSwitch", function()
+    require('myplugin.switch').run(vim.fn.getcwd())
+end, { nargs = 0 })

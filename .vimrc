@@ -94,11 +94,11 @@ Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 Plug 'vim-skk/eskk.vim'
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
-" Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
 Plug 'lambdalisue/suda.vim'
 Plug 'kana/vim-textobj-user'
@@ -108,7 +108,7 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'easymotion/vim-easymotion'
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 Plug 'vim-test/vim-test'
-" Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 Plug 'lifepillar/vim-solarized8'
 Plug 'thinca/vim-quickrun'
 Plug 'hrsh7th/vim-vsnip'
@@ -566,3 +566,4 @@ let test#php#phpunit#executable = 'docker compose -f ../docker-compose.yml run
 "     autocmd!
 "     autocmd BufEnter /var/lib/rpst-api-docker/rpst-v2/* set local path+=app/*,cert/*,ci/*,data/*,html/*,tests/*,frontend/*,ftproot/*
 " augroup END
+
