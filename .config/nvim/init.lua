@@ -115,6 +115,42 @@ function print_table(data)
     return new
 end
 
+local function is_exist_on_ssh(remote_hostname, dir)
+    -- the format of remote_hostname is like taro_morita@oms-dev
+    local cmd = string.format("ssh %s 'if [ -d %s]; then echo \'exist\'; fi", remote_hostname, dir)
+    local result = vim.fn.system(cmd)
+    if result == "" then
+        return false
+    end
+    return true
+end
+
+local function recursive_dir_search(remote_hostname, dir)
+    if is_exist_on_ssh(remote_hostname, dir) then
+        return dir
+    else
+        local parent_dir = vim.fn.fnamemodify(dir, ":h")
+        return recursive_dir_search(remote_hostname, parent_dir)
+    end
+end
+
+function is_exist_directory_on_ssh(local_path, remote_path)
+    local filepath = vim.fn.expand("%:p")
+    local dir = vim.fn.fnamemodify(filepath, ":h")
+    local relative_path_of_dir = dir:sub(#vim.fn.expand(local_path) + 1)
+    local full_remote_path_dir = remote_path .. relative_path_of_dir
+    local exist_remote_dir = recursive_dir_search("taro_morita@oms-dev", full_remote_path_dir) -- directory which is exist on remote server
+    -- print(full_remote_path)
+    -- print(vim.fn.fnamemodify(full_remote_path, ":h"))   
+    -- local path_table = vim.split(relative_path_of_dir, "/")
+    -- if path_table[1] == "" then
+    --     table.remove(path_table, 1)
+    -- end
+    -- print(vim.inspect(path_table))
+    -- local remote_complete_path = remote_path .. 
+    -- print(dir)
+end
+
 function transport_to_remote(local_path, remote_path)
     local file_path = vim.fn.expand("%:p")
     if file_path:find(vim.fn.expand(local_path), 1, true) == 1 then
