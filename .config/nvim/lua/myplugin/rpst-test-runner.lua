@@ -1,7 +1,7 @@
 local M = {}
 
 function M.run()
-    local cmd = 'php app/cli/cmd.php /sandbox/test_runner' -- TODO: fix path
+    local cmd = 'docker compose -f ../docker-compose.rpst-v2-dev.yml -f ../docker-compose.yml run --rm rpst-v2-app php app/cli/cmd.php /sandbox/test_runner' -- TODO: fix path
     -- async process
     vim.fn.jobstart(cmd, {
         on_stdout = function(_, data, _)
