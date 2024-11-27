@@ -274,3 +274,7 @@ end
 vim.api.nvim_create_user_command("AwesomeSwitch", function()
     require('myplugin.switch').run(vim.fn.getcwd())
 end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("V2TestRunAll", function()
+    require('myplugin.rpst-v2-test').run_all('/var/www/rpst-v2/dev')
+end, { nargs = 0 })
