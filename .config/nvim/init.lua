@@ -141,13 +141,13 @@ function is_exist_directory_on_ssh(local_path, remote_path)
     local full_remote_path_dir = remote_path .. relative_path_of_dir
     local exist_remote_dir = recursive_dir_search("taro_morita@oms-dev", full_remote_path_dir) -- directory which is exist on remote server
     -- print(full_remote_path)
-    -- print(vim.fn.fnamemodify(full_remote_path, ":h"))   
+    -- print(vim.fn.fnamemodify(full_remote_path, ":h"))
     -- local path_table = vim.split(relative_path_of_dir, "/")
     -- if path_table[1] == "" then
     --     table.remove(path_table, 1)
     -- end
     -- print(vim.inspect(path_table))
-    -- local remote_complete_path = remote_path .. 
+    -- local remote_complete_path = remote_path ..
     -- print(dir)
 end
 
@@ -278,3 +278,28 @@ end, { nargs = 0 })
 vim.api.nvim_create_user_command("V2TestRunAll", function()
     require('myplugin.rpst-v2-test').run_all('/var/www/rpst-v2/dev')
 end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("GithubToClipboard", function()
+    GithubToClipboard()
+end, { nargs = 0 })
+
+
+function GithubToClipboard()
+    local base_url = "https://github.com/"
+    local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
+    local full_path = vim.api.nvim_buf_get_name(0)
+    local current_working_directory = vim.fn.getcwd()
+    local relative_path = full_path:sub(#current_working_directory + 2)
+
+    local git_remote = vim.fn.system("git remote -v")
+    local current_branch = vim.fn.system("git branch --contains | cut -d' ' -f2"):gsub("\n", "")
+    local remote_url = ""
+    for line in git_remote:gmatch("[^\r\n]+") do
+        remote_url = line:match("origin%s+(%S+)%s+%("):match("github.com[:/](.+)%.git$")
+
+        break
+    end
+    local result = base_url .. remote_url .. "/blob/" .. current_branch .. "/" .. relative_path .. "#L" .. cursor_position
+    vim.fn.setreg("+", result)
+    print(result)
+end
