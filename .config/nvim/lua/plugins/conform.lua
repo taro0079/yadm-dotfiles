@@ -1,7 +1,7 @@
 require("conform").setup({
-    format_on_save = function(bufnr)
-        return { timeout_ms = 5000, lsp_fallback = false  }
-    end,
+    -- format_on_save = function(bufnr)
+    --     return { timeout_ms = 5000, lsp_fallback = false  }
+    -- end,
     formatters_by_ft = {
         php = { "php_cs_fixer" }
     }
@@ -22,3 +22,6 @@ require("conform").setup({
 --         args = { "fix", "$FILENAME", "--config", vim.fn.expand("%:h") .. '/.php-cs-fixer.dist.php' },
 --     }
 -- end
+vim.api.nvim_create_user_command("Format", function(args)
+    require("conform").format({ async = true })
+end, { range = false })

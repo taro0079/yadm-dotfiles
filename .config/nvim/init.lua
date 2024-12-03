@@ -283,6 +283,10 @@ vim.api.nvim_create_user_command("GithubToClipboard", function()
     GithubToClipboard()
 end, { nargs = 0 })
 
+vim.api.nvim_create_user_command("OpenTestRunner", function()
+    require('myplugin.rpst-test-runner').open()
+end, { nargs = 0 })
+
 
 function GithubToClipboard()
     local base_url = "https://github.com/"
@@ -299,7 +303,8 @@ function GithubToClipboard()
 
         break
     end
-    local result = base_url .. remote_url .. "/blob/" .. current_branch .. "/" .. relative_path .. "#L" .. cursor_position
+    local result = base_url ..
+    remote_url .. "/blob/" .. current_branch .. "/" .. relative_path .. "#L" .. cursor_position
     vim.fn.setreg("+", result)
     print(result)
 end

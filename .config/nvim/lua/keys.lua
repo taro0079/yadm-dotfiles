@@ -2,6 +2,8 @@ local api = vim.api
 -- Telescope -- {{ 1
 api.nvim_set_keymap('n', '<leader>pp', "<cmd>lua require('telescope.builtin').git_files()<cr>",
     { noremap = true, silent = true })
+api.nvim_set_keymap('n', '<leader>po', "<cmd>lua require('telescope.builtin').oldfiles()<cr>",
+    { noremap = true, silent = true })
 api.nvim_set_keymap('n', '<leader>pf',
     "<cmd>lua require('telescope.builtin').find_files({hidden=true, no_ignore=true})<cr>",
     { noremap = true, silent = true })
@@ -93,3 +95,6 @@ vim.keymap.set("n", "--", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 --
 -- -- db commander
 -- vim.keymap.set("v", "<leader>db", "<cmd>lua require('db').db_execute_visual_selection()<cr>")
+--
+-- open rpst test runner
+
