@@ -41,7 +41,7 @@ require("lazy").setup({
         "rose-pine/neovim",
         name = "rose-pine",
         config = function()
-            vim.cmd [[colorscheme rose-pine]]
+            -- vim.cmd [[colorscheme rose-pine]]
         end
     },
     {
@@ -84,7 +84,7 @@ require("lazy").setup({
         config = function()
             require("plugins.tokyonight")
 
-            vim.cmd [[colorscheme tokyonight]]
+            -- vim.cmd [[colorscheme tokyonight]]
         end,
     },
 
@@ -524,5 +524,5 @@ require("lazy").setup({
     --         "rcarriga/nvim-notify",
     --     }
     -- }
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 , config = function() vim.cmd [[colorscheme catppuccin]] end}
 })
