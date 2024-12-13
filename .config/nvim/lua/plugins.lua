@@ -508,7 +508,7 @@ require("lazy").setup({
         end,
         -- Optional dependencies
         dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    }
+    },
     -- {
     --     "folke/noice.nvim",
     --     event = "VeryLazy",
@@ -524,4 +524,5 @@ require("lazy").setup({
     --         "rcarriga/nvim-notify",
     --     }
     -- }
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
 })
