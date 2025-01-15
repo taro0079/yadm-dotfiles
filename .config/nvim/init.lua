@@ -58,8 +58,6 @@ local function add_yaml(target_file_path)
     })
 end
 
-
-
 function run_client()
     local cmd_prefix =
     "docker compose -f ~/dev/rpst-oms-backend/docker-compose.yml run --rm devcontainer mysql --defaults-extra-file=.my.cnf -Dapp_db"
@@ -285,6 +283,10 @@ end, { nargs = 0 })
 
 vim.api.nvim_create_user_command("OpenTestRunner", function()
     require('myplugin.rpst-test-runner').open()
+end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("PhpUnit", function()
+    Phpunit()
 end, { nargs = 0 })
 
 
