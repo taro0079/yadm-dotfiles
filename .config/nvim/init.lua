@@ -308,3 +308,12 @@ function GithubToClipboard()
     vim.fn.setreg("+", result)
     print(result)
 end
+
+local syntax_check = require("myplugin.php_syntax_checker")
+-- autocmd を設定してPHPファイルを開いたときにチェックを実行
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+    pattern = "*.php",
+    callback = function()
+        syntax_check.php_syntax_check()
+    end,
+})

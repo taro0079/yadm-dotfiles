@@ -188,8 +188,6 @@ eval "$(rbenv init -)"
 
 eval "$(starship init zsh)"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 
 # fnm
 FNM_PATH="/home/awesometaro/.local/share/fnm"
@@ -201,3 +199,5 @@ export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 alias fssh="~/.local/scripts/fuzzy-ssh-selector.sh"
 alias sed='gsed'
 alias fff='~/.local/scripts/find-rank/find-rank.sh'
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
