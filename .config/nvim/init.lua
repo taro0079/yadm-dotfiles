@@ -244,6 +244,13 @@ function OmsForever()
     end
 end
 
+-- rpst-apiプロジェクト中のrpst-v2のbranchTestを実行する
+function run_v2_branch_test()
+    local cmd = string.format("docker compose -f /var/lib/rpst-api-docker/docker-compose.yml run --rm rpst-v2-app ./branch_phpunit.sh", current_file_path)
+    vim.api.nvim_command('vsplit | terminal ' .. cmd)
+    vim.api.nvim_command('startinsert')
+end
+
 function CreateRedoc()
     local current_file_path = vim.fn.expand("%")
     local cmd = string.format("redocly build-docs %s", current_file_path)
@@ -287,6 +294,10 @@ end, { nargs = 0 })
 
 vim.api.nvim_create_user_command("PhpUnit", function()
     Phpunit()
+end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("BranchTest", function()
+    run_v2_branch_test()
 end, { nargs = 0 })
 
 
