@@ -224,6 +224,7 @@ if file_paths then
     end
 end
 
+-- RPST-API, OMS用のPhpunit実行スクリプト
 function Phpunit()
     local php_unit = require('phpunit_runner')
     php_unit.test_runner()

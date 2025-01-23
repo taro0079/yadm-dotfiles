@@ -1,5 +1,5 @@
 -- phpunitを実行するためのスクリプト
--- OMSでしか使えません
+-- OMS, RPST-APIでしか使えません
 local M = {}
 
 function M.test_runner()
