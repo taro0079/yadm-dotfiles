@@ -45,6 +45,12 @@ require("lazy").setup({
         end
     },
     {
+        'projekt0n/github-nvim-theme',
+        config = function()
+            vim.cmd('colorscheme github_light_tritanopia')
+        end
+    },
+    {
         "sotte/presenting.nvim",
         opts = {
             -- fill in your options here
@@ -524,5 +530,10 @@ require("lazy").setup({
     --         "rcarriga/nvim-notify",
     --     }
     -- }
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 , config = function() vim.cmd [[colorscheme catppuccin]] end}
+    { "catppuccin/nvim", 
+        name = "catppuccin",
+        priority = 1000 ,
+        config = function() 
+            -- vim.cmd [[colorscheme catppuccin]] 
+        end}
 })

@@ -201,3 +201,4 @@ alias sed='gsed'
 alias fff='~/.local/scripts/find-rank/find-rank.sh'
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+alias ffd='~/.local/scripts/fuzzy-docker-bash.sh'

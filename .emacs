@@ -11,6 +11,25 @@
 (setq backup-inhibited nil)
 (setq create-lockfiles nil)
 
+(defun rpst-api-project-root ()
+  "Locate the project root directory by looking for composer.json."
+  (locate-dominating-file default-directory "composer.json"))
+
+(defun php-cs-fixer-current-file ()
+  "Run php-cs-fixer on the current file."
+  (interactive)
+  (let ((project-root (rpst-api-project-root)))
+    (if project-root
+        (let ((default-directory project-root))
+          ;; PHP-CS-Fixerのコマンドを実行
+          (when buffer-file-name
+            (shell-command (format "php-cs-fixer fix %s" (shell-quote-argument buffer-file-name)))
+            (revert-buffer :ignore-auto :noconfirm :preserve-modes)
+            (message "php-cs-fixer applied on %s" buffer-file-name)))
+    (message "Project root not found. php-cs-fixer not applied."))))
+
+
+
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
 (exec-path-from-shell-initialize)
 
@@ -20,7 +39,7 @@
 (global-set-key "\C-t" 'other-window)
 
 
-(add-to-list 'default-frame-alist `(font . "JetBrainsMono Nerd Font-16"))
+;; (add-to-list 'default-frame-alist `(font . "JetBrainsMono Nerd Font-16"))
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -47,13 +66,13 @@
   (dolist (package packages)
     (require-one-package package)))
 
-(defun require-theme (theme)
-  (let ((theme-package (->> theme
-			    (symbol-name)
-			    (funcall (-flip #'concat) "-theme")
-			    (intern))))
-    (rc-require theme-package)
-    (load-theme theme t)))
+; (defun require-theme (theme)
+;   (let ((theme-package (->> theme
+; 			    (symbol-name)
+; 			    (funcall (-flip #'concat) "-theme")
+; 			    (intern))))
+;     (rc-require theme-package)
+;     (load-theme theme t)))
 
 (rc-require 'php-mode)
 (require 'php-mode)
@@ -110,7 +129,11 @@
   :init
   (with-eval-after-load "tramp"
 ;    (add-to-list 'tramp-remote-path "home/taro_morita/.npm-global/bin")
-    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)))
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+    (add-to-list 'tramp-remote-path "/home/taro_morita/.volta/bin/intelephense")
+    )
+  )
+
 
 (with-eval-after-load "eglot"
   (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
@@ -153,8 +176,8 @@
 (leaf ripgrep
   :ensure t)
 
-(leaf dracula-theme
-  :ensure t)
+;; (leaf dracula-theme
+;;   :ensure t)
 (leaf multiple-cursors
   :ensure t)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -188,13 +211,13 @@
   :config
   (global-diff-hl-mode))
 
-(leaf doom-themes
-  :ensure t
-  :config
-  (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t)
-  (load-theme 'doom-one t)
-  (doom-themes-org-config))
+; (leaf doom-themes
+;   :ensure t
+;   :config
+;   (setq doom-themes-enable-bold t
+; 	doom-themes-enable-italic t)
+;   (load-theme 'doom-one t)
+;   (doom-themes-org-config))
 
 (leaf solarized-theme
   :ensure t
