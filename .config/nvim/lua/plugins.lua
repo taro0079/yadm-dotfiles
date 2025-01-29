@@ -47,8 +47,15 @@ require("lazy").setup({
     {
         'projekt0n/github-nvim-theme',
         config = function()
-            vim.cmd('colorscheme github_light_tritanopia')
+            -- vim.cmd('colorscheme github_light_tritanopia')
         end
+    },
+    {
+        'wolverian/minimal',
+        config = function()
+            vim.cmd('colorscheme minimal')
+        end
+
     },
     {
         "sotte/presenting.nvim",
