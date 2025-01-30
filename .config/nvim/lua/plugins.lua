@@ -53,6 +53,8 @@ require("lazy").setup({
     {
         'wolverian/minimal',
         config = function()
+
+
             vim.cmd('colorscheme minimal')
         end
 
@@ -452,6 +454,12 @@ require("lazy").setup({
     {
         'tpope/vim-dadbod'
 
+    },
+    {
+        "aerosol/dumbotron.vim",
+        config = function()
+            vim.cmd [[colorscheme dumbotron]]
+        end
     },
     {
         "vhyrro/luarocks.nvim",

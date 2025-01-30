@@ -70,6 +70,7 @@ Plug 'Shougo/ddc-source-lsp'
 Plug 'Shougo/ddu-ui-ff'
 Plug 'Shougo/ddu-kind-file'
 Plug 'Shougo/ddu-source-file'
+Plug 'wolverian/minimal',
 Plug 'Shougo/ddu-source-file_rec'
 Plug 'Shougo/ddu-source-register'
 Plug 'shun/ddu-source-rg'
@@ -112,6 +113,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'thinca/vim-quickrun'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'ghifarit53/tokyonight-vim'
+Plug 'aerosol/dumbotron.vim'
 call plug#end()
 
 " ESKK setting ------------------------------- {{{1
@@ -124,10 +126,10 @@ imap <C-j> <Plug>(eskk:toggle)
 syntax enable
 filetype plugin on
 set termguicolors
-set background=dark
-let g:tokyonight_enable_italic = 1
-let g:tokyonight_transparent_background = 1
-colorscheme solarized8
+set background=light
+" let g:tokyonight_enable_italic = 1
+" let g:tokyonight_transparent_background = 1
+colorscheme dumbotron
 
 " fold settings ---------------------- {{{1
 " set foldmethod=manual

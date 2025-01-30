@@ -130,7 +130,7 @@
   (with-eval-after-load "tramp"
 ;    (add-to-list 'tramp-remote-path "home/taro_morita/.npm-global/bin")
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-    (add-to-list 'tramp-remote-path "/home/taro_morita/.volta/bin/intelephense")
+;    (add-to-list 'tramp-remote-path "/home/taro_morita/.volta/bin/intelephense")
     )
   )
 
