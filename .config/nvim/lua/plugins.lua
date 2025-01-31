@@ -34,7 +34,7 @@ require("lazy").setup({
     {
         'Mofiqul/dracula.nvim',
         config = function()
-            -- vim.cmd('colorscheme rose-pine-moon')
+            vim.cmd('colorscheme rose-pine-dawn')
         end
     },
     {
@@ -55,7 +55,7 @@ require("lazy").setup({
         config = function()
 
 
-            vim.cmd('colorscheme minimal')
+            -- vim.cmd('colorscheme minimal')
         end
 
     },
@@ -458,7 +458,7 @@ require("lazy").setup({
     {
         "aerosol/dumbotron.vim",
         config = function()
-            vim.cmd [[colorscheme dumbotron]]
+            -- vim.cmd [[colorscheme dumbotron]]
         end
     },
     {
