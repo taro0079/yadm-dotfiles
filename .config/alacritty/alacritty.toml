@@ -9,7 +9,7 @@ osc52 = "CopyPaste"
 
 [font]
 size = 16
-normal = { family = "Iosevka Nerd Font", style = "Regular" }
+normal = { family = "Iosevka Nerd Font", style = "SemiBold" }
 # normal = { family = "Fira Code", style = "Regular" }
 
 # [shell]

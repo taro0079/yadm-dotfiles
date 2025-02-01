@@ -14,6 +14,7 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.smartindent = true
+vim.o.background = "light"
 vim.o.mouse = 'nvi'
 -- vim.o.mouse = ''
 vim.o.shiftwidth = 4

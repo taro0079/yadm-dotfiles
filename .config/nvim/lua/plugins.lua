@@ -25,6 +25,19 @@ require("lazy").setup({
         end,
     },
     {
+        "nyoom-engineering/oxocarbon.nvim",
+        config = function()
+            vim.cmd('colorscheme oxocarbon')
+        end
+    },
+    {
+        "zenbones-theme/zenbones.nvim",
+        dependencies = "rktjmp/lush.nvim",
+        config = function()
+            -- vim.cmd('colorscheme zenbones')
+        end
+    },
+    {
         "EdenEast/nightfox.nvim",
         config = function()
             require("plugins.nightfox")
@@ -34,7 +47,7 @@ require("lazy").setup({
     {
         'Mofiqul/dracula.nvim',
         config = function()
-            vim.cmd('colorscheme rose-pine-dawn')
+            -- vim.cmd('colorscheme rose-pine-dawn')
         end
     },
     {
