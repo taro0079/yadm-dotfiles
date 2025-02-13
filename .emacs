@@ -136,7 +136,7 @@
 
 
 (with-eval-after-load "eglot"
-  (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
+  (add-to-list 'eglot-server-programs '(php-mode "/Users/taro_morita/.volta/bin/intelephense" "--stdio")))
 
 
 (leaf skk
@@ -247,7 +247,7 @@
 (defvar local-project-path "~/dev/rpst-v2/"
   "ローカルのプロジェクトのパス"
   )
-(defvar remote-project-path "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
+(defvar remote-project-path "taro_morita@dev-tmorita-rpst:/var/www/rpst-v2/dev/"
   "リモートのプロジェクトのパス"
   )
 
@@ -265,7 +265,30 @@
 		     "rsync" "-avz" (buffer-file-name)
 		     (concat remote-project-path relative-path)))))
 
-(add-hook 'after-save-hook 'transport-v2)
+; (add-hook 'after-save-hook 'transport-v2)
+
+(defvar local-project-path-v1 "~/dev/rpst/"
+  "ローカルのプロジェクトのパス"
+  )
+(defvar remote-project-path-v1 "taro_morita@dev-tmorita:/var/www/precs/dev_tmorita/"
+  "リモートのプロジェクトのパス"
+  )
+
+(defun transport-v1 ()
+  (message "transport-v1: called")
+  (when (and (buffer-file-name)
+	     (string-prefix-p (expand-file-name local-project-path-v1)
+			      (buffer-file-name)))
+    (message "File is inside the project directory")
+    (let ((relative-path (file-relative-name (buffer-file-name) (expand-file-name local-project-path-v1))))
+      (message "Transferring file: %s to remote path: %s" (buffer-file-name)
+	       (concat remote-project-path-v1 relative-path))
+
+      (start-process "rsync" "*rsync-output*"
+		     "rsync" "-avz" (buffer-file-name)
+		     (concat remote-project-path-v1 relative-path)))))
+
+(add-hook 'after-save-hook 'transport-v1)
 
 ;(consult-customize
 ; consult-ripgrep consult-git-grep consult-grep

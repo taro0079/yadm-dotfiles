@@ -1,14 +1,15 @@
 
-theme = "default"
+theme = "eiffel"
 [editor]
 line-number = "relative"
-mouse = false
+mouse = true
 true-color = true
 color-modes = true
 auto-save = true
 cursorline = true
 idle-timeout = 10
 completion-timeout = 10
+end-of-line-diagnostics = "hint"
 
 [editor.file-picker]
 hidden = false
@@ -39,3 +40,6 @@ render = false
 [keys.normal."'"]
 y = ":sh zellij run --floating -n 'yazi picker' -- ~/.config/myscripts/open_in_helix_from_yazi.zsh"
 g = [":new", ":insert-output lazygit", ":redraw", "jump_backward", ":reload"]
+
+[editor.inline-diagnostic]
+cursor-line="error"
