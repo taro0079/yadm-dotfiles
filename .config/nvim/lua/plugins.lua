@@ -27,7 +27,7 @@ require("lazy").setup({
     {
         "nyoom-engineering/oxocarbon.nvim",
         config = function()
-            vim.cmd('colorscheme oxocarbon')
+            -- vim.cmd('colorscheme oxocarbon')
         end
     },
     {
@@ -66,8 +66,6 @@ require("lazy").setup({
     {
         'wolverian/minimal',
         config = function()
-
-
             -- vim.cmd('colorscheme minimal')
         end
 
@@ -558,10 +556,16 @@ require("lazy").setup({
     --         "rcarriga/nvim-notify",
     --     }
     -- }
-    { "catppuccin/nvim", 
+    {
+        "catppuccin/nvim",
         name = "catppuccin",
-        priority = 1000 ,
-        config = function() 
-            -- vim.cmd [[colorscheme catppuccin]] 
-        end}
+        priority = 1000,
+        config = function()
+            -- vim.cmd [[colorscheme catppuccin]]
+        end
+    }
 })
+local colorschemes = { "nightfox", "rose-pine", "tokyonight", "catppuccin", "github_light_tritanopia", "neogotham" }
+local ramdom_number = math.random(#colorschemes)
+local selected_colorscheme = colorschemes[ramdom_number]
+vim.cmd("colorscheme " .. selected_colorscheme)
