@@ -29,7 +29,6 @@
     (message "Project root not found. php-cs-fixer not applied."))))
 
 
-
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
 (exec-path-from-shell-initialize)
 
@@ -135,8 +134,19 @@
   )
 
 
+(require 'eglot)
 (with-eval-after-load "eglot"
   (add-to-list 'eglot-server-programs '(php-mode "/Users/taro_morita/.volta/bin/intelephense" "--stdio")))
+
+
+;(with-eval-after-load "eglot"
+ ; (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
+
+;(require 'eglot)
+;(add-to-list 'eglot-server-programs
+;	     '(php "intelephense" "--stdio"))
+(add-hook 'php-mode-hook 'eglot-ensure)
+
 
 
 (leaf skk
