@@ -565,7 +565,7 @@ require("lazy").setup({
         end
     }
 })
-local colorschemes = { "nightfox", "rose-pine", "tokyonight", "catppuccin", "github_light_tritanopia", "neogotham" }
+local colorschemes = { "nightfox", "rose-pine", "tokyonight", "catppuccin", "github_light_tritanopia", "neogotham", "horizon", "miasma", "kanagawa", "wildcharm", "eldritch" }
 local ramdom_number = math.random(#colorschemes)
 local selected_colorscheme = colorschemes[ramdom_number]
 vim.cmd("colorscheme " .. selected_colorscheme)
