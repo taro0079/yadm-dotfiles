@@ -38,7 +38,7 @@
 (global-set-key "\C-t" 'other-window)
 
 
-;; (add-to-list 'default-frame-alist `(font . "JetBrainsMono Nerd Font-16"))
+(add-to-list 'default-frame-alist `(font . "JetBrainsMono Nerd Font-16"))
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)

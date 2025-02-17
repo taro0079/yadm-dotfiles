@@ -189,6 +189,19 @@ function transport_v2()
     transport_to_remote(local_project_path, remote_project_path)
 end
 
+function transport_v1()
+    local local_project_path = "~/dev/rpst/"
+    local remote_project_path = "taro_morita@dev-tmorita:/var/www/precs/dev_tmorita/"
+    transport_to_remote(local_project_path, remote_project_path)
+end
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = "*/rpst/*",
+    callback = function()
+        transport_v1()
+    end
+})
+
 function transport_to_v2_of_rpst_api()
     local local_project_path = "~/dev/rpst-v2/"
     local remote_project_path = "taro_morita@oms-dev:/var/lib/rpst-api-docker/rpst-v2/"
