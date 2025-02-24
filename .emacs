@@ -30,7 +30,6 @@
 
 
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
-(exec-path-from-shell-initialize)
 
 (setq custom-file "~/.emacs.custom.el")
 
@@ -38,7 +37,7 @@
 (global-set-key "\C-t" 'other-window)
 
 
-(add-to-list 'default-frame-alist `(font . "JetBrainsMono Nerd Font-16"))
+(add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-16"))
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -135,9 +134,28 @@
 
 
 (require 'eglot)
-(with-eval-after-load "eglot"
-  (add-to-list 'eglot-server-programs '(php-mode "/Users/taro_morita/.volta/bin/intelephense" "--stdio")))
 
+; (with-eval-after-load "eglot"
+					;   (add-to-list 'eglot-server-programs '(php-mode (executable-find "intelephense")  "--stdio")))
+
+(add-hook 'after-init-hook
+          (lambda ()
+;            (let ((intelephense-executable (executable-find "intelephense")))
+;              (if intelephense-executable
+;                  (add-to-list 'eglot-server-programs
+;                               `(php-mode,intelephense-executable "--stdio"))
+					;                (message "intelephense executable not found.")))))
+	    (let ((phpactor-executable (executable-find "phpactor")))
+	      (if phpactor-executable
+		  (add-to-list 'eglot-server-programs
+			       `(php-mode ,phpactor-executable "language-server"))
+		(message "phpactor executable not found")))))
+		
+;(let ((phpactor-executable (executable-find "phpactor")))
+;  (if phpactor-executable
+;      (add-to-list 'eglot-server-programs
+;                    `(php-mode ,phpactor-executable "language-server"))
+;    (message "phpactor executable not found.")))
 
 ;(with-eval-after-load "eglot"
  ; (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
@@ -159,8 +177,14 @@
 
 (global-set-key "\C-x\C-j" 'skk-mode)
 
+; shellのパスを引き継ぐ
 (leaf exec-path-from-shell
-  :ensure t)
+  :ensure t
+  :defun (exec-path-from-shell-initialize)
+  :custom ((exec-path-from-shell-check-startup-files)
+	   (exec-path-from-shell-variables . '("PATH" "GOPATH" "JAVA_HOME")))
+  :config
+  (exec-path-from-shell-initialize))
 
 (leaf magit
   :ensure t)

@@ -56,3 +56,4 @@ auto-format = true
 [[language]]
 name = "ruby"
 auto-format = true
+language-servers = [ "solargraph" ]

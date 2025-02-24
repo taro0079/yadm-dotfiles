@@ -203,3 +203,4 @@ export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 alias ffd='~/.local/scripts/fuzzy-docker-bash.sh'
 alias print-source-code='~/.local/scripts/print-source-code.sh'
+alias araiv2db='mysql -u newrpst_dev_user -p9U4wnLgS\!tzenu -h 172.24.1.150 -P 3307 -D ndev_arai74'
