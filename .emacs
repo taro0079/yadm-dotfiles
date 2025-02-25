@@ -11,6 +11,10 @@
 (setq backup-inhibited nil)
 (setq create-lockfiles nil)
 
+; key remap
+(global-set-key (kbd "C-c r") 'revert-buffer) ; ファイルをディスクの状態に戻す
+(global-set-key "\C-t" 'other-window) ; 他のウィンドウに移動する
+
 (defun rpst-api-project-root ()
   "Locate the project root directory by looking for composer.json."
   (locate-dominating-file default-directory "composer.json"))
@@ -32,9 +36,6 @@
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
 
 (setq custom-file "~/.emacs.custom.el")
-
-;; key bindings
-(global-set-key "\C-t" 'other-window)
 
 
 (add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-16"))
@@ -132,7 +133,7 @@
     )
   )
 
-
+;; language server settings
 (require 'eglot)
 
 ; (with-eval-after-load "eglot"
@@ -166,7 +167,7 @@
 (add-hook 'php-mode-hook 'eglot-ensure)
 
 
-
+;; 日本語入力
 (leaf skk
   :ensure ddskk
   :custom ((default-input-method . "japanese-skk"))
@@ -212,6 +213,7 @@
 
 ;; (leaf dracula-theme
 ;;   :ensure t)
+;; マルチカーソル
 (leaf multiple-cursors
   :ensure t)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -253,12 +255,6 @@
 ;   (load-theme 'doom-one t)
 ;   (doom-themes-org-config))
 
-(leaf solarized-theme
-  :ensure t
-  :config
-;  (load-theme 'solarized-light t)
-  )
-
 (defvar my-error-map (make-keymap))
 
 (leaf flymake
@@ -299,7 +295,7 @@
 		     "rsync" "-avz" (buffer-file-name)
 		     (concat remote-project-path relative-path)))))
 
-; (add-hook 'after-save-hook 'transport-v2)
+(add-hook 'after-save-hook 'transport-v2)
 
 (defvar local-project-path-v1 "~/dev/rpst/"
   "ローカルのプロジェクトのパス"
@@ -333,3 +329,4 @@
 ; :preview-key (kbd "M-."))
 ; (load-theme 'dracula t)
 (load-file custom-file)
+(put 'upcase-region 'disabled nil)
