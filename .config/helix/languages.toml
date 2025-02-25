@@ -57,3 +57,7 @@ auto-format = true
 name = "ruby"
 auto-format = true
 language-servers = [ "solargraph" ]
+
+[[language]]
+name = "html"
+file-types = ["html", "tpl" ]
