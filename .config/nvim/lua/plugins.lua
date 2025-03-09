@@ -563,7 +563,13 @@ require("lazy").setup({
         config = function()
             -- vim.cmd [[colorscheme catppuccin]]
         end
+    },
+    {
+        "chentoast/marks.nvim",
+        event = "VeryLazy",
+        opts = {},
     }
+
 })
 vim.cmd [[colorscheme rose-pine]]
 -- local colorschemes = { "nightfox", "rose-pine", "tokyonight", "catppuccin", "github_light_tritanopia", "neogotham", "horizon", "miasma", "kanagawa", "wildcharm", "eldritch" }

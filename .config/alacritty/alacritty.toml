@@ -1,14 +1,16 @@
 [window]
-# opacity = 0.98
+opacity = 0.8
 padding = { x = 0, y = 0 }
 # blur = true
 option_as_alt = "Both"
+decorations = "Buttonless"
+startup_mode = "Maximized"
 
 [terminal]
 osc52 = "CopyPaste"
 
 [font]
-size = 16
+size = 13
 normal = { family = "Iosevka Nerd Font", style = "Regular" }
 # normal = { family = "Fira Code", style = "Regular" }
 
@@ -25,7 +27,8 @@ import = [
 
 
 [cursor]
-style = "Beam"
+style = "Block"
+vi_mode_style = "Block"
 
 
 # [keyboard]

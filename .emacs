@@ -14,11 +14,13 @@
 ; key remap
 (global-set-key (kbd "C-c r") 'revert-buffer) ; ファイルをディスクの状態に戻す
 (global-set-key "\C-t" 'other-window) ; 他のウィンドウに移動する
+(which-key-mode) ; キーマップ一覧を表示する
 
 (defun rpst-api-project-root ()
   "Locate the project root directory by looking for composer.json."
   (locate-dominating-file default-directory "composer.json"))
 
+;; 現在のファイルをphp-cs-fixerで整形する
 (defun php-cs-fixer-current-file ()
   "Run php-cs-fixer on the current file."
   (interactive)
@@ -36,6 +38,15 @@
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
 
 (setq custom-file "~/.emacs.custom.el")
+
+;; TRAMP modeでremoteサーバに接続したときにeglotでphpactorを見つけれるように設定
+(defun my/eglot-tramp-phpactor-init ()
+  (when (and buffer-file-name
+	     (string-match "^/ssh:" buffer-file-name))
+    (setq-local phpactor-executable "/home/taro_morita/.local/bin/phpactor")
+    ))
+
+;; (add-hook 'php-mode-hook 'my/eglot-tramp-phpactor-init)
 
 
 (add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-16"))
@@ -73,12 +84,51 @@
 ;     (rc-require theme-package)
 ;     (load-theme theme t)))
 
-(rc-require 'php-mode)
-(require 'php-mode)
+
 (rc-require 'leaf)
 
 (leaf ruby-mode
   :ensure t)
+(leaf php-mode
+  :ensure t
+  :custom
+  (php-manual-url 'ja)
+  (php-mode-coding-style 'psr2)
+  :config
+  (bind-key "C-c C--" 'php-current-class php-mode-map)
+  (bind-key "C-c C-=" 'php-current-namespace php-mode-map)
+  
+
+  )
+
+
+;; yasnippet-snippetのディレクトリを見つけるための関数
+;; yasnippet-snippetsはleafで管理されているので、ディレクトリ名がダウンロードした日付になる。
+;; これは可変なので正規表現でマッチするようにしている
+(defun find-yasnippet-snippets-dir ()
+  "Find the yasnippet-snippets directory in elpa."
+  (let* ((elpa-dir (expand-file-name "~/.emacs.d/elpa"))
+         (dirs (directory-files elpa-dir t "^yasnippet-snippets-[0-9]+\\.[0-9]+$"))
+         (snippets-dir (cl-first dirs)))
+    (when snippets-dir
+      (expand-file-name "snippets" snippets-dir))))
+
+;; snippets
+(leaf yasnippet
+  :ensure t
+  :config
+
+  (setq yas-snippet-dirs
+	(let ((yasnippet-snippets-dir (find-yasnippet-snippets-dir)))
+	  (if yasnippet-snippets-dir
+	      (list yasnippet-snippets-dir)
+	    nil)))
+  (yas-global-mode 1)
+  )
+
+(leaf yasnippet-snippets
+  :ensure t)
+
 
 (leaf company
   :ensure t
@@ -112,6 +162,18 @@
   :config
   (electric-pair-mode +1))
 
+;; color theme
+(leaf kuronami-theme
+  :ensure t
+  :config
+ (load-theme 'kuronami t)
+)
+
+(leaf timu-caribbean-theme
+  :ensure t
+  :config
+;  (load-theme 'timu-caribbean t)
+)
 ; 他プロセスの編集をバッファに反映する
 (leaf autorevert
   :init
@@ -128,44 +190,46 @@
   :init
   (with-eval-after-load "tramp"
 ;    (add-to-list 'tramp-remote-path "home/taro_morita/.npm-global/bin")
-    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
     (add-to-list 'tramp-remote-path "/home/taro_morita/.local/bin/phpactor")
+    (add-to-list 'tramp-remote-path "/home/taro_morita/go/bin/gopls")
     )
   )
 
-;; language server settings
-(require 'eglot)
-
-; (with-eval-after-load "eglot"
-					;   (add-to-list 'eglot-server-programs '(php-mode (executable-find "intelephense")  "--stdio")))
-
-(add-hook 'after-init-hook
-          (lambda ()
-;            (let ((intelephense-executable (executable-find "intelephense")))
-;              (if intelephense-executable
-;                  (add-to-list 'eglot-server-programs
-;                               `(php-mode,intelephense-executable "--stdio"))
-					;                (message "intelephense executable not found.")))))
-	    (let ((phpactor-executable (executable-find "phpactor")))
-	      (if phpactor-executable
-		  (add-to-list 'eglot-server-programs
-			       `(php-mode ,phpactor-executable "language-server"))
-		(message "phpactor executable not found")))))
-		
-;(let ((phpactor-executable (executable-find "phpactor")))
-;  (if phpactor-executable
-;      (add-to-list 'eglot-server-programs
-;                    `(php-mode ,phpactor-executable "language-server"))
-;    (message "phpactor executable not found.")))
-
-;(with-eval-after-load "eglot"
- ; (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
-
-;(require 'eglot)
-;(add-to-list 'eglot-server-programs
-;	     '(php "intelephense" "--stdio"))
-(add-hook 'php-mode-hook 'eglot-ensure)
-
+;; (require 'eglot)
+;; 
+;; (defun my/file-remote-p ()
+;;   (and buffer-file-name
+;;        (file-remote-p buffer-file-name)))
+;; 
+;; (defun my/get-remote-host-prefix ()
+;;   (when (my/file-remote-p)
+;;     (file-remote-p buffer-file-name)))
+;; 
+;; (defun my/eglot-php-init ()
+;;   (if (my/file-remote-p)
+;;       (let* ((remote-prefix (my/get-remote-host-prefix))
+;;              (remote-phpactor (concat remote-prefix "/home/taro_morita/.local/bin/phpactor")))
+;;         (if (and (file-executable-p remote-phpactor)
+;;                  (zerop (process-exit-status (start-process "phpactor-test" nil remote-phpactor "--version"))))
+;;             (progn
+;;               (setq-local eglot-server-programs
+;;                           `((php-mode . (,remote-phpactor "language-server"))))
+;;               (message "Using remote phpactor at %s" remote-phpactor))
+;;           (message "Remote phpactor not found or failed to execute. Please install phpactor on the remote server and ensure it is executable.")))
+;;     (let ((phpactor-executable (executable-find "phpactor")))
+;;       (if phpactor-executable
+;;           (progn
+;;             (setq-local eglot-server-programs
+;;                         `((php-mode . (,phpactor-executable "language-server"))))
+;;             (message "Using local phpactor at %s" phpactor-executable))
+;;         (message "Local phpactor executable not found. Please install phpactor.")))))
+;; 
+;; (add-hook 'php-mode-hook 'my/eglot-php-init)
+;; 
+;; (with-eval-after-load 'eglot
+;;   (setq remote-file-name-inhibit-locks t)
+;;   (setq eglot-connect-timeout 120)
+;;   (setq eglot-extend-to-xref t))
 
 ;; 日本語入力
 (leaf skk
@@ -187,6 +251,7 @@
   :config
   (exec-path-from-shell-initialize))
 
+;; git client
 (leaf magit
   :ensure t)
 
@@ -201,7 +266,6 @@
    org-pretty-entities t
    org-insert-heading-respect-content t
    org-hide-emphasis-markers t))
-
 
 (leaf blamer
   :ensure t
@@ -247,13 +311,6 @@
   :config
   (global-diff-hl-mode))
 
-; (leaf doom-themes
-;   :ensure t
-;   :config
-;   (setq doom-themes-enable-bold t
-; 	doom-themes-enable-italic t)
-;   (load-theme 'doom-one t)
-;   (doom-themes-org-config))
 
 (defvar my-error-map (make-keymap))
 
@@ -277,10 +334,12 @@
 (defvar local-project-path "~/dev/rpst-v2/"
   "ローカルのプロジェクトのパス"
   )
-(defvar remote-project-path "taro_morita@dev-tmorita-rpst:/var/www/rpst-v2/dev/"
+(defvar remote-project-path "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
   "リモートのプロジェクトのパス"
   )
 
+
+;; rpst-v2をファイル単位でデプロイする関数
 (defun transport-v2 ()
   (message "transport-v2: called")
   (when (and (buffer-file-name)
@@ -293,7 +352,9 @@
 
       (start-process "rsync" "*rsync-output*"
 		     "rsync" "-avz" (buffer-file-name)
-		     (concat remote-project-path relative-path)))))
+		     (concat remote-project-path relative-path))
+      (message "Complete to sending data.")
+      )))
 
 (add-hook 'after-save-hook 'transport-v2)
 
@@ -304,6 +365,7 @@
   "リモートのプロジェクトのパス"
   )
 
+;; rpst-v1をファイル単位でデプロイする関数
 (defun transport-v1 ()
   (message "transport-v1: called")
   (when (and (buffer-file-name)
@@ -330,3 +392,32 @@
 ; (load-theme 'dracula t)
 (load-file custom-file)
 (put 'upcase-region 'disabled nil)
+
+
+(defun copy-file-path-and-line-to-clipboard ()
+  "現在のファイルのプロジェクトからの相対パスとカーソル位置の行をクリップボードにコピーします。"
+  (interactive)
+  (let* ((file-path (buffer-file-name))
+         (project-root (cond
+                        ;; projectileが利用可能ならそれを使う
+                        ((fboundp 'projectile-project-root)
+                         (projectile-project-root))
+                        ;; projectileがなければvcを試す
+                        ((and (fboundp 'vc-root-dir) (vc-root-dir))
+                         (vc-root-dir))
+                        ;; どちらも利用できない場合は絶対パスを使用
+                        (t nil)))
+	 l;; 相対パス
+         (relative-path (if (and project-root file-path)
+                            (file-relative-name file-path project-root)
+                          file-path))
+	 ;; 行番号
+         (line-number (line-number-at-pos))
+	 ;; ↓行のテキストを抽出する
+         ;; (line-text (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+         (text (format "%s:%d" relative-path line-number)))
+    (kill-new text)
+    (message "プロジェクト相対パスと行をクリップボードにコピーしました。")))
+
+
+(global-set-key (kbd "C-c l c") 'copy-file-path-and-line-to-clipboard)

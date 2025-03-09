@@ -12,7 +12,7 @@ indent = { tab-width = 4, unit = "    "}
 # language-servers = ["phpactor", "intelephense"]
 language-servers = ['intelephense']
 formatter = { command = "bash", args = [ "-c", "cat > /tmp/helix_php_cs_fixer && php-cs-fixer fix --using-cache=no --quiet /tmp/helix_php_cs_fixer && cat /tmp/helix_php_cs_fixer"]}
-auto-format = true
+auto-format = false
 
 
 [[language]]
