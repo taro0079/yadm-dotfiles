@@ -14,6 +14,7 @@
 ; key remap
 (global-set-key (kbd "C-c r") 'revert-buffer) ; ファイルをディスクの状態に戻す
 (global-set-key "\C-t" 'other-window) ; 他のウィンドウに移動する
+(global-set-key "\M-*" 'pop-tag-mark)
 (which-key-mode) ; キーマップ一覧を表示する
 
 (defun rpst-api-project-root ()
@@ -49,7 +50,7 @@
 ;; (add-hook 'php-mode-hook 'my/eglot-tramp-phpactor-init)
 
 
-(add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-16"))
+(add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-13"))
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -89,7 +90,13 @@
 
 (leaf ruby-mode
   :ensure t)
+
+(defun my-php-mode ()
+  (setq show-trailing-whitespace t)
+  )
+
 (leaf php-mode
+  :hook ((php-mode . my-php-mode))
   :ensure t
   :custom
   (php-manual-url 'ja)
@@ -97,10 +104,7 @@
   :config
   (bind-key "C-c C--" 'php-current-class php-mode-map)
   (bind-key "C-c C-=" 'php-current-namespace php-mode-map)
-  
-
   )
-
 
 ;; yasnippet-snippetのディレクトリを見つけるための関数
 ;; yasnippet-snippetsはleafで管理されているので、ディレクトリ名がダウンロードした日付になる。
@@ -161,19 +165,29 @@
 (leaf elec-pair
   :config
   (electric-pair-mode +1))
-
+(leaf yatex
+  :ensure t
+  :config
+  (setq tex-command "lualatex -synctex=1")
+  )
 ;; color theme
 (leaf kuronami-theme
   :ensure t
   :config
- (load-theme 'kuronami t)
+;; (load-theme 'kuronami t)
 )
+
+(leaf monokai-theme
+  :ensure t
+  :config
+  (load-theme 'monokai t))
 
 (leaf timu-caribbean-theme
   :ensure t
-  :config
+;  :config
 ;  (load-theme 'timu-caribbean t)
-)
+  )
+
 ; 他プロセスの編集をバッファに反映する
 (leaf autorevert
   :init
@@ -238,7 +252,11 @@
   :config
   (leaf ddskk-posframe
     :ensure t
-    :global-minor-mode t))
+    :global-minor-mode t)
+  (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup) ;; increment searchでskkを利用できるような設定
+  (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
+
+  )
 
 (global-set-key "\C-x\C-j" 'skk-mode)
 
@@ -275,15 +293,18 @@
 (leaf ripgrep
   :ensure t)
 
+(leaf dockerfile-mode
+  :ensure t)
+
 ;; (leaf dracula-theme
 ;;   :ensure t)
 ;; マルチカーソル
-(leaf multiple-cursors
-  :ensure t)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+;; (leaf multiple-cursors
+;;   :ensure t)
+;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (leaf consult
   :ensure t
@@ -337,7 +358,27 @@
 (defvar remote-project-path "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
   "リモートのプロジェクトのパス"
   )
+(defvar local-project-path-rpst-api "~/dev/rpst-api/"
+  "ローカルのプロジェクトのパス"
+  )
+(defvar remote-project-path-rpst-api "taro_morita@rpst-api:/var/lib/rpst-api-docker/"
+  "リモートのプロジェクトのパス"
+  )
 
+(defun transport-rpst-api ()
+  (when (and (buffer-file-name)
+	     (string-prefix-p (expand-file-name local-project-path-rpst-api)
+			      (buffer-file-name)))
+    (message "File is inside rpst-api project directory")
+    (let ((relative-path (file-relative-name (buffer-file-name) (expand-file-name local-project-path-rpst-api))))
+      (message "Transferring file: %s to remote path: %s" (buffer-file-name)
+	       (concat remote-project-path-rpst-api relative-path))
+      (start-process "rsync" "*rsync-output*"
+		     "rsync" "-avx" (buffer-file-name)
+		     (concat remote-project-path-rpst-api relative-path))
+      (message "[rpst-api] Complete to sending data.")
+      )))
+(add-hook 'after-save-hook 'transport-rpst-api)
 
 ;; rpst-v2をファイル単位でデプロイする関数
 (defun transport-v2 ()
@@ -421,3 +462,4 @@
 
 
 (global-set-key (kbd "C-c l c") 'copy-file-path-and-line-to-clipboard)
+(add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
