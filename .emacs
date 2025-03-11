@@ -117,6 +117,34 @@
     (when snippets-dir
       (expand-file-name "snippets" snippets-dir))))
 
+(leaf copilot
+  :vc (:url "https://github.com/copilot-emacs/copilot.el")
+  :config
+  (leaf editorconfig
+    :ensure t
+    )
+  (leaf s
+    :ensure t
+    )
+  (leaf dash
+    :ensure t
+    )
+  :hook
+  (prog-mode-hook .  copilot-mode)
+  :bind
+  (copilot-completion-map
+   ("C-e" . copilot-accept-completion)
+   ("M-f" . copilot-accept-completion-by-word)
+   ("C-M-f" . copilot-accept-completion-by-paragraph)
+   ("M-n" . copilot-accept-completion-by-line)
+   ("C-M-n" . copilot-next-completion)
+   ("C-M-p" . copilot-previous-completion)
+   )
+  (copilot-mode-map
+   ("M-i" . copilot-complete)
+   )
+)
+
 ;; snippets
 (leaf yasnippet
   :ensure t
