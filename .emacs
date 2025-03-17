@@ -11,11 +11,27 @@
 (setq backup-inhibited nil)
 (setq create-lockfiles nil)
 
+;; ファイルを自動で行を折り返す
+(global-visual-line-mode 1)
+
+;; kill-ringした内容をOSのクリップボードにもコピーする
+(when (eq system-type 'darwin)
+  (setq ns-use-pbpaste-pasteboard t)
+  )
+
+(setq eshell-path-env (getenv "PATH"))
 ; key remap
 (global-set-key (kbd "C-c r") 'revert-buffer) ; ファイルをディスクの状態に戻す
 (global-set-key "\C-t" 'other-window) ; 他のウィンドウに移動する
 (global-set-key "\M-*" 'pop-tag-mark)
 (which-key-mode) ; キーマップ一覧を表示する
+
+;; diredでファイルをコピー、移動、貼り付けする
+(eval-after-load "dired" '(progn
+			    (define-key dired-mode-map (kbd "C-x w") 'dired-ranger-copy)
+			    (define-key dired-mode-map (kbd "C-x x") 'dired-ranger-move)
+			    (define-key dired-mode-map (kbd "C-x y") 'dired-ranger-paste)			    
+			    ))
 
 (defun rpst-api-project-root ()
   "Locate the project root directory by looking for composer.json."
@@ -50,7 +66,7 @@
 ;; (add-hook 'php-mode-hook 'my/eglot-tramp-phpactor-init)
 
 
-(add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-13"))
+(add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-16"))
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -195,6 +211,7 @@
   (electric-pair-mode +1))
 (leaf yatex
   :ensure t
+  :commands (yatex-mode)
   :config
   (setq tex-command "lualatex -synctex=1")
   )
@@ -205,10 +222,10 @@
 ;; (load-theme 'kuronami t)
 )
 
-(leaf monokai-theme
-  :ensure t
-  :config
-  (load-theme 'monokai t))
+;; (leaf monokai-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'monokai t))
 
 (leaf timu-caribbean-theme
   :ensure t
@@ -234,8 +251,11 @@
 ;    (add-to-list 'tramp-remote-path "home/taro_morita/.npm-global/bin")
     (add-to-list 'tramp-remote-path "/home/taro_morita/.local/bin/phpactor")
     (add-to-list 'tramp-remote-path "/home/taro_morita/go/bin/gopls")
-    )
-  )
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+  :config
+  (add-to-list 'tramp-connection-properties
+		 (list (regexp-quote "/ssh:taro_morita@dev-tmorita:")
+		       "remote-shell" "/bin/bash")))
 
 ;; (require 'eglot)
 ;; 
@@ -299,7 +319,13 @@
 
 ;; git client
 (leaf magit
-  :ensure t)
+  :ensure t
+;  :init
+;  (magit-remote-git-executable "/usr/local/bin/git")
+  :bind
+  ("C-x g" . magit-status)
+  )
+
 
 (leaf org
   :ensure t)
@@ -339,6 +365,15 @@
   :bind (
    ("C-c h" . consult-history)
    ("C-c m" . consult-mode-command)
+   ("C-x b" . consult-buffer)
+   ("C-x r b" . consult-bookmark)
+   ("M-s d" . consult-find)
+   ("M-s c" . consult-locate)
+   ("M-s g" . consult-grep)
+   ("M-s G" . consult-git-grep)
+   ("M-s r" . consult-ripgrep)
+   ("M-s l" . consult-line)   
+   ("M-s g" . consult-grep)   
    ; :map goto-map
    ; ("e" . consult-compile-error)
    ; ("f" . consult-flymake)
@@ -349,11 +384,19 @@
    ; ("g" . consult-grep)
    ; ("G" . consult-git-grep)
    ; ("r" . consult-ripgrep)
-   ))
+   )
+  :config
+  (consult-customize
+   consult-theme :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep consult-find consult-fd
+   :preview-key '(:debounce 0.4 any)
+   ;:preview-key (kbd "M-.")
+   )
+)
 (leaf avy
   :ensure t
   :config
-  (global-set-key (kbd "C-:") 'avy-goto-char))
+  (global-set-key (kbd "C-:") 'avy-goto-char-timer))
 
 (leaf diff-hl
   :ensure t
@@ -380,6 +423,31 @@
   :custom
   (completion-styles . '(orderless)))
 
+;; install vterm
+(leaf vterm
+  :ensure t
+  :config
+  (global-set-key (kbd "C-c v") 'vterm)
+  )
+
+(leaf org-roam
+  :if (and (file-directory-p "~/memo/org/")
+	   (and (executable-find "rg")
+		(executable-find "sqlite3")))
+  :ensure t
+  :bind
+  (("C-c n a" . org-roam-alias-add)
+   ("C-c n f" . org-roam-node-find)
+   ("C-c n i" . org-roam-node-insert)
+   ("C-c n t" . org-roam-tag-add)
+   ("C-c n l" . org-roam-buffer-toggle)
+   ("C-x m" . org-roam-dailies-capture-today)
+   ("C-c n v" . org-roam-node-visit)
+   )
+  :config
+  (org-roam-db-autosync-mode)
+  )
+
 (defvar local-project-path "~/dev/rpst-v2/"
   "ローカルのプロジェクトのパス"
   )
@@ -392,6 +460,22 @@
 (defvar remote-project-path-rpst-api "taro_morita@rpst-api:/var/lib/rpst-api-docker/"
   "リモートのプロジェクトのパス"
   )
+
+(defun transport-project-file (local-project-path remote-project-path)
+  "引数で指定されたプロジェクトのファイルをリモートに転送する"
+  (when (and (buffer-file-name)
+	     (string-prefix-p (expand-file-name local-project-path)
+			      (buffer-file-name)))
+    (message "File is inside the project directory")
+    (let ((relative-path (file-relative-name (buffer-file-name) (expand-file-name local-project-path))))
+      (message "Transferring file: %s to remote path: %s" (buffer-file-name)
+	       (concat remote-project-path relative-path))
+      (start-process "rsync" "*rsync-output*"
+		     "rsync" "-avz" (buffer-file-name)
+		     (concat remote-project-path relative-path))
+      (message "[%s] Complete to sending data." (file-name-nondirectory local-project-path))
+      )))
+(add-hook 'after-save-hook (lambda () (transport-project-file "~/dev/rpst-docker/" "taro_morita@dev-tmorita:/var/lib/rpst-docker/")))
 
 (defun transport-rpst-api ()
   (when (and (buffer-file-name)
@@ -491,3 +575,12 @@
 
 (global-set-key (kbd "C-c l c") 'copy-file-path-and-line-to-clipboard)
 (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
+
+;; 日付を挿入する関数 主にorg-modeで使う
+(defun insert-current-date (&optional diff)
+  "現在年月日をカレントバッファに挿入する。引数Nを与えるとN日前の日付を挿入する。"
+  (interactive "P")
+  (insert
+   (shell-command-to-string
+    (format "echo -n $(LC_ALL=ja_JP date -v-%dd +'%%Y-%%m-%%d (%%a)' )" (or diff 0)))
+   ))
