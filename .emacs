@@ -11,6 +11,7 @@
 (setq backup-inhibited nil)
 (setq create-lockfiles nil)
 
+(set-language-environment "Japanese")
 ;; ファイルを自動で行を折り返す
 (global-visual-line-mode 1)
 
@@ -66,7 +67,11 @@
 ;; (add-hook 'php-mode-hook 'my/eglot-tramp-phpactor-init)
 
 
-(add-to-list 'default-frame-alist `(font . "Iosevka Nerd Font-16"))
+; (add-to-list 'default-frame-alist '(font . "Moralerspace Radon NF"))
+
+					; (set-face-attribute 'default nil :family "Moralerspace Radon NF" :height 120)
+
+(set-frame-font "Moralerspace Radon NF-16")
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -584,3 +589,10 @@
    (shell-command-to-string
     (format "echo -n $(LC_ALL=ja_JP date -v-%dd +'%%Y-%%m-%%d (%%a)' )" (or diff 0)))
    ))
+
+; (setq default-frame-alist '(
+; 			    (width . 120)
+; 			    (height . 40)
+; 			    (top . 0)
+; 			    (left . 0)
+; 			    (font . "Moralerspace Radon NF")))
