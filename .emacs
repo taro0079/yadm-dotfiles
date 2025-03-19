@@ -242,10 +242,11 @@
 (leaf elec-pair
   :config
   (electric-pair-mode +1))
+
 (leaf yatex
   :ensure t
   :commands (yatex-mode)
-  :config
+  :init
   (setq tex-command "lualatex -synctex=1")
   )
 ;; color theme
