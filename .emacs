@@ -71,7 +71,7 @@
 
 					; (set-face-attribute 'default nil :family "Moralerspace Radon NF" :height 120)
 
-(set-frame-font "Moralerspace Radon NF-16")
+(set-frame-font "Moralerspace Radon NF-14")
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -111,6 +111,9 @@
 
 (leaf ruby-mode
   :ensure t)
+(leaf vertico
+  :ensure t
+  :global-minor-mode t)
 
 (defun my-php-mode ()
   (setq show-trailing-whitespace t)
@@ -183,34 +186,59 @@
   :ensure t)
 
 
-(leaf company
-  :ensure t
-  :leaf-defer nil
-  :config
-  (global-company-mode)
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1))  
+;; (leaf company
+;;   :ensure t
+;;   :leaf-defer nil
+;;   :config
+;;   (global-company-mode)
+;;   (setq company-idle-delay 0)
+;;   (setq company-minimum-prefix-length 2))
 
+(leaf corfu
+  :ensure t
+  :require t
+  :custom
+  (corfu-auto . t)
+  (corfu-auto-delay . 0)
+  (corfu-auto-prefix . 2)
+  (corfu-cycle . t)
+  (corfu-onexact-match . nil)
+  (tab-always-indent . 'complete)
+  :init
+  (global-corfu-mode +1)
+  )
+
+(leaf kind-icon
+  :after corfu
+  :ensure t
+  :custom (kind-icon-default-face 'corfu-default)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (leaf eglot
   :ensure t
   :require t
+  :hook
+  (php-mode-hook . eglot-ensure)
   :config
   (define-key eglot-mode-map (kbd "M-.") 'xref-find-definitions)
   (define-key eglot-mode-map (kbd "M-,") 'pip-tag-mark)
+;;  (with-eval-after-load "eglot"
+;;  (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
   
   )
 
-(leaf eglot-booster
-  :when (executable-find "emacs-lsp-booster")
-  :vc ( :url "https://github.com/jdtsmith/eglot-booster")
-  :global-minor-mode t)
-			 
-(leaf vertico
-  :ensure t
-  :global-minor-mode t)
+;;(leaf eglot-booster
+;;  :when (executable-find "emacs-lsp-booster")
+;;  :vc ( :url "https://github.com/jdtsmith/eglot-booster")
+;;  :global-minor-mode t)
 
-; 括弧の自動補完
+(leaf eglot-booster
+  :after eglot
+  :config (eglot-booster-mode))
+
+
+
 (leaf elec-pair
   :config
   (electric-pair-mode +1))
@@ -261,42 +289,6 @@
   (add-to-list 'tramp-connection-properties
 		 (list (regexp-quote "/ssh:taro_morita@dev-tmorita:")
 		       "remote-shell" "/bin/bash")))
-
-;; (require 'eglot)
-;; 
-;; (defun my/file-remote-p ()
-;;   (and buffer-file-name
-;;        (file-remote-p buffer-file-name)))
-;; 
-;; (defun my/get-remote-host-prefix ()
-;;   (when (my/file-remote-p)
-;;     (file-remote-p buffer-file-name)))
-;; 
-;; (defun my/eglot-php-init ()
-;;   (if (my/file-remote-p)
-;;       (let* ((remote-prefix (my/get-remote-host-prefix))
-;;              (remote-phpactor (concat remote-prefix "/home/taro_morita/.local/bin/phpactor")))
-;;         (if (and (file-executable-p remote-phpactor)
-;;                  (zerop (process-exit-status (start-process "phpactor-test" nil remote-phpactor "--version"))))
-;;             (progn
-;;               (setq-local eglot-server-programs
-;;                           `((php-mode . (,remote-phpactor "language-server"))))
-;;               (message "Using remote phpactor at %s" remote-phpactor))
-;;           (message "Remote phpactor not found or failed to execute. Please install phpactor on the remote server and ensure it is executable.")))
-;;     (let ((phpactor-executable (executable-find "phpactor")))
-;;       (if phpactor-executable
-;;           (progn
-;;             (setq-local eglot-server-programs
-;;                         `((php-mode . (,phpactor-executable "language-server"))))
-;;             (message "Using local phpactor at %s" phpactor-executable))
-;;         (message "Local phpactor executable not found. Please install phpactor.")))))
-;; 
-;; (add-hook 'php-mode-hook 'my/eglot-php-init)
-;; 
-;; (with-eval-after-load 'eglot
-;;   (setq remote-file-name-inhibit-locks t)
-;;   (setq eglot-connect-timeout 120)
-;;   (setq eglot-extend-to-xref t))
 
 ;; 日本語入力
 (leaf skk
@@ -392,7 +384,7 @@
    )
   :config
   (consult-customize
-   consult-theme :preview-key '(:debounce 0.2 any)
+;   consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep consult-find consult-fd
    :preview-key '(:debounce 0.4 any)
    ;:preview-key (kbd "M-.")
@@ -426,7 +418,10 @@
 (leaf orderless
   :ensure t
   :custom
-  (completion-styles . '(orderless)))
+  (completion-styles . '(orderless))
+  :config
+  (with-eval-after-load 'corfu
+    (add-hook 'corfu-mode-hook (lamda () (setq-local orderless-matching-styles '(orderless-flex))))))
 
 ;; install vterm
 (leaf vterm
@@ -452,14 +447,36 @@
   :config
   (org-roam-db-autosync-mode)
   )
+(leaf marginalia
+  :ensure t
+  :config
+  (marginalia-mode))
 
-(defvar local-project-path "~/dev/rpst-v2/"
+(leaf embark
+  :ensure t
+  :bind
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim)
+   ("C-h B" . embark-bindings))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  (add-to-list 'display-buffer-alist
+	       '("\\ `\\*Embark Collect \\(Live\\|Completions\\)\\*"
+		 nil
+		 (window-parameters (mode-line-format . none)))))
+  (leaf embark-consult
+    :ensure t
+    :hook
+    (embark-collect-mode . consult-preview-at-point-mode))
+
+(defvar local-project-path "~/ghq/rpst-v2/"
   "ローカルのプロジェクトのパス"
   )
 (defvar remote-project-path "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
   "リモートのプロジェクトのパス"
   )
-(defvar local-project-path-rpst-api "~/dev/rpst-api/"
+(defvar local-project-path-rpst-api "~/ghq/rpst-api/"
   "ローカルのプロジェクトのパス"
   )
 (defvar remote-project-path-rpst-api "taro_morita@rpst-api:/var/lib/rpst-api-docker/"
@@ -480,7 +497,7 @@
 		     (concat remote-project-path relative-path))
       (message "[%s] Complete to sending data." (file-name-nondirectory local-project-path))
       )))
-(add-hook 'after-save-hook (lambda () (transport-project-file "~/dev/rpst-docker/" "taro_morita@dev-tmorita:/var/lib/rpst-docker/")))
+(add-hook 'after-save-hook (lambda () (transport-project-file "~/ghq/rpst-docker/" "taro_morita@dev-tmorita:/var/lib/rpst-docker/")))
 
 (defun transport-rpst-api ()
   (when (and (buffer-file-name)
@@ -516,7 +533,7 @@
 
 (add-hook 'after-save-hook 'transport-v2)
 
-(defvar local-project-path-v1 "~/dev/rpst/"
+(defvar local-project-path-v1 "~/ghq/rpst/"
   "ローカルのプロジェクトのパス"
   )
 (defvar remote-project-path-v1 "taro_morita@dev-tmorita:/var/www/precs/dev_tmorita/"
@@ -525,7 +542,6 @@
 
 ;; rpst-v1をファイル単位でデプロイする関数
 (defun transport-v1 ()
-  (message "transport-v1: called")
   (when (and (buffer-file-name)
 	     (string-prefix-p (expand-file-name local-project-path-v1)
 			      (buffer-file-name)))
