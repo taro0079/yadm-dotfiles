@@ -421,7 +421,7 @@
   (completion-styles . '(orderless))
   :config
   (with-eval-after-load 'corfu
-    (add-hook 'corfu-mode-hook (lamda () (setq-local orderless-matching-styles '(orderless-flex))))))
+    (add-hook 'corfu-mode-hook (lambda () (setq-local orderless-matching-styles '(orderless-flex))))))
 
 ;; install vterm
 (leaf vterm
@@ -606,9 +606,6 @@
     (format "echo -n $(LC_ALL=ja_JP date -v-%dd +'%%Y-%%m-%%d (%%a)' )" (or diff 0)))
    ))
 
-; (setq default-frame-alist '(
-; 			    (width . 120)
-; 			    (height . 40)
-; 			    (top . 0)
-; 			    (left . 0)
-; 			    (font . "Moralerspace Radon NF")))
+;; 自動でbyte-compileを行う
+(if (file-newer-than-file-p "~/.emacs" "~/.emacs.elc")
+    (byte-compile-file "~/.emacs" t))
