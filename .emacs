@@ -118,14 +118,17 @@
   ("C-c r" . vr/replace)
   ("C-c q" . vr/query-replace)
   )
+(setq auth-sources'("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
 
 (leaf slack 
   :ensure t
   :config
   (slack-register-team
    :name "rpst"
-   :cookie "xoxd-t8ecqTAQK%2FkxKnUOoe05U1e62Auw%2F2BdmL8F20QZJsrvZ3SP%2BvVEMPCqYxxgwPVs7BKwCYT%2BcWwBa16YfGZlsQgLFUmTkVn0KZ8Q%2F1fHIgisM2GlvIzFxno5IGbUoOXt9thDXYCpfXQYHqCNdDy5bbedSvCVKrIWagHNlYequHcTS92kuX7tmr%2FBBEkqP%2BCncQyXjnA%3D"
-   :token "xoxc-23010945328-5285987411398-8622282653925-9552f7bd5af48b6fc438cc89759e80c840232a194eb064a10d7c8c5df1abc8e5"
+					;   :cookie "xoxd-t8ecqTAQK%2FkxKnUOoe05U1e62Auw%2F2BdmL8F20QZJsrvZ3SP%2BvVEMPCqYxxgwPVs7BKwCYT%2BcWwBa16YfGZlsQgLFUmTkVn0KZ8Q%2F1fHIgisM2GlvIzFxno5IGbUoOXt9thDXYCpfXQYHqCNdDy5bbedSvCVKrIWagHNlYequHcTS92kuX7tmr%2FBBEkqP%2BCncQyXjnA%3D"
+   :cookie (auth-source-pick-first-password :host "slack.com" :user "morita0079@gmail.com" :port "cookie" )
+					;   :token "xoxc-23010945328-5285987411398-8622282653925-9552f7bd5af48b6fc438cc89759e80c840232a194eb064a10d7c8c5df1abc8e5"
+   :token (auth-source-pick-first-password :host "slack.com" :user "morita0079@gmail.com" :port "token")
    :default t)
 )
 (leaf vertico
