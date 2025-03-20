@@ -10,6 +10,7 @@
 (setq make-backup-files nil)
 (setq backup-inhibited nil)
 (setq create-lockfiles nil)
+(delete-selection-mode 1)
 
 (set-language-environment "Japanese")
 ;; ファイルを自動で行を折り返す
@@ -111,6 +112,22 @@
 
 (leaf ruby-mode
   :ensure t)
+(leaf visual-regexp
+  :ensure t
+  :bind
+  ("C-c r" . vr/replace)
+  ("C-c q" . vr/query-replace)
+  )
+
+(leaf slack 
+  :ensure t
+  :config
+  (slack-register-team
+   :name "rpst"
+   :cookie "xoxd-t8ecqTAQK%2FkxKnUOoe05U1e62Auw%2F2BdmL8F20QZJsrvZ3SP%2BvVEMPCqYxxgwPVs7BKwCYT%2BcWwBa16YfGZlsQgLFUmTkVn0KZ8Q%2F1fHIgisM2GlvIzFxno5IGbUoOXt9thDXYCpfXQYHqCNdDy5bbedSvCVKrIWagHNlYequHcTS92kuX7tmr%2FBBEkqP%2BCncQyXjnA%3D"
+   :token "xoxc-23010945328-5285987411398-8622282653925-9552f7bd5af48b6fc438cc89759e80c840232a194eb064a10d7c8c5df1abc8e5"
+   :default t)
+)
 (leaf vertico
   :ensure t
   :global-minor-mode t)
@@ -610,3 +627,4 @@
 ;; 自動でbyte-compileを行う
 (if (file-newer-than-file-p "~/.emacs" "~/.emacs.elc")
     (byte-compile-file "~/.emacs" t))
+> > 
