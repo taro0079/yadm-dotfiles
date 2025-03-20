@@ -125,9 +125,7 @@
   :config
   (slack-register-team
    :name "rpst"
-					;   :cookie "xoxd-t8ecqTAQK%2FkxKnUOoe05U1e62Auw%2F2BdmL8F20QZJsrvZ3SP%2BvVEMPCqYxxgwPVs7BKwCYT%2BcWwBa16YfGZlsQgLFUmTkVn0KZ8Q%2F1fHIgisM2GlvIzFxno5IGbUoOXt9thDXYCpfXQYHqCNdDy5bbedSvCVKrIWagHNlYequHcTS92kuX7tmr%2FBBEkqP%2BCncQyXjnA%3D"
    :cookie (auth-source-pick-first-password :host "slack.com" :user "morita0079@gmail.com" :port "cookie" )
-					;   :token "xoxc-23010945328-5285987411398-8622282653925-9552f7bd5af48b6fc438cc89759e80c840232a194eb064a10d7c8c5df1abc8e5"
    :token (auth-source-pick-first-password :host "slack.com" :user "morita0079@gmail.com" :port "token")
    :default t)
 )
@@ -226,6 +224,14 @@
   (tab-always-indent . 'complete)
   :init
   (global-corfu-mode +1)
+  )
+(leaf cape
+  :ensure t
+  :require t
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
   )
 
 (leaf kind-icon
@@ -344,18 +350,24 @@
   ("C-x g" . magit-status)
   )
 
-
 (leaf org
-  :ensure t)
+  :ensure t
+  :mode
+  ("\\.org$'" . org-mode)
+  )
 
 (leaf org-modern
   :ensure t
+  :require t
+  :hook
+  (org-mode . org-modern-mode)
+;  (org-agenda-finalize . org-modern-agenda)
   :config
-  (with-eval-after-load 'org (global-org-modern-mode))
   (setq
    org-pretty-entities t
    org-insert-heading-respect-content t
-   org-hide-emphasis-markers t))
+   org-hide-emphasis-markers t)
+  )
 
 (leaf blamer
   :ensure t
@@ -630,4 +642,6 @@
 ;; 自動でbyte-compileを行う
 (if (file-newer-than-file-p "~/.emacs" "~/.emacs.elc")
     (byte-compile-file "~/.emacs" t))
-> > 
+
+;; color scheme
+(load-theme 'doom-feather-light t)
