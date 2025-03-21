@@ -24,8 +24,12 @@
 (setq eshell-path-env (getenv "PATH"))
 ; key remap
 (global-set-key (kbd "C-c r") 'revert-buffer) ; ファイルをディスクの状態に戻す
-(global-set-key "\C-t" 'other-window) ; 他のウィンドウに移動する
+; (global-set-key "\C-t" 'other-window) ; 他のウィンドウに移動する
 (global-set-key "\M-*" 'pop-tag-mark)
+(global-set-key (kbd "C-c w l") 'windmove-right)
+(global-set-key (kbd "C-c w h") 'windmove-left)
+(global-set-key (kbd "C-c w j") 'windmove-down)
+(global-set-key (kbd "C-c w k") 'windmove-up)
 (which-key-mode) ; キーマップ一覧を表示する
 
 ;; diredでファイルをコピー、移動、貼り付けする
@@ -112,6 +116,14 @@
 
 (leaf ruby-mode
   :ensure t)
+(leaf dimmer
+  :ensure t
+  :require t
+  :config
+  (dimmer-mode)
+  (setq dimmer-fraction 0.5)
+  
+)
 (leaf visual-regexp
   :ensure t
   :bind
@@ -128,6 +140,14 @@
    :cookie (auth-source-pick-first-password :host "slack.com" :user "morita0079@gmail.com" :port "cookie" )
    :token (auth-source-pick-first-password :host "slack.com" :user "morita0079@gmail.com" :port "token")
    :default t)
+  )
+(leaf consult-ghq
+  :ensure t
+  :require t
+  :config
+  (setq consult-ghq-find-function #'consult-find)
+  :bind
+  ("C-c g" . consult-ghq-find)
 )
 (leaf vertico
   :ensure t
@@ -641,7 +661,7 @@
 
 ;; 自動でbyte-compileを行う
 (if (file-newer-than-file-p "~/.emacs" "~/.emacs.elc")
-    (byte-compile-file "~/.emacs" t))
+    (byte-compile-file "~/.emacs"))
 
 ;; color scheme
-(load-theme 'doom-feather-light t)
+(load-theme 'doom-one t)
