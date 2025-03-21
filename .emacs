@@ -58,6 +58,11 @@
     (message "Project root not found. php-cs-fixer not applied."))))
 
 
+(defun php-cs-fixer ()
+  (interactive)
+  (shell-command-to-string (format "docker compose run --rm devcontainer php-cs-fixer fix %s" (file-relative-name(buffer-file-name) (projectile-project-root)) ))
+  )
+
 (setenv "LIBRARY_PATH" "/opt/homebrew/lib/gcc/14/:/opt/homebrew/lib/gcc/14/gcc/aarch64-apple-darwin23/14")
 
 (setq custom-file "~/.emacs.custom.el")
@@ -123,7 +128,15 @@
   (dimmer-mode)
   (setq dimmer-fraction 0.5)
   
-)
+  )
+(leaf phpactor
+  :ensure t
+  :require t
+;  :hook
+;  (php-mode-hook . phpactor-mode)
+;;  :config
+;;  (setq phpactor-executable "/home/taro_morita/.local/bin/phpactor")
+  )
 (leaf visual-regexp
   :ensure t
   :bind
@@ -329,7 +342,7 @@
   :init
   (with-eval-after-load "tramp"
 ;    (add-to-list 'tramp-remote-path "home/taro_morita/.npm-global/bin")
-    (add-to-list 'tramp-remote-path "/home/taro_morita/.local/bin/phpactor")
+;    (add-to-list 'tramp-remote-path "/home/taro_morita/.local/bin/phpactor")
     (add-to-list 'tramp-remote-path "/home/taro_morita/go/bin/gopls")
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
   :config
