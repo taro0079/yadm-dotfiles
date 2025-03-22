@@ -171,7 +171,9 @@
   )
 
 (leaf php-mode
-  :hook ((php-mode . my-php-mode))
+  :hook
+  (php-mode . my-php-mode)
+  (php-mode . php-ts-mode)
   :ensure t
   :custom
   (php-manual-url 'ja)
@@ -452,6 +454,7 @@
   (consult-customize
 ;   consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep consult-find consult-fd
+   consult-bookmark
    :preview-key '(:debounce 0.4 any)
    ;:preview-key (kbd "M-.")
    )
@@ -677,4 +680,4 @@
     (byte-compile-file "~/.emacs"))
 
 ;; color scheme
-(load-theme 'doom-one t)
+(load-theme 'doom-horizon t)
