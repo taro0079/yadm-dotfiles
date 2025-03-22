@@ -121,10 +121,39 @@
 
 (leaf ruby-mode
   :ensure t)
+
+;; for dimmer
+;; corfuのウィンドウが表示されたときに他のウィンドウが暗くなるのを抑制する
+(defun advise-dimmer-config-change-handler ()
+  "Advise to only force process if no predicate is truthy."
+  (let ((ignore (cl-some (lambda (f) (and (fboundp f) (funcall f)))
+                         dimmer-prevent-dimming-predicates)))
+    (unless ignore
+      (when (fboundp 'dimmer-process-all)
+        (dimmer-process-all t)))))
+
+;; for dimmer
+;; corfuのウィンドウが表示されたときに他のウィンドウが暗くなるのを抑制する
+(defun corfu-frame-p ()
+  "Check if the buffer is a corfu frame buffer."
+  (string-match-p "\\` \\*corfu" (buffer-name)))
+
+;; for dimmer
+;; corfuのウィンドウが表示されたときに他のウィンドウが暗くなるのを抑制する
+(defun dimmer-configure-corfu ()
+  "Convenience settings for corfu users."
+  (add-to-list
+   'dimmer-prevent-dimming-predicates
+   #'corfu-frame-p))
+
 (leaf dimmer
   :ensure t
   :require t
   :config
+  (advice-add
+   'dimmer-config-change-handler
+   :override 'advise-dimmer-config-change-handler)
+  (dimmer-configure-corfu)
   (dimmer-mode)
   (setq dimmer-fraction 0.5)
   
@@ -680,4 +709,10 @@
     (byte-compile-file "~/.emacs"))
 
 ;; color scheme
-(load-theme 'doom-horizon t)
+;(load-theme 'doom-horizon t)
+
+(let* ((zshpath (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'" ))
+       (pathlst (split-string zshpath ":")))
+  (setq exec-path pathlst)
+  (setq eshell-path-env zshpath)
+  (setenv "PATH" zshpath))
