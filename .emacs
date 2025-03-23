@@ -311,10 +311,14 @@
   :hook
   (php-mode-hook . eglot-ensure)
   :config
+  (setq eglot-events-buffer-size 100000)  ;; for debug
+  (setq eglot-stderr-buffer-size 100000)  ;; for debug
+  (setq eglot-connect-timeout 120)	  ;; for debug
   (define-key eglot-mode-map (kbd "M-.") 'xref-find-definitions)
   (define-key eglot-mode-map (kbd "M-,") 'pip-tag-mark)
-;;  (with-eval-after-load "eglot"
-;;  (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio")))
+;;  (add-to-list'eglot-server-programs '(php-mode . ("php" "~/.composer/vendor/bin/php-language-server.php")))
+  ;; (with-eval-after-load "eglot"
+  ;; (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio" "--memory-limit=4096M")))
   
   )
 
@@ -705,8 +709,8 @@
    ))
 
 ;; 自動でbyte-compileを行う
-(if (file-newer-than-file-p "~/.emacs" "~/.emacs.elc")
-    (byte-compile-file "~/.emacs"))
+;; (if (file-newer-than-file-p "~/.emacs" "~/.emacs.elc")
+;;    (byte-compile-file "~/.emacs"))
 
 ;; color scheme
 ;(load-theme 'doom-horizon t)
@@ -716,3 +720,14 @@
   (setq exec-path pathlst)
   (setq eshell-path-env zshpath)
   (setenv "PATH" zshpath))
+
+;; eshellにエイリアスを設定する
+(setq eshell-command-aliases-list
+      (append
+       (list
+	(list "ls" "ls -la")
+	(list "mbv2" "~/.local/scripts/match-branch-local-and-remote.sh ~/ghq/rpst-v2/ /var/www/rpst-v2/dev/ dev-tmorita")
+	(list "mbv1" "~/.local/scripts/match-branch-local-and-remote.sh ~/ghq/rpst/ /var/www/precs/dev_tmorita/ dev-tmorita")
+	)
+       )
+      )
