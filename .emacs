@@ -15,11 +15,17 @@
 (set-language-environment "Japanese")
 ;; ファイルを自動で行を折り返す
 (global-visual-line-mode 1)
-
+;; config for shell
+(setq-default shell-file-name "/bin/bash")
 ;; kill-ringした内容をOSのクリップボードにもコピーする
 (when (eq system-type 'darwin)
   (setq ns-use-pbpaste-pasteboard t)
   )
+
+;; space indent
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
 
 (setq eshell-path-env (getenv "PATH"))
 ; key remap
@@ -34,10 +40,10 @@
 
 ;; diredでファイルをコピー、移動、貼り付けする
 (eval-after-load "dired" '(progn
-			    (define-key dired-mode-map (kbd "C-x w") 'dired-ranger-copy)
-			    (define-key dired-mode-map (kbd "C-x x") 'dired-ranger-move)
-			    (define-key dired-mode-map (kbd "C-x y") 'dired-ranger-paste)			    
-			    ))
+			                (define-key dired-mode-map (kbd "C-x w") 'dired-ranger-copy)
+			                (define-key dired-mode-map (kbd "C-x x") 'dired-ranger-move)
+			                (define-key dired-mode-map (kbd "C-x y") 'dired-ranger-paste)
+			                ))
 
 (defun rpst-api-project-root ()
   "Locate the project root directory by looking for composer.json."
@@ -55,7 +61,7 @@
             (shell-command (format "php-cs-fixer fix %s" (shell-quote-argument buffer-file-name)))
             (revert-buffer :ignore-auto :noconfirm :preserve-modes)
             (message "php-cs-fixer applied on %s" buffer-file-name)))
-    (message "Project root not found. php-cs-fixer not applied."))))
+      (message "Project root not found. php-cs-fixer not applied."))))
 
 
 (defun php-cs-fixer ()
@@ -119,6 +125,29 @@
 
 (rc-require 'leaf)
 
+(leaf wgrep
+  :require t
+  :ensure t)
+
+
+(leaf puni
+  :ensure t
+  :require t
+  :global-minor-mode puni-global-mode
+  :bind (puni-mode-map
+         ;; ("C-)" . puni-slurp-forward)
+         ("C-)" . puni-expand-region)
+         ("C-}" . puni-barf-forward)
+         ("M-(" . puni-wrap-round)
+         ("M-s" . puni-splice)
+         ("M-z" . puni-squeeze)
+         ("M-r" . puni-raise)
+	     ("C-k" . puni-kill-line)
+         ;;("C-c v c" . puni-mark-list-around-point) ;; vtermと衝突
+         ;;("C-c v a" . puni-mark-sexp-around-point) ;; vtermと衝突
+         )
+  )
+
 (leaf ruby-mode
   :ensure t)
 
@@ -156,8 +185,15 @@
   (dimmer-configure-corfu)
   (dimmer-mode)
   (setq dimmer-fraction 0.5)
-  
+
   )
+
+(leaf dmacro
+  :ensure t
+  :custom `((dmacro-key . ,(kbd "C-S-e")))
+  :global-minor-mode global-dmacro-mode
+  )
+
 (leaf phpactor
   :ensure t
   :require t
@@ -174,7 +210,7 @@
   )
 (setq auth-sources'("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
 
-(leaf slack 
+(leaf slack
   :ensure t
   :config
   (slack-register-team
@@ -305,31 +341,60 @@
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
-(leaf eglot
-  :ensure t
-  :require t
-  :hook
-  (php-mode-hook . eglot-ensure)
-  :config
-  (setq eglot-events-buffer-size 100000)  ;; for debug
-  (setq eglot-stderr-buffer-size 100000)  ;; for debug
-  (setq eglot-connect-timeout 120)	  ;; for debug
-  (define-key eglot-mode-map (kbd "M-.") 'xref-find-definitions)
-  (define-key eglot-mode-map (kbd "M-,") 'pip-tag-mark)
-;;  (add-to-list'eglot-server-programs '(php-mode . ("php" "~/.composer/vendor/bin/php-language-server.php")))
-  ;; (with-eval-after-load "eglot"
-  ;; (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio" "--memory-limit=4096M")))
-  
-  )
+;; (leaf eglot
+;;   :ensure t
+;;   :require t
+;;   :hook
+;;   (php-mode-hook . eglot-ensure)
+;;   :config
+;; ;;  (setq eglot-events-buffer-size 100000)  ;; for debug
+;; ;;  (setq eglot-stderr-buffer-size 100000)  ;; for debug
+;; ;;  (setq eglot-connect-timeout 120)	  ;; for debug
+;;   (setq eglot-events-buffer-config '(:size 0))
+;;   (define-key eglot-mode-map (kbd "M-.") 'xref-find-definitions)
+;;   (define-key eglot-mode-map (kbd "M-,") 'pip-tag-mark)
+;;   (add-to-list 'eglot-server-programs
+;;              '(python-mode . ("pyright-langserver" "--stdio")))
+
+
+;; ;;  (add-to-list'eglot-server-programs '(php-mode . ("php" "~/.composer/vendor/bin/php-language-server.php")))
+;;   ;; (with-eval-after-load "eglot"
+;;   ;; (add-to-list 'eglot-server-programs '(php-mode "intelephense" "--stdio" "--memory-limit=4096M")))
+
+;;   )
+
+
 
 ;;(leaf eglot-booster
 ;;  :when (executable-find "emacs-lsp-booster")
 ;;  :vc ( :url "https://github.com/jdtsmith/eglot-booster")
 ;;  :global-minor-mode t)
 
-(leaf eglot-booster
-  :after eglot
-  :config (eglot-booster-mode))
+;; (leaf eglot-booster
+;;   :after eglot
+;;   :config (eglot-booster-mode))
+
+(leaf lsp-mode
+    :ensure t
+    :require t
+    :custom
+    (
+     (lsp-inhibit-message t)
+     (lsp-message-project-root-warning t)
+     (create-lockfiles nil)
+     (lsp-completion-provider . :none)
+     )
+    :hook
+    (prog-major-mode . lsp-prog-major-mode-enable))
+
+(leaf lsp-ui
+    :ensure t
+    :require t
+    :after lsp-mode
+    :custom (scroll-margin 0)
+    :hook (lsp-mode-hook . lsp-ui-mode)
+)
+
 
 
 
@@ -441,7 +506,7 @@
   :ensure t
   :config
   (global-blamer-mode 1))
-  
+
 (leaf ripgrep
   :ensure t)
 
@@ -465,13 +530,13 @@
    ("C-c m" . consult-mode-command)
    ("C-x b" . consult-buffer)
    ("C-x r b" . consult-bookmark)
-   ("M-s d" . consult-find)
-   ("M-s c" . consult-locate)
-   ("M-s g" . consult-grep)
-   ("M-s G" . consult-git-grep)
-   ("M-s r" . consult-ripgrep)
-   ("M-s l" . consult-line)   
-   ("M-s g" . consult-grep)   
+   ("C-c c d" . consult-find)
+   ("C-c c c" . consult-locate)
+   ("C-c c g" . consult-grep)
+   ("C-c c G" . consult-git-grep)
+   ("C-c c r" . consult-ripgrep)
+   ("C-c c l" . consult-line)
+   ("C-c c g" . consult-grep)
    ; :map goto-map
    ; ("e" . consult-compile-error)
    ; ("f" . consult-flymake)
@@ -600,6 +665,7 @@
       (message "[%s] Complete to sending data." (file-name-nondirectory local-project-path))
       )))
 (add-hook 'after-save-hook (lambda () (transport-project-file "~/ghq/rpst-docker/" "taro_morita@dev-tmorita:/var/lib/rpst-docker/")))
+(add-hook 'after-save-hook (lambda () (transport-project-file "~/ghq/rpst-v2/" "taro_morita@rpst-api:/var/lib/rpst-api-docker/rpst-v2/")))
 
 (defun transport-rpst-api ()
   (when (and (buffer-file-name)
@@ -731,3 +797,228 @@
 	)
        )
       )
+
+;; for php
+
+;; php class generator
+(defun php-class (class-name class-comment)
+  (interactive "sClass name: \nsOptional comment for the class: ")
+  (php-class-in-path class-name "." class-comment)
+  )
+
+(defun php-class-in-path (class-name class-file-path class-comment)
+  (interactive "sClass name: \nsClass file path: \nsOptional comment for the class")
+  (if (equal "" class-name)
+      (message "Cannot create a class without a name.")
+    (let* ((class-name (concat (capitalize (substring class-name 0 1))
+			       (substring class-name 1)))
+	   (class-file-name (concat class-file-path "/" class-name ".php")) ; file name
+	   )
+      (if (file-exists-p class-file-name)
+	  (message "The file %s already exists." class-file-name)
+	(progn
+	  ;; generate buffer or visit
+	  (switch-to-buffer (find-file-noselect class-file-name))
+	  (insert "<?php" ?\n
+		  ?\t "/* " class-file-name " */" ?\n
+		  ?\n ?\n
+		  "/**" ?\n
+		  " * " class-comment ?\n
+		  " * " ?\n
+		  " */ " ?\n
+		  "class " class-name " {" ?\n ?\n
+		  "/**" ?\n
+		  " * Default constructor" ?\n
+		  " */" ?\n
+		  "public function __construct() {" ?\n
+		  "}" ?\n ?\n ?\n
+		  )
+
+	  ;; insert the end of class
+	  (save-excursion
+	    (insert ?\n ?\n ?\n
+		    "}" ?\n
+		    ?\n ?\n
+		    )
+	    )
+
+	  ;; indent the xreated region
+	  (c-indent-region (point-min) (point-max) t)
+	  (save-buffer)
+	  (message "Generation of the class %s is completed. file %s is saved !" class-name class-file-name)
+	  )
+	)
+      )
+    )
+  )
+
+;; Create a new property, that is a variable with private accessor
+;; and with a couple of getter/setter methods
+;; refer from https://github.com/fluca1978/fluca1978-coding-bits/blob/master/emacs-lisp/fluca1978-php.el
+(defun php-prop (property-name property-comment)
+  "Creates a new class property variable with an optional
+   comment and with a getter and a setter method at the point where
+   the cursor is"
+  ;; prompt the user for the data to insert
+  (interactive "sProperty name: \nsOptional comment for the property: ")
+  (progn
+    ;; ensure that the property name is correct, that is not an empty
+    ;; string and remove any leading $sign (the user could have typed $myProperty
+    ;; instead of myProperty)
+    (while (string-match "[\$ \s\t]^*" property-name)
+      (setq property-name (replace-match "" nil nil property-name))
+      )
+    (while (string-match "[ \s\t]$*" property-name)
+      (setq property-name (replace-match "" nil nil property-name))
+      )
+    (if (equal "" property-name)
+	;; the user has not specified the property name!
+	(message "Cannot insert a not specified property, aborting!")
+      ;; if here the user has specified the property name, so
+      ;; compute the names of getter/setter
+      (let ((setter-name (concat "set"
+				 (capitalize (substring property-name 0 1) )
+				 (substring property-name 1) )
+			 ) 		; end of the setter-name variable
+	    (getter-name (concat "get"
+				 (capitalize (substring property-name 0 1) )
+				 (substring property-name 1) )
+			 ) 		; end of the getter-name variable
+
+	    (generate-getter t) 		; do I have to generate the getter?
+	    (generate-setter t) 		; do I have to generate the setter?
+	    (src-point (point)) 		; where am I?
+	    (property-insertion-point (point) ) ; the point where the property will be inserted
+	    (property-end-point (point) )	      ; the point where the property ends
+	    (generate-property t)
+	    (setter-arg-name (concat "$" property-name ) )
+	    (method-insertion-point (point)) ;where the methods will be inserted
+	    ) 				; end of the let variable list
+
+	;; remember the current cursor position in the buffer
+	(save-excursion
+	  (progn
+
+	    ;; I need to check if the getters and setters are already there
+	    (goto-char (point-min) )
+	    (search-forward "class")		; move to the beginning of the class
+	    (if (re-search-forward (concat "[\s \t\n]*public[\s \t\n]*function[\s \t\n]*" setter-name "[\s \t\n]*\(.*\)") nil t 1)
+		(setq generate-setter nil)
+	      (setq generate-setter t)
+	      )
+	    (goto-char (point-min) )
+	    (if (re-search-forward (concat "[\s \t\n]*public[\s \t\n]*function[\s \t\n]*" getter-name "[\s \t\n]*\([\s \t\n]*\)") nil t 1)
+		(setq generate-getter nil)
+	      (setq generate-getter t)
+	      )
+	    (goto-char (point-min) )
+	    (if (re-search-forward (concat "[\s \t\n]* \\(private\\|public\\)[\s \t\n]*$" property-name) nil t 1)
+		(progn
+		  (setq generate-property nil)
+		  (setq property-insertion-point (point))
+		  )
+	      (setq generate-property t)
+	      )
+
+	    ;; go back to the original position
+	    (goto-char src-point)
+
+	    ;; do I have to generate the property?
+	    (if generate-property
+		(progn
+		  (insert ?\n ?\t
+			  "/**" ?\n
+			  " * " property-comment ?\n
+			  "*/" ?\n
+			  "private $" property-name " = null;" ?\n
+			  ?\n ?\n
+			  )			; end of the insert for the property
+		  (setq property-end-point (point) ) ; store where the property ends
+		  ;; indent the property region
+		  (c-indent-region property-insertion-point property-end-point t)
+
+
+		  ;; go to the end of the buffer and position before the last
+		  ;; curly brace that should close the class
+		  (goto-char (point-max))		; goto end of buffer
+		  (re-search-backward "}")		; go back to the last }
+		  (setq method-insertion-point (point) ) ; store where the methods will be added
+
+		  (if generate-getter
+		      (insert ?\n ?\t
+			      "/**" ?\n
+			      "* Getter for the property " property-name "." ?\n
+			      "* \\returns the current value of the property " property-name ?\n
+			      "*" ?\n
+			      "* \\author " user-full-name " - " user-mail-address ?\n
+			      "*/" ?\n
+			      "public function " getter-name "(){"
+			      ?\n ?\t
+			      "return $this->" property-name ";"
+			      ?\n ?\t
+			      "}"
+			      ?\n ?\n ?\n
+			      )		; end of the insert for the getter
+		    (message "Skipping the generation of the getter method")
+		    )			; end of the if for the getter method
+		  (if generate-setter
+		      (insert
+		       ?\n ?\t
+		       "/**" ?\n
+		       "* Setter of the property " property-name "." ?\n
+		       "* \\param " setter-arg-name " the new value for the property" ?\n
+		       "*" ?\n
+		       "* \\author " user-full-name " - " user-mail-address ?\n
+		       "*/" ?\n
+		       "public function " setter-name "( " setter-arg-name " ){"
+		       ?\n ?\t
+		       "$this->" property-name " = " setter-arg-name ";"
+		       ?\n ?\t
+		       "}"
+		       ?\n ?\n ?\n
+		       )			; end of the insert body for the setter method
+		    (message "Skipping the generation of the setter method")
+		    )				; end of the if for the setter method
+
+
+		  ;; indent the region for the methods
+		  (c-indent-region method-insertion-point (point) t)
+
+		  ) 				; end of the progn on the generation of the property
+
+	      (message "Cannot generate the property [%s], it already exists at line %d"
+		       property-name
+		       (count-lines 1 property-insertion-point ) )
+	      )				; end of the if for the property generation
+
+
+	    ) 					; end of progn within save excursion
+	  )					; end of the save-escurion
+	)						; end of the let main body
+
+      )					;end of the if on the property name
+    )					; end of the progn
+  )
+
+
+;; trail whitespaceを表示する
+(setq-default show-trailing-whitespace t)
+
+;; whitespaceを表示するモードの制御
+;; whitespaceを表示しないモードのリスト
+(defvar my/disable-trailing-modes
+  '(commit-mode
+    eshell-mode
+    )
+  )
+
+(defun my/disable-trailing-mode-hook ()
+  "Disable show trail whitespaces"
+  (setq show-trailing-whitespace nil)
+  )
+
+(mapc
+ (lambda (mode)
+   (add-hook (intern (concat (symbol-name mode) "-hook"))
+	     "my/disable-trailing-mode-hook"))
+ my/disable-trailing-modes)
