@@ -379,9 +379,9 @@
     :require t
     :custom
     (
-     (lsp-inhibit-message t)
-     (lsp-message-project-root-warning t)
-     (create-lockfiles nil)
+     (lsp-inhibit-message . t)
+     (lsp-message-project-root-warning . t)
+     (create-lockfiles . nil)
      (lsp-completion-provider . :none)
      )
     :hook
@@ -391,7 +391,7 @@
     :ensure t
     :require t
     :after lsp-mode
-    :custom (scroll-margin 0)
+    :custom ((lsp-lens--enable . t))
     :hook (lsp-mode-hook . lsp-ui-mode)
 )
 
@@ -412,19 +412,7 @@
 (leaf kuronami-theme
   :ensure t
   :config
-;; (load-theme 'kuronami t)
 )
-
-;; (leaf monokai-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'monokai t))
-
-(leaf timu-caribbean-theme
-  :ensure t
-;  :config
-;  (load-theme 'timu-caribbean t)
-  )
 
 ; 他プロセスの編集をバッファに反映する
 (leaf autorevert
@@ -731,7 +719,6 @@
 ; consult--source-project-recent-file
 ; consult--source-bookmark
 ; :preview-key (kbd "M-."))
-; (load-theme 'dracula t)
 (load-file custom-file)
 (put 'upcase-region 'disabled nil)
 
@@ -779,7 +766,7 @@
 ;;    (byte-compile-file "~/.emacs"))
 
 ;; color scheme
-;(load-theme 'doom-horizon t)
+(load-theme 'doom-moonlight t)
 
 (let* ((zshpath (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'" ))
        (pathlst (split-string zshpath ":")))
