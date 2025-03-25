@@ -406,7 +406,7 @@
   )
 
 (leaf typst-ts-mode
-  :elpaca (:type git :host sourcehut :repo "meow_king/typst-ts-mode")
+;;  :elpaca (:type git :host sourcehut :repo "meow_king/typst-ts-mode")
   :custom
   (typst-ts-mode-watch-options . "--open"))
 
@@ -778,7 +778,7 @@
 ;;    (byte-compile-file "~/.emacs"))
 
 ;; color scheme
-(load-theme 'doom-shades-of-purple t)
+(load-theme 'doom-feather-light t)
 
 (let* ((zshpath (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'" ))
        (pathlst (split-string zshpath ":")))
