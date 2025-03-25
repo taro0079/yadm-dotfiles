@@ -395,8 +395,20 @@
     :hook (lsp-mode-hook . lsp-ui-mode)
 )
 
+(leaf lsp-pyright
+  :ensure t
+  :require t
+  :custom ((lsp-pyright-langserver-command . "pyright"))
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp)
+                         ))
+  )
 
-
+(leaf typst-ts-mode
+  :elpaca (:type git :host sourcehut :repo "meow_king/typst-ts-mode")
+  :custom
+  (typst-ts-mode-watch-options . "--open"))
 
 (leaf elec-pair
   :config
@@ -766,7 +778,7 @@
 ;;    (byte-compile-file "~/.emacs"))
 
 ;; color scheme
-(load-theme 'doom-moonlight t)
+(load-theme 'doom-shades-of-purple t)
 
 (let* ((zshpath (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'" ))
        (pathlst (split-string zshpath ":")))
@@ -1009,3 +1021,74 @@
    (add-hook (intern (concat (symbol-name mode) "-hook"))
 	     "my/disable-trailing-mode-hook"))
  my/disable-trailing-modes)
+
+;; for typst
+;; UNDER CONSTRUCTION
+
+;; (defun org-typst-export-slide (filename)
+;;   "Org mode bufferをTypstスライドに変換し、指定されたファイル名で保存します。"
+;;   (interactive "F出力ファイル名: ")
+;;   (let ((org-text (buffer-string))
+;;         (typst-text ""))
+
+;;     (org-map-entries
+;;      (lambda ()
+;;        (let ((level (org-current-level))
+;;              (heading (org-get-heading t))
+;;              (body (org-element-contents (org-element-at-point))))
+
+;;          (setq typst-text
+;;                (concat typst-text
+;;                        (cond
+;;                         ((= level 1) (format "#slide(title: \"%s\")\n%s\n\n" heading (org-element-interpret-data body)))
+;;                         ((= level 2) (format "== %s\n%s\n\n" heading (org-element-interpret-data body)))
+;;                         ((= level 3) (format "=== %s\n%s\n\n" heading (org-element-interpret-data body)))
+;;                         (t (format "%s\n\n" (org-element-interpret-data body))))))))
+
+;;     (with-temp-file filename
+;;       (insert typst-text))
+
+;;     (message "Typstスライドを %s に保存しました。" filename))))
+
+;; (defun org-element-interpret-data (element)
+;;   "Org elementの内容をTypst形式の文字列に変換します。"
+;;   (let ((result ""))
+;;     (dolist (item element)
+;;       (setq result
+;;             (concat result
+;;                     (cond
+;;                      ((eq (car item) 'paragraph) (format "%s\n" (org-element-interpret-data (cdr item))))
+;;                      ((eq (car item) 'plain-list) (org-element-interpret-plain-list (cdr item)))
+;;                      ((eq (car item) 'src-block) (org-element-interpret-src-block (cdr item)))
+;;                      ((eq (car item) 'bold) (format "*%s*" (org-element-interpret-data (cdr item))))
+;;                      ((eq (car item) 'italic) (format "_%s_" (org-element-interpret-data (cdr item))))
+;;                      ((eq (car item) 'verbatim) (format "`%s`" (org-element-interpret-data (cdr item))))
+;;                      ((eq (car item) 'link) (org-element-interpret-link (cdr item)))
+;;                      ((stringp item) item)
+;;                      (t (format "（未対応要素: %s）" (car item)))))))
+;;     result))
+
+;; (defun org-element-interpret-plain-list (element)
+;;   "Org plain-list要素をTypst形式の文字列に変換します。"
+;;   (let ((result ""))
+;;     (dolist (item element)
+;;       (let ((bullet (plist-get item :bullet))
+;;             (contents (plist-get item :contents)))
+;;         (setq result (concat result (format "%s %s\n" bullet (org-element-interpret-data contents))))))
+;;     result))
+
+;; (defun org-element-interpret-src-block (element)
+;;   "Org src-block要素をTypst形式の文字列に変換します。"
+;;   (let ((result ""))
+;;     (let ((lang (plist-get (car element) :language))
+;;           (code (plist-get (car element) :value)))
+;;       (setq result (format "`%s\n%s\n`\n" lang code)))
+;;     result))
+
+;; (defun org-element-interpret-link (element)
+;;   "Org link要素をTypst形式の文字列に変換します。"
+;;   (let ((result ""))
+;;     (let ((path (plist-get (car element) :path))
+;;           (description (plist-get (car element) :description)))
+;;       (setq result (format "[%s](%s)" (or description path) path)))
+;;     result))

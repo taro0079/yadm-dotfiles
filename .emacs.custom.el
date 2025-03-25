@@ -5,10 +5,10 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    '(copilot dash editorconfig eglot-booster leaf ob-mermaid php-mode
-	     ruby-mode s))
+             ruby-mode s typst-ts-mode))
  '(package-vc-selected-packages
    '((eglot-booster :vc-backend Git :url
-		    "https://github.com/jdtsmith/eglot-booster")))
+                    "https://github.com/jdtsmith/eglot-booster")))
  '(warning-suppress-log-types '((copilot copilot-exceeds-max-char))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
