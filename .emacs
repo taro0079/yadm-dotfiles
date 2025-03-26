@@ -255,8 +255,8 @@
   (php-mode-hook . (lambda () (flymake-phpstan-turn-on)))
   :ensure t
   :custom
-  (php-manual-url 'ja)
-  (php-mode-coding-style 'psr2)
+  (php-manual-url . 'ja)
+  (php-mode-coding-style . 'psr2)
   :config
   (bind-key "C-c C--" 'php-current-class php-mode-map)
   (bind-key "C-c C-=" 'php-current-namespace php-mode-map)
@@ -601,6 +601,14 @@
   :ensure t
 ;;  :hook (php-mode-hook . (lambda () (flymake-phpstan-turn-on)))
   )
+
+(leaf web-mode
+    :ensure t
+    :custom
+    (web-mode-enable-auto-pairing . t)
+    :mode "\\.\\(html\\|twig\\|blade\\)$'"
+
+    )
 
 
 (leaf affe
