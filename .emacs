@@ -128,7 +128,9 @@
 (leaf wgrep
   :require t
   :ensure t)
-
+(leaf doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
 
 (leaf puni
   :ensure t
@@ -222,23 +224,35 @@
 (leaf consult-ghq
   :ensure t
   :require t
-  :config
-  (setq consult-ghq-find-function #'consult-find)
   :bind
   ("C-c g" . consult-ghq-find)
 )
 (leaf vertico
   :ensure t
   :global-minor-mode t)
+(leaf ace-window
+    :ensure t
+    :require t
+    :bind
+    ("M-o" . ace-window)
+    :config
+    (setopt aw-keys '(?j ?k ?l ?i ?o ?h ?y ?u ?p))
+    :custom-face
+    (aw-leading-char-face . '((t (:height 4.0 :foreground "#f1fa8c"))))
+    )
 
 (defun my-php-mode ()
   (setq show-trailing-whitespace t)
+  (require 'flycheck-phpstan)
+  (flycheck-mode t)
   )
 
 (leaf php-mode
   :hook
-  (php-mode . my-php-mode)
-  (php-mode . php-ts-mode)
+  (php-mode-hook . my-php-mode)
+  (php-mode-hook . php-ts-mode)
+  (php-mode-hook . lsp)
+  (php-mode-hook . (lambda () (flymake-phpstan-turn-on)))
   :ensure t
   :custom
   (php-manual-url 'ja)
@@ -489,6 +503,13 @@
   ("\\.org$'" . org-mode)
   )
 
+(leaf org-bullets
+      :ensure t
+      :require t
+;;      :custom (org-bullets-bullet-list '("" "" "" "" "" "" "" "" "" ""))
+      :hook (org-mode-hook . org-bullets-mode))
+
+
 (leaf org-modern
   :ensure t
   :require t
@@ -575,6 +596,12 @@
   :bind ((prog-mode-map
           ("M-n" . flymake-goto-next-error)
           ("M-p" . flymake-goto-prev-error))))
+
+(leaf flymake-phpstan
+  :ensure t
+;;  :hook (php-mode-hook . (lambda () (flymake-phpstan-turn-on)))
+  )
+
 
 (leaf affe
   :ensure t
@@ -778,7 +805,7 @@
 ;;    (byte-compile-file "~/.emacs"))
 
 ;; color scheme
-(load-theme 'doom-feather-light t)
+(load-theme 'doom-one t)
 
 (let* ((zshpath (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'" ))
        (pathlst (split-string zshpath ":")))
