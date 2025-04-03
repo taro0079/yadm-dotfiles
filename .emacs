@@ -128,9 +128,37 @@
 (leaf wgrep
   :require t
   :ensure t)
+
+(leaf lua-mode
+  :ensure t)
+
 (leaf doom-modeline
   :ensure t
   :init (doom-modeline-mode 1))
+
+; RSSリーダー
+(leaf elfeed
+  :ensure t
+  :bind
+  ("C-x w e" . elfeed)
+  :custom
+  (elfeed-feeds . '(
+    ("http://nullprogram.com/feed/" blog emacs)
+    ("https://news.yahoo.co.jp/rss/topics/top-picks.xml" news yahoo)
+    ("https://news.yahoo.co.jp/rss/topics/science.xml" news yahoo science)
+    ("https://rss.arxiv.org/rss/cond-mat.supr-con" articles science superconductively)
+    ("https://qiita.com/popular-items/feed.atom" tech blog)
+    ("https://zenn.dev/feed" tech blog)
+    ("https://planet.emacslife.com/atom.xml" tech emacs)
+    ))
+  )
+
+(leaf undo-tree
+    :ensure t
+    :global-minor-mode global-undo-tree-mode
+    :custom
+    (undo-tree-auto-save-history . nil)
+    )
 
 (leaf puni
   :ensure t
@@ -204,6 +232,11 @@
 ;;  :config
 ;;  (setq phpactor-executable "/home/taro_morita/.local/bin/phpactor")
   )
+(leaf psysh
+    :ensure t)
+(leaf quickrun
+    :ensure t)
+
 (leaf visual-regexp
   :ensure t
   :bind
@@ -251,7 +284,7 @@
   :hook
   (php-mode-hook . my-php-mode)
   (php-mode-hook . php-ts-mode)
-  (php-mode-hook . lsp)
+  (php-mode-hook . lsp-mode)
   (php-mode-hook . (lambda () (flymake-phpstan-turn-on)))
   :ensure t
   :custom
@@ -397,6 +430,7 @@
      (lsp-message-project-root-warning . t)
      (create-lockfiles . nil)
      (lsp-completion-provider . :none)
+     (gc-cons-threshold . 100000000)
      )
     :hook
     (prog-major-mode . lsp-prog-major-mode-enable))
@@ -501,6 +535,11 @@
   :ensure t
   :mode
   ("\\.org$'" . org-mode)
+  :custom
+  (org-directory . "~/org-roam/")
+  (org-agenda-files . '("~/org-roam/" "~/org-roam/daily/"))
+  :bind
+  ("C-c a" . org-agenda)
   )
 
 (leaf org-bullets
@@ -509,6 +548,116 @@
 ;;      :custom (org-bullets-bullet-list '("" "" "" "" "" "" "" "" "" ""))
       :hook (org-mode-hook . org-bullets-mode))
 
+;; modal editing
+(leaf meow
+    :ensure t
+    :config
+    )
+
+(defun meow-setup ()
+      (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+  (meow-motion-define-key
+   '("j" . meow-next)
+   '("k" . meow-prev)
+   '("<escape>" . ignore))
+  (meow-leader-define-key
+   ;; Use SPC (0-9) for digit arguments.
+   '("1" . meow-digit-argument)
+   '("2" . meow-digit-argument)
+   '("3" . meow-digit-argument)
+   '("4" . meow-digit-argument)
+   '("5" . meow-digit-argument)
+   '("6" . meow-digit-argument)
+   '("7" . meow-digit-argument)
+   '("8" . meow-digit-argument)
+   '("9" . meow-digit-argument)
+   '("0" . meow-digit-argument)
+   '("/" . meow-keypad-describe-key)
+   '("?" . meow-cheatsheet))
+  (meow-normal-define-key
+   '("0" . meow-expand-0)
+   '("9" . meow-expand-9)
+   '("8" . meow-expand-8)
+   '("7" . meow-expand-7)
+   '("6" . meow-expand-6)
+   '("5" . meow-expand-5)
+   '("4" . meow-expand-4)
+   '("3" . meow-expand-3)
+   '("2" . meow-expand-2)
+   '("1" . meow-expand-1)
+   '("-" . negative-argument)
+   '(";" . meow-reverse)
+   ;; '("," . meow-inner-of-thing)
+   '("." . meow-bounds-of-thing)
+   '("[" . meow-beginning-of-thing)
+   '("]" . meow-end-of-thing)
+   '("a" . meow-append)
+   '("A" . meow-open-below)
+   '("b" . meow-back-word)
+   '("B" . meow-back-symbol)
+   '("c" . meow-change)
+   '("d" . meow-delete)
+   '("D" . meow-backward-delete)
+   '("e" . meow-next-word)
+   '("E" . meow-next-symbol)
+   '("f" . meow-find)
+   '("g" . meow-cancel-selection)
+   '("G" . meow-grab)
+   '("h" . meow-left)
+   '("H" . meow-left-expand)
+   '("i" . meow-insert)
+   '("I" . meow-open-above)
+   '("j" . meow-next)
+   '("J" . meow-next-expand)
+   '("k" . meow-prev)
+   '("K" . meow-prev-expand)
+   '("l" . meow-right)
+   '("L" . meow-right-expand)
+   '("m" . meow-join)
+   '("n" . meow-search)
+   '("o" . meow-block)
+   '("O" . meow-to-block)
+   '("p" . meow-yank)
+   '("q" . meow-quit)
+   '("Q" . meow-goto-line)
+   '("r" . meow-replace)
+   '("R" . meow-swap-grab)
+   '("s" . meow-kill)
+   '("t" . meow-till)
+   '("u" . meow-undo)
+   '("U" . meow-undo-in-selection)
+   ;; '("v" . meow-visit)
+   '("w" . meow-mark-word)
+   '("W" . meow-mark-symbol)
+   '("x" . meow-line)
+   '("X" . meow-goto-line)
+   '("y" . meow-save)
+   '("Y" . meow-sync-grab)
+   '("z" . meow-pop-selection)
+   '("'" . repeat)
+   '("<escape>" . ignore)
+   '("<backspace>" . puni-backward-delete-char)
+   '("v i" . meow-inner-of-thing)
+   '("v a" . meow-bounds-of-thing)
+   '("v c" . puni-mark-list-around-point)
+   '("v x" . puni-mark-sexp-around-point)
+   '(", b d" . kill-t)
+   '(", w d" . delete-window)
+   '(", w v" . split-window-vertically)
+   '(", w s" . split-window-horizontally)
+   '(", a (" . puni-wrap-round)
+   '(", a [" . puni-wrap-square)
+   '(", a {" . puni-wrap-curly)
+   '(", a <" . puni-wrap-angle)
+   '(", a d" . puni-splice)
+   '(", s l" . puni-slurp-forward)
+   '(", b a" . puni-slurp-forward)
+
+   ))
+
+(require 'meow)
+(meow-setup)
+(meow-global-mode 1)
 
 (leaf org-modern
   :ensure t
@@ -525,8 +674,14 @@
 
 (leaf blamer
   :ensure t
+  :custom
+  (blamer-idle-time . 0.3)
+  (blamer-min-offset . 70)
+  (blamer-type 'visual)
+  (blamer-pretty-time-p . t)
   :config
-  (global-blamer-mode 1))
+  (global-blamer-mode 1)
+  )
 
 (leaf ripgrep
   :ensure t)
@@ -586,7 +741,10 @@
 (leaf diff-hl
   :ensure t
   :config
-  (global-diff-hl-mode))
+  (global-diff-hl-mode)
+  :hook
+  (magit-post-refresh-hook . diff-hl-magit-post-refresh)
+ )
 
 
 (defvar my-error-map (make-keymap))
@@ -599,7 +757,7 @@
 
 (leaf flymake-phpstan
   :ensure t
-;;  :hook (php-mode-hook . (lambda () (flymake-phpstan-turn-on)))
+  :hook (php-mode-hook . (lambda () (flymake-phpstan-turn-on)))
   )
 
 (leaf web-mode
@@ -646,8 +804,8 @@
    ("C-x m" . org-roam-dailies-capture-today)
    ("C-c n v" . org-roam-node-visit)
    )
-  :config
-  (org-roam-db-autosync-mode)
+  ;; :config
+  ;; (org-roam-db-autosync-mode)
   )
 (leaf marginalia
   :ensure t
@@ -701,6 +859,7 @@
       )))
 (add-hook 'after-save-hook (lambda () (transport-project-file "~/ghq/rpst-docker/" "taro_morita@dev-tmorita:/var/lib/rpst-docker/")))
 (add-hook 'after-save-hook (lambda () (transport-project-file "~/ghq/rpst-v2/" "taro_morita@rpst-api:/var/lib/rpst-api-docker/rpst-v2/")))
+(add-hook 'after-save-hook (lambda () (transport-project-file "~/ghq/rpst/" "taro_morita@dev-tmorita:/var/www/precs/dev_tmorita/")))
 
 (defun transport-rpst-api ()
   (when (and (buffer-file-name)
@@ -813,7 +972,7 @@
 ;;    (byte-compile-file "~/.emacs"))
 
 ;; color scheme
-(load-theme 'doom-one t)
+(load-theme 'doom-dark+ t)
 
 (let* ((zshpath (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'" ))
        (pathlst (split-string zshpath ":")))
@@ -1127,3 +1286,6 @@
 ;;           (description (plist-get (car element) :description)))
 ;;       (setq result (format "[%s](%s)" (or description path) path)))
 ;;     result))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t)))
