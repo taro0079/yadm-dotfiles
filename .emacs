@@ -597,7 +597,7 @@
    '("B" . meow-back-symbol)
    '("c" . meow-change)
    '("d" . meow-delete)
-   '("D" . meow-backward-delete)
+   '("D" . delete-region)
    '("e" . meow-next-word)
    '("E" . meow-next-symbol)
    '("f" . meow-find)
@@ -641,10 +641,19 @@
    '("v a" . meow-bounds-of-thing)
    '("v c" . puni-mark-list-around-point)
    '("v x" . puni-mark-sexp-around-point)
+   '("v l" . end-of-line)
+   '("v h" . beginning-of-line)
+   '("v v" . puni-expand-region)
+   '("v j" . end-of-buffer)
+   '("v k" . beginning-of-buffer)
    '(", b d" . kill-t)
    '(", w d" . delete-window)
-   '(", w v" . split-window-vertically)
-   '(", w s" . split-window-horizontally)
+   '(", w h" . windmove-left)
+   '(", w l" . windmove-right)
+   '(", w j" . windmove-down)
+   '(", w k" . windmove-up)
+   '(", w v" . split-window-horizontally)
+   '(", w s" . split-window-vertically)
    '(", a (" . puni-wrap-round)
    '(", a [" . puni-wrap-square)
    '(", a {" . puni-wrap-curly)
@@ -652,7 +661,8 @@
    '(", a d" . puni-splice)
    '(", s l" . puni-slurp-forward)
    '(", b a" . puni-slurp-forward)
-
+   '(": w" . save-buffer) ;; like vim save
+   '(": q" . meow-quit)
    ))
 
 (require 'meow)
@@ -972,7 +982,7 @@
 ;;    (byte-compile-file "~/.emacs"))
 
 ;; color scheme
-(load-theme 'doom-dark+ t)
+(load-theme 'doom-gruvbox t)
 
 (let* ((zshpath (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'" ))
        (pathlst (split-string zshpath ":")))
