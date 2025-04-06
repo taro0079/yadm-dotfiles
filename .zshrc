@@ -208,3 +208,4 @@ export PATH="$HOME/node_modules/@github/copilot-language-server/native/darwin-ar
 alias mbv2="~/.local/scripts/match-branch-local-and-remote.sh ~/ghq/rpst-v2/ /var/www/rpst-v2/dev/ dev-tmorita"
 alias mbv1="~/.local/scripts/match-branch-local-and-remote.sh ~/ghq/rpst/ /var/www/precs/dev_tmorita/ dev-tmorita"
 alias E="open /Applications/Emacs.app"
+alias rsi="~/.local/scripts/crm-scraper/extract_shop_info.sh" # get rpst shop info
