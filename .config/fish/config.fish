@@ -1,4 +1,3 @@
-
 if test "$TERM" = dumb
     function fish_prompt
         echo "\$ "
@@ -82,3 +81,5 @@ set -gx PATH "$HOME/.symfony5/bin" $PATH
 set TERM alacritty
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
+alias E="open /Applications/Emacs.app"
+alias rsi="~/.local/scripts/crm-scraper/extract_shop_info.sh" # get rpst shop info
