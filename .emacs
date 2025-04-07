@@ -12,7 +12,9 @@
 (setq create-lockfiles nil)
 (delete-selection-mode 1)
 
+(hl-line-mode t) ; 行のハイライト
 (set-language-environment "Japanese")
+
 ;; ファイルを自動で行を折り返す
 (global-visual-line-mode 1)
 ;; config for shell
@@ -94,7 +96,8 @@
 ;(ido-mode 1)
 ;(ido-everywhere 1)
 ;(setq ido-show-dot-for-dired t)
-(setq display-line-numbers-type 'relative)
+;; (setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type t)
 (global-display-line-numbers-mode)
 
 (load-file custom-file)
@@ -230,6 +233,7 @@
   :custom `((dmacro-key . ,(kbd "C-S-e")))
   :global-minor-mode global-dmacro-mode
   )
+;; FOR PHP DEVELOPMENT
 
 (leaf phpactor
   :ensure t
@@ -242,7 +246,13 @@
 (leaf psysh
     :ensure t)
 (leaf quickrun
-    :ensure t)
+  :ensure t)
+
+(leaf phpunit
+  :ensure t
+  :config
+  (setq phpunit-executable "docker compose run --rm devcontainer phpunit")
+    )
 
 (leaf visual-regexp
   :ensure t
@@ -283,7 +293,7 @@
 
 (defun my-php-mode ()
   (setq show-trailing-whitespace t)
-  (require 'flycheck-phpstan)
+  (require 'flymake-phpstan)
   (flycheck-mode t)
   )
 
@@ -555,120 +565,157 @@
 ;;      :custom (org-bullets-bullet-list '("" "" "" "" "" "" "" "" "" ""))
       :hook (org-mode-hook . org-bullets-mode))
 
+;; disable meow for now
 ;; modal editing
-(leaf meow
-    :ensure t
-    :config
-    )
+;; (leaf meow
+;;     :ensure t
+;;     :config
+;;     (setopt meow-use-clipboard t)
+;;     )
 
-(defun meow-setup ()
-      (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-  (meow-motion-define-key
-   '("j" . meow-next)
-   '("k" . meow-prev)
-   '("<escape>" . ignore))
-  (meow-leader-define-key
-   ;; Use SPC (0-9) for digit arguments.
-   '("1" . meow-digit-argument)
-   '("2" . meow-digit-argument)
-   '("3" . meow-digit-argument)
-   '("4" . meow-digit-argument)
-   '("5" . meow-digit-argument)
-   '("6" . meow-digit-argument)
-   '("7" . meow-digit-argument)
-   '("8" . meow-digit-argument)
-   '("9" . meow-digit-argument)
-   '("0" . meow-digit-argument)
-   '("/" . meow-keypad-describe-key)
-   '("?" . meow-cheatsheet))
-  (meow-normal-define-key
-   '("0" . meow-expand-0)
-   '("9" . meow-expand-9)
-   '("8" . meow-expand-8)
-   '("7" . meow-expand-7)
-   '("6" . meow-expand-6)
-   '("5" . meow-expand-5)
-   '("4" . meow-expand-4)
-   '("3" . meow-expand-3)
-   '("2" . meow-expand-2)
-   '("1" . meow-expand-1)
-   '("-" . negative-argument)
-   '(";" . meow-reverse)
-;;   '("," . meow-inner-of-thing)
-   '("." . meow-bounds-of-thing)
-   '("[" . meow-beginning-of-thing)
-   '("]" . meow-end-of-thing)
-   '("a" . meow-append)
-   '("A" . meow-open-below)
-   '("b" . meow-back-word)
-   '("B" . meow-back-symbol)
-   '("c" . meow-change)
-   '("d" . meow-delete)
-   '("D" . delete-region)
-   '("e" . meow-next-word)
-   '("E" . meow-next-symbol)
-   '("f" . meow-find)
-   '("g" . meow-cancel-selection)
-   '("G" . meow-grab)
-   '("h" . meow-left)
-   '("H" . meow-left-expand)
-   '("i" . meow-insert)
-   '("I" . meow-open-above)
-   '("j" . meow-next)
-   '("J" . meow-next-expand)
-   '("k" . meow-prev)
-   '("K" . meow-prev-expand)
-   '("l" . meow-right)
-   '("L" . meow-right-expand)
-   '("m" . meow-join)
-   '("n" . meow-search)
-   '("o" . meow-block)
-   '("O" . meow-to-block)
-   '("p" . meow-yank)
-   '("q" . meow-quit)
-   '("Q" . meow-goto-line)
-   '("r" . meow-replace)
-   '("R" . meow-swap-grab)
-   '("s" . meow-kill)
-   '("t" . meow-till)
-   '("u" . meow-undo)
-   '("U" . meow-undo-in-selection)
-   ;; '("v" . meow-visit)
-   '("w" . meow-mark-word)
-   '("W" . meow-mark-symbol)
-   '("x" . meow-line)
-   '("X" . meow-goto-line)
-   '("y" . meow-save)
-   '("Y" . meow-sync-grab)
-   '("z" . meow-pop-selection)
-   '("'" . repeat)
-   '("<escape>" . ignore)
-   '("<backspace>" . puni-backward-delete-char)
-   '("v i" . meow-inner-of-thing)
-   '("v a" . meow-bounds-of-thing)
-   '("v c" . puni-mark-list-around-point)
-   '("v x" . puni-mark-sexp-around-point)
-   '("v l" . end-of-line)
-   '("v h" . beginning-of-line)
-   '("v v" . puni-expand-region)
-   '("v j" . end-of-buffer)
-   '("v k" . beginning-of-buffer)
-   '(", b d" . kill-t)
-   '(", w d" . delete-window)
-   '(", w h" . windmove-left)
-   '(", w l" . windmove-right)
-   '(", w j" . windmove-down)
-   '(", w k" . windmove-up)
-   '(", w v" . split-window-horizontally)
-   '(", w s" . split-window-vertically)
-   '(": w" . save-buffer) ;; like vim save
-   '(": q" . meow-quit)
+;; (defun meow-setup ()
+;;       (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+;;   (meow-motion-define-key
+;;    '("j" . meow-next)
+;;    '("k" . meow-prev)
+;;    '("<escape>" . ignore))
+;;   (meow-leader-define-key
+;;    ;; Use SPC (0-9) for digit arguments.
+;;    '("1" . meow-digit-argument)
+;;    '("2" . meow-digit-argument)
+;;    '("3" . meow-digit-argument)
+;;    '("4" . meow-digit-argument)
+;;    '("5" . meow-digit-argument)
+;;    '("6" . meow-digit-argument)
+;;    '("7" . meow-digit-argument)
+;;    '("8" . meow-digit-argument)
+;;    '("9" . meow-digit-argument)
+;;    '("0" . meow-digit-argument)
+;;    '("/" . meow-keypad-describe-key)
+;;    '("?" . meow-cheatsheet))
+;;   (meow-normal-define-key
+;;    '("0" . meow-expand-0)
+;;    '("9" . meow-expand-9)
+;;    '("8" . meow-expand-8)
+;;    '("7" . meow-expand-7)
+;;    '("6" . meow-expand-6)
+;;    '("5" . meow-expand-5)
+;;    '("4" . meow-expand-4)
+;;    '("3" . meow-expand-3)
+;;    '("2" . meow-expand-2)
+;;    '("1" . meow-expand-1)
+;;    '("-" . negative-argument)
+;;    '(";" . meow-reverse)
+;; ;;   '("," . meow-inner-of-thing)
+;;    '("." . meow-bounds-of-thing)
+;;    '("[" . meow-beginning-of-thing)
+;;    '("]" . meow-end-of-thing)
+;;    '("a" . meow-append)
+;;    '("A" . meow-open-below)
+;;    '("b" . meow-back-word)
+;;    '("B" . meow-back-symbol)
+;;    '("c" . meow-change)
+;;    '("d" . meow-delete)
+;;    '("D" . delete-region)
+;;    '("e" . meow-next-word)
+;;    '("E" . meow-next-symbol)
+;;    ;; '("f" . meow-find)
+;;    '("f" . avy-goto-char-timer)
+;;    '("g" . meow-cancel-selection)
+;;    '("G" . meow-grab)
+;;    '("h" . meow-left)
+;;    '("H" . meow-left-expand)
+;;    '("i" . meow-insert)
+;;    '("I" . meow-open-above)
+;;    '("j" . meow-next)
+;;    '("J" . meow-next-expand)
+;;    '("k" . meow-prev)
+;;    '("K" . meow-prev-expand)
+;;    '("l" . meow-right)
+;;    '("L" . meow-right-expand)
+;;    '("m" . meow-join)
+;;    '("n" . meow-search)
+;;    '("o" . meow-block)
+;;    '("O" . meow-to-block)
+;;    '("p" . meow-yank)
+;;    '("q" . meow-quit)
+;;    '("Q" . meow-goto-line)
+;;    '("r" . meow-replace)
+;;    '("R" . meow-swap-grab)
+;;    '("s" . meow-kill)
+;;    '("t" . meow-till)
+;;    '("u" . meow-undo)
+;;    '("U" . meow-undo-in-selection)
+;;    ;; '("v" . meow-visit)
+;;    '("w" . meow-mark-word)
+;;    '("W" . meow-mark-symbol)
+;;    '("x" . meow-line)
+;;    '("X" . meow-goto-line)
+;;    '("y" . meow-save)
+;;    '("Y" . meow-sync-grab)
+;;    '("z" . meow-pop-selection)
+;;    '("'" . repeat)
+;;    '("<escape>" . ignore)
+;;    '("<backspace>" . puni-backward-delete-char)
+;;    '("v i" . meow-inner-of-thing)
+;;    '("v a" . meow-bounds-of-thing)
+;;    '("v c" . puni-mark-list-around-point)
+;;    '("v x" . puni-mark-sexp-around-point)
+;;    '("v l" . end-of-line)
+;;    '("v h" . beginning-of-line)
+;;    '("v v" . puni-expand-region)
+;;    '("v j" . end-of-buffer)
+;;    '("v k" . beginning-of-buffer)
+;;    '(", b d" . kill-t)
+;;    '(", w d" . delete-window)
+;;    '(", w h" . windmove-left)
+;;    '(", w l" . windmove-right)
+;;    '(", w j" . windmove-down)
+;;    '(", w k" . windmove-up)
+;;    '(", w v" . split-window-horizontally)
+;;    '(", w s" . split-window-vertically)
+;;    '(": w" . save-buffer) ;; like vim save
+;;    '(": q" . meow-quit)
+;;    ))
+
+;; (require 'meow)
+;; (meow-setup)
+;;
+    (meow-global-mode 1)
+
+;; local LLM
+(leaf ellama
+  :ensure t
+  :bind ("C-c e" . ellama)
+  :init
+  (require 'llm-ollama)
+  (setopt ellama-auto-scroll t)
+  (ellama-context-header-line-global-mode +1)
+  (ellama-session-header-line-global-mode +1)
+  (setopt ellama-language "Japanese")
+  (setopt ellama-provider (make-llm-ollama
+    :chat-model "codestral:22b-v0.1-q4_K_S"
+    :embedding-model "codestral:22b-v0.1-q4_K_S"
+    ))
+  (setopt ellama-translation-provider (make-llm-ollama
+    :chat-model "aya:12b"
+    :embedding-model "aya:12b"
+    ))
+  (setopt ellama-providers
+    '(("codestral" . (make-llm-ollama
+        :chat-model "codestral:22b-v0.1-q4_K_S"
+        :embedding-model "codestral:22b-v0.1-q4_K_S"))
+     ("gemma2" . (make-llm-ollama
+        :chat-model "gemma2:13b"
+        :embedding-model "gemma2:13b"))
+     ("aya" . (make-llm-ollama
+        :chat-model "aya:12b"
+        :embedding-model "aya:12b"))
+     ("llama3.1" . (make-llm-ollama
+        :chat-model "llama3.1:7b"
+        :embedding-model "llama3.1:7b"))
    ))
-
-(require 'meow)
-(meow-setup)
-(meow-global-mode 1)
-
+  )
 (leaf org-modern
   :ensure t
   :require t
@@ -702,12 +749,12 @@
 ;; (leaf dracula-theme
 ;;   :ensure t)
 ;; マルチカーソル
-;; (leaf multiple-cursors
-;;   :ensure t)
-;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(leaf multiple-cursors
+  :ensure t)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (leaf consult
   :ensure t
