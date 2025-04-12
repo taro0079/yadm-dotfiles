@@ -60,8 +60,8 @@ end
 function dox
     docker exec -it (docker ps --format "{{.Names}}" | fzf) sh
 end
-alias e='exa -la --icons --git'
-alias ls=e
+# alias e='exa -la --icons --git'
+# alias ls=e
 
 # alias for git command
 alias gst='git status'

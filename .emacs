@@ -12,11 +12,12 @@
 (setq create-lockfiles nil)
 (delete-selection-mode 1)
 
-(hl-line-mode t) ; 行のハイライト
+(global-hl-line-mode t) ; 行のハイライト
 (set-language-environment "Japanese")
 
 ;; ファイルを自動で行を折り返す
-(global-visual-line-mode 1)
+;;(global-visual-line-mode 1)
+(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
 ;; config for shell
 (setq-default shell-file-name "/bin/bash")
 ;; kill-ringした内容をOSのクリップボードにもコピーする
@@ -89,7 +90,7 @@
 
 					; (set-face-attribute 'default nil :family "Moralerspace Radon NF" :height 120)
 
-(set-frame-font "Moralerspace Radon NF-14")
+;; (set-frame-font "Moralerspace Radon NF-13")
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -129,6 +130,14 @@
 
 (rc-require 'leaf)
 
+
+;; (leaf lsp-pyright
+;;   :ensure t
+;;   :custom
+;;   (lsp-pyright-disable-language-service . nil)
+;;   (lsp-completion-enable t)
+;;   )
+
 (leaf wgrep
   :require t
   :ensure t)
@@ -141,6 +150,9 @@
 
 (leaf lua-mode
   :ensure t)
+(leaf rbenv
+  :ensure t
+  )
 
 (leaf doom-modeline
   :ensure t
@@ -189,8 +201,12 @@
 ;;   )
 
 (leaf ruby-mode
-  :ensure t)
+  :ensure t
+  :hook
+  (ruby-mode-hook . global-rbenv-mode)
+  )
 
+(setq ruby-program-name "ruby")
 ;; for dimmer
 ;; corfuのウィンドウが表示されたときに他のウィンドウが暗くなるのを抑制する
 (defun advise-dimmer-config-change-handler ()
@@ -215,6 +231,7 @@
    'dimmer-prevent-dimming-predicates
    #'corfu-frame-p))
 
+;; 非活性のウィンドウを薄くする
 (leaf dimmer
   :ensure t
   :require t
@@ -233,8 +250,10 @@
   :custom `((dmacro-key . ,(kbd "C-S-e")))
   :global-minor-mode global-dmacro-mode
   )
-;; FOR PHP DEVELOPMENT
 
+;; ========================
+;; FOR PHP DEVELOPMENT
+;; ========================
 (leaf phpactor
   :ensure t
   :require t
@@ -243,16 +262,22 @@
 ;;  :config
 ;;  (setq phpactor-executable "/home/taro_morita/.local/bin/phpactor")
   )
+
+;; REPL FOR PHP
 (leaf psysh
-    :ensure t)
-(leaf quickrun
   :ensure t)
 
+;; PHPUNIT
 (leaf phpunit
   :ensure t
   :config
   (setq phpunit-executable "docker compose run --rm devcontainer phpunit")
     )
+
+;; RUN CODE
+(leaf quickrun
+  :ensure t)
+
 
 (leaf visual-regexp
   :ensure t
@@ -379,6 +404,10 @@
 (leaf corfu
   :ensure t
   :require t
+  :config
+  (with-eval-after-load 'lsp-mode
+    (setq lsp-completion-mode :none)
+    )
   :custom
   (corfu-auto . t)
   (corfu-auto-delay . 0)
@@ -460,18 +489,8 @@
     :hook (lsp-mode-hook . lsp-ui-mode)
 )
 
-(leaf lsp-pyright
-  :ensure t
-  :require t
-  :custom ((lsp-pyright-langserver-command . "pyright"))
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp)
-                         ))
-  )
-
 (leaf typst-ts-mode
-;;  :elpaca (:type git :host sourcehut :repo "meow_king/typst-ts-mode")
+  ;;  :elpaca (:type git :host sourcehut :repo "meow_king/typst-ts-mode")
   :custom
   (typst-ts-mode-watch-options . "--open"))
 
@@ -489,7 +508,10 @@
 (leaf kuronami-theme
   :ensure t
   :config
-)
+  )
+
+;; (leaf 'eclipse-theme
+;;   :ensure t)
 
 ; 他プロセスの編集をバッファに反映する
 (leaf autorevert
@@ -567,121 +589,131 @@
 
 ;; disable meow for now
 ;; modal editing
-;; (leaf meow
-;;     :ensure t
-;;     :config
-;;     (setopt meow-use-clipboard t)
-;;     )
+(leaf meow
+  :ensure t
+  :config
+  (setopt meow-use-clipboard t)
+  :hook
+  ((meow-insert-exit-hook . (lambda nil
+                              (if skk-mode (skk-latin-mode-on))))
+   (eshell-mode-hook . meow-insert)
+   (after-change-major-mode-hook . (lambda nil
+                                     (if (and (featurep 'magit)
+                                              (magit-commit-message-buffer))
+                                         (meow-insert)))))
+  )
 
-;; (defun meow-setup ()
-;;       (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-;;   (meow-motion-define-key
-;;    '("j" . meow-next)
-;;    '("k" . meow-prev)
-;;    '("<escape>" . ignore))
-;;   (meow-leader-define-key
-;;    ;; Use SPC (0-9) for digit arguments.
-;;    '("1" . meow-digit-argument)
-;;    '("2" . meow-digit-argument)
-;;    '("3" . meow-digit-argument)
-;;    '("4" . meow-digit-argument)
-;;    '("5" . meow-digit-argument)
-;;    '("6" . meow-digit-argument)
-;;    '("7" . meow-digit-argument)
-;;    '("8" . meow-digit-argument)
-;;    '("9" . meow-digit-argument)
-;;    '("0" . meow-digit-argument)
-;;    '("/" . meow-keypad-describe-key)
-;;    '("?" . meow-cheatsheet))
-;;   (meow-normal-define-key
-;;    '("0" . meow-expand-0)
-;;    '("9" . meow-expand-9)
-;;    '("8" . meow-expand-8)
-;;    '("7" . meow-expand-7)
-;;    '("6" . meow-expand-6)
-;;    '("5" . meow-expand-5)
-;;    '("4" . meow-expand-4)
-;;    '("3" . meow-expand-3)
-;;    '("2" . meow-expand-2)
-;;    '("1" . meow-expand-1)
-;;    '("-" . negative-argument)
-;;    '(";" . meow-reverse)
-;; ;;   '("," . meow-inner-of-thing)
-;;    '("." . meow-bounds-of-thing)
-;;    '("[" . meow-beginning-of-thing)
-;;    '("]" . meow-end-of-thing)
-;;    '("a" . meow-append)
-;;    '("A" . meow-open-below)
-;;    '("b" . meow-back-word)
-;;    '("B" . meow-back-symbol)
-;;    '("c" . meow-change)
-;;    '("d" . meow-delete)
-;;    '("D" . delete-region)
-;;    '("e" . meow-next-word)
-;;    '("E" . meow-next-symbol)
-;;    ;; '("f" . meow-find)
-;;    '("f" . avy-goto-char-timer)
-;;    '("g" . meow-cancel-selection)
-;;    '("G" . meow-grab)
-;;    '("h" . meow-left)
-;;    '("H" . meow-left-expand)
-;;    '("i" . meow-insert)
-;;    '("I" . meow-open-above)
-;;    '("j" . meow-next)
-;;    '("J" . meow-next-expand)
-;;    '("k" . meow-prev)
-;;    '("K" . meow-prev-expand)
-;;    '("l" . meow-right)
-;;    '("L" . meow-right-expand)
-;;    '("m" . meow-join)
-;;    '("n" . meow-search)
-;;    '("o" . meow-block)
-;;    '("O" . meow-to-block)
-;;    '("p" . meow-yank)
-;;    '("q" . meow-quit)
-;;    '("Q" . meow-goto-line)
-;;    '("r" . meow-replace)
-;;    '("R" . meow-swap-grab)
-;;    '("s" . meow-kill)
-;;    '("t" . meow-till)
-;;    '("u" . meow-undo)
-;;    '("U" . meow-undo-in-selection)
-;;    ;; '("v" . meow-visit)
-;;    '("w" . meow-mark-word)
-;;    '("W" . meow-mark-symbol)
-;;    '("x" . meow-line)
-;;    '("X" . meow-goto-line)
-;;    '("y" . meow-save)
-;;    '("Y" . meow-sync-grab)
-;;    '("z" . meow-pop-selection)
-;;    '("'" . repeat)
-;;    '("<escape>" . ignore)
-;;    '("<backspace>" . puni-backward-delete-char)
-;;    '("v i" . meow-inner-of-thing)
-;;    '("v a" . meow-bounds-of-thing)
-;;    '("v c" . puni-mark-list-around-point)
-;;    '("v x" . puni-mark-sexp-around-point)
-;;    '("v l" . end-of-line)
-;;    '("v h" . beginning-of-line)
-;;    '("v v" . puni-expand-region)
-;;    '("v j" . end-of-buffer)
-;;    '("v k" . beginning-of-buffer)
-;;    '(", b d" . kill-t)
-;;    '(", w d" . delete-window)
-;;    '(", w h" . windmove-left)
-;;    '(", w l" . windmove-right)
-;;    '(", w j" . windmove-down)
-;;    '(", w k" . windmove-up)
-;;    '(", w v" . split-window-horizontally)
-;;    '(", w s" . split-window-vertically)
-;;    '(": w" . save-buffer) ;; like vim save
-;;    '(": q" . meow-quit)
-;;    ))
+(defun meow-setup ()
+      (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+  (meow-motion-define-key
+   '("j" . meow-next)
+   '("k" . meow-prev)
+   '("<escape>" . ignore))
+  (meow-leader-define-key
+   ;; Use SPC (0-9) for digit arguments.
+   '("1" . meow-digit-argument)
+   '("2" . meow-digit-argument)
+   '("3" . meow-digit-argument)
+   '("4" . meow-digit-argument)
+   '("5" . meow-digit-argument)
+   '("6" . meow-digit-argument)
+   '("7" . meow-digit-argument)
+   '("8" . meow-digit-argument)
+   '("9" . meow-digit-argument)
+   '("0" . meow-digit-argument)
+   '("/" . meow-keypad-describe-key)
+   '("?" . meow-cheatsheet))
+  (meow-normal-define-key
+   '("0" . meow-expand-0)
+   '("9" . meow-expand-9)
+   '("8" . meow-expand-8)
+   '("7" . meow-expand-7)
+   '("6" . meow-expand-6)
+   '("5" . meow-expand-5)
+   '("4" . meow-expand-4)
+   '("3" . meow-expand-3)
+   '("2" . meow-expand-2)
+   '("1" . meow-expand-1)
+   '("-" . negative-argument)
+   '(";" . meow-reverse)
+;;   '("," . meow-inner-of-thing)
+   '("." . meow-bounds-of-thing)
+   '("[" . meow-beginning-of-thing)
+   '("]" . meow-end-of-thing)
+   '("a" . meow-append)
+   '("A" . meow-open-below)
+   '("b" . meow-back-word)
+   '("B" . meow-back-symbol)
+   '("c" . meow-change)
+   '("d" . meow-delete)
+   '("D" . delete-region)
+   '("e" . meow-next-word)
+   '("E" . meow-next-symbol)
+   ;; '("f" . meow-find)
+   '("f" . avy-goto-char-timer)
+   '("g" . meow-cancel-selection)
+   '("G" . meow-grab)
+   '("h" . meow-left)
+   '("H" . meow-left-expand)
+   '("i" . meow-insert)
+   '("I" . meow-open-above)
+   '("j" . meow-next)
+   '("J" . meow-next-expand)
+   '("k" . meow-prev)
+   '("K" . meow-prev-expand)
+   '("l" . meow-right)
+   '("L" . meow-right-expand)
+   '("m" . meow-join)
+   '("n" . meow-search)
+   '("o" . meow-block)
+   '("O" . meow-to-block)
+   '("p" . meow-yank)
+   '("q" . meow-quit)
+   '("Q" . meow-goto-line)
+   '("r" . meow-replace)
+   '("R" . meow-swap-grab)
+   '("s" . meow-kill)
+   '("t" . meow-till)
+   '("u" . meow-undo)
+   '("U" . meow-undo-in-selection)
+   ;; '("v" . meow-visit)
+   '("w" . meow-mark-word)
+   '("W" . meow-mark-symbol)
+   '("x" . meow-line)
+   '("X" . meow-goto-line)
+   '("y" . meow-save)
+   '("Y" . meow-sync-grab)
+   '("z" . meow-pop-selection)
+   '("'" . repeat)
+   '("<escape>" . ignore)
+   '("<backspace>" . puni-backward-delete-char)
+   '("v i" . meow-inner-of-thing)
+   '("v a" . meow-bounds-of-thing)
+   '("v c" . puni-mark-list-around-point)
+   '("v x" . puni-mark-sexp-around-point)
+   '("v l" . end-of-line)
+   '("v h" . beginning-of-line)
+   '("v v" . puni-expand-region)
+   '("v j" . end-of-buffer)
+   '("v k" . beginning-of-buffer)
+   '("v r" . rectangle-mark-mode)
+   '(", b d" . kill-t)
+   '(", w d" . delete-window)
+   '(", w h" . windmove-left)
+   '(", w l" . windmove-right)
+   '(", w j" . windmove-down)
+   '(", w k" . windmove-up)
+   '(", w v" . split-window-horizontally)
+   '(", w s" . split-window-vertically)
+   '(": w" . save-buffer) ;; like vim save
+   '(": q" . meow-quit)
+   ))
 
-;; (require 'meow)
-;; (meow-setup)
-;;
-    (meow-global-mode 1)
+(require 'meow)
+(meow-setup)
+(setq meow-use-clipboard t)
+
+;;(meow-global-mode 1)
 
 ;; local LLM
 (leaf ellama
@@ -694,26 +726,31 @@
   (ellama-session-header-line-global-mode +1)
   (setopt ellama-language "Japanese")
   (setopt ellama-provider (make-llm-ollama
-    :chat-model "codestral:22b-v0.1-q4_K_S"
-    :embedding-model "codestral:22b-v0.1-q4_K_S"
+      :chat-model "codellama:7b"
+      :embedding-model "codellama:7b"
     ))
   (setopt ellama-translation-provider (make-llm-ollama
-    :chat-model "aya:12b"
-    :embedding-model "aya:12b"
+    :chat-model "aya:8b"
+    :embedding-model "aya:8b"
     ))
   (setopt ellama-providers
     '(("codestral" . (make-llm-ollama
-        :chat-model "codestral:22b-v0.1-q4_K_S"
-        :embedding-model "codestral:22b-v0.1-q4_K_S"))
+        ;; :chat-model "codestral:22b-v0.1-q4_K_S"
+        ;; :embedding-model "codestral:22b-v0.1-q4_K_S"))
+        :chat-model "codellama:7b"
+        :embedding-model "codellama:7b"))
      ("gemma2" . (make-llm-ollama
         :chat-model "gemma2:13b"
         :embedding-model "gemma2:13b"))
      ("aya" . (make-llm-ollama
-        :chat-model "aya:12b"
-        :embedding-model "aya:12b"))
+        :chat-model "aya:8b"
+        :embedding-model "aya:8b"))
      ("llama3.1" . (make-llm-ollama
         :chat-model "llama3.1:7b"
         :embedding-model "llama3.1:7b"))
+    ("codellama" . (make-llm-ollama
+        :chat-model "codellama:7b"
+        :embedding-model "codellama:7b"))
    ))
   )
 (leaf org-modern
@@ -821,10 +858,15 @@
     :ensure t
     :custom
     (web-mode-enable-auto-pairing . t)
-    :mode "\\.\\(html\\|twig\\|blade\\)$'"
+    :mode "\\.\\(html\\|twig\\|blade\\|tpl\\)$'"
 
     )
 
+(leaf typescript-mode
+  :ensure t
+  :mode "\\.ts$'"
+  :hook (typescript-mode-hook . #'lsp-deferred)
+  )
 
 (leaf affe
   :ensure t
@@ -1012,7 +1054,7 @@
     (message "プロジェクト相対パスと行をクリップボードにコピーしました。")))
 
 
-(global-set-key (kbd "C-c l c") 'copy-file-path-and-line-to-clipboard)
+(global-set-key (kbd "C-c y") 'copy-file-path-and-line-to-clipboard)
 (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
 
 ;; 日付を挿入する関数 主にorg-modeで使う
@@ -1025,13 +1067,14 @@
    ))
 
 ;; color scheme
-;; (load-theme 'doom-gruvbox t)
+(load-theme 'eclipse t)
 
 (let* ((zshpath (shell-command-to-string "/usr/bin/env zsh -c 'printenv PATH'" ))
        (pathlst (split-string zshpath ":")))
   (setq exec-path pathlst)
   (setq eshell-path-env zshpath)
   (setenv "PATH" zshpath))
+(setenv "PATH" (concat "~/.rbenv/shims/:" (getenv "PATH")))
 
 ;; eshellにエイリアスを設定する
 (setq eshell-command-aliases-list
@@ -1342,3 +1385,5 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((dot . t)))
+
+   
