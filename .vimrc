@@ -126,10 +126,10 @@ imap <C-j> <Plug>(eskk:toggle)
 syntax enable
 filetype plugin on
 set termguicolors
-set background=light
+" set background=light
 " let g:tokyonight_enable_italic = 1
 " let g:tokyonight_transparent_background = 1
-colorscheme dumbotron
+colorscheme default
 
 " fold settings ---------------------- {{{1
 " set foldmethod=manual
@@ -370,7 +370,6 @@ let g:netrw_banner       = 0
 let g:netrw_browse_split = 0
 let g:netrw_altv         = 1
 let g:netrw_liststyle    = 3
-let g:netrw_list_hide    = netrw_gitignore#Hide()
 
 " tmux seeting
 "let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
