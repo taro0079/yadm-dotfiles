@@ -184,7 +184,7 @@ end
 
 -- rpst-v2のプロジェクトディレクトリ内のファイルをリモートサーバに転送する関数
 function transport_v2()
-    local local_project_path = "~/dev/rpst-v2/"
+    local local_project_path = "~/ghq/rpst-v2/"
     local remote_project_path = "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
     transport_to_remote(local_project_path, remote_project_path)
 end
@@ -344,3 +344,27 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
         syntax_check.php_syntax_check()
     end,
 })
+
+-- rpst-v2のプロジェクトディレクトリ内のファイルをリモートサーバに転送する関数
+function rpst_phpunit()
+    local remote_host = "dev-tmorita"
+    local user = "taro_morita"
+    local test_target_path = string.format("/var/www/rpst-v2/dev/%s", vim.fn.expand("%:.")) 
+    local phpunit_cmd = string.format(
+    "php /var/www/rpst-v2/dev/vendor/bin/phpunit -c /var/www/rpst-v2/dev/tests/app/phpunit/v9/phpunit.xml.dist %s",
+    test_target_path
+  )
+    local full_cmd = string.format(
+    "ssh %s@%s '%s'",
+    user,
+    remote_host,
+    phpunit_cmd
+  )
+  -- 非同期でターミナルに表示したい場合（おすすめ）
+  vim.cmd("vsplit")
+  vim.cmd("terminal " .. full_cmd)
+end
+
+vim.api.nvim_create_user_command("RpstPhpUnit", function()
+    rpst_phpunit()
+end, { nargs = 0 })

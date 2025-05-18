@@ -51,6 +51,13 @@ require("lazy").setup({
         end
     },
     {
+        "vague2k/vague.nvim",
+        config = function()
+            vim.cmd [[colorscheme vague]]
+
+        end
+    },
+    {
         "rose-pine/neovim",
         name = "rose-pine",
         config = function()
@@ -137,7 +144,7 @@ require("lazy").setup({
     },
     {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v1.x',
+        branch = 'v3.x',
         dependencies = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' },
@@ -571,7 +578,7 @@ require("lazy").setup({
     }
 
 })
-vim.cmd [[colorscheme github_dark_default]]
+-- vim.cmd [[colorscheme github_dark_default]]
 -- local colorschemes = { "nightfox", "rose-pine", "tokyonight", "catppuccin", "github_light_tritanopia", "neogotham", "horizon", "miasma", "kanagawa", "wildcharm", "eldritch" }
 -- local ramdom_number = math.random(#colorschemes)
 -- local selected_colorscheme = colorschemes[ramdom_number]

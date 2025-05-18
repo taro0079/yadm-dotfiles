@@ -84,14 +84,15 @@
     ))
 
 ;; (add-hook 'php-mode-hook 'my/eglot-tramp-phpactor-init)
-
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ; (add-to-list 'default-frame-alist '(font . "Moralerspace Radon NF"))
 
 					; (set-face-attribute 'default nil :family "Moralerspace Radon NF" :height 120)
 
-;; (set-frame-font "Moralerspace Radon NF-13")
+(set-frame-font "CaskaydiaMono Nerd Font-14")
 (menu-bar-mode 0)
+
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 ;(ido-mode 1)
@@ -137,6 +138,13 @@
 ;;   (lsp-pyright-disable-language-service . nil)
 ;;   (lsp-completion-enable t)
 ;;   )
+(leaf expand-region
+  :ensure t
+  :bind
+  ("C-=" . er/expand-region)
+  ("C--" . er/contract-region)
+  :global-minor-mode global-expand-region-mode
+  )
 
 (leaf wgrep
   :require t
@@ -318,7 +326,6 @@
 
 (defun my-php-mode ()
   (setq show-trailing-whitespace t)
-  (require 'flymake-phpstan)
   (flycheck-mode t)
   )
 
@@ -327,7 +334,6 @@
   (php-mode-hook . my-php-mode)
   (php-mode-hook . php-ts-mode)
   (php-mode-hook . lsp-mode)
-  (php-mode-hook . (lambda () (flymake-phpstan-turn-on)))
   :ensure t
   :custom
   (php-manual-url . 'ja)
@@ -849,11 +855,6 @@
           ("M-n" . flymake-goto-next-error)
           ("M-p" . flymake-goto-prev-error))))
 
-(leaf flymake-phpstan
-  :ensure t
-  :hook (php-mode-hook . (lambda () (flymake-phpstan-turn-on)))
-  )
-
 (leaf web-mode
     :ensure t
     :custom
@@ -880,7 +881,12 @@
   (completion-styles . '(orderless))
   :config
   (with-eval-after-load 'corfu
-    (add-hook 'corfu-mode-hook (lambda () (setq-local orderless-matching-styles '(orderless-flex))))))
+    ;; (add-hook 'corfu-mode-hook (lambda () (setq-local orderless-matching-styles '(orderless-flex))))
+    (add-hook 'corfu-mode-hook
+          (lambda ()
+            (setq-local orderless-matching-styles '(orderless-regexp orderless-literal))))
+    )
+)
 
 ;; install vterm
 (leaf vterm
@@ -1386,4 +1392,38 @@
    'org-babel-load-languages
    '((dot . t)))
 
-   
+(defun my/flymake-phpstan-init ()
+  "Flymake backend using PHPSTAN"
+  (let* ((source (buffer-file-name))
+         (default-directory (locate-dominating-file source "phpstan.dist.neon"))
+         (cmd (list "docker" "compose" "run" "--rm" "phpstan" "analyze" source "--error-format=raw")))
+    (list
+     :proc (make-process
+            :name "flymake-phpstan"
+            :buffer (generate-new-buffer "*flymake-phpstan*")
+            :command cmd
+            :noquery t
+            :sentinel
+            (lambda (proc _event)
+              (when (eq 'exit (process-status proc))
+                (with-current-buffer (process-buffer proc)
+                  (goto-char (point-min))
+                  (let (diags)
+                    (while (re-search-forward
+                            "^\\([^\n]+\\):\\([0-9]+\\):\\([0-9]+\\): \\(.*\\)$" nil t)
+                      (let ((file (match-string 1))
+                            (line (string-to-number (match-string 2)))
+                            (msg (match-string 3)))
+                        (push (flymake-make-diagnostic
+                               (current-buffer) (point-min)
+                               (point-min) :error msg)
+                              diags)))
+                    (flymake-log :warning "phpstan done with %d diagnostics" (length diags))
+                    (flymake-report-diagnostics (current-buffer) diags))
+                  (kill-buffer (process-buffer proc))))))
+     :cleanup
+     (lambda (_)
+       (ignore-errors (kill-buffer "*flymake-phpstan*"))))))
+(defun my/php-mode-flymake-setup ()
+  (add-hook 'flymake-diagnostic-functions 'my/flymake-phpstan-init nil t))
+(add-hook 'php-mode-hook #'my/php-mode-flymake-setup)
