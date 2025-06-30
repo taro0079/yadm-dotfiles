@@ -1,0 +1,8 @@
+[tasks.phpunit-rpstapi]
+description = "phpunit for rpst-api"
+run = "docker compose run --rm devcontainer phpunit -d memory_limit=-1"
+
+[tasks.mysql-rpstapi]
+description = "mysql for rpst-api"
+run = "docker compose run --rm devcontainer mysql -u app_user -p -h database"
+
