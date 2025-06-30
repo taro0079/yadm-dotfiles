@@ -51,6 +51,14 @@ require("lazy").setup({
         end
     },
     {
+        "coder/claudecode.nvim",
+        config = true,
+        keys = {
+            { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Claude Code" },
+        }
+
+    },
+    {
         "vague2k/vague.nvim",
         config = function()
             vim.cmd [[colorscheme vague]]
