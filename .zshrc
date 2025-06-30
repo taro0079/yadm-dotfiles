@@ -210,3 +210,4 @@ alias mbv1="~/.local/scripts/match-branch-local-and-remote.sh ~/ghq/rpst/ /var/w
 alias E="open /Applications/Emacs.app"
 alias rsi="~/.local/scripts/crm-scraper/extract_shop_info.sh" # get rpst shop info
 alias tickets="ruby ~/dev/redmine-manager/main.rb"
+eval "$(~/.local/bin/mise activate zsh)"
