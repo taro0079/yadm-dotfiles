@@ -91,3 +91,5 @@ sudo mv composer.phar /usr/local/bin/composer
 # install mise
 curl https://mise.run | sh
 echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
+# install zinit (zsh plugin manager)
+bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
