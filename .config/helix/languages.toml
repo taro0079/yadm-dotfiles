@@ -55,6 +55,7 @@ auto-format = true
 
 [[language]]
 name = "python"
+language-servers = ["pyright"]
 auto-format = true
 
 [[language]]

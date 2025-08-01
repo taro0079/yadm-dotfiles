@@ -86,6 +86,7 @@
 ;; (add-hook 'php-mode-hook 'my/eglot-tramp-phpactor-init)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(global-font-lock-mode 1)
 ; (add-to-list 'default-frame-alist '(font . "Moralerspace Radon NF"))
 
 					; (set-face-attribute 'default nil :family "Moralerspace Radon NF" :height 120)

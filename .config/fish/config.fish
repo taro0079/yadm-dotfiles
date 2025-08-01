@@ -83,3 +83,4 @@ set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
 alias E="open /Applications/Emacs.app"
 alias rsi="~/.local/scripts/crm-scraper/extract_shop_info.sh" # get rpst shop info
+status --is-interactive; and source (rbenv init -|psub)

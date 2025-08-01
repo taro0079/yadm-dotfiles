@@ -62,6 +62,7 @@ setopt hist_find_no_dups
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 alias ls='ls --color'
+export PATH="$HOME/.volta/bin:$PATH"
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -70,7 +71,6 @@ eval "$(zoxide init zsh)"
 eval "$(~/.local/bin/mise activate zsh)"
 
 alias E="open /Applications/Emacs.app"
-alias claude="/Users/awesometaro/.config/claude/local/claude"
 
 # pnpm
 export PNPM_HOME="/home/taro/.local/share/pnpm"
@@ -85,3 +85,14 @@ esac
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
+# rbenvのパスを追加
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+# rbenvの初期化
+eval "$(rbenv init - zsh)"
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@8.2/bin:$PATH"
+eval "$(thefuck --alias)"

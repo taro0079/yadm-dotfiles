@@ -50,3 +50,8 @@ vim.g.clipboard = {
     ['*'] = paste,
   },
 }
+
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+    command = "checktime",
+})
