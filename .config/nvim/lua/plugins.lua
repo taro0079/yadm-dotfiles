@@ -59,13 +59,6 @@ require("lazy").setup({
 
     },
     {
-        "vague2k/vague.nvim",
-        config = function()
-            vim.cmd [[colorscheme vague]]
-
-        end
-    },
-    {
         "rose-pine/neovim",
         name = "rose-pine",
         config = function()
@@ -125,7 +118,7 @@ require("lazy").setup({
         config = function()
             require("plugins.tokyonight")
 
-            -- vim.cmd [[colorscheme tokyonight]]
+            vim.cmd [[colorscheme tokyonight]]
         end,
     },
 
@@ -175,15 +168,6 @@ require("lazy").setup({
         config = function()
             require('plugins.lsp')
         end
-    },
-    {
-        "eldritch-theme/eldritch.nvim",
-        lazy = false,
-        priority = 1000,
-        opts = {},
-        config = function()
-            -- vim.cmd [[colorscheme eldritch]]
-        end,
     },
     {
         "xero/miasma.nvim",
@@ -438,38 +422,38 @@ require("lazy").setup({
 
     {
         "nvim-neotest/neotest",
-        lazy = true,
+        -- lazy = true,
         dependencies = {
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
             "nvim-neotest/nvim-nio",
             "olimorris/neotest-phpunit",
-            "praem90/neotest-docker-phpunit.nvim"
+            -- "praem90/neotest-docker-phpunit.nvim"
         },
         config = function()
-            local file_exists = require("helper.file_exist")
+            -- local file_exists = require("helper.file_exist")
             require("neotest").setup({
                 adapters = {
                     require("neotest-phpunit")({
                         phpunit_cmd = function()
                             -- return "symfony php bin/phpunit"
-                            if file_exist.file_exist("bin/phpunit") then
-                                return vim.tbl_flatten({
-                                    "docker",
-                                    "compose",
-                                    "-f",
-                                    "../docker-compose.yml",
-                                    "run",
-                                    "--rm",
-                                    "php-dev",
-                                    "symfony",
-                                    "php",
-                                    "bin/phpunit",
-                                })
-                            elseif file_exist.file_exist("vendor/bin/phpunit") then
+                            -- if file_exist.file_exist("bin/phpunit") then
+                            --     return vim.tbl_flatten({
+                            --         "docker",
+                            --         "compose",
+                            --         "-f",
+                            --         "../docker-compose.yml",
+                            --         "run",
+                            --         "--rm",
+                            --         "devcontainer",
+                            --         "symfony",
+                            --         "php",
+                            --         "bin/phpunit",
+                            --     })
+                            -- elseif file_exist.file_exist("vendor/bin/phpunit") then
                                 return "vendor/bin/phpunit"
-                            end
+                            -- end
                             -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
                         end,
                     })

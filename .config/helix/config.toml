@@ -1,4 +1,4 @@
-theme = "default"
+theme = "rosepine-transparent"
 [editor]
 line-number = "relative"
 mouse = true

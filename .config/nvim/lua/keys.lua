@@ -47,7 +47,7 @@ api.nvim_set_keymap('n', "<leader><cr>", "<cmd> so ~/.config/nvim/init.lua <cr>"
 
 
 -- lsp diagnostic
-api.nvim_set_keymap('n', "<leader>sd", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics() <cr>",
+api.nvim_set_keymap('n', "<leader>sd", "<cmd>lua vim.diagnostic.open_float() <cr>",
     { noremap = true, silent = true })
 
 vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
@@ -64,6 +64,9 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+
+-- neotest
+vim.keymap.set("n", "<space>tt", ":PhpUnit<cr>", { noremap = true, silent = true })
 
 -- from https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/remap.lua
 -- greatest remap ever
@@ -89,6 +92,11 @@ vim.keymap.set("n", "<leader>tw", "<cmd>lua require('neotest').watch.toggle()<cr
 vim.keymap.set("n", "<leader>tp", "<cmd>lua require('neotest').output_panel.toggle()<cr>")
 vim.keymap.set("n", "<leader>pu", "<cmd>lua require('phpunit_runner').test_runner()<cr>")
 vim.keymap.set("n", "--", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set('i', '<C-l>', 'copilot#Accept("\\<CR>")', {
+      expr = true,
+      replace_keycodes = false
+    })
+vim.g.copilot_no_tab_map = true
 
 
 
