@@ -12,6 +12,7 @@ end-of-line-diagnostics = "hint"
 
 [editor.file-picker]
 hidden = false
+git-ignore = true
 
 [editor.cursor-shape]
 insert = "bar"
