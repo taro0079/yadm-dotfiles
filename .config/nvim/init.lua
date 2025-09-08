@@ -203,8 +203,14 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 function transport_to_v2_of_rpst_api()
-    local local_project_path = "~/dev/rpst-v2/"
-    local remote_project_path = "taro_morita@oms-dev:/var/lib/rpst-api-docker/rpst-v2/"
+    local local_project_path = "~/ghq/rpst-v2/"
+    local remote_project_path = "taro_morita@rpst-api:/var/lib/rpst-api-docker/rpst-v2/"
+    transport_to_remote(local_project_path, remote_project_path)
+end
+
+function transport_rpst_api()
+    local local_project_path = "~/ghq/rpst-api/"
+    local remote_project_path = "taro_morita@rpst-api:/var/lib/rpst-api-docker/"
     transport_to_remote(local_project_path, remote_project_path)
 end
 
@@ -213,6 +219,13 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     callback = function()
         transport_v2()
         transport_to_v2_of_rpst_api()
+    end
+})
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = "*/rpst-api/*",
+    callback = function()
+        transport_rpst_api()
     end
 })
 
