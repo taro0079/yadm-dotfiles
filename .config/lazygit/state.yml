@@ -1,8 +1,10 @@
 lastupdatecheck: 0
 recentrepos:
-- /home/taro_morita/dev/symfony-template-repository
+    - /var/lib/nfs-devel7-volume/dev-tmorita-rpst/var_www/rpst-v2/dev
+    - /var/lib/rpst-api-docker/rpst-v2
 startuppopupversion: 5
+didshowhunkstaginghint: false
+lastversion: 0.54.2
 customcommandshistory:
-- q
+    - q
 hidecommandlog: false
-ignorewhitespaceindiffview: false
