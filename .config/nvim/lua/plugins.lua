@@ -574,7 +574,7 @@ require("lazy").setup({
 require("myplugin.kurodake-green").setup({
 
 })
-vim.cmd.colorscheme("kurodake-green")
+-- vim.cmd.colorscheme("kurodake-green")
 -- vim.cmd [[colorscheme github_dark_default]]
 -- local colorschemes = { "nightfox", "rose-pine", "tokyonight", "catppuccin", "github_light_tritanopia", "neogotham", "horizon", "miasma", "kanagawa", "wildcharm", "eldritch" }
 -- local ramdom_number = math.random(#colorschemes)
