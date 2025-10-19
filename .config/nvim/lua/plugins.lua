@@ -62,7 +62,8 @@ require("lazy").setup({
         "rose-pine/neovim",
         name = "rose-pine",
         config = function()
-            -- vim.cmd [[colorscheme rose-pine]]
+            require("plugins.rose-pine")
+            vim.cmd [[colorscheme rose-pine]]
         end
     },
     {
@@ -452,7 +453,7 @@ require("lazy").setup({
                             --         "bin/phpunit",
                             --     })
                             -- elseif file_exist.file_exist("vendor/bin/phpunit") then
-                                return "vendor/bin/phpunit"
+                            return "vendor/bin/phpunit"
                             -- end
                             -- "docker exec oms-dev-docker-oms-backend-1 symfony php bin/phpunit"
                         end,
@@ -571,9 +572,9 @@ require("lazy").setup({
 
 })
 
-require("myplugin.kurodake-green").setup({
+-- require("myplugin.kurodake-green").setup({
 
-})
+-- })
 -- vim.cmd.colorscheme("kurodake-green")
 -- vim.cmd [[colorscheme github_dark_default]]
 -- local colorschemes = { "nightfox", "rose-pine", "tokyonight", "catppuccin", "github_light_tritanopia", "neogotham", "horizon", "miasma", "kanagawa", "wildcharm", "eldritch" }
