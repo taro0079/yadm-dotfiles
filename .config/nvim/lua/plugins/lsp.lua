@@ -126,7 +126,7 @@ cmp.setup.cmdline('/', {
 lsp_zero.on_attach(function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
 
-  if client.name == 'tsserver' then
+  if client.name == 'tsserver' or client.name == 'ts_ls' then
     client.server_capabilities.documentFormattingProvider = false
   end
 

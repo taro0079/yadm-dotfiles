@@ -273,7 +273,9 @@ end
 
 -- rpst-apiプロジェクト中のrpst-v2のbranchTestを実行する
 function run_v2_branch_test()
-    local cmd = string.format("docker compose -f /var/lib/rpst-api-docker/docker-compose.yml run --rm rpst-v2-app ./branch_phpunit.sh", current_file_path)
+    local cmd = string.format(
+        "docker compose -f /var/lib/rpst-api-docker/docker-compose.yml run --rm rpst-v2-app ./branch_phpunit.sh",
+        current_file_path)
     vim.api.nvim_command('vsplit | terminal ' .. cmd)
     vim.api.nvim_command('startinsert')
 end
@@ -344,7 +346,7 @@ function GithubToClipboard()
         break
     end
     local result = base_url ..
-    remote_url .. "/blob/" .. current_branch .. "/" .. relative_path .. "#L" .. cursor_position
+        remote_url .. "/blob/" .. current_branch .. "/" .. relative_path .. "#L" .. cursor_position
     vim.fn.setreg("+", result)
     print(result)
 end
@@ -362,20 +364,20 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
 function rpst_phpunit()
     local remote_host = "dev-tmorita"
     local user = "taro_morita"
-    local test_target_path = string.format("/var/www/rpst-v2/dev/%s", vim.fn.expand("%:.")) 
+    local test_target_path = string.format("/var/www/rpst-v2/dev/%s", vim.fn.expand("%:."))
     local phpunit_cmd = string.format(
-    "php /var/www/rpst-v2/dev/vendor/bin/phpunit -c /var/www/rpst-v2/dev/tests/app/phpunit/v9/phpunit.xml.dist %s",
-    test_target_path
-  )
+        "php /var/www/rpst-v2/dev/vendor/bin/phpunit -c /var/www/rpst-v2/dev/tests/app/phpunit/v9/phpunit.xml.dist %s",
+        test_target_path
+    )
     local full_cmd = string.format(
-    "ssh %s@%s '%s'",
-    user,
-    remote_host,
-    phpunit_cmd
-  )
-  -- 非同期でターミナルに表示したい場合（おすすめ）
-  vim.cmd("vsplit")
-  vim.cmd("terminal " .. full_cmd)
+        "ssh %s@%s '%s'",
+        user,
+        remote_host,
+        phpunit_cmd
+    )
+    -- 非同期でターミナルに表示したい場合（おすすめ）
+    vim.cmd("vsplit")
+    vim.cmd("terminal " .. full_cmd)
 end
 
 vim.api.nvim_create_user_command("RpstPhpUnit", function()

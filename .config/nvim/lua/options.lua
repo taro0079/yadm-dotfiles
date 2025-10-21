@@ -40,18 +40,20 @@ local function paste()
     }
 end
 vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  paste = {
-    ['+'] = paste,
-    ['*'] = paste,
-  },
+    name = 'OSC 52',
+    copy = {
+        ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+        ['+'] = paste,
+        ['*'] = paste,
+    },
 }
 
 vim.o.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
     command = "checktime",
 })
+vim.o.exrc = true
+vim.o.secure = true
