@@ -32,7 +32,7 @@ if mac then
 
         },
         -- disable_default_key_bindings = true,
-        font_size = 13,
+        font_size = 14,
         keys = mykeys,
         -- color_scheme = "Tokyo Night Storm",
         send_composed_key_when_right_alt_is_pressed = false,

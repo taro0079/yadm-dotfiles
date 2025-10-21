@@ -47,7 +47,6 @@ require("lazy").setup({
     {
         'Mofiqul/dracula.nvim',
         config = function()
-            -- vim.cmd('colorscheme rose-pine-dawn')
         end
     },
     {
@@ -58,14 +57,14 @@ require("lazy").setup({
         }
 
     },
-    {
-        "rose-pine/neovim",
-        name = "rose-pine",
-        config = function()
-            require("plugins.rose-pine")
-            vim.cmd [[colorscheme rose-pine]]
-        end
-    },
+    -- {
+    --     "rose-pine/neovim",
+    --     name = "rose-pine",
+    --     config = function()
+    --         require("plugins.rose-pine")
+    --         vim.cmd [[colorscheme rose-pine]]
+    --     end
+    -- },
     {
         'projekt0n/github-nvim-theme',
         config = function()
@@ -118,8 +117,7 @@ require("lazy").setup({
         opts = {},
         config = function()
             require("plugins.tokyonight")
-
-            -- vim.cmd [[colorscheme tokyonight]]
+            vim.cmd [[colorscheme tokyonight]]
         end,
     },
 
