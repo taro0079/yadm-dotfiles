@@ -9,7 +9,6 @@ local mykeys = {
     { key = "s", mods = "OPT",  action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) }
 }
 
--- swicth tabs
 for i = 1, 8 do
     table.insert(mykeys, {
         key = tostring(i),
@@ -23,9 +22,9 @@ if mac then
         color_scheme = "tokyonight",
         audible_bell = "Disabled",
         font = wezterm.font_with_fallback {
-            { family = 'Iosevka Nerd Font',      weight = "Regular" },
-            { family = 'PleckJP',       weight = "Regular", italic = false },
-            { family = 'Cica',       weight = "Regular", italic = false },
+            { family = 'CaskaydiaCove Nerd Font', weight = "Regular", harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' } },
+            { family = 'PleckJP',                 weight = "Regular", italic = false },
+            { family = 'Cica',                    weight = "Regular", italic = false },
             { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
             { family = 'HackGen Console NF',      weight = "Regular", italic = false },
             { family = 'CaskaydiaCove Nerd Font', weight = "Bold" },
@@ -33,7 +32,7 @@ if mac then
 
         },
         -- disable_default_key_bindings = true,
-        font_size = 18,
+        font_size = 13,
         keys = mykeys,
         -- color_scheme = "Tokyo Night Storm",
         send_composed_key_when_right_alt_is_pressed = false,
@@ -48,7 +47,6 @@ if mac then
         -- front_end = "WebGpu",
         window_background_opacity = 0.8,
         -- macos_window_background_blur = 20,
-        window_background_image = "/Users/taro_morita/Downloads/sankaku.png",
 
     }
 elseif linux then
