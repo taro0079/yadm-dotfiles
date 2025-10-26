@@ -87,6 +87,8 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOME/.local/scripts:$PATH"
+
 export PHP_CS_FIXER_IGNORE_ENV=1
 
 # rbenvのパスを追加

@@ -93,10 +93,12 @@ vim.keymap.set("n", "<leader>tp", "<cmd>lua require('neotest').output_panel.togg
 vim.keymap.set("n", "<leader>pu", "<cmd>lua require('phpunit_runner').test_runner()<cr>")
 vim.keymap.set("n", "--", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 vim.keymap.set('i', '<C-l>', 'copilot#Accept("\\<CR>")', {
-      expr = true,
-      replace_keycodes = false
-    })
+    expr = true,
+    replace_keycodes = false
+})
 vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("x", "y", "ygv<Esc>", { noremap = true, silent = true })
+
 
 
 
@@ -108,4 +110,3 @@ vim.g.copilot_no_tab_map = true
 -- vim.keymap.set("v", "<leader>db", "<cmd>lua require('db').db_execute_visual_selection()<cr>")
 --
 -- open rpst test runner
-
