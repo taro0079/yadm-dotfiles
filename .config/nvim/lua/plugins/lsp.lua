@@ -144,12 +144,13 @@ cmp.setup.cmdline('/', {
 lsp_zero.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
-  if client.name == 'tsserver' or client.name == 'ts_ls' then
-    client.server_capabilities.documentFormattingProvider = false
-  end
+    if client.name == 'tsserver' or client.name == 'ts_ls' then
+        client.server_capabilities.documentFormattingProvider = false
+    end
 
     local keymap = vim.keymap.set
     keymap("n", "gd", vim.lsp.buf.definition, opts)
+    keymap("n", "gi", vim.lsp.buf.implementation, opts)
     keymap("n", "K", vim.lsp.buf.hover, opts)
     keymap("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
     keymap("n", "<leader>vd", vim.diagnostic.open_float, opts)
