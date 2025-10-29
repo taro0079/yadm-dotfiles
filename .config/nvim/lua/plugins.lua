@@ -109,30 +109,20 @@ require("lazy").setup({
         end
     },
     {
-        "rebelot/kanagawa.nvim",
-        config = function()
-            require("kanagawa").setup({
-                transparent = true,
-                theme = "dark",
-            })
-            -- vim.cmd [[colorscheme kanagawa]]
-        end
-    },
-    {
         "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
         opts = {},
         config = function()
-            require("plugins.tokyonight")
-            vim.cmd [[colorscheme tokyonight]]
+            -- require("plugins.tokyonight")
+            -- vim.cmd [[colorscheme tokyonight]]
         end,
     },
 
     {
         "sainnhe/gruvbox-material",
         config = function()
-            -- vim.cmd [[colorscheme gruvbox-material]]
+            vim.cmd [[colorscheme gruvbox-material]]
         end
     },
     {

@@ -1,4 +1,4 @@
-theme = "dark-green"
+theme = "gruvbox-material"
 [editor]
 line-number = "relative"
 mouse = true
