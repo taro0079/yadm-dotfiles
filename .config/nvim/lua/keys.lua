@@ -53,6 +53,8 @@ api.nvim_set_keymap('n', "<leader>sd", "<cmd>lua vim.diagnostic.open_float() <cr
 vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
 vim.keymap.set("n", "ga", "<Plug>(EasyAlign)")
 vim.keymap.set("n", "<leader>gt", ":A<CR>")
+vim.keymap.set("v", "V", "<Plug>(expand_region_shrink)")
+vim.keymap.set("v", "v", "<Plug>(expand_region_expand)")
 
 
 
@@ -98,7 +100,6 @@ vim.keymap.set('i', '<C-l>', 'copilot#Accept("\\<CR>")', {
 })
 vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap("x", "y", "ygv<Esc>", { noremap = true, silent = true })
-
 
 
 

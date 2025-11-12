@@ -16,6 +16,7 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
 fi
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+source "$HOME/.cargo/env"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -100,3 +101,4 @@ export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@8.2/bin:$PATH"
 eval "$(thefuck --alias)"
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"

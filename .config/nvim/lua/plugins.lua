@@ -136,6 +136,10 @@ require("lazy").setup({
     },
     {
         'vim-denops/denops.vim'
+
+    },
+    {
+        'terryma/vim-expand-region'
     },
     {
         'lambdalisue/vim-gin'

@@ -10,11 +10,17 @@ args = [ "language-server" ]
 command = "copilot-language-server"
 args = ["--stdio"]
 
+[language-server.hx-lsp]
+command= "hx-lsp" # github.com/erasin/hx-lsp
+
+[language-server.typos]
+command = "typos-lsp" # https://github.com/tekumara/typos-lsp?tab=readme-ov-file
+
+
 [[language]]
 name = "php"
 indent = { tab-width = 4, unit = "    "}
-# language-servers = ["phpactor", "intelephense"]
-language-servers = ['intelephense', 'copilot']
+language-servers = ["intelephense", "hx-lsp"]
 formatter = { command = "bash", args = [ "-c", "cat > /tmp/helix_php_cs_fixer && php-cs-fixer fix --using-cache=no --quiet /tmp/helix_php_cs_fixer && cat /tmp/helix_php_cs_fixer"]}
 auto-format = false
 
@@ -23,7 +29,7 @@ auto-format = false
 name = "yaml"
 file-types = ["yaml", "yml"]
 indent = { tab-width = 4, unit = "    "}
-language-servers = ["yaml-language-server"]
+language-servers = ["yaml-language-server", "typos-lsp"]
 
 [[language]]
 name = "typescript"
@@ -49,13 +55,15 @@ auto-format = true
 
 [[language]]
 name = "go"
-language-servers = [ "gopls" ]
+language-servers = [ "gopls", "hx-lsp", "typos-lsp"]
+# language-servers = [ "gopls"]
 formatter = { command = "gofmt" }
 auto-format = true
 
 [[language]]
 name = "python"
 language-servers = ["pyright"]
+formatter = { command = "uv", args = ["run", "ruff", "format", "--stdin-filename", "{file}"] }
 auto-format = true
 
 [[language]]
@@ -66,3 +74,8 @@ language-servers = [ "solargraph" ]
 [[language]]
 name = "html"
 file-types = ["html", "tpl" ]
+
+[[language]]
+name = "markdown"
+language-servers = ["hx-lsp"]
+

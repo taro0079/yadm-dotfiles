@@ -13,3 +13,4 @@ cursor-opacity = 0.7
 background-opacity = 0.85
 background-blur-radius = 20
 macos-titlebar-style= transparent
+macos-option-as-alt=true

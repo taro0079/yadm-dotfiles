@@ -1,0 +1,24 @@
+{
+	"this": {
+		"prefix": "th",
+		"body": ["$this->${1:prop}"],
+		"description": "this"
+	},
+	"php": {
+		"prefix": "?",
+		"body": [
+			"<?php"
+		],
+		"description": "php"
+	},
+	"function": {
+		"prefix": "fn",
+		"body": [
+			"function ${1:functionName}(${2:args}): ${3:void}",
+			"{",
+			"\t${0}",
+			"}",
+		],
+		"description": "function"
+	},
+}
