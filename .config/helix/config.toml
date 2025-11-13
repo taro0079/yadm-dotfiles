@@ -1,4 +1,4 @@
-theme = "gruvbox-material"
+theme = "default"
 [editor]
 line-number = "relative"
 mouse = true
@@ -15,9 +15,9 @@ hidden = false
 git-ignore = true
 
 [editor.cursor-shape]
-insert = "bar"
+insert = "block"
 normal = "block"
-select = "underline"
+select = "block"
 
 [editor.lsp]
 display-messages = true
