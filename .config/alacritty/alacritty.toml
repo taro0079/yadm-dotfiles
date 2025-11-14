@@ -21,9 +21,9 @@ normal = { family = "CaskaydiaMono Nerd Font", style = "Regular" }
 TERM = "alacritty"
 
 [general]
-import = [
-    "~/.config/alacritty/rose-pine-moon.toml"
-]
+# import = [
+#     "~/.config/alacritty/rose-pine-moon.toml"
+# ]
 
 
 [cursor]
