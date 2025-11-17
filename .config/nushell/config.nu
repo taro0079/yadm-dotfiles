@@ -913,3 +913,4 @@ def fbr [] {
 
     git checkout $branch
 }
+source ~/.config/nushell/.zoxide.nu

@@ -86,6 +86,10 @@ $env.NU_PLUGIN_DIRS = [
     ($nu.default-config-dir | path join 'plugins') # add <nushell-config-dir>/plugins
 ]
 
+$env.PATH = ($env.PATH | prepend "/usr/local/bin")
+$env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
+$env.PATH = ($env.PATH | prepend $"($env.HOME)/.volta/bin")
+
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 # An alternate way to add entries to $env.PATH is to use the custom command `path add`
@@ -99,3 +103,8 @@ $env.NU_PLUGIN_DIRS = [
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
+#
+use ~/.config/nushell/oh-my.nu git_prompt
+$env.PROMPT_COMMAND = { (git_prompt).left_prompt }
+$env.PROMPT_COMMAND_RIGHT = { (git_prompt).right_prompt }
+$env.PROMPT_INDICATOR = " "
