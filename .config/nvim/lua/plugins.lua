@@ -65,14 +65,14 @@ require("lazy").setup({
         end
 
     },
-    -- {
-    --     "rose-pine/neovim",
-    --     name = "rose-pine",
-    --     config = function()
-    --         require("plugins.rose-pine")
-    --         vim.cmd [[colorscheme rose-pine]]
-    --     end
-    -- },
+    {
+        "rose-pine/neovim",
+        name = "rose-pine",
+        config = function()
+            require("plugins.rose-pine")
+            vim.cmd [[colorscheme rose-pine]]
+        end
+    },
     {
         'projekt0n/github-nvim-theme',
         config = function()
@@ -122,7 +122,7 @@ require("lazy").setup({
     {
         "sainnhe/gruvbox-material",
         config = function()
-            vim.cmd [[colorscheme gruvbox-material]]
+            -- vim.cmd [[colorscheme gruvbox-material]]
         end
     },
     {

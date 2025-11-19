@@ -89,6 +89,7 @@ $env.NU_PLUGIN_DIRS = [
 $env.PATH = ($env.PATH | prepend "/usr/local/bin")
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
 $env.PATH = ($env.PATH | prepend $"($env.HOME)/.volta/bin")
+$env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin")
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')

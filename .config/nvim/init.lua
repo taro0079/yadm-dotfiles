@@ -1,3 +1,6 @@
+-- Disable GitHub Copilot LSP to avoid conflicts with copilot.vim plugin (must be before require('plugins'))
+vim.g.copilot_no_lsp = true
+
 require('options')
 require('plugins')
 require('ui')

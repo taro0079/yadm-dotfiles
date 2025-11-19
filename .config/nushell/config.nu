@@ -224,8 +224,6 @@ $env.config = {
     }
 
     filesize: {
-        metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-        format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
     }
 
     cursor_shape: {
@@ -907,7 +905,7 @@ def fbr [] {
     let branch = (
         $line
         | split row " "
-        | filter { |x| $x != "" and $x != "*" }
+        | where { |x| $x != "" and $x != "*" }
         | first
     )
 

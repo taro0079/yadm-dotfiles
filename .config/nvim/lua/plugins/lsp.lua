@@ -22,8 +22,9 @@ require('mason-lspconfig').setup({
         'intelephense',
         'eslint',
         'typos_lsp',
-        -- 'tsserver',
+        'tsserver',
     },
+    automatic_installation = true,
     handlers = {
         lsp_zero.default_setup,
         lua_ls = function()
@@ -37,6 +38,8 @@ require('mason-lspconfig').setup({
                 },
             })
         end,
+        -- Prevent copilot from being auto-started as LSP
+        copilot = function() end,
     },
 })
 
@@ -161,6 +164,7 @@ lsp_zero.on_attach(function(client, bufnr)
     keymap("n", "<leader>vrn", vim.lsp.buf.rename, opts)
     keymap("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end)
+
 
 -- diagnostic 設定
 vim.diagnostic.config({
