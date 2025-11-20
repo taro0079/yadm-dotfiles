@@ -14,6 +14,12 @@ api.nvim_set_keymap('n', '<leader>pb', "<cmd>lua require('telescope.builtin').bu
     noremap = true,
     silent = true
 })
+api.nvim_set_keymap("n", "<Leader>pr", "<cmd> lua require('telescope').extensions.recent_files.pick()<cr>", {
+    noremap = true,
+    silent = true
+})
+
+
 vim.keymap.set('n', '<leader>lt', ':set list!<CR>')
 -- Bookmark
 api.nvim_set_keymap('n', '<leader>ph', "<cmd>lua require('telescope.builtin').help_tags()<cr>",
