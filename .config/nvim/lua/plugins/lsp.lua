@@ -22,7 +22,7 @@ require('mason-lspconfig').setup({
         'intelephense',
         'eslint',
         'typos_lsp',
-        'tsserver',
+        -- 'tsserver',
     },
     automatic_installation = true,
     handlers = {

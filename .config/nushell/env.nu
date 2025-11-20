@@ -90,6 +90,8 @@ $env.PATH = ($env.PATH | prepend "/usr/local/bin")
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
 $env.PATH = ($env.PATH | prepend $"($env.HOME)/.volta/bin")
 $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin")
+$env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/scripts")
+$env.PATH = ($env.PATH | prepend $"((brew --prefix mysql-client | str trim)/bin)")
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
