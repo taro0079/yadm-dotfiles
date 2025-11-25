@@ -107,6 +107,8 @@ eval "$(zoxide init zsh)"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.local/scripts:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/usr/local/texlive/2024/bin/universal-darwin:$PATH"
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # # rbenvの初期化
 # eval "$(rbenv init - zsh)"
@@ -124,3 +126,5 @@ export PATH="$HOME/.local/scripts:$PATH"
 #   *":$PNPM_HOME:"*) ;;
 #   *) export PATH="$PNPM_HOME:$PATH" ;;
 # esac
+alias E='open /Applications/Emacs.app'
+
