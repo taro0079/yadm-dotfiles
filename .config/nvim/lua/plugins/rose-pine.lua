@@ -1,16 +1,15 @@
 require('rose-pine').setup({
     --- @usage 'auto'|'main'|'moon'|'dawn'
-    variant = 'moon',
+    variant = 'auto',
     --- @usage 'main'|'moon'|'dawn'
-    dark_variant = 'moon',
-    bold_vert_split = false,
-    dim_nc_background = false,
-    disable_background = false,
-    disable_float_background = false,
-    disable_italics = false,
+    dark_variant = 'main',
+    -- bold_vert_split = false,
+    -- dim_nc_background = false,
+    dim_inactive_windows = true,
     extend_background_behind_borders = true,
     styles = {
-        transparency = true
+        transparency = false,
+        italic = false
     },
 
     --- @usage string hex value or named color from rosepinetheme.com/palette
@@ -37,8 +36,8 @@ require('rose-pine').setup({
     --         h5 = 'pine',
     --         h6 = 'foam',
     --     }
-        -- or set all headings at once
-        -- headings = 'subtle'
+    -- or set all headings at once
+    -- headings = 'subtle'
     -- },
 
     -- Change specific vim highlight groups

@@ -12,18 +12,32 @@ args = ["--stdio"]
 
 [language-server.hx-lsp]
 command= "hx-lsp" # github.com/erasin/hx-lsp
+args = ["--dir", "/Users/taro_morita/.config/helix/snippets"]
 
 [language-server.typos]
 command = "typos-lsp" # https://github.com/tekumara/typos-lsp?tab=readme-ov-file
+environment = { "RUST_LOG" = "error" }
+
+[language-server.gpt]
+command = "sh"
+# args の中でシェルスクリプト全体を記述します
+args = [
+    "-c",
+    "helix-gpt --handler copilot --copilotApiKey $(cat /Users/taro_morita/.config/helix/copilot_key | tr -d '[:space:]') --copilotModel gpt-41-copilot --logFile /Users/taro_morita/.config/helix/helix-gpt.log"
+]
 
 
 [[language]]
 name = "php"
 indent = { tab-width = 4, unit = "    "}
-language-servers = ["intelephense", "hx-lsp"]
+language-servers = ["intelephense", "hx-lsp", "gpt"]
+# language-servers = ["hx-lsp"]
 formatter = { command = "bash", args = [ "-c", "cat > /tmp/helix_php_cs_fixer && php-cs-fixer fix --using-cache=no --quiet /tmp/helix_php_cs_fixer && cat /tmp/helix_php_cs_fixer"]}
 auto-format = false
 
+[[language]]
+name = "toml"
+language-servers = ["gpt", "typos"]
 
 [[language]]
 name = "yaml"
@@ -78,4 +92,5 @@ file-types = ["html", "tpl" ]
 [[language]]
 name = "markdown"
 language-servers = ["hx-lsp"]
+
 

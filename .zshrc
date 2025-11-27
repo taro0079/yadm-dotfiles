@@ -108,7 +108,9 @@ export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.local/scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.volta/bin:$PATH"
 export PATH="/usr/local/texlive/2024/bin/universal-darwin:$PATH"
+export PHP_CS_FIXER_IGNORE_ENV=1
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # # rbenvの初期化
 # eval "$(rbenv init - zsh)"
@@ -127,4 +129,12 @@ export PATH="/usr/local/texlive/2024/bin/universal-darwin:$PATH"
 #   *) export PATH="$PNPM_HOME:$PATH" ;;
 # esac
 alias E='open /Applications/Emacs.app'
+alias fssh='fuzzy-ssh-selector.sh'
+. "$HOME/.cargo/env"
 
+# bun completions
+[ -s "/Users/taro_morita/.bun/_bun" ] && source "/Users/taro_morita/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

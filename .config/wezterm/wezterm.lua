@@ -22,7 +22,7 @@ if mac then
         color_scheme = "tokyonight",
         audible_bell = "Disabled",
         font = wezterm.font_with_fallback {
-            { family = 'CaskaydiaCove Nerd Font', weight = "Regular", harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' } },
+            { family = 'Iosevka Nerd Font',       weight = "Regular", harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' } },
             { family = 'PleckJP',                 weight = "Regular", italic = false },
             { family = 'Cica',                    weight = "Regular", italic = false },
             { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
@@ -32,7 +32,7 @@ if mac then
 
         },
         -- disable_default_key_bindings = true,
-        font_size = 14,
+        font_size = 16,
         keys = mykeys,
         -- color_scheme = "Tokyo Night Storm",
         send_composed_key_when_right_alt_is_pressed = false,
@@ -45,7 +45,7 @@ if mac then
         },
         adjust_window_size_when_changing_font_size = false,
         -- front_end = "WebGpu",
-        window_background_opacity = 0.8,
+        window_background_opacity = 1,
         -- macos_window_background_blur = 20,
 
     }

@@ -912,3 +912,4 @@ def fbr [] {
     git checkout $branch
 }
 source ~/.config/nushell/.zoxide.nu
+source $"($nu.home-path)/.cargo/env.nu"

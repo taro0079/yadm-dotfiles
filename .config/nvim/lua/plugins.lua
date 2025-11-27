@@ -69,8 +69,8 @@ require("lazy").setup({
         "rose-pine/neovim",
         name = "rose-pine",
         config = function()
-            require("plugins.rose-pine")
             vim.cmd [[colorscheme rose-pine]]
+            require("plugins.rose-pine")
         end
     },
     {
@@ -198,6 +198,13 @@ require("lazy").setup({
             require("plugins.tree-sitter")
         end,
     },
+    -- {
+    --     "nvim-treesitter/nvim-treesitter-textobjects",
+    --     dependencies = {
+    --         "nvim-treesitter/nvim-treesitter",
+    --     }
+    --
+    -- },
     {
         'tpope/vim-fugitive',
         event = "BufEnter"
