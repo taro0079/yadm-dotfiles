@@ -1,3 +1,7 @@
+# =========================================
+#  Language Server Definitions
+# =========================================
+
 [language-server.phpactor]
 command = "phpactor"
 args = [ "language-server", "--config-extra={\"language_server_completion.trim_leading_dollar\":true}" ]
@@ -6,38 +10,101 @@ args = [ "language-server", "--config-extra={\"language_server_completion.trim_l
 command = "/Users/taro_morita/language-server-phpstan-extension/bin/phpstan-ls"
 args = [ "language-server" ]
 
-[language-server.copilot]
-command = "copilot-language-server"
-args = ["--stdio"]
-
 [language-server.hx-lsp]
-command= "hx-lsp" # github.com/erasin/hx-lsp
+command= "hx-lsp"
 args = ["--dir", "/Users/taro_morita/.config/helix/snippets"]
 
 [language-server.typos]
-command = "typos-lsp" # https://github.com/tekumara/typos-lsp?tab=readme-ov-file
+command = "typos-lsp"
 environment = { "RUST_LOG" = "error" }
 
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.eslint.config]
+codeActionOnSave = { mode = "all", "source.fixAll.eslint" = true }
+format = { enable = true }
+nodePath = ""
+quiet = false
+rulesCustomizations = []
+run = "onType"
+validate = "on"
+experimental = {}
+problems = {shotenToSingleLine = false }
+
+[language-server.eslint.config.codeAction]
+disableRuleComment = { enable = true, location = "separateLine" }
+showDocumentation = { enable = true }
+
+[language-server.eslint.config.workingDirectory]
+mode = "location"
+
+# Helix-GPT (Copilot handler)
 [language-server.gpt]
 command = "sh"
-# args の中でシェルスクリプト全体を記述します
 args = [
     "-c",
-    "helix-gpt --handler copilot --copilotApiKey $(cat /Users/taro_morita/.config/helix/copilot_key | tr -d '[:space:]') --copilotModel gpt-41-copilot --logFile /Users/taro_morita/.config/helix/helix-gpt.log"
+    "helix-gpt --handler copilot --copilotApiKey $(cat /Users/taro_morita/.config/helix/copilot_key | tr -d '[:space:]') --copilotModel gpt-4-copilot --logFile /Users/taro_morita/.config/helix/helix-gpt.log"
 ]
 
+# LSP-AI (Ollama / DeepSeek Coder)
+[language-server.lsp-ai]
+command = "lsp-ai"
+
+[language-server.lsp-ai.config.memory]
+file_store = {}
+
+[language-server.lsp-ai.config.models.model1]
+type = "ollama"
+model = "deepseek-coder:latest"
+
+[language-server.lsp-ai.config.models.model2]
+type = "ollama"
+model = "llama3:latest"
+
+[language-server.lsp-ai.config.models.model3]
+type = "ollama"
+model = "qwen3:1.7b"
+
+[language-server.lsp-ai.config.completion]
+model = "model1"
+
+[language-server.lsp-ai.config.completion.parameters]
+max_context = 2000
+
+[language-server.lsp-ai.config.completion.parameters.options]
+num_predict = 100
+
+# [language-server.lsp-ai.config.chat]
+# trigger = "!C"
+# action_display_name = "Chat"
+# model = "model2"
+
+# [language-server.lsp-ai.config.parameters]
+# max_context = 4096
+# max_tokens = 1024
+
+# [[language-server.lsp-ai.config.parameters.messages]]
+# role = "role"
+# content = "You are a code assistant chatbot. The user will ask you for assistance coding and you will do you bet to answer succinctly and accurately"
+
+
+# =========================================
+#  Language Configuration
+# =========================================
 
 [[language]]
 name = "php"
 indent = { tab-width = 4, unit = "    "}
-language-servers = ["intelephense", "hx-lsp", "gpt"]
-# language-servers = ["hx-lsp"]
+# lsp-ai を追加
+language-servers = ["intelephense", "hx-lsp", "gpt", "lsp-ai"]
 formatter = { command = "bash", args = [ "-c", "cat > /tmp/helix_php_cs_fixer && php-cs-fixer fix --using-cache=no --quiet /tmp/helix_php_cs_fixer && cat /tmp/helix_php_cs_fixer"]}
 auto-format = false
 
 [[language]]
 name = "toml"
-language-servers = ["gpt", "typos"]
+language-servers = ["typos", "lsp-ai"]
 
 [[language]]
 name = "yaml"
@@ -47,50 +114,48 @@ language-servers = ["yaml-language-server", "typos-lsp"]
 
 [[language]]
 name = "typescript"
-language-servers = [ "typescript-language-server", "eslint", "emmet-ls" ]
+language-servers = [ "typescript-language-server", "eslint", "emmet-ls", "lsp-ai"]
 formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "typescript" ] }
-auto-format = true
-
+auto-format = false
 
 [[language]]
 name = "tsx"
-# language-servers = [ "deno", "eslint", "emmet-ls" ]
-# formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
-language-servers = [ "typescript-language-server", "eslint", "emmet-ls" ]
+# lsp-ai を追加
+language-servers = [ "typescript-language-server", "eslint", "typos", "lsp-ai"]
 formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "tsx" ] }
 auto-format = true
 
 [[language]]
 name = "rust"
-# language-servers= ["rust-analyzer"]
+# rust-analyzer と lsp-ai を有効化
+language-servers = ["rust-analyzer", "lsp-ai"]
 auto-format = true
 
 [[language]]
 name = "go"
-language-servers = [ "gopls", "hx-lsp", "typos-lsp"]
-# language-servers = [ "gopls"]
+# lsp-ai を追加
+language-servers = [ "gopls", "hx-lsp", "typos-lsp", "lsp-ai"]
 formatter = { command = "gofmt" }
 auto-format = true
 
 [[language]]
 name = "python"
-language-servers = ["pyright"]
+# lsp-ai を追加
+language-servers = ["pyright", "lsp-ai"]
 formatter = { command = "uv", args = ["run", "ruff", "format", "--stdin-filename", "{file}"] }
 auto-format = true
 
 [[language]]
 name = "ruby"
 auto-format = true
-language-servers = [ "solargraph" ]
+language-servers = [ "solargraph", "lsp-ai" ]
 
 [[language]]
 name = "html"
 file-types = ["html", "tpl" ]
+# HTMLでもAI補完を使いたい場合
+language-servers = [ "vscode-html-language-server", "lsp-ai" ]
 
 [[language]]
 name = "markdown"
-language-servers = ["hx-lsp"]
-
-
+language-servers = ["hx-lsp", "lsp-ai"]
