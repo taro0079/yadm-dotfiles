@@ -31,6 +31,26 @@ require("lazy").setup({
         end
     },
     {
+        "abecodes/tabout.nvim",
+        config = function()
+            require('tabout').setup {
+                tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
+                backwards_tabkey = '<S-Tab>',
+                act_as_tab = true,
+                enable_backwards = true,
+                completion = true,
+                tabouts = {
+                    { open = '(', close = ')' },
+                    { open = '[', close = ']' },
+                    { open = '{', close = '}' },
+                    { open = '"', close = '"' },
+                    { open = "'", close = "'" },
+                    { open = '`', close = '`' },
+                },
+            }
+        end
+    },
+    {
         "zenbones-theme/zenbones.nvim",
         dependencies = "rktjmp/lush.nvim",
         config = function()
