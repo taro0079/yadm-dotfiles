@@ -37,6 +37,13 @@ render = false
 "C-[" = "normal_mode"
 [keys.normal]
 "C-S-`" = "switch_to_uppercase"
+C-y = [
+  ':sh rm -f /tmp/unique-file',
+  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+  ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/unique-file}',
+  ':redraw',
+]
 
 [keys.normal."'"]
 y = ":sh zellij run --floating -n 'yazi picker' -- ~/.config/myscripts/open_in_helix_from_yazi.zsh"
