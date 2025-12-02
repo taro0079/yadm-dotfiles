@@ -142,4 +142,5 @@ export PATH=$PATH:$(go env GOPATH)/bin
 
 eval "$(~/.local/bin/mise activate)"
 export LIBRARY_PATH=$LIBRARY_PATH:$(brew --prefix zstd)/lib/ # for rails error surpression of zstd
+alias cdp='cd $HOME/ghq/$(ghq list | fzf)'
 
