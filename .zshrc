@@ -140,3 +140,6 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH=$PATH:$(go env GOPATH)/bin
 
+eval "$(~/.local/bin/mise activate)"
+export LIBRARY_PATH=$LIBRARY_PATH:$(brew --prefix zstd)/lib/ # for rails error surpression of zstd
+
