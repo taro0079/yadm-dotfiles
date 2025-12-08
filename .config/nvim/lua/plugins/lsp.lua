@@ -8,6 +8,17 @@ end
 
 local lsp_zero = require('lsp-zero')
 
+-- require("nvim-lspconfig")
+vim.lsp.enable("copilot")
+vim.lsp.inline_completion.enable(true)
+vim.keymap.set('i', '<c-cr>', '<cmd>lua vim.lsp.inline_completion.get()<cr>', { silent = true })
+vim.keymap.set('i', '<tab>', function()
+    if not vim.lsp.inline_completion.get() then
+        return '<tab>'
+    end
+end, { expr = true })
+
+
 -- Snippets の読み込み
 require('luasnip.loaders.from_snipmate').lazy_load({
     paths = { vim.fn.stdpath("config") .. "/snippets" }

@@ -14,22 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     -- color schemas
-    {
-        "slugbyte/lackluster.nvim",
-        lazy = false,
-        priority = 1000,
-        init = function()
-            -- vim.cmd.colorscheme("wildcharm")
-            -- vim.cmd.colorscheme("terafox") -- my favorite
-            -- vim.cmd.colorscheme("lackluster-mint")
-        end,
-    },
-    {
-        "nyoom-engineering/oxocarbon.nvim",
-        config = function()
-            -- vim.cmd('colorscheme oxocarbon')
-        end
-    },
+
     {
         "abecodes/tabout.nvim",
         config = function()
@@ -163,6 +148,9 @@ require("lazy").setup({
     },
     {
         'lambdalisue/vim-gin'
+    },
+    {
+        'neovim/nvim-lspconfig'
     },
     {
         'VonHeikemen/lsp-zero.nvim',
@@ -338,14 +326,6 @@ require("lazy").setup({
             -- options
         },
     },
-    -- snippets
-    -- { "SirVer/ultisnips", },
-    -- { "honza/vim-snippets", },
-
-    -- {
-    --     'junegunn/vim-emoji',
-    --     event = "BufEnter",
-    -- },
     {
         'folke/lsp-colors.nvim',
         event = "BufEnter",
@@ -385,19 +365,6 @@ require("lazy").setup({
     {
         'tpope/vim-surround',
         event = "InsertEnter",
-    },
-    -- {
-    --     'kenn7/vim-arsync',
-    --     dependencies = {
-    --         { 'prabirshrestha/async.vim' }
-    --     },
-    --     event = "VeryLazy",
-    -- },
-    -- {
-    --     "mbbill/undotree"
-    -- },
-    {
-        "github/copilot.vim"
     },
     {
         "theprimeagen/harpoon",
@@ -537,29 +504,6 @@ require("lazy").setup({
             },
         },
     },
-    -- {
-    --     "nvim-neorg/neorg",
-    --     lazy = false,
-    --     version = "*",
-    --     config = function()
-    --         require('neorg').setup {
-    --             load = {
-    --                 ["core.defaults"] = {},
-    --                 ["core.concealer"] = {},
-    --                 ["core.dirman"] = {
-    --                     config = {
-    --                         workspaces = {
-    --                             notes = "~/neorg",
-    --                         },
-    --                         default_workspace = "notes"
-    --                     },
-    --                 }
-    --             }
-    --         }
-    --         vim.wo.foldlevel = 99
-    --         vim.wo.conceallevel = 2
-    --     end
-    -- },
     {
         'stevearc/oil.nvim',
         ---@module 'oil'
@@ -575,21 +519,6 @@ require("lazy").setup({
         -- Optional dependencies
         dependencies = { { "echasnovski/mini.icons", opts = {} } },
     },
-    -- {
-    --     "folke/noice.nvim",
-    --     event = "VeryLazy",
-    --     opts = {
-    --         -- add any options here
-    --     },
-    --     dependencies = {
-    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    --         "MunifTanjim/nui.nvim",
-    --         -- OPTIONAL:
-    --         --   `nvim-notify` is only needed, if you want to use the notification view.
-    --         --   If not available, we use `mini` as the fallback
-    --         "rcarriga/nvim-notify",
-    --     }
-    -- }
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -605,13 +534,3 @@ require("lazy").setup({
     }
 
 })
-
--- require("myplugin.kurodake-green").setup({
-
--- })
--- vim.cmd.colorscheme("kurodake-green")
--- vim.cmd [[colorscheme github_dark_default]]
--- local colorschemes = { "nightfox", "rose-pine", "tokyonight", "catppuccin", "github_light_tritanopia", "neogotham", "horizon", "miasma", "kanagawa", "wildcharm", "eldritch" }
--- local ramdom_number = math.random(#colorschemes)
--- local selected_colorscheme = colorschemes[ramdom_number]
--- vim.cmd("colorscheme " .. selected_colorscheme)
