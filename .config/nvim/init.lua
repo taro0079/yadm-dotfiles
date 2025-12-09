@@ -1,6 +1,3 @@
--- Disable GitHub Copilot LSP to avoid conflicts with copilot.vim plugin (must be before require('plugins'))
-vim.g.copilot_no_lsp = true
-
 require('options')
 require('plugins')
 require('ui')
@@ -386,3 +383,7 @@ end
 vim.api.nvim_create_user_command("RpstPhpUnit", function()
     rpst_phpunit()
 end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("Qfcmd", function(opts)
+    require('myplugin.cexternal-command').register_from_external_command(opts.args)
+end, { nargs = "+", complete = "shellcmd" })
