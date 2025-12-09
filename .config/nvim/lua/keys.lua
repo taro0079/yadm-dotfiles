@@ -1,4 +1,5 @@
 local api = vim.api
+
 -- Telescope -- {{ 1
 api.nvim_set_keymap('n', '<leader>pp', "<cmd>lua require('telescope.builtin').git_files()<cr>",
     { noremap = true, silent = true })
@@ -100,20 +101,6 @@ vim.keymap.set("n", "<leader>tw", "<cmd>lua require('neotest').watch.toggle()<cr
 vim.keymap.set("n", "<leader>tp", "<cmd>lua require('neotest').output_panel.toggle()<cr>")
 vim.keymap.set("n", "<leader>pu", "<cmd>lua require('phpunit_runner').test_runner()<cr>")
 vim.keymap.set("n", "--", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-vim.keymap.set('i', '<C-l>', 'copilot#Accept("\\<CR>")', {
-    expr = true,
-    replace_keycodes = false
-})
-vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap("x", "y", "ygv<Esc>", { noremap = true, silent = true })
-
-
-
--- command runner
--- vim.keymap.set("n", "<leader>rc", "<cmd>lua require('command').run()<cr>")
--- vim.keymap.set("n", "<leader>sc", "<cmd>lua require('command').read()<cr>")
---
--- -- db commander
--- vim.keymap.set("v", "<leader>db", "<cmd>lua require('db').db_execute_visual_selection()<cr>")
---
--- open rpst test runner
+vim.api.nvim_set_keymap("x", ">", ">gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("x", "<", "<gv", { noremap = true, silent = true })

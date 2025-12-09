@@ -144,3 +144,9 @@ eval "$(~/.local/bin/mise activate)"
 export LIBRARY_PATH=$LIBRARY_PATH:$(brew --prefix zstd)/lib/ # for rails error surpression of zstd
 alias cdp='cd $HOME/ghq/$(ghq list | fzf)'
 
+fbr() {
+  local branches branch
+  branches=$(git branch -vv) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}

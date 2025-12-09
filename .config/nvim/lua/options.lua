@@ -7,9 +7,9 @@ vim.o.smarttab = true
 vim.o.cursorline = true
 -- vim.o.pumblend = 10
 -- vim.o.winblend = 10
-if vim.fn.has("wsl") == 0 then
-    vim.o.clipboard = "unnamed,unnamedplus"
-end
+-- if vim.fn.has("wsl") == 0 then
+--     vim.o.clipboard = "unnamed,unnamedplus"
+-- end
 vim.o.completeopt = "menuone,noinsert,noselect"
 vim.o.expandtab = true
 vim.o.tabstop = 4
@@ -33,24 +33,6 @@ vim.wo.listchars = "eol:↲,tab:>.,trail:~,space:␣,nbsp:%"
 vim.wo.list = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
-local function paste()
-    return {
-        vim.fn.split(vim.fn.getreg(""), "\n"),
-        vim.fn.getregtype(""),
-    }
-end
-vim.g.clipboard = {
-    name = 'OSC 52',
-    copy = {
-        ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-    },
-    paste = {
-        ['+'] = paste,
-        ['*'] = paste,
-    },
-}
-
 vim.o.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
     command = "checktime",

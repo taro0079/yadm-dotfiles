@@ -144,7 +144,12 @@ require("lazy").setup({
 
     },
     {
-        'terryma/vim-expand-region'
+        'terryma/vim-expand-region',
+        config = function()
+            vim.cmd [[vnoremap v <Plug>(expand_region_expand)]]
+            vim.cmd [[vnoremap V <Plug>(expand_region_shrink)]]
+        end
+
     },
     {
         'lambdalisue/vim-gin'
@@ -531,6 +536,50 @@ require("lazy").setup({
         "chentoast/marks.nvim",
         event = "VeryLazy",
         opts = {},
+    },
+    {
+        "ojroques/nvim-osc52",
+        config = function()
+            local osc52 = require("osc52")
+            osc52.setup({
+                max_length = 0, -- Maximum length of selection (0 for no limit)
+                silent = false, -- Disable message on successful copy
+                trim = false,   -- Trim surrounding whitespaces before copy
+            })
+
+            local function copy(lines, _)
+                osc52.copy(table.concat(lines, "\n"))
+            end
+
+            local function paste()
+                return { vim.fn.split(vim.fn.getreg('"'), "\n"), vim.fn.getregtype('"') }
+            end
+
+            vim.g.clipboard = {
+                name = "osc52",
+                copy = {
+                    ["+"] = copy,
+                    ["*"] = copy,
+                },
+                paste = {
+                    ["+"] = paste,
+                    ["*"] = paste,
+                },
+            }
+        end
+    },
+    {
+        "mhartington/formatter.nvim",
+        config = function()
+            require("formatter").setup({
+                filetype = {
+                    javascript = { require("formatter.filetypes.javascript").biome },
+                    javascriptreact = { require("formatter.filetypes.javascriptreact").biome },
+                    typescript = { require("formatter.filetypes.typescript").biome },
+                    typescriptreact = { require("formatter.filetypes.typescriptreact").biome },
+                },
+            })
+        end
     }
 
 })

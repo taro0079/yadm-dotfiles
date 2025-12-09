@@ -11,12 +11,13 @@ local lsp_zero = require('lsp-zero')
 -- require("nvim-lspconfig")
 vim.lsp.enable("copilot")
 vim.lsp.inline_completion.enable(true)
-vim.keymap.set('i', '<c-cr>', '<cmd>lua vim.lsp.inline_completion.get()<cr>', { silent = true })
-vim.keymap.set('i', '<tab>', function()
-    if not vim.lsp.inline_completion.get() then
-        return '<tab>'
-    end
-end, { expr = true })
+vim.keymap.set('i', '<c-l>', '<cmd>lua vim.lsp.inline_completion.get()<cr>', { silent = true })
+
+-- vim.keymap.set('i', '<tab>', function()
+--     if not vim.lsp.inline_completion.get() then
+--         return '<tab>'
+--     end
+-- end, { expr = true })
 
 
 -- Snippets の読み込み
