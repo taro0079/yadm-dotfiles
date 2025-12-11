@@ -43,6 +43,12 @@ require("lazy").setup({
         end
     },
     {
+        "nyoom-engineering/oxocarbon.nvim",
+        config = function()
+            vim.cmd.colorscheme('gruvbox-material')
+        end
+    },
+    {
         "EdenEast/nightfox.nvim",
         config = function()
             require("plugins.nightfox")
@@ -73,10 +79,10 @@ require("lazy").setup({
     {
         "rose-pine/neovim",
         name = "rose-pine",
-        config = function()
-            vim.cmd [[colorscheme rose-pine]]
-            require("plugins.rose-pine")
-        end
+        -- config = function()
+        --     vim.cmd [[colorscheme rose-pine]]
+        --     require("plugins.rose-pine")
+        -- end
     },
     {
         'projekt0n/github-nvim-theme',
