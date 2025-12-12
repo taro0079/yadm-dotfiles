@@ -1,5 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
+(global-display-line-numbers-mode t)
+
 (let ((mono-spaced-font "CaskaydiaCove Nerd Font")
       (proportionately-spaced-font "Sans"))
   (set-face-attribute 'default nil :family mono-spaced-font :height 140)
@@ -27,6 +29,13 @@
 (use-package delsel
   :ensure nil
   :hook (after-init . delete-selection-mode))
+
+(use-package moody
+  :ensure t
+  :config
+  (moody-replace-mode-line-front-space)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
 
 ;; (use-package modus-themes
 ;;   :ensure t
@@ -311,6 +320,19 @@
    ("C-c m" . puni-mark-list-around-point)
    ("C-=" . puni-expand-region)
    ("C--" . puni-contract-region)))
+
+;; (use-package gruvbox-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'gruvbox-dark-medium t))
+(use-package mindre-theme
+  :ensure t
+  :vc (:url "https://github.com/erikbackman/mindre-theme" :rev :newest)
+  :custom
+  (mindre-use-more-bold nil)
+  (mindre-use-faded-lisp-parens t)
+  :config
+  (load-theme 'mindre t))
 
 (put 'upcase-region 'disabled nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
