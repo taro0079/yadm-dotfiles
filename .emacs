@@ -178,3 +178,57 @@
   (add-to-list 'eglot-server-programs
 	       '((php-mode) . ("intelephense" "--stdio"))))
 
+(use-package inheritenv
+  :vc (:url "https://github.com/purcell/inheritenv" :rev :newest))
+
+(use-package eat :ensure t)
+(use-package monet
+  :vc (:url "https://github.com/stevemolitor/monet" :rev :newest))
+
+(use-package vterm :ensure t)
+(use-package claude-code :ensure t
+  :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
+  :config
+  (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
+  (monet-mode 1)
+  (claude-code-mode)
+  :bind-keymap ("C-c c" . claude-code-command-map)
+  :bind
+  (:repeat-map my-claude-code-map ("M" . claude-code-cycle-mode)))
+
+(use-package copilot
+  :vc (:url "https://github.com/copilot-emacs/copilot.el"
+	    :rev :newest
+	    :branch "main")
+  :hook
+  ((prog-mode . copilot-mode)
+   (text-mode . copilot-mode))
+  :bind
+  (:map copilot-completion-map
+	("C-TAB" . copilot-accept-completion)
+	("C-<tab>" . copilot-accept-completion)
+	("C-c \\" . copilot-clear-overlay))
+  :config
+  (setq copilot-idle-delay 0.2)
+  (setq copilot-max-char 10000))
+
+(use-package git-commit)
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)))
+
+(use-package diff-hl
+  :ensure t
+  :hook ((prog-mode . diff-hl-mode)
+	 (text-mode . diff-hl-mode)
+	 (magit-post-refresh . diff-hl-magit-post-refresh)))
+
+(use-package blamer
+  :ensure t
+  :hook (after-init . blamer-mode)
+  :custom
+  (blamer-idle-time 0.6)
+  (blamer-min-offset 20))
+
+
+

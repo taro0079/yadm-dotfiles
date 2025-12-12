@@ -113,121 +113,121 @@ function print_table(data)
     return new
 end
 
-local function is_exist_on_ssh(remote_hostname, dir)
-    -- the format of remote_hostname is like taro_morita@oms-dev
-    local cmd = string.format("ssh %s 'if [ -d %s]; then echo \'exist\'; fi", remote_hostname, dir)
-    local result = vim.fn.system(cmd)
-    if result == "" then
-        return false
-    end
-    return true
-end
+-- local function is_exist_on_ssh(remote_hostname, dir)
+--     -- the format of remote_hostname is like taro_morita@oms-dev
+--     local cmd = string.format("ssh %s 'if [ -d %s]; then echo \'exist\'; fi", remote_hostname, dir)
+--     local result = vim.fn.system(cmd)
+--     if result == "" then
+--         return false
+--     end
+--     return true
+-- end
+--
+-- local function recursive_dir_search(remote_hostname, dir)
+--     if is_exist_on_ssh(remote_hostname, dir) then
+--         return dir
+--     else
+--         local parent_dir = vim.fn.fnamemodify(dir, ":h")
+--         return recursive_dir_search(remote_hostname, parent_dir)
+--     end
+-- end
 
-local function recursive_dir_search(remote_hostname, dir)
-    if is_exist_on_ssh(remote_hostname, dir) then
-        return dir
-    else
-        local parent_dir = vim.fn.fnamemodify(dir, ":h")
-        return recursive_dir_search(remote_hostname, parent_dir)
-    end
-end
+-- function is_exist_directory_on_ssh(local_path, remote_path)
+--     local filepath = vim.fn.expand("%:p")
+--     local dir = vim.fn.fnamemodify(filepath, ":h")
+--     local relative_path_of_dir = dir:sub(#vim.fn.expand(local_path) + 1)
+--     local full_remote_path_dir = remote_path .. relative_path_of_dir
+--     local exist_remote_dir = recursive_dir_search("taro_morita@oms-dev", full_remote_path_dir) -- directory which is exist on remote server
+--     -- print(full_remote_path)
+--     -- print(vim.fn.fnamemodify(full_remote_path, ":h"))
+--     -- local path_table = vim.split(relative_path_of_dir, "/")
+--     -- if path_table[1] == "" then
+--     --     table.remove(path_table, 1)
+--     -- end
+--     -- print(vim.inspect(path_table))
+--     -- local remote_complete_path = remote_path ..
+--     -- print(dir)
+-- end
 
-function is_exist_directory_on_ssh(local_path, remote_path)
-    local filepath = vim.fn.expand("%:p")
-    local dir = vim.fn.fnamemodify(filepath, ":h")
-    local relative_path_of_dir = dir:sub(#vim.fn.expand(local_path) + 1)
-    local full_remote_path_dir = remote_path .. relative_path_of_dir
-    local exist_remote_dir = recursive_dir_search("taro_morita@oms-dev", full_remote_path_dir) -- directory which is exist on remote server
-    -- print(full_remote_path)
-    -- print(vim.fn.fnamemodify(full_remote_path, ":h"))
-    -- local path_table = vim.split(relative_path_of_dir, "/")
-    -- if path_table[1] == "" then
-    --     table.remove(path_table, 1)
-    -- end
-    -- print(vim.inspect(path_table))
-    -- local remote_complete_path = remote_path ..
-    -- print(dir)
-end
-
-function transport_to_remote(local_path, remote_path)
-    local file_path = vim.fn.expand("%:p")
-    if file_path:find(vim.fn.expand(local_path), 1, true) == 1 then
-        vim.notify("File is inside the project directory")
-
-        local relative_path = file_path:sub(#vim.fn.expand(local_path) + 1)
-        vim.notify("Transferring file: " .. file_path .. " to remote path: " .. remote_path .. relative_path)
-
-        -- rsync コマンドを非同期で実行
-        local cmd = string.format("rsync -avz %s %s%s", file_path, remote_path, relative_path)
-        vim.fn.jobstart(cmd, {
-            stdout_buffered = true,
-            on_stdout = function(_, data)
-                if data then
-                    vim.notify("Message: " .. table.concat(data, "\n"))
-                end
-            end,
-            on_stderr = function(_, data)
-                if data then
-                    vim.notify("Error: " .. table.concat(data, "\n"))
-                end
-            end,
-            on_exit = function(_, code)
-                if code == 0 then
-                    vim.notify("File transferred successfully")
-                else
-                    vim.notify("Error: " .. code)
-                end
-            end
-        })
-    end
-end
+-- function transport_to_remote(local_path, remote_path)
+--     local file_path = vim.fn.expand("%:p")
+--     if file_path:find(vim.fn.expand(local_path), 1, true) == 1 then
+--         vim.notify("File is inside the project directory")
+--
+--         local relative_path = file_path:sub(#vim.fn.expand(local_path) + 1)
+--         vim.notify("Transferring file: " .. file_path .. " to remote path: " .. remote_path .. relative_path)
+--
+--         -- rsync コマンドを非同期で実行
+--         local cmd = string.format("rsync -avz %s %s%s", file_path, remote_path, relative_path)
+--         vim.fn.jobstart(cmd, {
+--             stdout_buffered = true,
+--             on_stdout = function(_, data)
+--                 if data then
+--                     vim.notify("Message: " .. table.concat(data, "\n"))
+--                 end
+--             end,
+--             on_stderr = function(_, data)
+--                 if data then
+--                     vim.notify("Error: " .. table.concat(data, "\n"))
+--                 end
+--             end,
+--             on_exit = function(_, code)
+--                 if code == 0 then
+--                     vim.notify("File transferred successfully")
+--                 else
+--                     vim.notify("Error: " .. code)
+--                 end
+--             end
+--         })
+--     end
+-- end
 
 -- rpst-v2のプロジェクトディレクトリ内のファイルをリモートサーバに転送する関数
-function transport_v2()
-    local local_project_path = "~/ghq/rpst-v2/"
-    local remote_project_path = "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
-    transport_to_remote(local_project_path, remote_project_path)
-end
+-- function transport_v2()
+--     local local_project_path = "~/ghq/rpst-v2/"
+--     local remote_project_path = "taro_morita@dev-tmorita:/var/www/rpst-v2/dev/"
+--     transport_to_remote(local_project_path, remote_project_path)
+-- end
+--
+-- function transport_v1()
+--     local local_project_path = "~/ghq/rpst/"
+--     local remote_project_path = "taro_morita@dev-tmorita:/var/www/precs/dev_tmorita/"
+--     transport_to_remote(local_project_path, remote_project_path)
+-- end
+--
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     pattern = "*/rpst/*",
+--     callback = function()
+--         transport_v1()
+--     end
+-- })
 
-function transport_v1()
-    local local_project_path = "~/ghq/rpst/"
-    local remote_project_path = "taro_morita@dev-tmorita:/var/www/precs/dev_tmorita/"
-    transport_to_remote(local_project_path, remote_project_path)
-end
+-- function transport_to_v2_of_rpst_api()
+--     local local_project_path = "~/ghq/rpst-v2/"
+--     local remote_project_path = "taro_morita@rpst-api:/var/lib/rpst-api-docker/rpst-v2/"
+--     transport_to_remote(local_project_path, remote_project_path)
+-- end
+--
+-- function transport_rpst_api()
+--     local local_project_path = "~/ghq/rpst-api/"
+--     local remote_project_path = "taro_morita@rpst-api:/var/lib/rpst-api-docker/"
+--     transport_to_remote(local_project_path, remote_project_path)
+-- end
+--
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     pattern = "*/rpst-v2/*",
+--     callback = function()
+--         transport_v2()
+--         transport_to_v2_of_rpst_api()
+--     end
+-- })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "*/rpst/*",
-    callback = function()
-        transport_v1()
-    end
-})
-
-function transport_to_v2_of_rpst_api()
-    local local_project_path = "~/ghq/rpst-v2/"
-    local remote_project_path = "taro_morita@rpst-api:/var/lib/rpst-api-docker/rpst-v2/"
-    transport_to_remote(local_project_path, remote_project_path)
-end
-
-function transport_rpst_api()
-    local local_project_path = "~/ghq/rpst-api/"
-    local remote_project_path = "taro_morita@rpst-api:/var/lib/rpst-api-docker/"
-    transport_to_remote(local_project_path, remote_project_path)
-end
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "*/rpst-v2/*",
-    callback = function()
-        transport_v2()
-        transport_to_v2_of_rpst_api()
-    end
-})
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "*/rpst-api/*",
-    callback = function()
-        transport_rpst_api()
-    end
-})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     pattern = "*/rpst-api/*",
+--     callback = function()
+--         transport_rpst_api()
+--     end
+-- })
 
 vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "index.yaml",
