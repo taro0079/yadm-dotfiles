@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
-(let ((mono-spaced-font "Monospace")
+(let ((mono-spaced-font "CaskaydiaCove Nerd Font")
       (proportionately-spaced-font "Sans"))
   (set-face-attribute 'default nil :family mono-spaced-font :height 140)
   (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
@@ -28,11 +28,11 @@
   :ensure nil
   :hook (after-init . delete-selection-mode))
 
-(use-package modus-themes
-  :ensure t
-  :demand t
-  :config
-  (load-theme 'modus-vivendi-tinted :no-confirm-loading))
+;; (use-package modus-themes
+;;   :ensure t
+;;   :demand t
+;;   :config
+;;   (load-theme 'modus-vivendi-tinted :no-confirm-loading))
 
 (use-package nerd-icons
   :ensure t)
@@ -62,9 +62,9 @@
   :ensure t
   :hook (after-init . marginalia-mode))
 
-(use-package expand-region
-  :ensure t
-  :bind ("C-=" . er/expand-region))
+;; (use-package expand-region
+;;   :ensure t
+;;   :bind ("C-=" . er/expand-region))
 
 
 (use-package orderless
@@ -176,7 +176,24 @@
 	      ("C-c r" . eglot-rename))
   :config
   (add-to-list 'eglot-server-programs
-	       '((php-mode) . ("intelephense" "--stdio"))))
+	       '((php-mode) . ("phpactor" "language-server")))
+  (add-to-list 'eglot-server-programs
+	       '((ruby-mode) . ("ruby-lsp"))))
+(use-package eglot-booster
+  :ensure t
+  :vc (:url "https://github.com/jdtsmith/eglot-booster" :rev :newest)
+  :after eglot
+  :hook (eglot-managed-mode . eglot-booster-mode)
+  :config
+  (eglot-booster-mode +1))
+
+(use-package eglot-x
+  :ensure t
+  :vc (:url "https://github.com/nemethf/eglot-x" :rev :newest)
+
+  :after eglot
+  :config
+  (eglot-x-setup))
 
 (use-package inheritenv
   :vc (:url "https://github.com/purcell/inheritenv" :rev :newest))
@@ -230,5 +247,70 @@
   (blamer-idle-time 0.6)
   (blamer-min-offset 20))
 
+;; (use-package expand-region
+;;   :ensure t
+;;   :bind ("C-=" . er/expand-region))
+
+(use-package expreg
+  :ensure t
+  :bind (
+	 ("C--" . expreg-contract)
+	 ("C-=" . expreg-expand)))
+(use-package treesit-auto
+  :ensure t
+  :config
+  (setq treesit-auto-install 'prompt)
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode +1))
 
 
+(use-package web-mode
+  :ensure t
+  :mode ("\\.tpl\\'" . web-mode)
+  :config
+  (setq web-mode-markup-indent-offset 2
+	web-mode-code-indent-offset 2
+	web-mode-css-indent-offset 2)
+  (add-to-list 'web-mode-engine-file-regexps '("django" . "\\.tpl\\'"))
+  (setq web-mode-template-delimiters-alist
+	'(("django" .  (("<!--{" . "}-->") ("<!--{" . "}-->"))))))
+
+(use-package ddskk
+  :ensure t
+  :bind
+  (("C-x j" . skk-mode))
+  :config
+  (setq skk-show-mode-show t)
+  (setq skk-egg-like-newline t)
+  (setq skk-jisyo-code 'utf-8)
+  (setq skk-large-jisyo "~/.config/SKK-JISYO.L")
+  (setq skk-server-host "localhost")
+  (setq skk-server-portnum 1178))
+
+(use-package avy
+  :ensure t
+  :bind
+  (("C-:" . avy-goto-char-timer)
+   ("C-'" . avy-goto-word-1)))
+
+
+(use-package emmet-mode
+  :ensure t
+  :hook
+  ((html-mode . emmet-mode)
+   (web-mode . emmet-mode)))
+
+(use-package puni
+  :defer t
+  :init
+  (puni-global-mode)
+  (add-hook 'term-mode-hook #'puni-disable-puni-mode)
+  :bind
+  (("C-M-SPC" . puni-mark-sexp-at-point)
+   ("C-M-@" . puni-mark-sexp-around-point)
+   ("C-c m" . puni-mark-list-around-point)
+   ("C-=" . puni-expand-region)
+   ("C--" . puni-contract-region)))
+
+(put 'upcase-region 'disabled nil)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
