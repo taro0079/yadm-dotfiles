@@ -3,7 +3,6 @@
 ;; インデントにtabを利用せずスペースを利用する
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-
 (global-display-line-numbers-mode t)
 (global-auto-revert-mode 1)
 (let ((mono-spaced-font "CaskaydiaCove Nerd Font")
@@ -14,6 +13,7 @@
 
 (setq custom-file (locate-user-emacs-file "custome.el"))
 (load custom-file :no-error-file-is-missing)
+
 
 (require 'package)
 (package-initialize)
@@ -102,7 +102,7 @@
 
 (use-package corfu
   :ensure t
-  :bind (:map corfu-map ("<tab>" . corfucomplete))
+  :bind (:map corfu-map ("<tab>" . corfu-complete))
   :init
   (global-corfu-mode)
   :custom
@@ -166,6 +166,13 @@
   (tab-always-indent 'complete)
   (text-mode-ispell-word-completion nil)
   (read-extended-command-predicate #'command-completion-default-include-p))
+(use-package flymake-eslint
+  :ensure t
+  :hook
+  (js-mode . flymake-eslint-enable)
+  (typescript-mode . flymake-eslint-enable)
+  (tsx-ts-mode . flymake-eslint-enable)
+  )
 
 (use-package dabbrev
   :bind (("M-/" . dabbrev-completion)
@@ -191,6 +198,7 @@
   :hook
   ((python-mode . eglot-ensure)
    (ruby-mode . eglot-ensure)
+   (typescript-mode . eglot-ensure)
    (php-mode . eglot-ensure))
   :config
   (setq eglot-autoshutdown t)
@@ -199,7 +207,9 @@
           ("C-c r" . eglot-rename))
   :config
   (add-to-list 'eglot-server-programs
-           '((php-mode) . ("phpactor" "language-server")))
+               '((php-mode) . ("phpactor" "language-server")))
+  (add-to-list 'eglot-server-programs
+               '((typescript-ts-mode tsx-ts-mode typescript-mode) . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
            '((ruby-mode) . ("ruby-lsp"))))
 (use-package eglot-booster
@@ -388,9 +398,16 @@
     :input-file (reformatter-temp-file)
     :lighter " PHPCSFIXER"
     )
-
+  (reformatter-define eslint-typescript-format
+    :program "eslint"
+    :args `(,buffer-file-name "--fix")
+    ;; :stdin t
+    ;; :stdout nil
+    ;; :input-file (filepath)
+    :lighter " ESLINT-TS")
   :hook
-  (php-mode . php-cs-fixer-format-on-save-mode))
+  (php-mode . php-cs-fixer-format-on-save-mode)
+  (typescript-mode . eslint-typescript-format-on-save-mode))
 
 (put 'upcase-region 'disabled nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
