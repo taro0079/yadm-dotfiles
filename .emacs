@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
 (global-display-line-numbers-mode t)
-
+(global-auto-revert-mode 1)
 (let ((mono-spaced-font "CaskaydiaCove Nerd Font")
       (proportionately-spaced-font "Sans"))
   (set-face-attribute 'default nil :family mono-spaced-font :height 140)
@@ -15,6 +15,13 @@
 (package-initialize)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
+
+;; php-cs-fixerの設定ファイルを自動検出してオプションを返す関数
+(defun my/php-mode-php-cs-fixer-config-option ()
+  (let ((path (locate-dominating-file buffer-file-name ".php-cs-fixer.dist.php")))
+    (if path (concat "--config=" (expand-file-name ".php-cs-fixer.dist.php" path))
+      "")))
 
 (when (< emacs-major-version 29)
   (unless (package-installed-p 'use-package)
@@ -35,6 +42,8 @@
   :config
   (moody-replace-mode-line-front-space)
   (moody-replace-mode-line-buffer-identification)
+  (when (eq system-type 'darwin)
+    (setq moody-slant-function 'moody-slant-apple-rgb))
   (moody-replace-vc-mode))
 
 ;; (use-package modus-themes
@@ -177,6 +186,7 @@
   :ensure nil
   :hook
   ((python-mode . eglot-ensure)
+   (ruby-mode . eglot-ensure)
    (php-mode . eglot-ensure))
   :config
   (setq eglot-autoshutdown t)
@@ -321,18 +331,74 @@
    ("C-=" . puni-expand-region)
    ("C--" . puni-contract-region)))
 
-;; (use-package gruvbox-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'gruvbox-dark-medium t))
-(use-package mindre-theme
+(use-package gruvbox-theme
   :ensure t
-  :vc (:url "https://github.com/erikbackman/mindre-theme" :rev :newest)
-  :custom
-  (mindre-use-more-bold nil)
-  (mindre-use-faded-lisp-parens t)
   :config
-  (load-theme 'mindre t))
+  (load-theme 'gruvbox-dark-medium t))
+;; (use-package mindre-theme
+;;   :ensure t
+;;   :vc (:url "https://github.com/erikbackman/mindre-theme" :rev :newest)
+;;   :custom
+;;   (mindre-use-more-bold nil)
+;;   (mindre-use-faded-lisp-parens t)
+;;   :config
+;;   (load-theme 'mindre t))
+
+(use-package org-modern
+  :ensure t
+  :config
+  (global-org-modern-mode))
+
+(use-package org-bullets
+  :ensure t
+  :hook (org-mode . org-bullets-mode))
+
+(use-package which-key
+  :diminish which-key-mode
+  :ensure t
+  :hook (after-init . which-key-mode))
+
+(use-package flycheck-phpstan
+  :ensure t
+  :hook
+  (php-mode . flymake-phpstan-turn-on))
+
+(use-package embark
+  :ensure t
+  :bind
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim)))
+
+(use-package wgrep
+  :ensure t)
+
+(use-package reformatter
+  :ensure t
+  :config
+  (reformatter-define php-cs-fixer-format
+    :program "php-cs-fixer"
+    :stdin nil
+    :stdout nil
+    :args `("fix", "--show-progress=none" ,(my/php-mode-php-cs-fixer-config-option) ,input-file)
+    :input-file (reformatter-temp-file)
+    :lighter " PHPCSFIXER"
+    )
+
+  :hook
+  (php-mode . php-cs-fixer-format-on-save-mode))
 
 (put 'upcase-region 'disabled nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+;; emacsにインストールされている全てのパッケージを定期的にアップグレードする
+(defun my/package-upgrade-all ()
+  (interactive)
+  (require 'package)
+  (package-initialize)
+  (package-refresh-contents)
+  (package-upgrade-all)
+  (message "[pkg] upgrade finished"))
+
+;; 時間を設定する
+(run-at-time "Sun 09:00" (* 7 24 60 60) #'my/package-upgrade-all)
