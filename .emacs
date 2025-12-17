@@ -1,5 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 
+;; インデントにtabを利用せずスペースを利用する
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
 (global-display-line-numbers-mode t)
 (global-auto-revert-mode 1)
 (let ((mono-spaced-font "CaskaydiaCove Nerd Font")
@@ -110,11 +114,11 @@
   (corfu-quit-no-match 'separator)
   :bind
   (:map corfu-map
-	("TAB" . corfu-next)
-	([tab] . corfu-next)
-	("S-TAB" . corfu-previous)
-	([backtab] . corfu-previous)
-	("SPC" . corfu-insert-separator)))
+        ("TAB" . corfu-next)
+        ([tab] . corfu-next)
+        ("S-TAB" . corfu-previous)
+        ([backtab] . corfu-previous)
+        ("SPC" . corfu-insert-separator)))
 
 (use-package kind-icon
   :ensure t
@@ -165,7 +169,7 @@
 
 (use-package dabbrev
   :bind (("M-/" . dabbrev-completion)
-	 ("C-M-/" . dabbrev-expand))
+     ("C-M-/" . dabbrev-expand))
   :config
   (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
   (add-to-list 'dabbrev-ignored-buffer-modes 'authinfo-mode)
@@ -174,9 +178,9 @@
   (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
 
 (setq corfu-auto t
-	corfu-auto-delay 0.2
-	corfu-auto-trigger "."
-	corfu-quit-no-match 'separator)
+    corfu-auto-delay 0.2
+    corfu-auto-trigger "."
+    corfu-quit-no-match 'separator)
 
 (use-package php-mode
   :ensure t
@@ -191,13 +195,13 @@
   :config
   (setq eglot-autoshutdown t)
   :bind (:map eglot-mode-map
-	      ("C-c a" . eglot-code-actions)
-	      ("C-c r" . eglot-rename))
+          ("C-c a" . eglot-code-actions)
+          ("C-c r" . eglot-rename))
   :config
   (add-to-list 'eglot-server-programs
-	       '((php-mode) . ("phpactor" "language-server")))
+           '((php-mode) . ("phpactor" "language-server")))
   (add-to-list 'eglot-server-programs
-	       '((ruby-mode) . ("ruby-lsp"))))
+           '((ruby-mode) . ("ruby-lsp"))))
 (use-package eglot-booster
   :ensure t
   :vc (:url "https://github.com/jdtsmith/eglot-booster" :rev :newest)
@@ -234,16 +238,16 @@
 
 (use-package copilot
   :vc (:url "https://github.com/copilot-emacs/copilot.el"
-	    :rev :newest
-	    :branch "main")
+        :rev :newest
+        :branch "main")
   :hook
   ((prog-mode . copilot-mode)
    (text-mode . copilot-mode))
   :bind
   (:map copilot-completion-map
-	("C-TAB" . copilot-accept-completion)
-	("C-<tab>" . copilot-accept-completion)
-	("C-c \\" . copilot-clear-overlay))
+    ("C-TAB" . copilot-accept-completion)
+    ("C-<tab>" . copilot-accept-completion)
+    ("C-c \\" . copilot-clear-overlay))
   :config
   (setq copilot-idle-delay 0.2)
   (setq copilot-max-char 10000))
@@ -256,8 +260,8 @@
 (use-package diff-hl
   :ensure t
   :hook ((prog-mode . diff-hl-mode)
-	 (text-mode . diff-hl-mode)
-	 (magit-post-refresh . diff-hl-magit-post-refresh)))
+     (text-mode . diff-hl-mode)
+     (magit-post-refresh . diff-hl-magit-post-refresh)))
 
 (use-package blamer
   :ensure t
@@ -273,8 +277,8 @@
 (use-package expreg
   :ensure t
   :bind (
-	 ("C--" . expreg-contract)
-	 ("C-=" . expreg-expand)))
+     ("C--" . expreg-contract)
+     ("C-=" . expreg-expand)))
 (use-package treesit-auto
   :ensure t
   :config
@@ -288,11 +292,11 @@
   :mode ("\\.tpl\\'" . web-mode)
   :config
   (setq web-mode-markup-indent-offset 2
-	web-mode-code-indent-offset 2
-	web-mode-css-indent-offset 2)
+    web-mode-code-indent-offset 2
+    web-mode-css-indent-offset 2)
   (add-to-list 'web-mode-engine-file-regexps '("django" . "\\.tpl\\'"))
   (setq web-mode-template-delimiters-alist
-	'(("django" .  (("<!--{" . "}-->") ("<!--{" . "}-->"))))))
+    '(("django" .  (("<!--{" . "}-->") ("<!--{" . "}-->"))))))
 
 (use-package ddskk
   :ensure t
@@ -333,8 +337,9 @@
 
 (use-package gruvbox-theme
   :ensure t
-  :config
-  (load-theme 'gruvbox-dark-medium t))
+  ;; :config
+  ;; (load-theme 'gruvbox-dark-medium t)
+  )
 ;; (use-package mindre-theme
 ;;   :ensure t
 ;;   :vc (:url "https://github.com/erikbackman/mindre-theme" :rev :newest)
@@ -389,16 +394,3 @@
 
 (put 'upcase-region 'disabled nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-
-;; emacsにインストールされている全てのパッケージを定期的にアップグレードする
-(defun my/package-upgrade-all ()
-  (interactive)
-  (require 'package)
-  (package-initialize)
-  (package-refresh-contents)
-  (package-upgrade-all)
-  (message "[pkg] upgrade finished"))
-
-;; 時間を設定する
-(run-at-time "Sun 09:00" (* 7 24 60 60) #'my/package-upgrade-all)
