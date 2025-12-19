@@ -42,12 +42,12 @@ require("lazy").setup({
             -- vim.cmd('colorscheme zenbones')
         end
     },
-    {
-        "nyoom-engineering/oxocarbon.nvim",
-        config = function()
-            vim.cmd.colorscheme('gruvbox-material')
-        end
-    },
+    -- {
+    --     "nyoom-engineering/oxocarbon.nvim",
+    --     config = function()
+    --         vim.cmd.colorscheme('gruvbox-material')
+    --     end
+    -- },
     {
         "EdenEast/nightfox.nvim",
         config = function()
@@ -125,8 +125,8 @@ require("lazy").setup({
         priority = 1000,
         opts = {},
         config = function()
-            -- require("plugins.tokyonight")
-            -- vim.cmd [[colorscheme tokyonight]]
+            require("plugins.tokyonight")
+            vim.cmd [[colorscheme tokyonight]]
         end,
     },
 

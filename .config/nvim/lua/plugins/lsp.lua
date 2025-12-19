@@ -1,3 +1,9 @@
+local function uv_python(root_dir)
+    local py = root_dir .. "/.venv/bin/python"
+    if vim.fn.executable(py) == 1 then
+        return py
+    end
+end
 -- lua/plugins/lsp.lua
 local has_words_before = function()
     unpack = unpack or table.unpack

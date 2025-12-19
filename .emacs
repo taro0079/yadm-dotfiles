@@ -1,5 +1,50 @@
 ;; -*- lexical-binding: t; -*-
 
+;;basic configuration
+(scroll-bar-mode -1)
+(electric-pair-mode 1)
+
+;; straight setting
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el"
+                         user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+(setq straight-use-package-by-default t)
+(setq straight-repository-branch "master")
+(require 'straight-x)
+(straight-use-package 'use-package)
+
+
+;; lsp (lsp-bridge) setting
+(use-package posframe :straight t)
+(use-package yasnippet :straight t :config (yas-global-mode 1))
+(use-package markdown-mode :straight t)
+;; ~/.emacs.d/straight/repos/lsp-bridge/python-lsp-bridgeにシンボリックリンクを貼らないと動作しない。
+;; 以下のコマンドを実行する。
+;; ln -s ~/.emacs.d/straight/repos/lsp-bridge/python-lsp-bridge ~/.local/bin/python-lsp-bridge
+;; (use-package lsp-bridge
+;;   :straight
+;;   (lsp-bridge
+;;    :type git
+;;    :host github
+;;    :repo "manateelazycat/lsp-bridge"
+;;    :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
+;;    :build (:not compile))
+;;   :init
+;;   (setq lsp-bridge-python-command "python3")
+;;   :config
+;;   (global-lsp-bridge-mode))
+
+
 ;; インデントにtabを利用せずスペースを利用する
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -88,6 +133,132 @@
 ;;   :ensure t
 ;;   :bind ("C-=" . er/expand-region))
 
+;; (use-package treemacs
+;;   :ensure t
+;;   :defer t
+;;   :init
+;;   (with-eval-after-load 'winum
+;;     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+;;   :config
+;;   (progn
+;;     (setq treemacs-buffer-name-function            #'treemacs-default-buffer-name
+;;           treemacs-buffer-name-prefix              " *Treemacs-Buffer-"
+;;           treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+;;           treemacs-deferred-git-apply-delay        0.5
+;;           treemacs-directory-name-transformer      #'identity
+;;           treemacs-display-in-side-window          t
+;;           treemacs-eldoc-display                   'simple
+;;           treemacs-file-event-delay                2000
+;;           treemacs-file-extension-regex            treemacs-last-period-regex-value
+;;           treemacs-file-follow-delay               0.2
+;;           treemacs-file-name-transformer           #'identity
+;;           treemacs-follow-after-init               t
+;;           treemacs-expand-after-init               t
+;;           treemacs-find-workspace-method           'find-for-file-or-pick-first
+;;           treemacs-git-command-pipe                ""
+;;           treemacs-goto-tag-strategy               'refetch-index
+;;           treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+;;           treemacs-hide-dot-git-directory          t
+;;           treemacs-indentation                     2
+;;           treemacs-indentation-string              " "
+;;           treemacs-is-never-other-window           nil
+;;           treemacs-max-git-entries                 5000
+;;           treemacs-missing-project-action          'ask
+;;           treemacs-move-files-by-mouse-dragging    t
+;;           treemacs-move-forward-on-expand          nil
+;;           treemacs-no-png-images                   nil
+;;           treemacs-no-delete-other-windows         t
+;;           treemacs-project-follow-cleanup          nil
+;;           treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+;;           treemacs-position                        'left
+;;           treemacs-read-string-input               'from-child-frame
+;;           treemacs-recenter-distance               0.1
+;;           treemacs-recenter-after-file-follow      nil
+;;           treemacs-recenter-after-tag-follow       nil
+;;           treemacs-recenter-after-project-jump     'always
+;;           treemacs-recenter-after-project-expand   'on-distance
+;;           treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+;;           treemacs-project-follow-into-home        nil
+;;           treemacs-show-cursor                     nil
+;;           treemacs-show-hidden-files               t
+;;           treemacs-silent-filewatch                nil
+;;           treemacs-silent-refresh                  nil
+;;           treemacs-sorting                         'alphabetic-asc
+;;           treemacs-select-when-already-in-treemacs 'move-back
+;;           treemacs-space-between-root-nodes        t
+;;           treemacs-tag-follow-cleanup              t
+;;           treemacs-tag-follow-delay                1.5
+;;           treemacs-text-scale                      nil
+;;           treemacs-user-mode-line-format           nil
+;;           treemacs-user-header-line-format         nil
+;;           treemacs-wide-toggle-width               70
+;;           treemacs-width                           35
+;;           treemacs-width-increment                 1
+;;           treemacs-width-is-initially-locked       t
+;;           treemacs-workspace-switch-cleanup        nil)
+
+;;     ;; The default width and height of the icons is 22 pixels. If you are
+;;     ;; using a Hi-DPI display, uncomment this to double the icon size.
+;;     ;;(treemacs-resize-icons 44)
+
+;;     (treemacs-follow-mode t)
+;;     (treemacs-filewatch-mode t)
+;;     (treemacs-fringe-indicator-mode 'always)
+;;     (when treemacs-python-executable
+;;       (treemacs-git-commit-diff-mode t))
+
+;;     (pcase (cons (not (null (executable-find "git")))
+;;                  (not (null treemacs-python-executable)))
+;;       (`(t . t)
+;;        (treemacs-git-mode 'deferred))
+;;       (`(t . _)
+;;        (treemacs-git-mode 'simple)))
+
+;;     (treemacs-hide-gitignored-files-mode nil))
+;;   :bind
+;;   (:map global-map
+;;         ("M-0"       . treemacs-select-window)
+;;         ("C-x t 1"   . treemacs-delete-other-windows)
+;;         ("C-x t t"   . treemacs)
+;;         ("C-x t d"   . treemacs-select-directory)
+;;         ("C-x t B"   . treemacs-bookmark)
+;;         ("C-x t C-t" . treemacs-find-file)
+;;         ("C-x t M-t" . treemacs-find-tag)))
+
+;; (use-package treemacs-evil
+;;   :after (treemacs evil)
+;;   :ensure t)
+
+;; (use-package treemacs-projectile
+;;   :after (treemacs projectile)
+;;   :ensure t)
+
+;; (use-package treemacs-icons-dired
+;;   :hook (dired-mode . treemacs-icons-dired-enable-once)
+;;   :ensure t)
+
+;; (use-package treemacs-magit
+;;   :after (treemacs magit)
+;;   :ensure t)
+
+;; (use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
+;;   :after (treemacs persp-mode) ;;or perspective vs. persp-mode
+;;   :ensure t
+;;   :config (treemacs-set-scope-type 'Perspectives))
+
+;; (use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
+;;   :after (treemacs)
+;;   :ensure t
+;;   :config (treemacs-set-scope-type 'Tabs))
+
+;; (treemacs-start-on-boot)
+
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; (load-theme 'doom-solarized-dark t)
+  (doom-themes-org-config))
+
 
 (use-package orderless
   :ensure t
@@ -99,6 +270,17 @@
 (use-package savehist
   :ensure nil ;; because it is built-in
   :hook (after-init . savehist-mode))
+
+(use-package cape
+  :ensure t
+  :after corfu
+  :bind ("C-c p" . cape-prefix-map)
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
+  (add-hook 'completion-at-point-functions #'yasnippet-capf)
+  (add-hook 'completion-at-point-functions #'eglot-completion-at-point))
 
 (use-package corfu
   :ensure t
@@ -119,6 +301,15 @@
         ("S-TAB" . corfu-previous)
         ([backtab] . corfu-previous)
         ("SPC" . corfu-insert-separator)))
+(with-eval-after-load 'lsp-bridge
+  (add-hook 'lsp-bridge-mode-hook
+            (lambda ()
+              (setq-local corfu-auto nil)
+              (corfu-mode -1))))
+
+(use-package yasnippet-capf
+  :ensure t
+  :after yasnippet)
 
 (use-package kind-icon
   :ensure t
@@ -130,6 +321,7 @@
 
 (use-package dired
   :ensure nil
+  :straight nil
   :commands (dired)
   :hook
   ((dired-mode . dired-hide-details-mode)
@@ -170,7 +362,7 @@
   :ensure t
   :hook
   (js-mode . flymake-eslint-enable)
-  (typescript-mode . flymake-eslint-enable)
+  (typescript-ts-mode . flymake-eslint-enable)
   (tsx-ts-mode . flymake-eslint-enable)
   )
 
@@ -198,7 +390,7 @@
   :hook
   ((python-mode . eglot-ensure)
    (ruby-mode . eglot-ensure)
-   (typescript-mode . eglot-ensure)
+   (typescript-ts-mode . eglot-ensure)
    (php-mode . eglot-ensure))
   :config
   (setq eglot-autoshutdown t)
@@ -213,38 +405,34 @@
   (add-to-list 'eglot-server-programs
            '((ruby-mode) . ("ruby-lsp"))))
 (use-package eglot-booster
+  :straight ( eglot-booster :type git :host nil :repo "https://github.com/jdtsmith/eglot-booster" )
   :ensure t
-  :vc (:url "https://github.com/jdtsmith/eglot-booster" :rev :newest)
   :after eglot
   :hook (eglot-managed-mode . eglot-booster-mode)
   :config
-  (eglot-booster-mode +1))
+  (eglot-booster-mode))
 
-(use-package eglot-x
-  :ensure t
-  :vc (:url "https://github.com/nemethf/eglot-x" :rev :newest)
+;; (use-package eglot-x
+;;   :ensure t
+;;   :vc (:url "https://github.com/nemethf/eglot-x" :rev :newest)
 
-  :after eglot
-  :config
-  (eglot-x-setup))
+;;   :after eglot
+;;   :config
+;;   (eglot-x-setup))
 
 (use-package inheritenv
   :vc (:url "https://github.com/purcell/inheritenv" :rev :newest))
 
 (use-package eat :ensure t)
-(use-package monet
-  :vc (:url "https://github.com/stevemolitor/monet" :rev :newest))
+(straight-use-package
+ '(monet :type git :host github :repo "stevemolitor/monet"))
 
 (use-package vterm :ensure t)
-(use-package claude-code :ensure t
-  :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
+(use-package claude-code-ide
+  :straight (:type git :host github :repo "manzaltu/claude-code-ide.el")
+  :bind ("C-c C-'" . claude-code-ide-menu)
   :config
-  (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
-  (monet-mode 1)
-  (claude-code-mode)
-  :bind-keymap ("C-c c" . claude-code-command-map)
-  :bind
-  (:repeat-map my-claude-code-map ("M" . claude-code-cycle-mode)))
+  (claude-code-ide-emacs-tools-setup))
 
 (use-package copilot
   :vc (:url "https://github.com/copilot-emacs/copilot.el"
@@ -262,7 +450,7 @@
   (setq copilot-idle-delay 0.2)
   (setq copilot-max-char 10000))
 
-(use-package git-commit)
+(use-package git-commit :straight nil)
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)))
@@ -276,6 +464,8 @@
 (use-package blamer
   :ensure t
   :hook (after-init . blamer-mode)
+  :config
+  (global-blamer-mode 1)
   :custom
   (blamer-idle-time 0.6)
   (blamer-min-offset 20))
@@ -361,6 +551,8 @@
 
 (use-package org-modern
   :ensure t
+  :hook
+  (org-mode . org-modern-mode)
   :config
   (global-org-modern-mode))
 
@@ -386,7 +578,12 @@
 
 (use-package wgrep
   :ensure t)
-
+(use-package ligature
+  :ensure t
+  :config
+  (ligature-set-ligatures 'prog-mode
+                          '("==" "===" "!=" "<=" ">=" "->" "=>" "::" "&&" "||" "++" "--"))
+  (global-ligature-mode t))
 (use-package reformatter
   :ensure t
   :config
@@ -407,7 +604,7 @@
     :lighter " ESLINT-TS")
   :hook
   (php-mode . php-cs-fixer-format-on-save-mode)
-  (typescript-mode . eslint-typescript-format-on-save-mode))
+  (typescript-ts-mode . eslint-typescript-format-on-save-mode))
 
 (put 'upcase-region 'disabled nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
