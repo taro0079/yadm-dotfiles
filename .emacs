@@ -584,6 +584,45 @@
   (ligature-set-ligatures 'prog-mode
                           '("==" "===" "!=" "<=" ">=" "->" "=>" "::" "&&" "||" "++" "--"))
   (global-ligature-mode t))
+(use-package consult
+  :ensure t
+  :bind
+  ("C-c M-x" . consult-mode-command)
+  ("C-c h" . consult-history)
+  ("C-c k" . consult-kmacro)
+  ("C-c i" . consult-info)
+  ("C-x b" . consult-buffer)
+  ("C-x 4 b" . consult-buffer-other-window)
+  ("C-x 5 b" . consult-buffer-other-frame)
+  ("C-x r b" . consult-bookmark)
+  ("C-x p b" . consult-project-buffer)
+  ("M-g g" . consult-goto-line)
+  ("M-g M-g" . consult-goto-line)
+  ("M-g f" . consult-flymake)
+  ("M-g o" . consult-outline)
+  ("M-g m" . consult-mark)
+  ("M-s d" . consult-find)
+  ("M-s c" . consult-locate)
+  ("M-s g" . consult-grep)
+  ("M-s G" . consult-git-grep)
+  ("M-s r" . consult-ripgrep)
+
+
+
+  :init
+  (setq register-preview-delay 0.5)
+  :hook
+  (completion-list-mode consult-preview-at-point-mode)
+  :config
+  (consult-customize
+   consult-themes :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep consult-man
+   consult-bookmark consult-recent-file consult-xref
+   consult-source-bookmark consult-source-file-register
+   cosult-source-recent-file consult-source-project-recent-file
+   :preview-key '(:debounce 0.4 any)
+   )
+  )
 (use-package reformatter
   :ensure t
   :config
@@ -608,3 +647,41 @@
 
 (put 'upcase-region 'disabled nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+;; rpst-v2のファイルをリモートに転送する
+(defgroup my-deploy nil "")
+
+(defcustom my-deploy-local-root "~/ghq/rpst-v2/"
+  "ローカルの同期元ルート"
+  :type 'directory)
+
+(defcustom my-deploy-remote "taro_morita@dev-tmorita.precs.jp:/var/www/rpst-v2/dev"
+  "rsyncの転送先"
+  :type 'string)
+
+(defcustom my-deploy-rsync-args
+  '("-az" "--delete"
+    "--exclude" ".git"
+    "--exclude" "node_modules"
+    "--exclude" "var" "--exclude" "logs")
+  "rsyncの引数"
+  :type '(repeat string))
+
+(defun my-deploy--in-scope-p (file)
+  (and file
+       (string-prefix-p (expand-file-name my-deploy-local-root)
+                        (expand-file-name file))))
+
+
+(defun my-deploy-after-save ()
+  "保存したファイルが対象ならrsyncで転送する"
+  (when (my-deploy--in-scope-p buffer-file-name)
+    (let* ((default-directory (expand-file-name my-deploy-local-root))
+           (cmd (append (list "rsync")
+                        my-deploy-rsync-args
+                        (list (file-name-as-directory default-directory)
+                              my-deploy-remote))))
+      (apply #'start-process "my-deploy-rsync" "*my-deploy-rsync*" cmd))))
+
+(add-hook 'after-save-hook #'my-deploy-after-save)
