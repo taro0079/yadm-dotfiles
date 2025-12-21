@@ -23,6 +23,14 @@
 (require 'straight-x)
 (straight-use-package 'use-package)
 
+(use-package
+  spacemacs-theme
+  :ensure t
+  :config
+    (load-theme 'spacemacs-dark t)
+
+  )
+
 
 ;; lsp (lsp-bridge) setting
 (use-package posframe :straight t)
