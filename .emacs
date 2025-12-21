@@ -401,6 +401,8 @@
   (add-to-list 'eglot-server-programs
                '((php-mode) . ("phpactor" "language-server")))
   (add-to-list 'eglot-server-programs
+               '((python-mode) . ("pyright-langserver" "--stdio")))
+  (add-to-list 'eglot-server-programs
                '((typescript-ts-mode tsx-ts-mode typescript-mode) . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
            '((ruby-mode) . ("ruby-lsp"))))
@@ -408,9 +410,16 @@
   :straight ( eglot-booster :type git :host nil :repo "https://github.com/jdtsmith/eglot-booster" )
   :ensure t
   :after eglot
-  :hook (eglot-managed-mode . eglot-booster-mode)
+
   :config
-  (eglot-booster-mode))
+  (eglot-booster-mode)
+  :init
+  (defun my/eglot-booster-maybe-enable ()
+    "Enable eglot except for python"
+    (unless (derived-mode-p 'python-mode)
+      (eglot-booster-mode 1)))
+  :hook (eglot-managed-mode . my/eglot-booster-maybe-enable)
+  )
 
 ;; (use-package eglot-x
 ;;   :ensure t
@@ -648,40 +657,46 @@
 (put 'upcase-region 'disabled nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(defgroup my-file-deploy nil "")
 
-;; rpst-v2のファイルをリモートに転送する
-(defgroup my-deploy nil "")
+(defcustom my-file-deploy-local-root (expand-file-name "~/ghq/rpst-v2/")
+  "ローカルのルート"
+  :type 'directory
+  )
 
-(defcustom my-deploy-local-root "~/ghq/rpst-v2/"
-  "ローカルの同期元ルート"
-  :type 'directory)
+(defcustom my-file-deploy-remote-root "/var/www/rpst-v2/dev/"
+  "リモート側のルート"
+  :type 'string
+  )
 
-(defcustom my-deploy-remote "taro_morita@dev-tmorita.precs.jp:/var/www/rpst-v2/dev"
-  "rsyncの転送先"
-  :type 'string)
+(defcustom my-file-deploy-remote-host "taro_morita@dev-tmorita.precs.jp"
+  "SSH接続先"
+  :type 'string
+  )
 
-(defcustom my-deploy-rsync-args
-  '("-az" "--delete"
-    "--exclude" ".git"
-    "--exclude" "node_modules"
-    "--exclude" "var" "--exclude" "logs")
-  "rsyncの引数"
+(defcustom my-file-deploy-rsync-args
+  '("-az" "--mkpath")
+  "rsyncの引数リスト"
   :type '(repeat string))
 
-(defun my-deploy--in-scope-p (file)
+(defun my-file-deploy--in-scope-p (file)
   (and file
-       (string-prefix-p (expand-file-name my-deploy-local-root)
+       (string-prefix-p (file-name-as-directory my-file-deploy-local-root)
                         (expand-file-name file))))
 
+(defun my-file-deploy--remote-path (local-file)
+  "local-fileをremote-rootに対応づけたリモートパスに変換する"
+  (let* ((rel (file-relative-name (expand-file-name local-file)
+                                  (file-name-as-directory my-file-deploy-local-root))))
+    (concat (file-name-as-directory my-file-deploy-remote-root) rel)))
 
-(defun my-deploy-after-save ()
-  "保存したファイルが対象ならrsyncで転送する"
-  (when (my-deploy--in-scope-p buffer-file-name)
-    (let* ((default-directory (expand-file-name my-deploy-local-root))
-           (cmd (append (list "rsync")
-                        my-deploy-rsync-args
-                        (list (file-name-as-directory default-directory)
-                              my-deploy-remote))))
-      (apply #'start-process "my-deploy-rsync" "*my-deploy-rsync*" cmd))))
+(defun my-file-deploy-after-save ()
+  "保存したファイルだけを転送する"
+  (when (my-file-deploy--in-scope-p buffer-file-name)
+    (let* ((local (expand-file-name buffer-file-name))
+           (remote (my-file-deploy--remote-path local))
+           (dest (format "%s:%s" my-file-deploy-remote-host remote))
+           (cmd (append (list "rsync") my-file-deploy-rsync-args (list local dest))))
+      (apply #'start-process "my-file-deploy" "*my-file-deploy*" cmd))))
 
-(add-hook 'after-save-hook #'my-deploy-after-save)
+(add-hook 'after-save-hook #'my-file-deploy-after-save)
