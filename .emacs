@@ -471,6 +471,10 @@
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)))
+(use-package magit-prime
+  :ensure t
+  :config
+  (add-hook 'magit-pre-refresh-hook 'magit-prime-refresh-cache))
 
 (use-package diff-hl
   :ensure t
@@ -523,7 +527,7 @@
   (setq skk-show-mode-show t)
   (setq skk-egg-like-newline t)
   (setq skk-jisyo-code 'utf-8)
-  (setq skk-large-jisyo "~/.config/SKK-JISYO.L")
+  (setq skk-large-jisyo "~/.config/SKK-JISYO.L")yy
   (setq skk-server-host "localhost")
   (setq skk-server-portnum 1178))
 
