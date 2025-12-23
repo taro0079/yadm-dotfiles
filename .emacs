@@ -4,6 +4,25 @@
 (scroll-bar-mode -1)
 (electric-pair-mode 1)
 
+
+;; spell check
+(setq ispell-program-name "hunspell")
+(setq ispell-dictionary "en_US")
+(add-hook 'text-mode-hook #'flyspell-mode)
+(add-hook 'prog-mode-hook #'flyspell-prog-mode)
+
+;; window moving
+(global-set-key (kbd "C-c <up>") 'windmove-up)
+(global-set-key (kbd "C-c <down>") 'windmove-down)
+(global-set-key (kbd "C-c <left>") 'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+
+
+;; config for tramp mode
+(with-eval-after-load 'tramp
+ (add-to-list 'tramp-remote-path "/Users/taro_morita/.local/bin"))
+
+
 ;; straight setting
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -94,14 +113,13 @@
   :ensure nil
   :hook (after-init . delete-selection-mode))
 
-(use-package moody
-  :ensure t
-  :config
-  (moody-replace-mode-line-front-space)
-  (moody-replace-mode-line-buffer-identification)
-  (when (eq system-type 'darwin)
-    (setq moody-slant-function 'moody-slant-apple-rgb))
-  (moody-replace-vc-mode))
+;; (use-package moody
+;;   :ensure t
+;;   :config
+;;   (moody-replace-mode-line-front-space)
+;;   (moody-replace-mode-line-buffer-identification)
+;;   (when (eq system-type 'darwin)
+;;     (setq moody-slant-function 'moody-slant-apple-rgb)))
 
 ;; (use-package modus-themes
 ;;   :ensure t
@@ -572,10 +590,9 @@
 
 (use-package org-modern
   :ensure t
+  :after org
   :hook
-  (org-mode . org-modern-mode)
-  :config
-  (global-org-modern-mode))
+  (org-mode . org-modern-mode))
 
 (use-package org-bullets
   :ensure t
@@ -671,7 +688,7 @@
 
 (defgroup my-file-deploy nil "")
 
-(defcustom my-file-deploy-local-root (expand-file-name "~/ghq/rpst-v2/")
+(defcustom my-file-deploy-local-root (expand-file-name (concat (getenv "HOME") "/ghq/rpst-v2/"))
   "ローカルのルート"
   :type 'directory
   )
@@ -687,14 +704,14 @@
   )
 
 (defcustom my-file-deploy-rsync-args
-  '("-az" "--mkpath")
+  '("-az")
   "rsyncの引数リスト"
   :type '(repeat string))
 
 (defun my-file-deploy--in-scope-p (file)
   (and file
-       (string-prefix-p (file-name-as-directory my-file-deploy-local-root)
-                        (expand-file-name file))))
+       (string-prefix-p (file-name-as-directory (file-truename my-file-deploy-local-root))
+                        (file-truename file))))
 
 (defun my-file-deploy--remote-path (local-file)
   "local-fileをremote-rootに対応づけたリモートパスに変換する"
@@ -704,7 +721,9 @@
 
 (defun my-file-deploy-after-save ()
   "保存したファイルだけを転送する"
+  (interactive)
   (when (my-file-deploy--in-scope-p buffer-file-name)
+    (print "is target file")
     (let* ((local (expand-file-name buffer-file-name))
            (remote (my-file-deploy--remote-path local))
            (dest (format "%s:%s" my-file-deploy-remote-host remote))
