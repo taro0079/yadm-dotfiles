@@ -69,6 +69,12 @@ require("lazy").setup({
 
     },
     {
+        "colepeters/spacemacs-theme.vim",
+        config = function()
+            vim.cmd('colorscheme spacemacs-theme')
+        end
+    },
+    {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
@@ -124,10 +130,10 @@ require("lazy").setup({
         lazy = false,
         priority = 1000,
         opts = {},
-        config = function()
-            require("plugins.tokyonight")
-            vim.cmd [[colorscheme tokyonight]]
-        end,
+        -- config = function()
+        --     require("plugins.tokyonight")
+        --     vim.cmd [[colorscheme tokyonight]]
+        -- end,
     },
 
     {

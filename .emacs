@@ -54,6 +54,7 @@
 ;; lsp (lsp-bridge) setting
 (use-package posframe :straight t)
 (use-package yasnippet :straight t :config (yas-global-mode 1))
+(use-package yasnippet-snippets :straight t :after yasnippet)
 (use-package markdown-mode :straight t)
 ;; ~/.emacs.d/straight/repos/lsp-bridge/python-lsp-bridgeにシンボリックリンクを貼らないと動作しない。
 ;; 以下のコマンドを実行する。
@@ -327,11 +328,6 @@
         ("S-TAB" . corfu-previous)
         ([backtab] . corfu-previous)
         ("SPC" . corfu-insert-separator)))
-(with-eval-after-load 'lsp-bridge
-  (add-hook 'lsp-bridge-mode-hook
-            (lambda ()
-              (setq-local corfu-auto nil)
-              (corfu-mode -1))))
 
 (use-package yasnippet-capf
   :ensure t
@@ -606,7 +602,9 @@
 (use-package flycheck-phpstan
   :ensure t
   :hook
-  (php-mode . flymake-phpstan-turn-on))
+  (php-ts-mode . flymake-phpstan-turn-on)
+  (php-mode . flymake-phpstan-turn-on)
+  )
 
 (use-package embark
   :ensure t
@@ -653,11 +651,11 @@
   (completion-list-mode consult-preview-at-point-mode)
   :config
   (consult-customize
-   consult-themes :preview-key '(:debounce 0.2 any)
+   consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep consult-man
    consult-bookmark consult-recent-file consult-xref
    consult-source-bookmark consult-source-file-register
-   cosult-source-recent-file consult-source-project-recent-file
+   consult-source-recent-file consult-source-project-recent-file
    :preview-key '(:debounce 0.4 any)
    )
   )
@@ -731,3 +729,10 @@
       (apply #'start-process "my-file-deploy" "*my-file-deploy*" cmd))))
 
 (add-hook 'after-save-hook #'my-file-deploy-after-save)
+
+
+(defun my/add-yasnippet-capf ()
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+
+(add-hook 'prog-mode-hook #'my/add-yasnippet-capf)
+(add-hook 'text-mode-hook #'my/add-yasnippet-capf)
