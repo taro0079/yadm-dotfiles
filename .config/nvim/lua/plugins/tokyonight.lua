@@ -1,5 +1,5 @@
 require("tokyonight").setup({
-    -- transparent = true,
+    transparent = true,
     -- styles = {
     --       sidebars = "transparent",
     --       floats = "transparent"
