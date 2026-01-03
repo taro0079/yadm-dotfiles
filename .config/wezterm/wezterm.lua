@@ -22,7 +22,7 @@ if mac then
         color_scheme = "tokyonight",
         audible_bell = "Disabled",
         font = wezterm.font_with_fallback {
-            { family = 'Maple Mono NF',           weight = "Regular", harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' } },
+            { family = 'Maple Mono NF',           weight = "Medium",  harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' } },
             { family = 'PleckJP',                 weight = "Regular", italic = false },
             { family = 'Cica',                    weight = "Regular", italic = false },
             { family = 'CaskaydiaCove Nerd Font', weight = "Regular", italic = false },
