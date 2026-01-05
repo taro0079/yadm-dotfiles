@@ -6,7 +6,7 @@ else
  IFS= read -r filename
  : "${filename:?Usage: $0 <relative_test_file>}"
 fi
-remote_host="dev-tmorita"
+remote_host="dev-tmorita.precs.jp"
 user="taro_morita"
 remote_root="/var/www/rpst-v2/dev"
 phpunit="$remote_root/vendor/bin/phpunit"
