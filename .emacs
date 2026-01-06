@@ -4,6 +4,18 @@
 (scroll-bar-mode -1)
 (electric-pair-mode 1)
 
+;; backup file
+(setq my-backup-dir (expand-file-name "~/.emacs.d/backups/"))
+
+(unless (file-exists-p my-backup-dir)
+  (make-directory my-backup-dir t))
+
+(setq backup-directory-alist `(("." . ,my-backup-dir)))
+
+(setq auto-save-file-name-transforms `((".*" ,my-backup-dir t)))
+
+(setq create-lockfiles nil)
+
 
 ;; spell check
 (setq ispell-program-name "hunspell")
@@ -78,7 +90,7 @@
 (setq-default tab-width 4)
 (global-display-line-numbers-mode t)
 (global-auto-revert-mode 1)
-(let ((mono-spaced-font "CaskaydiaCove Nerd Font")
+(let ((mono-spaced-font "Maple Mono NF")
       (proportionately-spaced-font "Sans"))
   (set-face-attribute 'default nil :family mono-spaced-font :height 140)
   (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
@@ -420,28 +432,34 @@
           ("C-c a" . eglot-code-actions)
           ("C-c r" . eglot-rename))
   :config
+  (setq eglot-autoshutdown t)
+  (setq-default eglot-workspace-configuration
+                '((:intelephense . (:files (:maxSize 5000000)))))
   (add-to-list 'eglot-server-programs
-               '((php-mode) . ("phpactor" "language-server")))
+               '((php-mode php-ts-mode) . ("intelephense" "--stdio")))
   (add-to-list 'eglot-server-programs
                '((python-mode) . ("pyright-langserver" "--stdio")))
   (add-to-list 'eglot-server-programs
                '((typescript-ts-mode tsx-ts-mode typescript-mode) . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
-           '((ruby-mode) . ("ruby-lsp"))))
-(use-package eglot-booster
-  :straight ( eglot-booster :type git :host nil :repo "https://github.com/jdtsmith/eglot-booster" )
-  :ensure t
-  :after eglot
+               '((ruby-mode) . ("ruby-lsp"))))
+(with-eval-after-load 'eglot
+  ;; Intelephenseのファイル監視要求を無視する（安定化のため）
+  (add-to-list 'eglot-ignored-server-capabilities :workspace/didChangeWatchedFiles))
+;; (use-package eglot-booster
+;;   :straight ( eglot-booster :type git :host nil :repo "https://github.com/jdtsmith/eglot-booster" )
+;;   :ensure t
+;;   :after eglot
 
-  :config
-  (eglot-booster-mode)
-  :init
-  (defun my/eglot-booster-maybe-enable ()
-    "Enable eglot except for python"
-    (unless (derived-mode-p 'python-mode)
-      (eglot-booster-mode 1)))
-  :hook (eglot-managed-mode . my/eglot-booster-maybe-enable)
-  )
+  ;; :config
+  ;; (eglot-booster-mode)
+  ;; :init
+  ;; (defun my/eglot-booster-maybe-enable ()
+  ;;   "Enable eglot except for python"
+  ;;   (unless (derived-mode-p 'python-mode)
+  ;;     (eglot-booster-mode 1)))
+  ;; :hook (eglot-managed-mode . my/eglot-booster-maybe-enable)
+  ;; )
 
 ;; (use-package eglot-x
 ;;   :ensure t
@@ -521,6 +539,10 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode +1))
 
+(use-package treesit-fold
+  :config
+  (global-treesit-fold-mode)
+  (global-treesit-fold-indicators-mode))
 
 (use-package web-mode
   :ensure t
@@ -691,18 +713,18 @@
   :type 'directory
   )
 
-(defcustom my-file-deploy-remote-root "/var/www/rpst-v2/dev/"
+(defcustom my-file-deploy-remote-root "/var/lib/nfs-devel7-volume/dev-tmorita-rpst/var_www/rpst-v2/"
   "リモート側のルート"
   :type 'string
   )
 
-(defcustom my-file-deploy-remote-host "taro_morita@dev-tmorita.precs.jp"
+(defcustom my-file-deploy-remote-host "taro_morita@rpst-api"
   "SSH接続先"
   :type 'string
   )
 
 (defcustom my-file-deploy-rsync-args
-  '("-az")
+  '("-az" "--mkpath")
   "rsyncの引数リスト"
   :type '(repeat string))
 
@@ -729,6 +751,18 @@
       (apply #'start-process "my-file-deploy" "*my-file-deploy*" cmd))))
 
 (add-hook 'after-save-hook #'my-file-deploy-after-save)
+
+(defun my/get-project-relative-path ()
+  (let ((file (buffer-file-name))
+        (project (project-current)))
+    (if (and file project)
+        (file-relative-name file (project-root project))
+      (message "プロジェクト内、またはファイルバッファではありません。"))))
+
+(defun phpunit-rpstx ()
+  (interactive)
+  (shell-command
+   (concat "rpst-php-unit.sh " (shell-quote-argument (my/get-project-relative-path)))))
 
 
 (defun my/add-yasnippet-capf ()
