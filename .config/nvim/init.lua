@@ -158,7 +158,8 @@ function transport_to_remote(local_path, remote_path)
         -- vim.notify("Transferring file: " .. file_path .. " to remote path: " .. remote_path .. relative_path)
 
         -- rsync コマンドを非同期で実行
-        local cmd = string.format("rsync -aqz --no-motd -e 'ssh -q' %s %s%s", file_path, remote_path, relative_path)
+        local cmd = string.format("rsync -aqz --no-motd --mkpath -e 'ssh -q' %s %s%s", file_path, remote_path,
+            relative_path)
         vim.fn.jobstart(cmd, {
             stdout_buffered = true,
             on_stdout = function(_, data)
