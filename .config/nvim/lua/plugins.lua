@@ -132,7 +132,7 @@ require("lazy").setup({
         opts = {},
         config = function()
             require("plugins.tokyonight")
-            vim.cmd [[colorscheme tokyonight]]
+            vim.cmd [[colorscheme tokyonight-moon]]
         end,
     },
 
@@ -281,11 +281,6 @@ require("lazy").setup({
             }
         end,
         cmd = "Trouble"
-    },
-    {
-        'easymotion/vim-easymotion',
-        event = "BufEnter"
-
     },
     {
         "smartpde/telescope-recent-files",
@@ -589,6 +584,56 @@ require("lazy").setup({
                     ["*"] = paste,
                 },
             }
+        end
+    },
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        ---@type snacks.Config
+        opts = {
+            bigfile      = { enabled = true },
+            dashboard    = { enabled = true },
+            explorer     = { enabled = true },
+            indent       = { enabled = true },
+            input        = { enabled = true },
+            notifier     = { enabled = true, timeout = 3000 },
+            picker       = { enabled = true },
+            quickfile    = { enabled = true },
+            scope        = { enabled = true },
+            scroll       = { enabled = true },
+            statuscolumn = { enabled = true },
+            words        = { enabled = true },
+
+        },
+
+        keys = {
+            { "<leader><leader>", function() Snacks.picker.smart() end,                                   desc = "Smart Find Files" },
+            { "<leader>,",        function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
+            { "<leader>/",        function() Snacks.picker.grep() end,                                    desc = "Grep" },
+            { "<leader>:",        function() Snacks.picker.command_history() end,                         desc = "Command History" },
+            { "<leader>n",        function() Snacks.picker.notifications() end,                           desc = "Notifications History" },
+            { "<leader>e",        function() Snacks.picker.explorer() end,                                desc = "File Explorer" },
+            { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+            { "<leader>ff",       function() Snacks.picker.files() end,                                   desc = "Find File" },
+            { "<leader>fg",       function() Snacks.picker.git_files() end,                               desc = "Find Git File" },
+            { "<leader>fp",       function() Snacks.picker.projects() end,                                desc = "Projects" },
+            { "<leader>fr",       function() Snacks.picker.recent() end,                                  desc = "Recents" },
+            { "<leader>gb",       function() Snacks.picker.git_branches() end,                            desc = "Git branches" },
+            { "<leader>gl",       function() Snacks.picker.git_log() end,                                 desc = "Git Log" },
+            { "<leader>gL",       function() Snacks.picker.git_log_line() end,                            desc = "Git Log Line" },
+            { "<leader>gs",       function() Snacks.picker.git_status() end,                              desc = "Git Status" },
+            { "<leader>gS",       function() Snacks.picker.git_stash() end,                               desc = "Git Stash" },
+            { "<leader>gd",       function() Snacks.picker.git_diff() end,                                desc = "Git Diff" },
+            { "<leader>gf",       function() Snacks.picker.git_log_file() end,                            desc = "Git Log File" },
+            -- Grep
+            { "<leader>sb",       function() Snacks.picker.lines() end,                                   desc = "Buffer Lines" },
+            { "<leader>sB",       function() Snacks.picker.grep_buffers() end,                            desc = "Grep Open Buffer" },
+            { "<leader>uC",       function() Snacks.picker.colorschemes() end,                            desc = "Colorschemes" },
+            { "<leader>cR",       function() Snacks.rename.rename_file() end,                             desc = "Rename File" },
+        },
+        init = function()
+
         end
     },
     {

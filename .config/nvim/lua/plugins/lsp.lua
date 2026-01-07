@@ -169,6 +169,10 @@ lsp_zero.on_attach(function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
     end
 
+    if client:supports_method("textDocument/inlayHint") then
+        vim.lsp.inlay_hint.enable()
+    end
+
     local keymap = vim.keymap.set
     keymap("n", "gd", vim.lsp.buf.definition, opts)
     keymap("n", "gi", vim.lsp.buf.implementation, opts)
