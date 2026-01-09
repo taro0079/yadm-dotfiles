@@ -104,3 +104,6 @@ vim.keymap.set("n", "--", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 vim.api.nvim_set_keymap("x", "y", "ygv<Esc>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("x", ">", ">gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("x", "<", "<gv", { noremap = true, silent = true })
+
+-- jkでEsc
+vim.keymap.set('i', 'jk', '<Esc>', { desc = " Escape from insert mode", noremap = true })
