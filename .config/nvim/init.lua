@@ -6,6 +6,8 @@ require('config')
 require('gui-settings')
 require('helper.matchit-setting')
 require('myfunc')
+-- require("myplugin.switch")
+require("myplugin.myticketswitcher")
 
 incremental_selection = {
     enable = true,

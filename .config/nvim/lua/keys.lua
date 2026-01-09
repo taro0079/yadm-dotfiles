@@ -40,7 +40,7 @@ vim.keymap.set('n', '<leader>ps', function()
 end)
 vim.keymap.set('n', '<leader>pm', function()
     builtin.marks()
-end)
+end, { desc = "Telescope Marks" })
 -- skk setting
 -- api.nvim_set_keymap('c', "<C-j>", "<Plug>(skkeleton-toggle)", { noremap = true, silent = true })
 -- api.nvim_set_keymap('i', "<C-j>", "<Plug>(skkeleton-toggle)", { noremap = true, silent = true })
@@ -68,11 +68,11 @@ vim.keymap.set("v", "v", "<Plug>(expand_region_expand)")
 -- vim.cmd[[imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")]]
 -- vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
-vim.keymap.set("i", "<C-c>", "<Esc>")
+-- vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- neotest
 vim.keymap.set("n", "<space>tt", ":PhpUnit<cr>", { noremap = true, silent = true })
@@ -107,3 +107,7 @@ vim.api.nvim_set_keymap("x", "<", "<gv", { noremap = true, silent = true })
 
 -- jkでEsc
 vim.keymap.set('i', 'jk', '<Esc>', { desc = " Escape from insert mode", noremap = true })
+
+vim.keymap.set("n", "<leader>gp", function()
+    require("myplugin.myticketswitcher").my_prs()
+end, { noremap = true, silent = true, desc = "My PRs" })
