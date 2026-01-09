@@ -629,6 +629,9 @@ require("lazy").setup({
             -- Grep
             { "<leader>sb",       function() Snacks.picker.lines() end,                                   desc = "Buffer Lines" },
             { "<leader>sB",       function() Snacks.picker.grep_buffers() end,                            desc = "Grep Open Buffer" },
+            { "<leader>sk",       function() Snacks.picker.keymaps() end,                                 desc = "Keymaps" },
+            { "<leader>sd",       function() Snacks.picker.diagnostics() end,                             desc = "Keymaps" },
+            { "<leader>sm",       function() Snacks.picker.marks() end,                                   desc = "Marks" },
             { "<leader>uC",       function() Snacks.picker.colorschemes() end,                            desc = "Colorschemes" },
             { "<leader>cR",       function() Snacks.rename.rename_file() end,                             desc = "Rename File" },
         },
@@ -680,6 +683,18 @@ require("lazy").setup({
                 },
             })
         end
+    },
+    {
+        "kdheepak/lazygit.nvim",
+        lazy = true,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        keys = {
+            "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit"
+        }
+
     }
+
 
 })

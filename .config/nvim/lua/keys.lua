@@ -54,7 +54,7 @@ api.nvim_set_keymap('n', "<leader><cr>", "<cmd> so ~/.config/nvim/init.lua <cr>"
 
 
 -- lsp diagnostic
-api.nvim_set_keymap('n', "<leader>sd", "<cmd>lua vim.diagnostic.open_float() <cr>",
+api.nvim_set_keymap('n', "<leader>vsd", "<cmd>lua vim.diagnostic.open_float() <cr>",
     { noremap = true, silent = true })
 
 vim.keymap.set("x", "ga", "<Plug>(EasyAlign)")
